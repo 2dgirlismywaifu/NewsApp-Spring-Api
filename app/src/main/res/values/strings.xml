@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">NewsAPP Reader</string>
+    <string name="lastest_news">Lastest News</string>
+    <string name="see_all_button">See All</string>
+    <string name="powered_by_newsapi">Powered by NewsAPI</string>
+    <string name="Guest_welcome">Hello, Guest User\nHere are the updated news</string>
+    <string name="favorites_archive_list">Favorites Archive List</string>
+    <string name="search_here">Search here …</string>
+    <string name="list_news_source">Here is the list of news source\navailable on the server</string>
+    <string name="home_menu">Home</string>
+    <string name="newsapi_menu">NewsAPI</string>
+    <string name="news_source_menu">News Source</string>
+    <string name="favourite_menu">Favourite</string>
+    <string name="settings_menu">Settings</string>
+    <string name="full_name">Guest Mode</string>
+    <string name="user_name">You are in guest mode</string>
+    <string name="navgiation_drawer_open">Open Navigation Pane</string>
+    <string name="navgiation_drawer_close">Close Navigation Pane</string>
+</resources>
