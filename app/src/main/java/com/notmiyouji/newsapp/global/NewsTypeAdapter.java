@@ -17,7 +17,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     ArrayList<String> data = newstype();
     AppCompatActivity activity;
-    int recyclelayout;
+
     public NewsTypeAdapter(AppCompatActivity activity) {
         this.activity = activity;
     }

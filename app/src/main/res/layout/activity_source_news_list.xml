@@ -88,7 +88,7 @@
                         tools:ignore="ContentDescription" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="10dp"
@@ -112,20 +112,17 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
                         android:orientation="vertical">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/cardnews_view_vertical"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/cardsources_view_vertical"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
                             android:orientation="vertical"
-                            tools:listitem="@layout/news_item_vertical">
+                            tools:listitem="@layout/source_news_list">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
