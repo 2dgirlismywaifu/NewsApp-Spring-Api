@@ -55,6 +55,7 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/raleway"
                 android:text="Source description"
+                android:textColor="#4E342E"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardholderimage" />
 
@@ -83,7 +84,8 @@
                 android:text="Details"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
