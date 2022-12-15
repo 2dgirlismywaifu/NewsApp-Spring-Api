@@ -47,14 +47,11 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
     NewsAPITypeAdapter newsAPITypeAdapter;
     Intent intent;
     List<Article> articles = new ArrayList<>(); //not inclue category
-    List<ArticleCategory> articles2 = new ArrayList<>(); //include category
     NewsAdapterHorizontal newsAdapterHorizontal;
-    NewsAdapterVertical newsAdapterVertical;
     String TAG = NewsAPI_Page.class.getSimpleName();
     APIInterface apiInterface = NewsAPIKey.getAPIClient().create(APIInterface.class);
     Call<News> call;
-    Call<NewsCategory> callCategory;
-
+    LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,49 +79,10 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         //Load JSONData and apply to RecycleView Horizontal Lastest NewsCategory
         LoadJSONLastestNews(this, mDialog);
         //Load JSONData Business NewsCategory and apply to RecycleView Vertical Lastest NewsCategory
-        LoadJSONCategory(this, mDialog, "business");
+        loadFollowCategory.LoadJSONCategory(this, mDialog, "business", newsViewVertical);
     }
 
-    private void LoadJSONCategory(AppCompatActivity activity, ProgressDialog mDialog, String categoryname) {
-        String category = categoryname;
-        Thread loadSourceGeneral = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                callCategory = apiInterface.getNewsCategory("us", "business", API_KEY);
-                callCategory.enqueue(new Callback<NewsCategory>() {
-                    @Override
-                    public void onResponse(@NonNull Call<NewsCategory> callCategory, @NonNull Response<NewsCategory> response2) {
-                        if (response2.isSuccessful()) {
-                            assert response2.body() != null;
-                            if (response2.body().getArticle() != null) {
-                                if (!articles2.isEmpty()) {
-                                    articles2.clear();
-                                }
-                                articles2 = response2.body().getArticle();
-                                newsAPIVerticalLayout = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-                                newsViewVertical.setLayoutManager(newsAPIVerticalLayout);
-                                newsAdapterVertical = new NewsAdapterVertical(articles2, activity);
-                                newsViewVertical.setAdapter(newsAdapterVertical);
 
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<NewsCategory> call, Throwable t) {
-                    }
-                    });
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
-                    }
-                });
-            }
-        });
-        loadSourceGeneral.start();
-    }
 
     public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog){
         Thread loadSourceAPI = new Thread(new Runnable() {
