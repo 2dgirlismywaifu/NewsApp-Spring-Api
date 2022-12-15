@@ -1,4 +1,8 @@
-package com.notmiyouji.newsapp;
+package com.notmiyouji.newsapp.RSSURL;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +12,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
-
 import com.google.android.material.navigation.NavigationView;
+import com.notmiyouji.newsapp.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.global.NavigationPane;
-import com.notmiyouji.newsapp.global.NewsTypeAdapter;
+import com.notmiyouji.newsapp.global.recycleviewadapter.NewsTypeAdapter;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //Initialization variable
@@ -41,7 +42,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         recyclerView = findViewById(R.id.news_type);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
-        //News Type List
+        //NewsCategory Type List
         newsTypeAdapter = new NewsTypeAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -60,27 +61,19 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        homepage = new Thread(){
-            @Override
-            public void run() {
-                int menuitem = item.getItemId();
-                if (menuitem == R.id.newsapi_menu) {
-                    intent = new Intent(HomePage.this, NewsAPI_Page.class);
-                    startActivity(intent);
-                }
-                else if (menuitem == R.id.source_menu) {
-                    intent = new Intent(HomePage.this, SourceNewsList.class);
-                    startActivity(intent);
-                }
-                else if (menuitem == R.id.favourite_menu) {
-                    intent = new Intent(HomePage.this, FavouriteNews.class);
-                    startActivity(intent);
-                }
-            }
-        };
-        homepage.start();
-
-
+        int menuitem = item.getItemId();
+        if (menuitem == R.id.newsapi_menu) {
+            intent = new Intent(HomePage.this, NewsAPI_Page.class);
+            startActivity(intent);
+        }
+        else if (menuitem == R.id.source_menu) {
+            intent = new Intent(HomePage.this, SourceNewsList.class);
+            startActivity(intent);
+        }
+        else if (menuitem == R.id.favourite_menu) {
+            intent = new Intent(HomePage.this, FavouriteNews.class);
+            startActivity(intent);
+        }
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp;
+package com.notmiyouji.newsapp.RSSURL;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.notmiyouji.newsapp.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.global.NavigationPane;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,25 +50,19 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        favouritepage = new Thread() {
-            @Override
-            public void run() {
-                int menuitem = item.getItemId();
-                if (menuitem == R.id.home_menu) {
-                    intent = new Intent(FavouriteNews.this, HomePage.class);
-                    startActivity(intent);
-                }
-                else if (menuitem == R.id.source_menu) {
-                    intent = new Intent(FavouriteNews.this, SourceNewsList.class);
-                    startActivity(intent);
-                }
-                else if (menuitem == R.id.newsapi_menu) {
-                    intent = new Intent(FavouriteNews.this, NewsAPI_Page.class);
-                    startActivity(intent);
-                }
-            }
-        };
-        favouritepage.start();
+        int menuitem = item.getItemId();
+        if (menuitem == R.id.home_menu) {
+            intent = new Intent(FavouriteNews.this, HomePage.class);
+            startActivity(intent);
+        }
+        else if (menuitem == R.id.source_menu) {
+            intent = new Intent(FavouriteNews.this, SourceNewsList.class);
+            startActivity(intent);
+        }
+        else if (menuitem == R.id.newsapi_menu) {
+            intent = new Intent(FavouriteNews.this, NewsAPI_Page.class);
+            startActivity(intent);
+        }
 
         return true;
     }
