@@ -7,7 +7,7 @@
     android:id="@+id/source_news_page"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".SourceNewsList">
+    tools:context=".RSSURL.SourceNewsList">
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -99,35 +99,24 @@
                         android:textColor="@color/black"
                         android:textColorHint="#546E7A"
                         tools:ignore="TouchTargetSizeCheck" />
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/cardsources_view_vertical"
+                            android:id="@+id/sources_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             tools:listitem="@layout/source_news_list">
-
                         </androidx.recyclerview.widget.RecyclerView>
-
-                    </LinearLayout>
-
 
                 </androidx.core.widget.NestedScrollView>
 

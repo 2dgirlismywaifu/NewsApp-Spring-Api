@@ -11,11 +11,13 @@
         android:id="@+id/cardNews_vertical"
         android:layout_width="wrap_content"
         android:layout_height="128dp"
-        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#FD8D92"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="11dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="5dp">
+        app:cardElevation="@dimen/cardview_default_elevation">
 
         <RelativeLayout
 
@@ -49,6 +51,7 @@
                     android:layout_marginStart="27dp"
                     android:layout_marginEnd="10dp"
                     android:text="2017-04-04 12:30:00"
+                    android:textColor="@color/black"
                     android:textStyle="italic" />
 
             </FrameLayout>
@@ -59,10 +62,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imgNews"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="-88dp"
+                android:layout_marginTop="-116dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/noticia_text_bold"
                 android:text="Title"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -72,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitle"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="34dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="16dp"
+                android:textColor="@color/white"
                 android:text="Source"
                 android:textSize="15sp" />
         </RelativeLayout>
