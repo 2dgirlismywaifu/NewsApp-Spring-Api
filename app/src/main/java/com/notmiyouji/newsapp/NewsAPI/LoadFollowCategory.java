@@ -26,41 +26,38 @@ public class LoadFollowCategory {
     Call<NewsCategory> callCategory;
 
     public void LoadJSONCategory(AppCompatActivity activity, ProgressDialog mDialog, String categoryname, RecyclerView newsViewVertical) {
-        Thread loadSourceGeneral = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                callCategory = apiInterface.getNewsCategory("us", categoryname, API_KEY);
-                callCategory.enqueue(new Callback<NewsCategory>() {
-                    @Override
-                    public void onResponse(@NonNull Call<NewsCategory> callCategory, @NonNull Response<NewsCategory> response2) {
-                        if (response2.isSuccessful()) {
-                            assert response2.body() != null;
-                            if (response2.body().getArticle() != null) {
-                                if (!articles2.isEmpty()) {
-                                    articles2.clear();
-                                }
-                                articles2 = response2.body().getArticle();
-                                LinearLayoutManager newsAPIVerticalLayout = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-                                newsViewVertical.setLayoutManager(newsAPIVerticalLayout);
-                                newsAdapterVertical = new NewsAdapterVertical(articles2, activity);
-                                newsViewVertical.setAdapter(newsAdapterVertical);
-
+        Thread loadSourceGeneral = new Thread(() -> {
+            callCategory = apiInterface.getNewsCategory("us", categoryname, API_KEY);
+            callCategory.enqueue(new Callback<NewsCategory>() {
+                @Override
+                public void onResponse(@NonNull Call<NewsCategory> callCategory, @NonNull Response<NewsCategory> response2) {
+                    if (response2.isSuccessful()) {
+                        assert response2.body() != null;
+                        if (response2.body().getArticle() != null) {
+                            if (!articles2.isEmpty()) {
+                                articles2.clear();
                             }
+                            articles2 = response2.body().getArticle();
+                            LinearLayoutManager newsAPIVerticalLayout = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+                            newsViewVertical.setLayoutManager(newsAPIVerticalLayout);
+                            newsAdapterVertical = new NewsAdapterVertical(articles2, activity);
+                            newsViewVertical.setAdapter(newsAdapterVertical);
+
                         }
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<NewsCategory> call, Throwable t) {
-                    }
-                });
+                @Override
+                public void onFailure(Call<NewsCategory> call, Throwable t) {
+                }
+            });
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
-                    }
-                });
-            }
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
+                }
+            });
         });
         loadSourceGeneral.start();
     }

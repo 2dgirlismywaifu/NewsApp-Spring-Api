@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.RSSURL;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,13 +23,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     //Initialization variable
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager, newsViewLayoutHorizontal, newsViewLayoutVertical;
+    RecyclerView recyclerView, newsViewHorizontal, newsViewVertical;
     Toolbar toolbar;
     NavigationPane navigationPane;
     NewsTypeAdapter newsTypeAdapter;
     Intent intent;
-    Thread homepage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         navigationView = findViewById(R.id.nav_pane_view);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.news_type);
+        newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
+        newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
         //NewsCategory Type List
@@ -47,6 +50,25 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
+
+        //Load Lastest News
+        final ProgressDialog mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Loading, please wait...");
+        mDialog.show();
+        Thread loadLastNews = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
+                FeedMultiRSS feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
+                feedMultiRSS.MultiFeedHorizontal("Breaking News", mDialog);
+            }
+        });
+        loadLastNews.start();
+
+        //load NewsView Vertical
+        LoadFollowType loadFollowType = new LoadFollowType(HomePage.this, newsViewVertical, mDialog);
+        loadFollowType.startLoad("Breaking News");
+
     }
 
     @Override

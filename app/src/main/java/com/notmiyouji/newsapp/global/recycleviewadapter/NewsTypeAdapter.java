@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.global.recycleviewadapter;
 
+import android.app.ProgressDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.RSSURL.LoadFollowType;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     ArrayList<String> data = newstype();
     AppCompatActivity activity;
+
 
     public NewsTypeAdapter(AppCompatActivity activity) {
         this.activity = activity;
@@ -33,6 +36,16 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
     @Override
     public void onBindViewHolder(@NonNull NewsTypeAdapter.NewsTypeHolder holder, int position) {
         holder.news_type.setText(data.get(position));
+        //Set acction for newsType Buttom
+        holder.itemView.setOnClickListener( v -> {
+            final ProgressDialog mDialog = new ProgressDialog(activity);
+            mDialog.setMessage("Loading, please wait...");
+            mDialog.show();
+            //fetch follow category
+            String category = holder.news_type.getText().toString();
+            LoadFollowType loadFollowType = new LoadFollowType(activity, activity.findViewById(R.id.cardnews_view_vertical), mDialog);
+            loadFollowType.startLoad(category);
+        });
     }
 
     @Override
