@@ -37,8 +37,8 @@
 
                 <ImageView
                     android:id="@+id/imgNews"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:transitionName="img"
                     app:srcCompat="@drawable/user_192"
@@ -48,23 +48,25 @@
 
 
             <TextView
-                android:id="@+id/Source_Description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="24dp"
+                android:id="@+id/source_description"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/raleway"
+                android:singleLine="false"
                 android:text="Source description"
                 android:textColor="#4E342E"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardholderimage" />
 
             <TextView
-                android:id="@+id/Source_name"
+                android:id="@+id/source_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/raleway_bold"
                 android:text="Source Name"
                 android:textSize="16sp"

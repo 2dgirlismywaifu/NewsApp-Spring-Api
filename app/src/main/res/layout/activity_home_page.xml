@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".HomePage">
+    tools:context=".RSSURL.HomePage">
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -159,7 +159,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="15dp"
                             android:orientation="vertical"
-                            tools:listitem="@layout/news_item_vertical">
+                            tools:listitem="@layout/news_items_vertical">
 
                         </androidx.recyclerview.widget.RecyclerView>
 
