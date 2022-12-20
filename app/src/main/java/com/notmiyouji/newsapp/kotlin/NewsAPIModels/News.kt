@@ -1,46 +1,21 @@
-package com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels;
+package com.notmiyouji.newsapp.kotlin.NewsAPIModels
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.Expose
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.SourceCateory
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article
 
-import java.util.List;
-
-public class News {
-
+class News {
     @SerializedName("status")
     @Expose
-    private String status;
+    var status: String? = null
 
     @SerializedName("totalResult")
     @Expose
-    private int totalResult;
+    var totalResult = 0
 
     @SerializedName("articles")
     @Expose
-    private List<Article> article;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getTotalResult() {
-        return totalResult;
-    }
-
-    public void setTotalResult(int totalResult) {
-        this.totalResult = totalResult;
-    }
-
-    public List<Article> getArticle() {
-        return article;
-    }
-
-
-    public void setArticle(List<Article> article) {
-        this.article = article;
-    }
+    var article: List<Article>? = null
 }

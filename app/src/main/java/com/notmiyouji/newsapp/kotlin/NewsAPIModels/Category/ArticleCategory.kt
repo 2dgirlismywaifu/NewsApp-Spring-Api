@@ -1,91 +1,37 @@
-package com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels.Category;
+package com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.Expose
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.SourceCateory
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article
 
-public class ArticleCategory {
-
+class ArticleCategory {
     @SerializedName("source")
     @Expose
-    private SourceCateory sourceCateory;
+    var source: SourceCateory? = null
 
     @SerializedName("author")
     @Expose
-    private String author;
+    var author: String? = null
 
     @SerializedName("title")
     @Expose
-    private String title;
+    var title: String? = null
 
     @SerializedName("description")
     @Expose
-    private String description;
+    var description: String? = null
 
     @SerializedName("url")
     @Expose
-    private String url;
+    var url: String? = null
 
     @SerializedName("urlToImage")
     @Expose
-    private String urlToImage;
+    var urlToImage: String? = null
 
     @SerializedName("publishedAt")
     @Expose
-    private String publishedAt;
-
-    public SourceCateory getSource() {
-        return sourceCateory;
-    }
-
-    public void setSource(SourceCateory sourceCateory) {
-        this.sourceCateory = sourceCateory;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUrlToImage() {
-        return urlToImage;
-    }
-
-    public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
-    }
-
-    public String getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
+    var publishedAt: String? = null
 }

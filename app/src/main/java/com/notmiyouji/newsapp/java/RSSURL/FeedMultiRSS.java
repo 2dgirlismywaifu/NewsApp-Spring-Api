@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.notmiyouji.newsapp.java.RSSURL.RSSFeed.HTTPDataHandler;
-import com.notmiyouji.newsapp.java.RSSURL.RSSFeed.RSSObject;
+import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 import com.notmiyouji.newsapp.java.global.AzureSQLServer;
 
 import java.sql.Connection;

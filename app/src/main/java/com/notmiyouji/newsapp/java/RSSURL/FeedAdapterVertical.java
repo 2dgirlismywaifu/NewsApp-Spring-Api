@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.RSSURL.RSSFeed.RSSObject;
+import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
 
@@ -95,7 +95,7 @@ public class FeedAdapterVertical extends RecyclerView.Adapter<FeedViewVerticalHo
     public int getItemCount() {
         try
         {
-            return rssObject.items.size();
+            return rssObject.getItems().size();
         }
         catch (NullPointerException e)
         {

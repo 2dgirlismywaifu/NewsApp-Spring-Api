@@ -1,7 +1,7 @@
 package com.notmiyouji.newsapp.java.NewsAPI;
 
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels.Category.NewsCategory;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels.News;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

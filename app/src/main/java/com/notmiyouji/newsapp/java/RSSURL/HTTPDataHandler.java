@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.RSSURL.RSSFeed;
+package com.notmiyouji.newsapp.java.RSSURL;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

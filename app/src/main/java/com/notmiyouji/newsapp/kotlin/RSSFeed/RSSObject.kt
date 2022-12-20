@@ -1,20 +1,3 @@
-package com.notmiyouji.newsapp.java.RSSURL.RSSFeed;
+package com.notmiyouji.newsapp.kotlin.RSSFeed
 
-import java.util.List;
-
-public class RSSObject {
-    public String status;
-    public Feed feed;
-    public List<Item> items;
-
-    public RSSObject(String status, Feed feed, List<Item> items) {
-        this.status = status;
-        this.feed = feed;
-        this.items = items;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-}
+class RSSObject(var feed: Feed, var items: List<Item>)

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels.Article;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIModels.News;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
