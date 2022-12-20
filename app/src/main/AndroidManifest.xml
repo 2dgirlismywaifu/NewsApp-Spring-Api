@@ -16,35 +16,35 @@
         android:theme="@style/Theme.Newsapp"
         tools:targetApi="31">
         <activity
-            android:name=".global.NewsDetail"
+            android:name=".java.global.NewsDetail"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RSSURL.SourceNewsList"
+            android:name=".java.RSSURL.SourceNewsList"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RSSURL.FavouriteNews"
+            android:name=".java.RSSURL.FavouriteNews"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NewsAPI.NewsAPI_Page"
+            android:name=".java.NewsAPI.NewsAPI_Page"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RSSURL.HomePage"
+            android:name=".java.RSSURL.HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

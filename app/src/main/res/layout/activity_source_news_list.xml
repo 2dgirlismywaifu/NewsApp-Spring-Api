@@ -7,7 +7,7 @@
     android:id="@+id/source_news_page"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".RSSURL.SourceNewsList">
+    tools:context=".java.RSSURL.SourceNewsList">
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
