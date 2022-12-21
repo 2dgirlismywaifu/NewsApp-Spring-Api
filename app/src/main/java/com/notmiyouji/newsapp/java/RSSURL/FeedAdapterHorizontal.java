@@ -18,43 +18,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
-
-class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener
-{
-
-    public TextView txtTitle,txtPubDate,txtsource;
-    public ImageView imageView;
-    public Activity activity;
-
-    private ItemClickListener itemClickListener;
-
-    public FeedViewHolder(View itemView) {
-        super(itemView);
-        txtTitle = itemView.findViewById(R.id.txtTitle);
-        txtPubDate = itemView.findViewById(R.id.txtPubDate);
-        txtsource = itemView.findViewById(R.id.txtSource);
-        imageView = itemView.findViewById(R.id.imgNews);
-        //Set Event
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
-    }
-
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
-    }
-
-    @Override
-    public void onClick(View v) {
-        itemClickListener.onClick(v,getAdapterPosition(),false);
-    }
-    @Override
-    public boolean onLongClick(View v) {
-        itemClickListener.onClick(v,getAdapterPosition(),true);
-        return true;
-    }
-}
-
-public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedViewHolder> {
+public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHorizontal.FeedViewHolder> {
 
     RSSObject rssObject;
     AppCompatActivity activity;
@@ -109,5 +73,40 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedViewHolder> 
             return 0;
         }
 
+    }
+
+    public static class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener
+    {
+
+        public TextView txtTitle,txtPubDate,txtsource;
+        public ImageView imageView;
+        public Activity activity;
+
+        private ItemClickListener itemClickListener;
+
+        public FeedViewHolder(View itemView) {
+            super(itemView);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            txtPubDate = itemView.findViewById(R.id.txtPubDate);
+            txtsource = itemView.findViewById(R.id.txtSource);
+            imageView = itemView.findViewById(R.id.imgNews);
+            //Set Event
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        public interface ItemClickListener {
+            void onClick(View view, int position, boolean isLongClick);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
+        }
+        @Override
+        public boolean onLongClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),true);
+            return true;
+        }
     }
 }
