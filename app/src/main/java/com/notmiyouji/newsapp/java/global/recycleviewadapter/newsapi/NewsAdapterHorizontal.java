@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.Utils;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
 import java.util.List;
 

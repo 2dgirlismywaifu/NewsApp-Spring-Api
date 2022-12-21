@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAdapterVertical;
 import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAdapterVertical;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,7 @@
 package com.notmiyouji.newsapp.kotlin.NewsAPIModels
 
-import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.SourceCateory
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article
+import com.google.gson.annotations.SerializedName
 
 class Article {
     @SerializedName("source")

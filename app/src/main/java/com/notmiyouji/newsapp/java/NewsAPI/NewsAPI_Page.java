@@ -15,15 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAdapterHorizontal;
+import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 
 import java.util.ArrayList;
 import java.util.List;

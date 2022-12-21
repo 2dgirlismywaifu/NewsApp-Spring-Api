@@ -1,9 +1,9 @@
 package com.notmiyouji.newsapp.kotlin
 
-import retrofit2.http.GET
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import retrofit2.Call
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewsAPIInterface {

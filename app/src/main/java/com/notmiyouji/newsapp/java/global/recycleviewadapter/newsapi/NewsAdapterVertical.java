@@ -10,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.Utils;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
 import java.util.List;
 
