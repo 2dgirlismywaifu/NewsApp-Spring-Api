@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
@@ -46,7 +47,7 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
     List<Article> articles = new ArrayList<>(); //not inclue category
     NewsAdapterHorizontal newsAdapterHorizontal;
     String TAG = NewsAPI_Page.class.getSimpleName();
-    APIInterface apiInterface = NewsAPIKey.getAPIClient().create(APIInterface.class);
+    NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
     Call<News> call;
     LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
 
@@ -85,7 +86,8 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         Thread loadSourceAPI = new Thread(new Runnable() {
             @Override
             public void run() {
-                call = apiInterface.getLatestNews("us", API_KEY);
+                call = newsApiInterface.getLatestNews("us", API_KEY);
+                assert call != null;
                 call.enqueue(new Callback<News>() {
                     @Override
                     public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
@@ -105,17 +107,12 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
                         }
                     }
                     @Override
-                    public void onFailure(Call<News> call, Throwable t) {
+                    public void onFailure(@NonNull Call<News> call, Throwable t) {
                     }
                 });
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        newsViewHorizontal.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
-                    }
-                });
+                runOnUiThread(() ->
+                        newsViewHorizontal.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
             }
         });
         loadSourceAPI.start();

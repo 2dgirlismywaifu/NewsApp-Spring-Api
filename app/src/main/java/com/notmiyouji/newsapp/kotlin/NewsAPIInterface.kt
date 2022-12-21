@@ -1,35 +1,30 @@
-package com.notmiyouji.newsapp.java.NewsAPI;
+package com.notmiyouji.newsapp.kotlin
 
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory;
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
+import retrofit2.http.GET
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory
+import retrofit2.Call
+import retrofit2.http.Query
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
-
-public interface APIInterface {
+interface NewsAPIInterface {
+    @GET("top-headlines")
+    fun getLatestNews(
+        @Query("country") country: String?,
+        @Query("apiKey") apiKey: String?
+    ): Call<News?>?
 
     @GET("top-headlines")
-    Call<News> getLatestNews(
+    fun getNewsCategory(
+        @Query("country") country: String?,
+        @Query("category") category: String?,
+        @Query("apiKey") apiKey: String?
+    ): Call<NewsCategory?>?
 
-            @Query("country") String country ,
-            @Query("apiKey") String apiKey
-
-    );
-    @GET("top-headlines")
-    Call<NewsCategory> getNewsCategory(
-            @Query("country") String country ,
-            @Query("category") String category,
-            @Query("apiKey") String apiKey
-
-    );
     @GET("everything")
-    Call<News> getNewsSearch(
-
-            @Query("q") String keyword,
-            @Query("language") String language,
-            @Query("sortBy") String sortBy,
-            @Query("apiKey") String apiKey
-
-    );
+    fun getNewsSearch(
+        @Query("q") keyword: String?,
+        @Query("language") language: String?,
+        @Query("sortBy") sortBy: String?,
+        @Query("apiKey") apiKey: String?
+    ): Call<News?>?
 }
