@@ -18,6 +18,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
+import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 
 public class SourceNewsList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,7 +36,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_list);
-
+        ApplicationFlags applicationFlags = new ApplicationFlags(this);
+        applicationFlags.setFlag();
         //Hooks
         drawerSourceNews = findViewById(R.id.source_news_page);
         navigationView = findViewById(R.id.nav_pane_view);
@@ -53,16 +55,13 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         Thread loadSource = new Thread(new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView = findViewById(R.id.sources_list);
-                        linearLayoutManager = new LinearLayoutManager(getBaseContext());
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        listSourceAdapter = new ListSourceAdapter(activity);
-                        recyclerView.setAdapter(listSourceAdapter);
-                        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
-                    }
+                runOnUiThread(() -> {
+                    recyclerView = findViewById(R.id.sources_list);
+                    linearLayoutManager = new LinearLayoutManager(getBaseContext());
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    listSourceAdapter = new ListSourceAdapter(activity);
+                    recyclerView.setAdapter(listSourceAdapter);
+                    recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
                 });
             }
         });

@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="110dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
                                     tools:ignore="ContentDescription" />
 
                                 <EditText
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginStart="10dp"
@@ -128,7 +128,7 @@
                                 android:text="@string/see_all_button"
                                 android:textColor="#0080FF"
                                 android:textSize="18sp"
-                                tools:ignore="TextContrastCheck" />
+                                tools:ignore="RelativeOverlap,TextContrastCheck" />
 
                         </RelativeLayout>
 
@@ -136,7 +136,6 @@
                             android:id="@+id/cardnews_view_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
                             android:layout_marginTop="15dp"
                             android:orientation="horizontal"
                             android:scrollbars="horizontal"
@@ -148,17 +147,15 @@
                             android:id="@+id/news_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:scrollbars="horizontal"
                             android:orientation="horizontal"
+                            android:scrollbars="horizontal"
                             tools:listitem="@layout/news_type" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/cardnews_view_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-                            android:layout_marginRight="15dp"
                             android:orientation="vertical"
                             android:scrollbars="vertical"
                             tools:listitem="@layout/news_items_vertical">
@@ -178,7 +175,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="98dp"
             android:text="@string/Guest_welcome"
             android:textAlignment="center"

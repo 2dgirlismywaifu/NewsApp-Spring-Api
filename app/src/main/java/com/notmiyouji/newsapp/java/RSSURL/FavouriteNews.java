@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
+import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,7 +30,8 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_news);
-
+        ApplicationFlags applicationFlags = new ApplicationFlags(this);
+        applicationFlags.setFlag();
         //Hooks
         drawerFavourtie = findViewById(R.id.favourite_news_page);
         navigationView = findViewById(R.id.nav_pane_view);

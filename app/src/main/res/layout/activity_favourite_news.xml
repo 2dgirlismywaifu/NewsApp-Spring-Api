@@ -19,6 +19,7 @@
     </com.google.android.material.navigation.NavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarmain"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,21 +27,22 @@
             android:id="@+id/nav_button"
             android:layout_width="51dp"
             android:layout_height="40dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:navigationIcon="@drawable/ic_baseline_menu_40" />
 
         <ImageButton
             android:id="@+id/clear_list"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="15dp"
             android:background="#00FFFFFF"
-            android:src="@drawable/trash"
+            android:src="@drawable/ic_baseline_delete_36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -48,14 +50,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="56dp"
             android:fontFamily="@font/raleway_bold"
             android:text="@string/favorites_archive_list"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/clear_list"
-            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintHorizontal_bias="0.436"
             app:layout_constraintStart_toEndOf="@+id/nav_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +65,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="100dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +108,8 @@
                         android:importantForAutofill="no"
                         android:inputType="textLongMessage|text"
                         android:textColor="@color/black"
-                        android:textColorHint="#546E7A" />
+                        android:textColorHint="#546E7A"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -118,6 +121,7 @@
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
+
                     <LinearLayout
                         android:id="@+id/relativeLayout"
                         android:layout_width="wrap_content"
@@ -132,8 +136,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginRight="15dp"
                             android:orientation="vertical"
-                            tools:listitem="@layout/news_items_vertical">
-                        </androidx.recyclerview.widget.RecyclerView>
+                            tools:listitem="@layout/news_items_vertical"></androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

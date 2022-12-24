@@ -21,6 +21,7 @@ import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAdapterHorizontal;
+import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
@@ -55,6 +56,8 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_api_page);
+        ApplicationFlags applicationFlags = new ApplicationFlags(this);
+        applicationFlags.setFlag();
         //Hooks
         drawerNewsAPI = findViewById(R.id.newsapi_page);
         navigationView = findViewById(R.id.nav_pane_view);

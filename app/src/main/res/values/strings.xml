@@ -6,7 +6,7 @@
     <string name="Guest_welcome">Hello, Guest User\nHere are the updated news</string>
     <string name="favorites_archive_list">Favorites Archive List</string>
     <string name="search_here">Search here …</string>
-    <string name="list_news_source">Here is the list of news sourceCateory\navailable on the server</string>
+    <string name="list_news_source">Here is the list of news source\n available on the server</string>
     <string name="home_menu">Home</string>
     <string name="newsapi_menu">NewsAPI</string>
     <string name="news_source_menu">News Source</string>
