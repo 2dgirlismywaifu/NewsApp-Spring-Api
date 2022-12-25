@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:hint="@string/enter_verification_code"
+                android:inputType="number"
                 android:textColorHint="#616161"
                 android:textStyle="bold"
                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />

@@ -105,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
                 android:hint="@string/enter_your_phone_number"
+                android:inputType="number"
                 android:textColorHint="#000000"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
