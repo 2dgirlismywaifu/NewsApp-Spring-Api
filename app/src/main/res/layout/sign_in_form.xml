@@ -101,6 +101,7 @@
             android:background="#00FFFFFF"
             android:text="@string/forgot_password"
             android:textColor="#3F51B5"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/Password_label"
             app:layout_constraintStart_toStartOf="@+id/Password_label"
             app:layout_constraintTop_toBottomOf="@+id/Password_label" />
@@ -112,6 +113,7 @@
             android:backgroundTint="#0E64D2"
             android:fontFamily="@font/raleway_bold"
             android:text="@string/sign_in"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/ForgotPasswordBtn"
             app:layout_constraintStart_toStartOf="@+id/ForgotPasswordBtn"
             app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBtn"
@@ -135,7 +137,7 @@
                 android:text="@string/don_t_have_an_account"
                 android:textAlignment="center"
                 android:textColor="#D0000000"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Button
@@ -147,6 +149,7 @@
                 android:fontFamily="@font/raleway_bold"
                 android:text="@string/sign_up"
                 android:textColor="#2F89FC"
+                android:textSize="16sp"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
@@ -206,7 +209,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/googleg_standard_color_18"
+                android:src="@drawable/icons8_google_48"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <TextView
