@@ -81,7 +81,6 @@
                             android:id="@+id/search"
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
-                            android:layout_marginEnd="15dp"
                             app:cardBackgroundColor="@color/searchbar"
                             app:cardCornerRadius="15dp">
 
@@ -118,39 +117,21 @@
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
 
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/last_news_text"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/last_news_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/noticia_text_bold"
-                                android:text="@string/lastest_news"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/see_all_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="0dp"
-                                android:text="@string/see_all_button"
-                                android:textColor="#0080FF"
-                                android:textSize="18sp"
-                                tools:ignore="TextContrastCheck" />
-
-                        </RelativeLayout>
+                            android:fontFamily="@font/noticia_text_bold"
+                            android:text="@string/lastest_news"
+                            android:textSize="24sp"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/cardnews_view_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
                             android:layout_marginTop="15dp"
                             android:orientation="horizontal"
                             android:scrollbars="horizontal"

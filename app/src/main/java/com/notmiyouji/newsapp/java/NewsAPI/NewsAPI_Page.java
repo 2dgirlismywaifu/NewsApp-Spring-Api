@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.NewsAPI;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,9 +19,9 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAPITypeAdapter;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi.NewsAdapterHorizontal;
+import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
@@ -68,6 +69,9 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
         navigationPane.CallFromUser();
+        //open sign in page from navigationview
+        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+        callSignInForm.callSignInForm();
         //NewsCategory Type List
         newsAPITypeAdapter = new NewsAPITypeAdapter(this);
         newstypeLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -129,6 +133,8 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         }
         else {
             super.onBackPressed();
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
         }
     }
 

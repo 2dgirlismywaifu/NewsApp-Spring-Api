@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi;
+package com.notmiyouji.newsapp.java.NewsAPI;
 
 import android.view.LayoutInflater;
 import android.view.View;

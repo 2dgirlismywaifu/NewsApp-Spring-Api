@@ -1,5 +1,6 @@
-package com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi;
+package com.notmiyouji.newsapp.java.NewsAPI;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         return new MyViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull NewsAdapterHorizontal.MyViewHolder holders, int position) {
         Article model = articles.get(position);

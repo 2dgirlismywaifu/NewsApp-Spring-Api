@@ -1,10 +1,10 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.elevation.SurfaceColors;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsTypeAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -26,7 +26,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     //Initialization variable
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    LinearLayoutManager linearLayoutManager, newsViewLayoutHorizontal, newsViewLayoutVertical;
+    LinearLayoutManager linearLayoutManager, newsViewLayoutHorizontal;
     RecyclerView recyclerView, newsViewHorizontal, newsViewVertical;
     Toolbar toolbar;
     NavigationPane navigationPane;
@@ -53,7 +53,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
-
+        //open sign in page from navigationview
+        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+        callSignInForm.callSignInForm();
         //Load Lastest News
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");
@@ -71,7 +73,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //load NewsView Vertical
         LoadFollowType loadFollowType = new LoadFollowType(HomePage.this, newsViewVertical, mDialog);
         loadFollowType.startLoad("Breaking News");
-
     }
 
     @Override
@@ -81,6 +82,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         }
         else {
             super.onBackPressed();
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
         }
     }
 

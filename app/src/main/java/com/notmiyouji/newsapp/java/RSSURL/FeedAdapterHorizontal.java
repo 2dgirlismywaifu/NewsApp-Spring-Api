@@ -45,7 +45,7 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
 
         holder.txtTitle.setText(rssObject.getItems().get(position).getTitle());
         holder.txtPubDate.setText(rssObject.getItems().get(position).getPubDate());
-        holder.txtsource.setText(rssObject.getItems().get(position).getLink());
+        holder.txtsource.setText(rssObject.getFeed().getTitle());
 //        try
 //        {
 //            String path = rssObject.getItems().get(position).getThumbnail();
@@ -75,14 +75,13 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
 
     }
 
-    public static class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener
+    public static class FeedViewHolder extends RecyclerView.ViewHolder
     {
 
         public TextView txtTitle,txtPubDate,txtsource;
         public ImageView imageView;
         public Activity activity;
 
-        private ItemClickListener itemClickListener;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
@@ -91,22 +90,8 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
             txtsource = itemView.findViewById(R.id.txtSource);
             imageView = itemView.findViewById(R.id.imgNews);
             //Set Event
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
         }
 
-        public interface ItemClickListener {
-            void onClick(View view, int position, boolean isLongClick);
-        }
 
-        @Override
-        public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),false);
-        }
-        @Override
-        public boolean onLongClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),true);
-            return true;
-        }
     }
 }

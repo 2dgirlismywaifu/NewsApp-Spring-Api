@@ -16,4 +16,26 @@
     <string name="user_name">You are in guest mode</string>
     <string name="navgiation_drawer_open">Open Navigation Pane</string>
     <string name="navgiation_drawer_close">Close Navigation Pane</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">OR</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="enter_your_username_email">Enter Your Username / Email</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="retype_your_password">Retype Your Password</string>
+    <string name="enter_your_phone_number">Enter Your Phone Number</string>
+    <string name="enter_your_username">Enter Your Username</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="verification_code_email">Enter the verification code sent to \nyour email:</string>
+    <string name="verification_code_demo">Enter the verification code sent to \nyour email: email@example.com</string>
+    <string name="not_received_yet">Not received yet ?</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="verify_account">Verify Account</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your email to get code</string>
+    <string name="verify">Verify Now</string>
+    <string name="send_verify_code">Send</string>
 </resources>

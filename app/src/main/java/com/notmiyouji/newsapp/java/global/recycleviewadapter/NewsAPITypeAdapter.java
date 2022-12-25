@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.global.recycleviewadapter.newsapi;
+package com.notmiyouji.newsapp.java.global.recycleviewadapter;
 
 import android.app.ProgressDialog;
 import android.view.LayoutInflater;

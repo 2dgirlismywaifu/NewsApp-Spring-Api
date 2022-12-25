@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 
@@ -38,6 +40,9 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         toolbar = findViewById(R.id.nav_button);
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();
+        //open sign in page from navigationview
+        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+        callSignInForm.callSignInForm();
     }
 
     @Override
@@ -47,6 +52,8 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         }
         else {
             super.onBackPressed();
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
         }
     }
 

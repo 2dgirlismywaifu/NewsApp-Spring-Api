@@ -9,13 +9,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardNews_horizontal"
-        app:cardBackgroundColor="@color/seed"
-        android:layout_width="320dp"
+        android:layout_width="340dp"
         android:layout_height="240dp"
         android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
         android:layout_marginTop="7dp"
+        android:layout_marginRight="11dp"
         android:layout_marginBottom="7dp"
+        app:cardBackgroundColor="@color/seed"
         app:cardCornerRadius="10dp"
         app:cardElevation="@dimen/cardview_default_elevation">
 
@@ -33,17 +33,34 @@
                 app:shapeAppearanceOverlay="@style/rounded_corner"
                 tools:ignore="ContentDescription" />
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shadow_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_alignBottom="@id/imgNews"
+                android:background="@drawable/blurview"
+                app:shapeAppearanceOverlay="@style/rounded_corner"
+                tools:ignore="ContentDescription" />
+
+
             <FrameLayout
                 android:id="@+id/layoutDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imgNews"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="-50dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="-42dp"
+                android:layout_marginEnd="6dp"
                 android:background="@drawable/round_color"
                 android:padding="5dp">
 
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_date"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/txtPubDate"
@@ -60,10 +77,10 @@
             <TextView
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@id/imgNews"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="-189dp"
+                android:layout_marginTop="-126dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/noticia_text_bold"
                 android:text="Title"
@@ -74,10 +91,10 @@
             <TextView
                 android:id="@+id/txtSource"
                 android:layout_width="364dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_below="@id/txtTitle"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="Source"
                 android:textColor="@color/md_theme_dark_background"

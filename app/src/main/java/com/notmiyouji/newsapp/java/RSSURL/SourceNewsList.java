@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
+import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -44,6 +46,9 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         toolbar = findViewById(R.id.nav_button);
         navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
         navigationPane.CallFromUser();
+        //open sign in page from navigationview
+        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+        callSignInForm.callSignInForm();
         //Recycle View
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");
@@ -75,6 +80,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         }
         else {
             super.onBackPressed();
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
         }
     }
 
