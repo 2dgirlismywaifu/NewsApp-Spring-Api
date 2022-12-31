@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.global.SharedWallpaper;
+import com.notmiyouji.newsapp.kotlin.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 
@@ -21,11 +21,11 @@ public class WallpaperHeaderAdpater extends RecyclerView.Adapter<WallpaperHeader
 
     ArrayList<Integer> data = wallpaperList();
     AppCompatActivity activity;
-    SharedWallpaper sharedWallpaper;
+    SharedPreferenceSettings sharedPreferenceSettings;
 
     public WallpaperHeaderAdpater(AppCompatActivity activity) {
         this.activity = activity;
-        sharedWallpaper = new SharedWallpaper(activity);
+        sharedPreferenceSettings = new SharedPreferenceSettings(activity);
     }
 
     @NonNull
@@ -41,7 +41,7 @@ public class WallpaperHeaderAdpater extends RecyclerView.Adapter<WallpaperHeader
         holder.wallpaperHeader.setImageResource(path);
         holder.changeBtn.setOnClickListener(v -> {
             //Send Image Resource to SharedPreference
-            sharedWallpaper.getSharedWallpaperHeader(path);
+            sharedPreferenceSettings.getSharedWallpaperHeader(path);
             Toast.makeText(activity, R.string.change_wall_messeage, Toast.LENGTH_SHORT).show();
 
         });

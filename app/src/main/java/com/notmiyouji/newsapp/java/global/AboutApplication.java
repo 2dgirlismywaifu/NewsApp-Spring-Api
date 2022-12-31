@@ -3,8 +3,11 @@ package com.notmiyouji.newsapp.java.global;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
@@ -14,6 +17,8 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 public class AboutApplication extends AppCompatActivity {
 
     ShapeableImageView imageView;
+    RelativeLayout githubbtn, twitterbtn;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,18 @@ public class AboutApplication extends AppCompatActivity {
             onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
+        });
+        //Go to GitHub Profile
+        githubbtn = findViewById(R.id.linearGithub);
+        githubbtn.setOnClickListener(v -> {
+            intent = new Intent (Intent.ACTION_VIEW , Uri.parse("https://github.com/2dgirlismywaifu"));
+            startActivity(intent);
+        });
+        //Go to Twitter Profile
+        twitterbtn = findViewById(R.id.linearTwitter);
+        twitterbtn.setOnClickListener(v -> {
+            intent = new Intent (Intent.ACTION_VIEW , Uri.parse("https://twitter.com/MyWaifuis2DGirl"));
+            startActivity(intent);
         });
     }
     public void onBackPressed() {

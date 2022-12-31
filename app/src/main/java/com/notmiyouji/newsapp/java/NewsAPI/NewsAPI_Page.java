@@ -20,7 +20,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
-import com.notmiyouji.newsapp.java.global.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.LoadWallpaperShared;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;

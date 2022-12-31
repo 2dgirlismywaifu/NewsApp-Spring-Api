@@ -107,6 +107,7 @@
                 android:id="@+id/signin_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
                 android:layout_marginTop="440dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -158,6 +159,7 @@
                 android:id="@+id/selected_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/space"
                 app:layout_constraintStart_toStartOf="@+id/space"
                 app:layout_constraintTop_toBottomOf="@+id/space">
@@ -207,6 +209,7 @@
                 android:id="@+id/change_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/space_2"
                 app:layout_constraintStart_toStartOf="@+id/space_2"
                 app:layout_constraintTop_toBottomOf="@+id/space_2">
@@ -263,6 +266,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:text="@string/about_application"

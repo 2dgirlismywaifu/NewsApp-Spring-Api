@@ -57,6 +57,7 @@
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/owner_avatar"
                 app:layout_constraintStart_toStartOf="@+id/owner_avatar"
@@ -88,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/linearGithub"
                 app:layout_constraintStart_toStartOf="@+id/linearGithub"
                 app:layout_constraintTop_toBottomOf="@+id/linearGithub">
