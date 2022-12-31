@@ -52,8 +52,8 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
             holder.source_name.setText(jsonObject.getString("source_name"));
             holder.source_description.setText(jsonObject.getString("information"));
             String path = jsonObject.getString("image");
-            LoadImageURL loadImageURL = new LoadImageURL(path,holder.source_image, holder);
-            loadImageURL.getImageFromURL();
+            LoadImageURL loadImageURL = new LoadImageURL(path);
+            loadImageURL.getImageFromURL(holder.source_image, holder);
             //Picasso.get().load(path).into(holder.source_image);
 
         } catch (JSONException e) {

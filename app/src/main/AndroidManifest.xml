@@ -18,14 +18,19 @@
         android:theme="@style/Theme.Newsapp"
         tools:targetApi="31">
         <activity
+            android:name=".java.global.WallpaperHeader"
+            android:exported="false" />
+        <activity
             android:name=".java.global.AboutApplication"
             android:exported="false" />
         <activity
             android:name=".java.global.SettingsLogined"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/SettingsForm" />
         <activity
             android:name=".java.global.SettingsPage"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/SettingsForm" />
         <activity
             android:name=".java.global.ForgotPasswordForm"
             android:exported="false"

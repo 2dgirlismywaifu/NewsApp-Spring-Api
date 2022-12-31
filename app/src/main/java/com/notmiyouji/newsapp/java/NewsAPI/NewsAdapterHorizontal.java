@@ -42,8 +42,8 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         Article model = articles.get(position);
 
         String path = model.getUrlToImage();
-        LoadImageURL loadImageURL = new LoadImageURL(path,holders.imageView, holders);
-        loadImageURL.getImageFromURL();
+        LoadImageURL loadImageURL = new LoadImageURL(path);
+        loadImageURL.getImageFromURL(holders.imageView, holders);
 //        Glide.with(activity)
 //                .load(model.getUrlToImage())
 //                .apply(requestOptions)

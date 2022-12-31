@@ -51,8 +51,8 @@ public class FeedAdapterVertical extends RecyclerView.Adapter<FeedAdapterVertica
 //
 //        }
         String path = rssObject.getItems().get(position).getThumbnail();
-        LoadImageURL loadImageURL = new LoadImageURL(path,holder.imageView, holder);
-        loadImageURL.getImageFromURL();
+        LoadImageURL loadImageURL = new LoadImageURL(path);
+        loadImageURL.getImageFromURL(holder.imageView, holder);
     }
 
     @Override

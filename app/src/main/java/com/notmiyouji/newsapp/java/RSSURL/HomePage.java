@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.java.global.LoadWallpaperShared;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsTypeAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //Initialization variable
@@ -32,6 +35,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     NavigationPane navigationPane;
     NewsTypeAdapter newsTypeAdapter;
     Intent intent;
+    View headerNavigation;
+    LoadWallpaperShared  loadWallpaperShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
+        //From SharedPreference, change background for header navigation pane
+        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+        loadWallpaperShared.loadWallpaper();
         //NewsCategory Type List
         newsTypeAdapter = new NewsTypeAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -60,13 +68,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");
         mDialog.show();
-        Thread loadLastNews = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
-                FeedMultiRSS feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
-                feedMultiRSS.MultiFeedHorizontal("Breaking News", mDialog);
-            }
+        Thread loadLastNews = new Thread(() -> {
+            newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
+            FeedMultiRSS feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
+            feedMultiRSS.MultiFeedHorizontal("Breaking News", mDialog);
         });
         loadLastNews.start();
 
@@ -102,6 +107,14 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             intent = new Intent(HomePage.this, FavouriteNews.class);
             startActivity(intent);
         }
+        else if (menuitem == R.id.settings_menu) {
+            intent = new Intent(HomePage.this, SettingsPage.class);
+            startActivity(intent);
+        }
         return true;
+    }
+    public void onResume() {
+        super.onResume();
+        loadWallpaperShared.loadWallpaper();
     }
 }

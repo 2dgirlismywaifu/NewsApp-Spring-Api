@@ -20,6 +20,8 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
+import com.notmiyouji.newsapp.java.global.LoadWallpaperShared;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsAPITypeAdapter;
@@ -53,6 +55,7 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
     NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
     Call<News> call;
     LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
+    LoadWallpaperShared loadWallpaperShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,9 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
         navigationPane.CallFromUser();
+        //From SharedPreference, change background for header navigation pane
+        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+        loadWallpaperShared.loadWallpaper();
         //open sign in page from navigationview
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
@@ -152,7 +158,15 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
             intent = new Intent(NewsAPI_Page.this, FavouriteNews.class);
             startActivity(intent);
         }
-
+        else if (menuitem == R.id.settings_menu) {
+            intent = new Intent(NewsAPI_Page.this, SettingsPage.class);
+            startActivity(intent);
+        }
         return true;
+    }
+
+    public void onResume() {
+        super.onResume();
+        loadWallpaperShared.loadWallpaper();
     }
 }

@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.java.global.LoadWallpaperShared;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
@@ -33,6 +35,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     ListSourceAdapter listSourceAdapter;
+    LoadWallpaperShared loadWallpaperShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,9 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         toolbar = findViewById(R.id.nav_button);
         navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
         navigationPane.CallFromUser();
+        //From SharedPreference, change background for header navigation pane
+        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+        loadWallpaperShared.loadWallpaper();
         //open sign in page from navigationview
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
@@ -98,7 +104,15 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             intent = new Intent(SourceNewsList.this, FavouriteNews.class);
             startActivity(intent);
         }
+        else if (menuitem == R.id.settings_menu) {
+            intent = new Intent(SourceNewsList.this, SettingsPage.class);
+            startActivity(intent);
+        }
 
         return true;
+    }
+    public void onResume() {
+        super.onResume();
+        loadWallpaperShared.loadWallpaper();
     }
 }

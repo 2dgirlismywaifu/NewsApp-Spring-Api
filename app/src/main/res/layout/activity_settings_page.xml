@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <androidx.drawerlayout.widget.DrawerLayout
-                android:id="@+id/drawerLayout"
+                android:id="@+id/settings_banner_guest"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@drawable/anime_landscapes_background__11"
@@ -42,12 +42,28 @@
                         tools:ignore="ContentDescription,SpeakableTextPresentCheck">
 
                     </ImageButton>
+
+                    <Button
+                        android:id="@+id/changeWallpaper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/raleway"
+                        android:text="@string/change_wallpaper"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:icon="@drawable/baseline_edit_36"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.drawerlayout.widget.DrawerLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/shapeableImageView"
+                android:id="@+id/owner_avatar"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="124dp"
@@ -55,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/drawerLayout"
+                app:layout_constraintTop_toTopOf="@+id/settings_banner_guest"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -69,10 +85,10 @@
                 android:text="@string/guest_mode"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+                app:layout_constraintEnd_toEndOf="@+id/owner_avatar"
                 app:layout_constraintHorizontal_bias="0.516"
-                app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
-                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+                app:layout_constraintStart_toStartOf="@+id/owner_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/owner_avatar" />
 
             <TextView
                 android:id="@+id/textView2"

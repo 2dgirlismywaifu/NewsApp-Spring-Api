@@ -128,6 +128,7 @@
                             android:layout_marginTop="15dp"
                             android:orientation="horizontal"
                             android:scrollbars="horizontal"
+                            android:nestedScrollingEnabled="false"
                             tools:listitem="@layout/news_items_horizontal">
 
                         </androidx.recyclerview.widget.RecyclerView>
@@ -145,6 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:nestedScrollingEnabled="false"
                             android:orientation="vertical"
                             android:scrollbars="vertical"
                             tools:listitem="@layout/news_items_vertical">

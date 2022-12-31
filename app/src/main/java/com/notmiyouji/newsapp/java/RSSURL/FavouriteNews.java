@@ -14,6 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.java.global.LoadWallpaperShared;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -27,6 +29,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     NavigationPane navigationPane;
     Intent intent;
     Thread favouritepage;
+    LoadWallpaperShared loadWallpaperShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         toolbar = findViewById(R.id.nav_button);
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();
+        //From SharedPreference, change background for header navigation pane
+        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+        loadWallpaperShared.loadWallpaper();
         //open sign in page from navigationview
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
@@ -72,7 +78,16 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
             intent = new Intent(FavouriteNews.this, NewsAPI_Page.class);
             startActivity(intent);
         }
-
+        else if (menuitem == R.id.settings_menu) {
+            intent = new Intent(FavouriteNews.this, SettingsPage.class);
+            startActivity(intent);
+        }
         return true;
+    }
+
+    public void onResume() {
+        super.onResume();
+        //From SharedPreference, change background for header navigation pane
+        loadWallpaperShared.loadWallpaper();
     }
 }
