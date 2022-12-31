@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -51,6 +50,7 @@ public class NewsDetail extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
         //Progress Bar Setup
         progressBar = findViewById(R.id.progress_bar);
@@ -117,20 +117,19 @@ public class NewsDetail extends AppCompatActivity {
                         @Override
                         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                             super.onReceivedError(view, request, error);
+                            swipeRefreshLayout.setRefreshing(false);
+                            progressBar.setVisibility(View.GONE);
                             invalidateOptionsMenu();
                         }
                         //SSL Error
                         @Override
                         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                             swipeRefreshLayout.setRefreshing(false);
-                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
+                            progressBar.setVisibility(View.GONE);
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext(), R.style.MaterialAlertDialog);
                             builder.setTitle(R.string.SSL_error_title);
                             String error_messeage = getString(R.string.firstline_ssl_error_messeage) +"\n" + error.toString() + "\n" + getString(R.string.check_ISP_network);
                             builder.setMessage(error_messeage);
-                            builder.setPositiveButton("Continue", (dialog, which) -> {
-                                handler.proceed();
-                                dialog.dismiss();
-                            });
                             builder.setNegativeButton("Cancel", (dialog, which) -> {
                                 handler.cancel();
                                 dialog.dismiss();
@@ -220,8 +219,14 @@ public class NewsDetail extends AppCompatActivity {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl));
             //go to browser
             this.startActivity(browserIntent);
+        } else if (item.getItemId() == R.id.help) {
+            //Error URL, blank page
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog);
+            builder.setTitle(R.string.help);
+            builder.setMessage(R.string.error_loading_messeage);
+            builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+            builder.create().show();
         }
-
         return super.onOptionsItemSelected(item);
     }
 

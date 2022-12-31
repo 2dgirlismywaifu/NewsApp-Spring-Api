@@ -45,7 +45,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="guest_mode">Guest Mode</string>
@@ -75,4 +74,6 @@
     <string name="SSL_error_title">SSL Error</string>
     <string name="firstline_ssl_error_messeage">SSL Certificate Error</string>
     <string name="check_ISP_network">Please check your ISP or try again later!</string>
+    <string name="help">Help</string>
+    <string name="error_loading_messeage">If you see a blank page, please check your internet connection and try again.\nIf you still see a blank page, may be your ISP blocked this website.</string>
 </resources>

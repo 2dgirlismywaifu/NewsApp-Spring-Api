@@ -45,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="30dp"
+                app:contentInsetStart="10dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 

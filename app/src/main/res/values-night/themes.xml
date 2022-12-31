@@ -91,8 +91,18 @@
 
     </style>
 
+    <style name="MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="titleCentered">true</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitle</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="DialogTitle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!--    News Detail Page-->
-    <style name="NewsDetails" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="NewsDetails" parent="Theme.Material3.DynamicColors.Dark">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorPrimaryDark">@color/md_theme_dark_primary</item>
         <item name="colorAccent">@color/md_theme_dark_secondary</item>

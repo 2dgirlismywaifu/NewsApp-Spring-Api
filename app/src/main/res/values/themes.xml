@@ -150,8 +150,19 @@
     <style name="rounded_corner">
         <item name="cornerSize">10dp</item>
     </style>
+
+    <style name="MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="titleCentered">true</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitle</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="DialogTitle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!--    News Detail Page-->
-    <style name="NewsDetails" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="NewsDetails" parent="Theme.Material3.DynamicColors.Light">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorPrimaryDark">@color/md_theme_light_primary</item>
         <item name="colorAccent">@color/md_theme_light_secondary</item>
@@ -160,5 +171,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_baseline_arrow_back_ios_36</item>
     </style>
 </resources>
