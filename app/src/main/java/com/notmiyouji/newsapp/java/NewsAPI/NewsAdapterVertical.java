@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.NewsAPI;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.global.NewsDetail;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.Utils;
@@ -38,19 +40,21 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
     @Override
     public void onBindViewHolder(@NonNull NewsAdapterVertical.MyViewHolder holders, int position) {
         ArticleCategory model = articleCategory.get(position);
-
         String path = model.getUrlToImage();
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holders.imageView, holders);
-//        Glide.with(activity)
-//                .load(model.getUrlToImage())
-//                .apply(requestOptions)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(holders.imageView);
-
         holders.title.setText(model.getTitle());
         holders.source.setText(model.getSource().getName());
         holders.time.setText(" \u2022 " + Utils.DateToTimeFormat(model.getPublishedAt()));
+        holders.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, NewsDetail.class);
+            intent.putExtra("url",model.getUrl() );
+            intent.putExtra("title", model.getTitle() );
+            intent.putExtra("img",model.getUrlToImage() );
+            intent.putExtra("source",model.getUrl() );
+            intent.putExtra("pubdate",model.getPublishedAt() );
+            activity.startActivity(intent);
+        });
     }
 
     @Override

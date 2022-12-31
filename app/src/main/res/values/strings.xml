@@ -66,4 +66,13 @@
     <string name="select_one_wallpaper_to_use">Select one wallpaper to use</string>
     <string name="change_wall_now">Change</string>
     <string name="change_wall_messeage">Wallpaper Changed</string>
+    <string name="open_browser">Open Browser</string>
+    <string name="share_news">Share</string>
+    <string name="favourite_news">Favourite</string>
+    <!--Share Function-->
+    <string name="mainBody">Share news</string>
+    <string name="ShareTitle">\"Share with: \"</string>
+    <string name="SSL_error_title">SSL Error</string>
+    <string name="firstline_ssl_error_messeage">SSL Certificate Error</string>
+    <string name="check_ISP_network">Please check your ISP or try again later!</string>
 </resources>

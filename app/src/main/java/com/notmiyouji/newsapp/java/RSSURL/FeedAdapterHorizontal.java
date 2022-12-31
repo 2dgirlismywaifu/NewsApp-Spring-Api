@@ -2,6 +2,7 @@ package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.global.NewsDetail;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 
@@ -46,19 +48,18 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
         holder.txtTitle.setText(rssObject.getItems().get(position).getTitle());
         holder.txtPubDate.setText(rssObject.getItems().get(position).getPubDate());
         holder.txtsource.setText(rssObject.getFeed().getTitle());
-//        try
-//        {
-//            String path = rssObject.getItems().get(position).getThumbnail();
-//            Picasso.get().load(path).into(holder.imageView);
-//        }
-//        catch (IllegalArgumentException e)
-//        {
-//            e.printStackTrace();
-//
-//        }
         String path = rssObject.getItems().get(position).getThumbnail();
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holder.imageView, holder);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, NewsDetail.class);
+            intent.putExtra("url",rssObject.getItems().get(position).getLink() );
+            intent.putExtra("title",rssObject.getItems().get(position).getTitle() );
+            intent.putExtra("img",rssObject.getItems().get(position).getThumbnail() );
+            intent.putExtra("source",rssObject.getItems().get(position).getLink() );
+            intent.putExtra("pubdate",rssObject.getItems().get(position).getPubDate() );
+            activity.startActivity(intent);
+        });
     }
 
     @Override

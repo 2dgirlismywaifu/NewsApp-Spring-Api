@@ -150,13 +150,15 @@
     <style name="rounded_corner">
         <item name="cornerSize">10dp</item>
     </style>
-
-    <style name="Theme.Newsapp.NoActionBar">
+    <!--    News Detail Page-->
+    <style name="NewsDetails" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorPrimaryDark">@color/md_theme_light_primary</item>
+        <item name="colorAccent">@color/md_theme_light_secondary</item>
+    </style>
+    <style name="NewsDetails.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
-
-    <style name="Theme.Newsapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Newsapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

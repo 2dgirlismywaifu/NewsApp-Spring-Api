@@ -26,4 +26,10 @@ class LoadImageURL(
             error(R.drawable.user_192)
         }
     }
+    fun loadImageforNewsDetails(imageView: ImageView) {
+        imageView.load(url) {
+            crossfade(true)
+            error(R.drawable.not_available)
+        }
+    }
 }

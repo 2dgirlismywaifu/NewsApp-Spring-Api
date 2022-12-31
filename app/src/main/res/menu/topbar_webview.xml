@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sharebtn"
+        android:icon="@drawable/baseline_share_24"
+        android:title="@string/share_news"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/openbrowser"
+        android:icon="@drawable/baseline_open_in_browser_24"
+        android:title="@string/open_browser"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/setfavourite"
+        android:icon="@drawable/baseline_favorite_border_24"
+        android:title="@string/favourite_news"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+</menu>

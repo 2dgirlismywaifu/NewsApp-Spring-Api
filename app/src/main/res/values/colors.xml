@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="searchbar">#EDEDED</color>
+    <color name="colorPrimary">#7575FF</color>
+    <color name="colorPrimaryDark">#46469E</color>
+    <color name="colorAccent">#1e344b</color>
 <!--    Dynamic Color-->
     <color name="seed">#944461</color>
     <color name="md_theme_light_primary">#984061</color>
