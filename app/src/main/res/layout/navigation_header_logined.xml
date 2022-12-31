@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/header_login"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="bottom"
-    android:background="@drawable/nav_pane_picture_2"
+    android:background="@drawable/anime_landscapes_background__11"
     android:padding="20dp">
 
     <com.google.android.material.imageview.ShapeableImageView

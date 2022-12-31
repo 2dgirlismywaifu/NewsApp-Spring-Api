@@ -57,18 +57,16 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     }
 
     public void loadSourceList(AppCompatActivity activity, ProgressDialog mDialog) {
-        Thread loadSource = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(() -> {
-                    recyclerView = findViewById(R.id.sources_list);
-                    linearLayoutManager = new LinearLayoutManager(getBaseContext());
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    listSourceAdapter = new ListSourceAdapter(activity);
-                    recyclerView.setAdapter(listSourceAdapter);
-                    recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
-                });
-            }
+        Thread loadSource = new Thread(() -> {
+            recyclerView = findViewById(R.id.sources_list);
+            linearLayoutManager = new LinearLayoutManager(getBaseContext());
+            recyclerView.setLayoutManager(linearLayoutManager);
+            listSourceAdapter = new ListSourceAdapter(activity);
+            runOnUiThread(() -> {
+
+                recyclerView.setAdapter(listSourceAdapter);
+                recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
+            });
         });
         loadSource.start();
     }

@@ -1,12 +1,14 @@
 package com.notmiyouji.newsapp.java.NewsAPI;
 
 import android.app.ProgressDialog;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.NewsCategory;
@@ -49,7 +51,8 @@ public class LoadFollowCategory {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<NewsCategory> call, Throwable t) {
+                public void onFailure(@NonNull Call<NewsCategory> call, @NonNull Throwable t) {
+                    Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
                 }
             });
 

@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.Newsapp" parent="Theme.Material3.DynamicColors.Light">
         <!-- Primary brand color. -->
-<!--        <item name="colorPrimary">@color/purple_500</item>-->
-<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
-<!--        <item name="colorOnPrimary">@color/white</item>-->
+        <!--        <item name="colorPrimary">@color/purple_500</item>-->
+        <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+        <!--        <item name="colorOnPrimary">@color/white</item>-->
         <!-- Secondary brand color. -->
-<!--        <item name="colorSecondary">@color/teal_200</item>-->
-<!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
-<!--        <item name="colorOnSecondary">@color/black</item>-->
+        <!--        <item name="colorSecondary">@color/teal_200</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+        <!--        <item name="colorOnSecondary">@color/black</item>-->
         <!-- Status bar color. -->
-<!--        <item name="android:statusBarColor">#00000000</item>-->
+        <!--        <item name="android:statusBarColor">#00000000</item>-->
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -45,6 +45,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
 
     </style>
+
     <style name="LoginForm" parent="Theme.Material3.DynamicColors.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -78,6 +79,7 @@
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
+
     <style name="filter_selected">
 
         <item name="android:textSize">
@@ -110,7 +112,17 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
     <style name="rounded_corner">
         <item name="cornerSize">10dp</item>
     </style>
+
+    <style name="Theme.Newsapp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Newsapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Newsapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

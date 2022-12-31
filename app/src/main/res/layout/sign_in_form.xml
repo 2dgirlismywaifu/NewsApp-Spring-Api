@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,225 +8,230 @@
     android:background="@drawable/signinfigma"
     tools:context=".java.global.SignInForm"
     tools:ignore="ScrollViewCount">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/BackPressed"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="50dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck">
-
-        </ImageButton>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_foreground"
-            tools:ignore="ContentDescription,ImageContrastCheck" />
-
-        <TextView
-            android:id="@+id/SignUpLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/poppins"
-            android:text="@string/sign_in"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/code_label"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/code_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:hint="@string/enter_your_username_email"
-                android:textColorHint="#616161"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Password_label"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/code_label"
-            app:layout_constraintStart_toStartOf="@+id/code_label"
-            app:layout_constraintTop_toBottomOf="@+id/code_label"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:hint="@string/enter_your_password"
-                android:inputType="textPassword"
-                android:textColorHint="#616161"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck,TextContrastCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/ForgotPasswordBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:text="@string/forgot_password"
-            android:textColor="#3F51B5"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/Password_label"
-            app:layout_constraintStart_toStartOf="@+id/Password_label"
-            app:layout_constraintTop_toBottomOf="@+id/Password_label" />
-
-        <Button
-            android:id="@+id/ResendCodeBtn"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#0E64D2"
-            android:fontFamily="@font/raleway_bold"
-            android:text="@string/sign_in"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/ForgotPasswordBtn"
-            app:layout_constraintStart_toStartOf="@+id/ForgotPasswordBtn"
-            app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBtn"
-            tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-        <LinearLayout
-            android:id="@+id/signin_label"
-            android:layout_width="320dp"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/ResendCodeBtn"
-            app:layout_constraintStart_toStartOf="@+id/ResendCodeBtn"
-            app:layout_constraintTop_toBottomOf="@+id/ResendCodeBtn">
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/raleway"
-                android:text="@string/don_t_have_an_account"
-                android:textAlignment="center"
-                android:textColor="#D0000000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/SignUpBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <ImageButton
+                android:id="@+id/BackPressed"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="50dp"
                 android:background="#00FFFFFF"
-                android:fontFamily="@font/raleway_bold"
-                android:text="@string/sign_up"
-                android:textColor="#2F89FC"
-                android:textSize="16sp"
-                tools:ignore="TextContrastCheck" />
-        </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="320dp"
-            android:layout_height="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/signin_label"
-            app:layout_constraintStart_toStartOf="@+id/signin_label"
-            app:layout_constraintTop_toBottomOf="@+id/signin_label">
-
-            <View
-                android:layout_width="138dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/black" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/raleway_bold"
-                android:text="@string/or"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                tools:ignore="TextContrastCheck" />
-
-            <View
-                android:layout_width="138dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Google_signin"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:foreground="@drawable/sign_in_with_google"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="horizontal"
-            android:background="?attr/selectableItemBackground"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            </ImageButton>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/icons8_google_48"
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="110dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_foreground"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/SignUpLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/sign_in"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="0.483"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/code_label"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/code_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:hint="@string/enter_your_username_email"
+                    android:textColorHint="#616161"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Password_label"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/code_label"
+                app:layout_constraintStart_toStartOf="@+id/code_label"
+                app:layout_constraintTop_toBottomOf="@+id/code_label"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:hint="@string/enter_your_password"
+                    android:inputType="textPassword"
+                    android:textColorHint="#616161"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck,TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/ForgotPasswordBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:text="@string/forgot_password"
+                android:textColor="#3F51B5"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/Password_label"
+                app:layout_constraintStart_toStartOf="@+id/Password_label"
+                app:layout_constraintTop_toBottomOf="@+id/Password_label" />
+
+            <Button
+                android:id="@+id/ResendCodeBtn"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
-                android:text="@string/sign_in_with_google"
-                android:textAlignment="center"
-                android:textColor="#C4000000"
+                android:text="@string/sign_in"
                 android:textSize="16sp"
-                tools:ignore="TextContrastCheck" />
+                app:layout_constraintEnd_toEndOf="@+id/ForgotPasswordBtn"
+                app:layout_constraintStart_toStartOf="@+id/ForgotPasswordBtn"
+                app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBtn"
+                tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/signin_label"
+                android:layout_width="320dp"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/ResendCodeBtn"
+                app:layout_constraintStart_toStartOf="@+id/ResendCodeBtn"
+                app:layout_constraintTop_toBottomOf="@+id/ResendCodeBtn">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway"
+                    android:text="@string/don_t_have_an_account"
+                    android:textAlignment="center"
+                    android:textColor="#D0000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/SignUpBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="@string/sign_up"
+                    android:textColor="#2F89FC"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="320dp"
+                android:layout_height="24dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/signin_label"
+                app:layout_constraintStart_toStartOf="@+id/signin_label"
+                app:layout_constraintTop_toBottomOf="@+id/signin_label">
+
+                <View
+                    android:layout_width="138dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="@string/or"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+
+                <View
+                    android:layout_width="138dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Google_signin"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:foreground="@drawable/sign_in_with_google"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/icons8_google_48"
+                    tools:ignore="ContentDescription,ImageContrastCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="@string/sign_in_with_google"
+                    android:textAlignment="center"
+                    android:textColor="#C4000000"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
-</androidx.core.widget.NestedScrollView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

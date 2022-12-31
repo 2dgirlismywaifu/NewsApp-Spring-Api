@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,15 +41,15 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
     public static final String API_KEY = new NewsAPIKey().getNEWSAPIKEY(); //the newsAPI key is here
     DrawerLayout drawerNewsAPI;
     NavigationView navigationView;
-    LinearLayoutManager newstypeLayout, newsAPIHorizontalLayout, newsAPIVerticalLayout;
+    LinearLayoutManager newstypeLayout;
+    LinearLayoutManager newsAPIHorizontalLayout;
     RecyclerView newstypeView, newsViewHorizontal, newsViewVertical;
     Toolbar toolbar;
     NavigationPane navigationPane;
     NewsAPITypeAdapter newsAPITypeAdapter;
     Intent intent;
-    List<Article> articles = new ArrayList<>(); //not inclue category
+    List<Article> articles = new ArrayList<>(); //not include category
     NewsAdapterHorizontal newsAdapterHorizontal;
-    String TAG = NewsAPI_Page.class.getSimpleName();
     NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
     Call<News> call;
     LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
@@ -90,37 +91,35 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
 
 
     public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog){
-        Thread loadSourceAPI = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                call = newsApiInterface.getLatestNews("us", API_KEY);
-                assert call != null;
-                call.enqueue(new Callback<News>() {
-                    @Override
-                    public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
-                        if (response.isSuccessful()) {
-                            assert response.body() != null;
-                            if (response.body().getArticle() != null) {
-                                if (!articles.isEmpty()) {
-                                    articles.clear();
-                                }
-                                articles = response.body().getArticle();
-                                newsAPIHorizontalLayout = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
-                                newsViewHorizontal.setLayoutManager(newsAPIHorizontalLayout);
-                                newsAdapterHorizontal = new NewsAdapterHorizontal(articles, activity);
-                                newsViewHorizontal.setAdapter(newsAdapterHorizontal);
-
+        Thread loadSourceAPI = new Thread(() -> {
+            call = newsApiInterface.getLatestNews("us", API_KEY);
+            assert call != null;
+            call.enqueue(new Callback<News>() {
+                @Override
+                public void onResponse(@NonNull Call<News> call, @NonNull Response<News> response) {
+                    if (response.isSuccessful()) {
+                        assert response.body() != null;
+                        if (response.body().getArticle() != null) {
+                            if (!articles.isEmpty()) {
+                                articles.clear();
                             }
+                            articles = response.body().getArticle();
+                            newsAPIHorizontalLayout = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+                            newsViewHorizontal.setLayoutManager(newsAPIHorizontalLayout);
+                            newsAdapterHorizontal = new NewsAdapterHorizontal(articles, activity);
+                            newsViewHorizontal.setAdapter(newsAdapterHorizontal);
+
                         }
                     }
-                    @Override
-                    public void onFailure(@NonNull Call<News> call, Throwable t) {
-                    }
-                });
+                }
+                @Override
+                public void onFailure(@NonNull Call<News> call, @NonNull Throwable t) {
+                    Toast.makeText(NewsAPI_Page.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                runOnUiThread(() ->
-                        newsViewHorizontal.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
-            }
+            runOnUiThread(() ->
+                    newsViewHorizontal.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
         });
         loadSourceAPI.start();
     }
