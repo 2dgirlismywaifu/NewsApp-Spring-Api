@@ -106,7 +106,9 @@
             <RelativeLayout
                 android:id="@+id/signin_menu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 android:layout_marginTop="440dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -114,11 +116,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
+                <ImageView
+                    android:id="@+id/signin_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/baseline_login_24"
+                    android:padding="5dp"
+                    tools:ignore="ContentDescription" />
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/signin_icon"
                     android:layout_marginStart="20dp"
                     android:text="@string/sign_in"
                     android:textSize="18sp"
@@ -126,8 +139,8 @@
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
@@ -158,11 +171,23 @@
             <RelativeLayout
                 android:id="@+id/selected_language"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/space"
                 app:layout_constraintStart_toStartOf="@+id/space"
                 app:layout_constraintTop_toBottomOf="@+id/space">
+
+                <ImageView
+                    android:id="@+id/selected_lang_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/baseline_language_24"
+                    android:padding="5dp"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -170,14 +195,15 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/selected_lang_icon"
                     android:text="@string/select_language"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
@@ -208,11 +234,23 @@
             <RelativeLayout
                 android:id="@+id/change_theme"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/space_2"
                 app:layout_constraintStart_toStartOf="@+id/space_2"
                 app:layout_constraintTop_toBottomOf="@+id/space_2">
+
+                <ImageView
+                    android:id="@+id/changetheme_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/baseline_mode_night_24"
+                    android:padding="5dp"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -220,14 +258,15 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="@string/change_language"
+                    android:layout_toEndOf="@+id/changetheme_icon"
+                    android:text="@string/change_theme"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
@@ -257,26 +296,39 @@
             <RelativeLayout
                 android:id="@+id/about_application"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/space_3"
                 app:layout_constraintStart_toStartOf="@+id/space_3"
                 app:layout_constraintTop_toBottomOf="@+id/space_3">
+
+                <ImageView
+                    android:id="@+id/about_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/baseline_info_24"
+                    android:padding="5dp"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/about_icon"
                     android:text="@string/about_application"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"

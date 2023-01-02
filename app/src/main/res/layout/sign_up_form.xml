@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signinfigma"
+    android:background="@drawable/signinbackground"
     tools:context=".java.global.SignUpForm"
     tools:ignore="ScrollViewCount">
 
@@ -199,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#00FFFFFF"
+                    android:background="?attr/selectableItemBackground"
                     android:fontFamily="@font/raleway_bold"
                     android:text="@string/sign_in"
                     android:textColor="#2F89FC"

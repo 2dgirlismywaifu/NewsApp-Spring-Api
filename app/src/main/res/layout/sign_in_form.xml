@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signinfigma"
+    android:background="@drawable/signinbackground"
     tools:context=".java.global.SignInForm"
     tools:ignore="ScrollViewCount">
     <androidx.core.widget.NestedScrollView
@@ -100,7 +100,7 @@
                 android:id="@+id/ForgotPasswordBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
+                android:background="?attr/selectableItemBackground"
                 android:text="@string/forgot_password"
                 android:textColor="#3F51B5"
                 android:textSize="18sp"
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#00FFFFFF"
+                    android:background="?attr/selectableItemBackground"
                     android:fontFamily="@font/raleway_bold"
                     android:text="@string/sign_up"
                     android:textColor="#2F89FC"
