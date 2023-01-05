@@ -181,10 +181,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public void reloadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("SourceName", MODE_PRIVATE);
         if (!sharedPreferences.getString("name", "").equals(getDeafultSource())) {
-            setDeafultSource(sharedPreferences.getString("name", ""));
-        }
-        else {
-            setDeafultSource("VNExpress");
+            setDeafultSource(sharedPreferences.getString("name", getDeafultSource()));
         }
     }
     @Override
