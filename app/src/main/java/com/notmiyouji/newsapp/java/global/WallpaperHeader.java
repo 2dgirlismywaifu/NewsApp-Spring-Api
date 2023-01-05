@@ -1,13 +1,12 @@
 package com.notmiyouji.newsapp.java.global;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.WallpaperHeaderAdpater;

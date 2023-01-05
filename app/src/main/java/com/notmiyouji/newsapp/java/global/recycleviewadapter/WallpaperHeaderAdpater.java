@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.SharedPreferenceSettings;
+import com.notmiyouji.newsapp.kotlin.sharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 

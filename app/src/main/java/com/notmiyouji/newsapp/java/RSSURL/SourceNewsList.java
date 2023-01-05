@@ -17,12 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
-import com.notmiyouji.newsapp.kotlin.LoadWallpaperShared;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
+import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
+import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import retrofit2.Call;
 
 public class SourceNewsList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,6 +45,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     LinearLayoutManager linearLayoutManager;
     ListSourceAdapter listSourceAdapter;
     LoadWallpaperShared loadWallpaperShared;
+    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    List<NewsSource> newsSources = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         drawerSourceNews = findViewById(R.id.source_news_page);
         navigationView = findViewById(R.id.nav_pane_view);
         toolbar = findViewById(R.id.nav_button);
+        recyclerView = findViewById(R.id.sources_list);
         navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
@@ -64,18 +76,37 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
 
     public void loadSourceList(AppCompatActivity activity, ProgressDialog mDialog) {
         Thread loadSource = new Thread(() -> {
-            recyclerView = findViewById(R.id.sources_list);
-            linearLayoutManager = new LinearLayoutManager(getBaseContext());
-            recyclerView.setLayoutManager(linearLayoutManager);
-            listSourceAdapter = new ListSourceAdapter(activity);
-            runOnUiThread(() -> {
-
-                recyclerView.setAdapter(listSourceAdapter);
-                recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss);
+            Call<ListObject> call = newsAPPInterface.getAllSource();
+            assert  call != null;
+            call.enqueue(new retrofit2.Callback<ListObject>() {
+                @Override
+                public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
+                    if (response.isSuccessful()){
+                        System.out.println("Success");
+                        assert response.body() != null;
+                        if (response.body().getNewsSource() !=null) {
+                            if (!newsSources.isEmpty()) {
+                                newsSources.clear();
+                            }
+                            newsSources = response.body().getNewsSource();
+                            linearLayoutManager = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+                            recyclerView.setLayoutManager(linearLayoutManager);
+                            listSourceAdapter = new ListSourceAdapter(activity, newsSources);
+                            recyclerView.setAdapter(listSourceAdapter);
+                            runOnUiThread(() -> recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
+                    Logger.getLogger("Error").warning(t.getMessage());
+                }
             });
         });
         loadSource.start();
     }
+
+
 
     @Override
     public void onBackPressed() {

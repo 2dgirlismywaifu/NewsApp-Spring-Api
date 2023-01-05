@@ -11,31 +11,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.global.AzureSQLServer;
+import com.notmiyouji.newsapp.java.RSSURL.NewsAppAPI;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>{
 
-    AzureSQLServer azureSQLServer = new AzureSQLServer();
     PreparedStatement ps;
     AppCompatActivity activity;
-    public final String READ = "SELECT NEWS_SOURCE.source_id, source_name, information, IMAGE_INFORMATION.[image]  FROM NEWS_SOURCE, IMAGE_INFORMATION WHERE NEWS_SOURCE.source_id = IMAGE_INFORMATION.source_id";
+    List<NewsSource> newsSourceList;
 
-    public ListSourceAdapter(AppCompatActivity activity) {
+
+    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    //public final String READ = "SELECT NEWS_SOURCE.source_id, source_name, information, IMAGE_INFORMATION.[image]  FROM NEWS_SOURCE, IMAGE_INFORMATION WHERE NEWS_SOURCE.source_id = IMAGE_INFORMATION.source_id";
+
+    public ListSourceAdapter(AppCompatActivity activity, List<NewsSource> newsSourceList) {
         this.activity = activity;
-    }
-
-    public String getREAD() {
-        return READ;
+        this.newsSourceList = newsSourceList;
     }
 
     @NonNull
@@ -47,52 +43,19 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
 
     @Override
     public void onBindViewHolder(@NonNull ListSourceHolder holder, int position) {
-        try {
-            JSONObject jsonObject = sourecs().getJSONObject(position);
-            holder.source_name.setText(jsonObject.getString("source_name"));
-            holder.source_description.setText(jsonObject.getString("information"));
-            String path = jsonObject.getString("image");
-            LoadImageURL loadImageURL = new LoadImageURL(path);
-            loadImageURL.getImageFromURL(holder.source_image, holder);
-            //Picasso.get().load(path).into(holder.source_image);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        NewsSource newsSource = newsSourceList.get(position);
+        holder.source_name.setText(newsSource.getSource_name());
+        holder.source_description.setText(newsSource.getInformation());
+        String path = newsSource.getImgae();
+        LoadImageURL loadImageURL = new LoadImageURL(path);
+        loadImageURL.getImageFromURL(holder.source_image, holder);
+        //Picasso.get().load(path).into(holder.source_image);
     }
 
     @Override
     public int getItemCount() {
-        return sourecs().length();
+        return newsSourceList.size();
     }
-
-    //Get sources with JSONArray
-    public JSONArray sourecs() {
-        JSONArray jsonArray = new JSONArray();
-        try {
-            Connection con = azureSQLServer.getConnection();
-            ps = con.prepareStatement(getREAD());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("id", rs.getString(1));
-                    jsonObject.put("source_name", rs.getString(2));
-                    jsonObject.put("information", rs.getString(3));
-                    jsonObject.put("image", rs.getString(4));
-                    jsonArray.put(jsonObject);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            rs.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return jsonArray;
-    }
-
 
     public static class ListSourceHolder extends RecyclerView.ViewHolder {
 

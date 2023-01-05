@@ -1,10 +1,10 @@
 package com.notmiyouji.newsapp.java.global;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;

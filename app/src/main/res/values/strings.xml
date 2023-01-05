@@ -76,4 +76,6 @@
     <string name="check_ISP_network">Please check your ISP or try again later!</string>
     <string name="help">Help</string>
     <string name="error_loading_messeage">If you see a blank page, please check your internet connection and try again.\nIf you still see a blank page, may be your ISP blocked this website.</string>
+    <string name="choose_rss">Choose Source</string>
+    <string name="Select_RSS_Feed">Choose one source to feed</string>
 </resources>

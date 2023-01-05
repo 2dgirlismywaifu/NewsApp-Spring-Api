@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.sharedSettings
 
 import android.content.Context
 import android.view.View

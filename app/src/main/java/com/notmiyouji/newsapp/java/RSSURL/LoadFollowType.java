@@ -12,21 +12,20 @@ public class LoadFollowType {
     LinearLayoutManager newsViewLayoutVertical;
     AppCompatActivity activity;
     ProgressDialog mDialog;
+    String name;
 
-    public LoadFollowType(AppCompatActivity activity, RecyclerView newsViewVertical, ProgressDialog mDialog) {
+    public LoadFollowType(AppCompatActivity activity, RecyclerView newsViewVertical, ProgressDialog mDialog, String name) {
         this.activity = activity;
         this.newsViewVertical = newsViewVertical;
         this.mDialog = mDialog;
+        this.name = name;
     }
 
     public void startLoad (String url_type) {
-        Thread loadNewsVerticalMode = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                newsViewLayoutVertical = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-                FeedMultiRSS feedMultiRSS = new FeedMultiRSS(activity, newsViewVertical, newsViewLayoutVertical);
-                feedMultiRSS.MultiFeedVertical(url_type, mDialog);
-            }
+        Thread loadNewsVerticalMode = new Thread(() -> {
+            newsViewLayoutVertical = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+            FeedMultiRSS feedMultiRSS = new FeedMultiRSS(activity, newsViewVertical, newsViewLayoutVertical);
+            feedMultiRSS.MultiFeedVertical(url_type, name, mDialog);
         });
         loadNewsVerticalMode.start();
     }

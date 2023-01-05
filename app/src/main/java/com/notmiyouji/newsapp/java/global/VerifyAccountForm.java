@@ -1,8 +1,8 @@
 package com.notmiyouji.newsapp.java.global;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
 

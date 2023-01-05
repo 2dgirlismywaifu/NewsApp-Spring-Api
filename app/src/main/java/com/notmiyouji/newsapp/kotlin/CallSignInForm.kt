@@ -1,13 +1,12 @@
 package com.notmiyouji.newsapp.kotlin
 
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.view.View
-import com.notmiyouji.newsapp.R
-import android.content.Intent
-import com.notmiyouji.newsapp.java.global.SignInForm
 import android.app.ActivityOptions
+import android.content.Intent
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.navigation.NavigationView
+import com.notmiyouji.newsapp.R
+import com.notmiyouji.newsapp.java.global.SignInForm
 
 class CallSignInForm(var navigationView: NavigationView, var activity: AppCompatActivity) {
 

@@ -14,11 +14,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
-import com.notmiyouji.newsapp.kotlin.LoadWallpaperShared;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

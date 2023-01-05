@@ -1,7 +1,7 @@
 package com.notmiyouji.newsapp.kotlin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 
 class ApplicationFlags(var activity: AppCompatActivity) {
     fun setFlag() {

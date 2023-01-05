@@ -5,17 +5,17 @@
     android:id="@+id/home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".java.RSSURL.HomePage">
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_pane_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/nav_pane_view"
+        android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
+        app:menu="@menu/navigation_menu">
 
     </com.google.android.material.navigation.NavigationView>
 
@@ -59,9 +59,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="vertical">
 
                         <com.google.android.material.card.MaterialCardView
@@ -116,8 +116,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/noticia_text_bold"
                                 android:text="@string/lastest_news"
-                                android:textSize="24sp"
                                 android:textAlignment="center"
+                                android:textSize="24sp"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
@@ -127,9 +127,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:nestedScrollingEnabled="false"
                             android:orientation="horizontal"
                             android:scrollbars="horizontal"
-                            android:nestedScrollingEnabled="false"
                             tools:listitem="@layout/news_items_horizontal">
 
                         </androidx.recyclerview.widget.RecyclerView>
@@ -176,6 +176,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nav_button"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filterSource"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:fabCustomSize="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/baseline_filter_list_36"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

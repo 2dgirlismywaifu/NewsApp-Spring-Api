@@ -20,15 +20,15 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
-import com.notmiyouji.newsapp.kotlin.LoadWallpaperShared;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
+import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
+import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,8 +94,6 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
         loadFollowCategory.LoadJSONCategory(this, mDialog, "business", newsViewVertical);
     }
 
-
-
     public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog){
         Thread loadSourceAPI = new Thread(() -> {
             call = newsApiInterface.getLatestNews("us", API_KEY);
@@ -114,7 +112,6 @@ public class NewsAPI_Page extends AppCompatActivity implements NavigationView.On
                             newsViewHorizontal.setLayoutManager(newsAPIHorizontalLayout);
                             newsAdapterHorizontal = new NewsAdapterHorizontal(articles, activity);
                             newsViewHorizontal.setAdapter(newsAdapterHorizontal);
-
                         }
                     }
                 }

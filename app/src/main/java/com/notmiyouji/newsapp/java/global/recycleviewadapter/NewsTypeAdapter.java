@@ -19,10 +19,12 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     ArrayList<String> data = newstype();
     AppCompatActivity activity;
+    String name;
 
 
-    public NewsTypeAdapter(AppCompatActivity activity) {
+    public NewsTypeAdapter(AppCompatActivity activity, String name) {
         this.activity = activity;
+        this.name = name;
     }
 
 
@@ -43,7 +45,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
             mDialog.show();
             //fetch follow category
             String category = holder.news_type.getText().toString();
-            LoadFollowType loadFollowType = new LoadFollowType(activity, activity.findViewById(R.id.cardnews_view_vertical), mDialog);
+            LoadFollowType loadFollowType = new LoadFollowType(activity, activity.findViewById(R.id.cardnews_view_vertical), mDialog, name);
             loadFollowType.startLoad(category);
         });
     }
@@ -55,7 +57,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     public ArrayList<String> newstype() {
         ArrayList<String> data = new ArrayList<>();
-        data.add("Breaking News");
+        data.add("BreakingNews");
         data.add("World");
         data.add("News");
         data.add("Sport");
