@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -168,12 +169,17 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             assert spinner_rss != null;
             okbtn.setOnClickListener(v1 -> {
                 String sourceName = spinner_rss.getText().toString();
-                SharedPreferenceSettings sharedPreferenceSettings = new SharedPreferenceSettings(HomePage.this);
-                sharedPreferenceSettings.getSharedSource(sourceName);
-                setDeafultSource(sourceName);
-                LoadCategory(sourceName);
-                LoadSourceNews(sourceName);
-                bottomSheetDialog.dismiss();
+                if (sourceName.isEmpty()) {
+                    Toast.makeText(HomePage.this, "Please choose source", Toast.LENGTH_SHORT).show();
+                } else {
+                    SharedPreferenceSettings sharedPreferenceSettings = new SharedPreferenceSettings(HomePage.this);
+                    sharedPreferenceSettings.getSharedSource(sourceName);
+                    setDeafultSource(sourceName);
+                    LoadCategory(sourceName);
+                    LoadSourceNews(sourceName);
+                    bottomSheetDialog.dismiss();
+                }
+
             });
         });
     }
