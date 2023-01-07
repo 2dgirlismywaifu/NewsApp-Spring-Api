@@ -171,6 +171,5 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowActivityTransitions">true</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_baseline_arrow_back_ios_36</item>
     </style>
 </resources>

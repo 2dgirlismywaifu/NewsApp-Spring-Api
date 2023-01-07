@@ -6,25 +6,27 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsTypeAdapter;
@@ -50,25 +52,20 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     RecyclerView recyclerView, newsViewHorizontal, newsViewVertical;
     Toolbar toolbar;
     NavigationPane navigationPane;
-    NewsTypeAdapter newsTypeAdapter;
     Intent intent;
-    View headerNavigation;
     LoadWallpaperShared  loadWallpaperShared;
-
-    FloatingActionButton filterSource;
+    ExtendedFloatingActionButton filterSource;
+    TextView chooseTitle;
+    TextInputLayout chooseHint;
     NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
-
     private String deafultSource = "VNExpress";
-
     public String getDeafultSource() {
         return deafultSource;
     }
-
     public void setDeafultSource(String deafultSource) {
         this.deafultSource = deafultSource;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +96,24 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         LoadSourceNews(getDeafultSource());
         //Select source to load (Settings will save to shared preference)
         openSourceChoose();
+        //Hide float button when scroll recyclerview vertical
+        hideWhenScroll();
+    }
+    //Collapse float button
+    private void hideWhenScroll() {
+        NestedScrollView homepageScroll = findViewById(R.id.homepageScroll);
+        homepageScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            if (homepageScroll.getScrollY() > 0) {
+                filterSource.shrink();
+            } else {
+                filterSource.extend();
+            }
+        });
     }
 
     private void LoadCategory(String source) {
-        newsTypeAdapter = new NewsTypeAdapter(this, source);
+        NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, source);
+        newsTypeAdapter.setActivity(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
@@ -110,7 +121,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private void LoadSourceNews(String source) {
         final ProgressDialog mDialog = new ProgressDialog(this);
-        mDialog.setMessage("Loading, please wait...");
+        mDialog.setMessage(this.getString(R.string.loading_messeage));
         mDialog.show();
         //Load Lastest News
         Thread loadLastNews = new Thread(() -> {
@@ -129,17 +140,20 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     private void openSourceChoose() {
         filterSource.setOnClickListener(v -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(HomePage.this);
-            bottomSheetDialog.setContentView(R.layout.choose_rss);
+            bottomSheetDialog.setContentView(R.layout.choose_feed);
             bottomSheetDialog.show();
             MaterialAutoCompleteTextView spinner_rss;
             spinner_rss = bottomSheetDialog.findViewById(R.id.spinner_rss);
+            chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
+            chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
+            chooseTitle.setText(R.string.choose_rss);
+            chooseHint.setHint(R.string.Select_RSS_Feed);
             Call<ListObject> call = newsAPPInterface.getAllSource();
             assert call != null;
             call.enqueue(new retrofit2.Callback<ListObject>() {
                 @Override
                 public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
                     if (response.isSuccessful()){
-                        System.out.println("Success");
                         assert response.body() != null;
                         if (response.body().getNewsSource() !=null) {
                             if (!newsSources.isEmpty()) {
@@ -148,11 +162,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                             newsSources = response.body().getNewsSource();
                             List<NewsSource> newsSourceList = newsSources;
                             ArrayList<String> listSource = new ArrayList<>();
-                            int count = newsSourceList.size();
-                            System.out.println(count);
-                            while (count > 0) {
-                                listSource.add(newsSourceList.get(count - 1).getSource_name());
-                                count--;
+//                            int count = newsSourceList.size();
+//                            while (count > 0) {
+//                                listSource.add(newsSourceList.get(count - 1).getSource_name());
+//                                count--;
+//                            }
+                            for (NewsSource newsSource : newsSourceList) {
+                                listSource.add(newsSource.getSource_name());
                             }
                             assert spinner_rss != null;
                             spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
@@ -170,21 +186,21 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             okbtn.setOnClickListener(v1 -> {
                 String sourceName = spinner_rss.getText().toString();
                 if (sourceName.isEmpty()) {
-                    Toast.makeText(HomePage.this, "Please choose source", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomePage.this, R.string.source_not_choose, Toast.LENGTH_SHORT).show();
                 } else {
                     SharedPreferenceSettings sharedPreferenceSettings = new SharedPreferenceSettings(HomePage.this);
                     sharedPreferenceSettings.getSharedSource(sourceName);
                     setDeafultSource(sourceName);
+                    bottomSheetDialog.dismiss();
                     LoadCategory(sourceName);
                     LoadSourceNews(sourceName);
-                    bottomSheetDialog.dismiss();
                 }
 
             });
         });
     }
 
-    public void reloadData() {
+    private void reloadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("SourceName", MODE_PRIVATE);
         if (!sharedPreferences.getString("name", "").equals(getDeafultSource())) {
             setDeafultSource(sharedPreferences.getString("name", getDeafultSource()));
@@ -206,7 +222,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int menuitem = item.getItemId();
         if (menuitem == R.id.newsapi_menu) {
-            intent = new Intent(HomePage.this, NewsAPI_Page.class);
+            intent = new Intent(HomePage.this, NewsAPIPage.class);
             startActivity(intent);
         }
         else if (menuitem == R.id.source_menu) {

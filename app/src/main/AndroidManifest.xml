@@ -87,7 +87,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.NewsAPI.NewsAPI_Page"
+            android:name=".java.NewsAPI.NewsAPIPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

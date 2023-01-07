@@ -21,25 +21,20 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 
 public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHorizontal.FeedViewHolder> {
-
     RSSObject rssObject;
     AppCompatActivity activity;
-
     private final LayoutInflater inflater;
-
     public FeedAdapterHorizontal(RSSObject rssObject, AppCompatActivity activity) {
         this.rssObject = rssObject;
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
     }
-
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.news_items_horizontal,parent,false);
         return new FeedViewHolder(itemView);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("RtlHardcoded")
     @Override
@@ -61,7 +56,6 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
             activity.startActivity(intent);
         });
     }
-
     @Override
     public int getItemCount() {
         try
@@ -73,16 +67,11 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
             e.printStackTrace();
             return 0;
         }
-
     }
-
-    public static class FeedViewHolder extends RecyclerView.ViewHolder
-    {
-
+    public static class FeedViewHolder extends RecyclerView.ViewHolder {
         public TextView txtTitle,txtPubDate,txtsource;
         public ImageView imageView;
         public Activity activity;
-
 
         public FeedViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +81,5 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
             imageView = itemView.findViewById(R.id.imgNews);
             //Set Event
         }
-
-
     }
 }

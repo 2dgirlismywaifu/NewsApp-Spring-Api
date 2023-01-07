@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,13 +35,17 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
+import java.util.Objects;
+
 public class NewsDetail extends AppCompatActivity {
 
     public WebView webView;
     public ImageView imgHeader;
     public String mUrl, mImg, mTitle, mSubTitle, mSource, mPubdate;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView titlepreview, sourcepreview, pubdatepreview;
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,7 @@ public class NewsDetail extends AppCompatActivity {
         applicationFlags.setFlag();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
         //Progress Bar Setup
@@ -59,15 +64,11 @@ public class NewsDetail extends AppCompatActivity {
         ///////////////////////////////////////////////
         webView = findViewById(R.id.webView);
         imgHeader = findViewById(R.id.backdrop);
+        titlepreview = findViewById(R.id.txtTitle);
+        sourcepreview = findViewById(R.id.txtSource);
+        pubdatepreview = findViewById(R.id.txtPubDate);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        //refresh webview
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            webView.reload();
-            swipeRefreshLayout.setRefreshing(false);
-        });
-
         initCollapsingToolbar(); // Collapsing Toolbar
-
         Intent intent = getIntent();
         mUrl = intent.getStringExtra("url");
         mImg = intent.getStringExtra("img");
@@ -77,43 +78,42 @@ public class NewsDetail extends AppCompatActivity {
         mSubTitle = intent.getStringExtra("title");
         mSource = intent.getStringExtra("source");
         mPubdate = intent.getStringExtra("pubdate");
-        initWebView(mUrl);
+
+        titlepreview.setText(mTitle);
+        sourcepreview.setText(mSource);
+        pubdatepreview.setText(mPubdate);
+        initWebView(mUrl, swipeRefreshLayout);
+        //refresh webview
+        swipeRefreshLayout.setOnRefreshListener(() -> webView.reload());
     }
 
-
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView(String url)
+    private void initWebView(String url, SwipeRefreshLayout swipeRefreshLayout)
     {
         new Thread(() -> {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(2000);
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() -> {
                     //UI Thread work here
-                    //Hide all float button and Extended Float Button
-                    WebView webView = findViewById(R.id.webView);
-                    webView.setWebChromeClient(new MyWebChromeClient(this, progressBar));
+                    webView.setWebChromeClient(new MyWebChromeClient(this, progressBar, swipeRefreshLayout));
                     webView.setWebViewClient(new WebViewClient() {
                         @Override
                         public void onPageStarted(WebView view, String url, Bitmap favicon) {
                             super.onPageStarted(view, url, favicon);
                             invalidateOptionsMenu();
                         }
-
                         @Override
                         public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
                             webView.loadUrl(url);
                             return true;
                         }
-
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             super.onPageFinished(view, url);
-                            progressBar.setVisibility(View.GONE);
                             swipeRefreshLayout.setRefreshing(false);
                             invalidateOptionsMenu();
                         }
-
                         @Override
                         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                             super.onReceivedError(view, request, error);
@@ -145,6 +145,7 @@ public class NewsDetail extends AppCompatActivity {
                     webView.getSettings().setSupportZoom(true);
                     webView.getSettings().setBuiltInZoomControls(true);
                     webView.getSettings().setDisplayZoomControls(true);
+                    webView.getSettings().setUseWideViewPort(true);
                     webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                     webView.setWebViewClient(new WebViewClient());
                     webView.loadUrl(url);
@@ -188,15 +189,12 @@ public class NewsDetail extends AppCompatActivity {
             }
         });
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.topbar_webview, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sharebtn) {
@@ -233,16 +231,21 @@ public class NewsDetail extends AppCompatActivity {
     private static class MyWebChromeClient extends WebChromeClient {
         Context context;
         ProgressBar progressBar;
+        SwipeRefreshLayout swipeRefreshLayout;
 
-        public MyWebChromeClient(Context context, ProgressBar progressBar) {
+        public MyWebChromeClient(Context context, ProgressBar progressBar, SwipeRefreshLayout swipeRefreshLayout) {
             super();
             this.context = context;
             this.progressBar = progressBar;
+            this.swipeRefreshLayout = swipeRefreshLayout;
         }
         public void onProgressChanged(WebView view, int progress) {
             // Activities and WebViews measure progress with different scales.
             // The progress meter will automatically disappear when we reach 100%
             progressBar.setProgress(progress);
+            if (progress == 100) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
     }
     public void onBackPressed() {

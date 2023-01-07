@@ -39,14 +39,6 @@
     <string name="verify">Verify Now</string>
     <string name="send_verify_code">Send</string>
     <string name="Some_things_went_wrong">Some things went wrong! Please try again.</string>
-    <string name="title_activity_setting">SettingActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="guest_mode">Guest Mode</string>
     <string name="settings">Settings</string>
     <string name="select_language">Select Language</string>
@@ -54,13 +46,13 @@
     <string name="about_application">About Application</string>
     <string name="account_settings">Account Settings</string>
     <string name="sign_out">Sign Out</string>
-    <string name="github_product_owner">2dgirlismywaifu (github.com)</string>
-    <string name="twitter_product_owner">\@MyWaifuis2DGirl/Twitter</string>
+    <string name="github_product_owner" translatable="false">2dgirlismywaifu (github.com)</string>
+    <string name="twitter_product_owner" translatable="false">\@MyWaifuis2DGirl/Twitter</string>
     <string name="developer_product_owner">Developer/Product Owner</string>
     <string name="powered_by">Powered by</string>
     <string name="version">Version 2.0.0</string>
     <string name="note_application">For research and study only, \nthis application is not available for commercial use</string>
-    <string name="microsoft_azure_portal">Microsoft Azure Portal</string>
+    <string name="microsoft_azure_portal" translatable="false">Microsoft Azure Portal</string>
     <string name="change_wallpaper">Wall</string>
     <string name="select_one_wallpaper_to_use">Select one wallpaper to use</string>
     <string name="change_wall_now">Change</string>
@@ -75,7 +67,32 @@
     <string name="firstline_ssl_error_messeage">SSL Certificate Error</string>
     <string name="check_ISP_network">Please check your ISP or try again later!</string>
     <string name="help">Help</string>
-    <string name="error_loading_messeage">If you see a blank page, please check your internet connection and try again.\nIf you still see a blank page, may be your ISP blocked this website.</string>
+    <string name="error_loading_messeage">If you see a blank page, please check your internet connection and try again.\nIf you still see a blank page, may be your ISP blocked this link.</string>
     <string name="choose_rss">Choose Source</string>
     <string name="Select_RSS_Feed">Choose one source to feed</string>
+    <string name="no_topic_available">"This source has no topic: "</string>
+    <string name="loading_messeage">Loading, please wait…</string>
+    <!--    RSS Link-->
+    <string name="breakingnews_type">Breaking News</string>
+    <string name="worldnews_type">World</string>
+    <string name="news_type">News</string>
+    <string name="sportnews_type">Sport</string>
+    <string name="lawnews_type">Law</string>
+    <string name="educationnews_type">Education</string>
+    <string name="healthnews_type">Health</string>
+    <string name="lifestylenews_type">Life Style</string>
+    <string name="travelnews_type">Travel</string>
+    <string name="sciencenews_type">Science</string>
+    <!--    NewsAPI Link-->
+    <string name="general_newsapi">General</string>
+    <string name="business_newsapi">Business</string>
+    <string name="entertainment_newsapi">Entertainment</string>
+    <string name="health_newsapi">Health</string>
+    <string name="science_newsapi">Science</string>
+    <string name="sports_newsapi">Sports</string>
+    <string name="technology_newsapi">Technology</string>
+    <string name="choose_country_newsapi">Choose country</string>
+    <string name="choose_country_hint">Choose one country to feed</string>
+    <string name="source_not_choose">Please choose source</string>
+    <string name="country_not_choose">Country not choose</string>
 </resources>

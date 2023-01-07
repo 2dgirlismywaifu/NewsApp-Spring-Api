@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardNews_vertical"
         android:layout_width="match_parent"
         android:layout_height="128dp"
@@ -59,7 +59,8 @@
                 android:textColor="#4E342E"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardholderimage" />
+                app:layout_constraintStart_toEndOf="@+id/cardholderimage"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/source_name"
@@ -71,7 +72,8 @@
                 android:text="Source Name"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/cardholderimage"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText">
 
             </TextView>
 
@@ -87,8 +89,8 @@
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TextContrastCheck" />
+                tools:ignore="HardcodedText,TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 </FrameLayout>

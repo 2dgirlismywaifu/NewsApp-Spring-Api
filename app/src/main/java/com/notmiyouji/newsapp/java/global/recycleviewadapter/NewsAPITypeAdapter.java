@@ -1,10 +1,11 @@
 package com.notmiyouji.newsapp.java.global.recycleviewadapter;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.LoadFollowCategory;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.NewsTypeHolder>{
 
-    ArrayList<String> data = newstype();
-    AppCompatActivity activity;
-    LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
 
-    public NewsAPITypeAdapter(AppCompatActivity activity) {
+    private final AppCompatActivity activity;
+    private final LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
+    private final String country;
+
+    public NewsAPITypeAdapter(AppCompatActivity activity, String country) {
         this.activity = activity;
+        this.country = country;
     }
 
 
@@ -35,32 +38,41 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull NewsAPITypeAdapter.NewsTypeHolder holder, int position) {
-        holder.news_type.setText(data.get(position));
-        holder.itemView.setOnClickListener(v -> {
+        HashMap<String, String> data = newstype(activity);
+        holder.news_type.setText(data.keySet().toArray()[position].toString());
+        holder.news_type.setOnClickListener(v -> {
             //load Dialog
             final ProgressDialog mDialog = new ProgressDialog(activity);
             mDialog.setMessage("Loading, please wait...");
             mDialog.show();
             //fetch follow category
-            String category = holder.news_type.getText().toString();
-            loadFollowCategory.LoadJSONCategory(activity, mDialog, category, activity.findViewById(R.id.cardnews_view_vertical));
+            String category = data.get(data.keySet().toArray()[position].toString());
+            loadFollowCategory.LoadJSONCategory(activity, mDialog, category, activity.findViewById(R.id.cardnews_view_vertical), country);
         });
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return newstype(activity).size();
     }
 
-    public ArrayList<String> newstype() {
-        ArrayList<String> data = new ArrayList<>();
-        data.add("General");
-        data.add("Business");
-        data.add("Entertainment");
-        data.add("Health");
-        data.add("Science");
-        data.add("Sports");
-        data.add("Technology");
+    public HashMap<String, String> newstype(AppCompatActivity activity) {
+        HashMap<String, String> data = new HashMap<>();
+//        data.add("General");
+//        data.add("Business");
+//        data.add("Entertainment");
+//        data.add("Health");
+//        data.add("Science");
+//        data.add("Sports");
+//        data.add("Technology");
+        Context context = activity.getApplicationContext();
+        data.put(context.getString(R.string.general_newsapi), "General");
+        data.put(context.getString(R.string.business_newsapi), "Business");
+        data.put(context.getString(R.string.entertainment_newsapi), "Entertainment");
+        data.put(context.getString(R.string.health_newsapi), "Health");
+        data.put(context.getString(R.string.science_newsapi), "Science");
+        data.put(context.getString(R.string.sports_newsapi), "Sports");
+        data.put(context.getString(R.string.technology_newsapi), "Technology");
         return data;
     }
 
@@ -69,7 +81,7 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
     }
 
     public static class NewsTypeHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
-        TextView news_type;
+        Button news_type;
         private ItemClickListener itemClickListener;
         public NewsTypeHolder(@NonNull View itemView) {
 

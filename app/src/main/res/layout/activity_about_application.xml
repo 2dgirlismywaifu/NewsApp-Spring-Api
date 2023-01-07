@@ -6,197 +6,221 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageButton
+            android:id="@+id/BackPressed"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="50dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck">
+
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/AboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="68dp"
+            android:fontFamily="@font/raleway"
+            android:text="@string/about_application"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/BackPressed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/AboutTitle">
 
-            <ImageButton
-                android:id="@+id/BackPressed"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="50dp"
-                android:background="#00FFFFFF"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck">
-
-            </ImageButton>
-
-            <TextView
-                android:id="@+id/product_owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="132dp"
-                android:fontFamily="@font/poppins"
-                android:text="@string/developer_product_owner"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/owner_avatar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/user_192"
-                app:layout_constraintEnd_toEndOf="@+id/product_owner"
-                app:layout_constraintStart_toStartOf="@+id/product_owner"
-                app:layout_constraintTop_toBottomOf="@+id/product_owner"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
-
-            <RelativeLayout
-                android:id="@+id/linearGithub"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/owner_avatar"
-                app:layout_constraintStart_toStartOf="@+id/owner_avatar"
-                app:layout_constraintTop_toBottomOf="@+id/owner_avatar"
-                tools:ignore="TextSizeCheck">
-
-                <ImageView
-                    android:id="@+id/GitLogo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/github"
-                    tools:ignore="ContentDescription" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/gitaccount"
+                    android:id="@+id/product_owner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/github_product_owner"
-                    android:textSize="16sp"
-                    tools:ignore="RelativeOverlap" />
-            </RelativeLayout>
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/developer_product_owner"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <RelativeLayout
-                android:id="@+id/linearTwitter"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:background="?attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="@+id/linearGithub"
-                app:layout_constraintStart_toStartOf="@+id/linearGithub"
-                app:layout_constraintTop_toBottomOf="@+id/linearGithub">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/owner_avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/user_192"
+                    app:layout_constraintEnd_toEndOf="@+id/product_owner"
+                    app:layout_constraintStart_toStartOf="@+id/product_owner"
+                    app:layout_constraintTop_toBottomOf="@+id/product_owner"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+                <RelativeLayout
+                    android:id="@+id/linearGithub"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/owner_avatar"
+                    app:layout_constraintStart_toStartOf="@+id/owner_avatar"
+                    app:layout_constraintTop_toBottomOf="@+id/owner_avatar"
+                    tools:ignore="TextSizeCheck">
+
+                    <ImageView
+                        android:id="@+id/GitLogo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/github"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/gitaccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/github_product_owner"
+                        android:textSize="16sp"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/linearTwitter"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/linearGithub"
+                    app:layout_constraintStart_toStartOf="@+id/linearGithub"
+                    app:layout_constraintTop_toBottomOf="@+id/linearGithub">
+
+                    <ImageView
+                        android:id="@+id/twiiterLogo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/twitter"
+                        tools:ignore="ContentDescription,ImageContrastCheck" />
+
+                    <TextView
+                        android:id="@+id/twitteraccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="38dp"
+                        android:text="@string/twitter_product_owner"
+                        android:textSize="16sp"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/powered_by"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/linearTwitter"
+                    app:layout_constraintHorizontal_bias="0.492"
+                    app:layout_constraintStart_toStartOf="@+id/linearTwitter"
+                    app:layout_constraintTop_toBottomOf="@+id/linearTwitter" />
 
                 <ImageView
-                    android:id="@+id/twiiterLogo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/twitter"
+                    android:id="@+id/AzureSQLLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/azure"
+                    app:layout_constraintEnd_toEndOf="@+id/textView10"
+                    app:layout_constraintStart_toStartOf="@+id/textView10"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
                     tools:ignore="ContentDescription,ImageContrastCheck" />
 
                 <TextView
-                    android:id="@+id/twitteraccount"
+                    android:id="@+id/AzureName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="38dp"
-                    android:text="@string/twitter_product_owner"
-                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/microsoft_azure_portal"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/AzureSQLLogo"
+                    app:layout_constraintStart_toStartOf="@+id/AzureSQLLogo"
+                    app:layout_constraintTop_toBottomOf="@+id/AzureSQLLogo"
                     tools:ignore="RelativeOverlap" />
-            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/poppins"
-                android:text="@string/powered_by"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/linearTwitter"
-                app:layout_constraintHorizontal_bias="0.492"
-                app:layout_constraintStart_toStartOf="@+id/linearTwitter"
-                app:layout_constraintTop_toBottomOf="@+id/linearTwitter" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="220dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/AzureName"
+                    app:layout_constraintStart_toStartOf="@+id/AzureName"
+                    app:layout_constraintTop_toBottomOf="@+id/AzureName"
+                    app:srcCompat="@drawable/newsapi"
+                    tools:ignore="ContentDescription" />
 
-            <ImageView
-                android:id="@+id/AzureSQLLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/azure"
-                app:layout_constraintEnd_toEndOf="@+id/textView10"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView10"
-                tools:ignore="ContentDescription,ImageContrastCheck" />
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/version"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintStart_toStartOf="@+id/imageView4"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-            <TextView
-                android:id="@+id/AzureName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:text="@string/microsoft_azure_portal"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/AzureSQLLogo"
-                app:layout_constraintStart_toStartOf="@+id/AzureSQLLogo"
-                app:layout_constraintTop_toBottomOf="@+id/AzureSQLLogo"
-                tools:ignore="RelativeOverlap" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="220dp"
-                android:layout_height="65dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/AzureName"
-                app:layout_constraintStart_toStartOf="@+id/AzureName"
-                app:layout_constraintTop_toBottomOf="@+id/AzureName"
-                app:srcCompat="@drawable/newsapi"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/poppins"
-                android:text="@string/version"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/poppins"
-                android:text="@string/note_application"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/poppins"
+                    android:lineSpacingExtra="8sp"
+                    android:text="@string/note_application"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/textView8"
+                    app:layout_constraintHorizontal_bias="0.494"
+                    app:layout_constraintStart_toStartOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    tools:ignore="TextContrastCheck" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

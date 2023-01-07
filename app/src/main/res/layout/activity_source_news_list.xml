@@ -64,7 +64,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -85,10 +85,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="#00FFFFFF"
-                        android:src="@drawable/search_normal"
+                        android:src="@drawable/baseline_search_24"
                         tools:ignore="ContentDescription" />
 
                     <EditText
@@ -104,7 +104,7 @@
                         android:textColorHint="#546E7A"
                         tools:ignore="TouchTargetSizeCheck" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"

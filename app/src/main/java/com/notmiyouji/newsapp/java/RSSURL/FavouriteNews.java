@@ -13,7 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -75,7 +75,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
         }
         else if (menuitem == R.id.newsapi_menu) {
-            intent = new Intent(FavouriteNews.this, NewsAPI_Page.class);
+            intent = new Intent(FavouriteNews.this, NewsAPIPage.class);
             startActivity(intent);
         }
         else if (menuitem == R.id.settings_menu) {

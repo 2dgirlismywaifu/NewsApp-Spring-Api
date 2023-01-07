@@ -18,14 +18,16 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
         android:background="@color/colorAccent"/>
+
     <TextView
-        android:id="@+id/choose_rss"
+        android:id="@+id/choose_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/choose_rss"
+        android:text="Choose Demo"
         android:textAlignment="center"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -37,19 +39,20 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:id="@+id/hint_to_choose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/Select_RSS_Feed"
+                android:hint="Demo"
                 android:spinnerMode="dropdown"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck">
+                tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/spinner_rss"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,TextContrastCheck,VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -60,7 +63,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:text="OK"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="HardcodedText,VisualLintButtonSize" />
 
         </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.kotlin
 
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject
 import retrofit2.Call
 import retrofit2.http.GET
@@ -13,5 +14,11 @@ interface NewsAPPInterface {
         @Query("type") type: String?,
         @Query("name") name: String?):
             Call<ListObject?>?
+    @GET("newsapi/country/list")
+    fun getListCountry(): Call<News?>?
+    @GET("newsapi/country/list")
+    fun getCountryCode(
+        @Query("name") country: String?,
+    ): Call<News?>?
 
 }

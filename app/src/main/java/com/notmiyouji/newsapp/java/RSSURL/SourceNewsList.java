@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.NewsAPI.NewsAPI_Page;
+import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
@@ -128,7 +128,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             startActivity(intent);
         }
         else if (menuitem == R.id.newsapi_menu) {
-            intent = new Intent(SourceNewsList.this, NewsAPI_Page.class);
+            intent = new Intent(SourceNewsList.this, NewsAPIPage.class);
             startActivity(intent);
         }
         else if (menuitem == R.id.favourite_menu) {

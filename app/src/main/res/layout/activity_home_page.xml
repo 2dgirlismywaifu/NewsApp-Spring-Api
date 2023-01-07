@@ -30,138 +30,133 @@
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_baseline_menu_40" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="110dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/homepageScroll"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <androidx.core.widget.NestedScrollView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/relativeLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/search"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        app:cardBackgroundColor="@color/searchbar"
+                        app:cardCornerRadius="15dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/search"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            app:cardBackgroundColor="@color/searchbar"
-                            app:cardCornerRadius="15dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginStart="11dp"
-                                android:layout_marginTop="19dp"
-                                android:layout_marginEnd="11dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:background="#00FFFFFF"
-                                    android:src="@drawable/search_normal"
-                                    tools:ignore="ContentDescription" />
-
-                                <EditText
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_weight="1"
-                                    android:hint="@string/search_here"
-                                    android:importantForAutofill="no"
-                                    android:inputType="textLongMessage|text"
-                                    android:textColor="@color/black"
-                                    android:textColorHint="#546E7A"
-                                    tools:ignore="TouchTargetSizeCheck" />
-
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="11dp"
+                            android:layout_marginTop="19dp"
+                            android:layout_marginEnd="11dp"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/last_news_text"
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="#00FFFFFF"
+                                android:src="@drawable/baseline_search_24"
+                                tools:ignore="ContentDescription" />
+
+                            <EditText
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/noticia_text_bold"
-                                android:text="@string/lastest_news"
-                                android:textAlignment="center"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:hint="@string/search_here"
+                                android:importantForAutofill="no"
+                                android:inputType="textLongMessage|text"
+                                android:textColor="@color/black"
+                                android:textColorHint="#546E7A"
+                                tools:ignore="TouchTargetSizeCheck" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/cardnews_view_horizontal"
-                            android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/last_news_text"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:nestedScrollingEnabled="false"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal"
-                            tools:listitem="@layout/news_items_horizontal">
+                            android:fontFamily="@font/noticia_text_bold"
+                            android:text="@string/lastest_news"
+                            android:textAlignment="center"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
-                        </androidx.recyclerview.widget.RecyclerView>
+                    </RelativeLayout>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/news_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:scrollbars="horizontal"
-                            tools:listitem="@layout/news_type" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cardnews_view_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:scrollbars="horizontal"
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/news_items_horizontal">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/cardnews_view_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:nestedScrollingEnabled="false"
-                            android:orientation="vertical"
-                            android:scrollbars="vertical"
-                            tools:listitem="@layout/news_items_vertical">
+                    </androidx.recyclerview.widget.RecyclerView>
 
-                        </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/news_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:scrollbars="horizontal"
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/news_type" />
 
-                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cardnews_view_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical"
+                        tools:listitem="@layout/news_items_vertical">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
 
 
-                </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </LinearLayout>
-
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -177,19 +172,21 @@
             app:layout_constraintStart_toEndOf="@+id/nav_button"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/filterSource"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="30dp"
             android:clickable="true"
             android:focusable="true"
+            android:text="@string/choose_rss"
             app:fabCustomSize="70dp"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/baseline_filter_list_36"
-            tools:ignore="ContentDescription" />
+            app:icon="@drawable/baseline_filter_list_36"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
