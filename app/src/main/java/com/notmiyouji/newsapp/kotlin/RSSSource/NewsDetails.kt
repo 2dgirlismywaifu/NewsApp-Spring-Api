@@ -11,6 +11,7 @@ class NewsDetails {
     @SerializedName("url_type")
     @Expose
     var url_type: String? = null
+
     @SerializedName("url")
     @Expose
     var urllink: String? = null

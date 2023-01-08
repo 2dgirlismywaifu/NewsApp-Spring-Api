@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 
 class SharedPreferenceSettings(var context: Context) {
     var prefs: SharedPreferences = context.getSharedPreferences("Wallpaper", Context.MODE_PRIVATE)
-    var sourceprefs: SharedPreferences = context.getSharedPreferences("SourceName", Context.MODE_PRIVATE)
+    var sourceprefs: SharedPreferences =
+        context.getSharedPreferences("SourceName", Context.MODE_PRIVATE)
     var countryprefs: SharedPreferences =
         context.getSharedPreferences("CountryCode", Context.MODE_PRIVATE)
     var langprefs: SharedPreferences =

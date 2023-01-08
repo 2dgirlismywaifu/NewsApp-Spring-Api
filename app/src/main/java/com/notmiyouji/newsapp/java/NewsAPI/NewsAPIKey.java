@@ -15,19 +15,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsAPIKey {
 
+    public static final String BASE_URL = "https://newsapi.org/v2/";
+    public static Retrofit retrofit;
+
     static {
         System.loadLibrary("keys");
     }
-    //NewAPI Function
-    public native String getNewsAPIKey();
+
     public final String NEWS_API_KEY = new String(Base64.decode(getNewsAPIKey(), Base64.DEFAULT));
-
-    public String getNEWSAPIKEY() {
-        return NEWS_API_KEY;
-    }
-
-    public static final String BASE_URL = "https://newsapi.org/v2/";
-    public static Retrofit retrofit;
 
     public static Retrofit getAPIClient() {
         if (retrofit == null) {
@@ -73,6 +68,13 @@ public class NewsAPIKey {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    //NewAPI Function
+    public native String getNewsAPIKey();
+
+    public String getNEWSAPIKEY() {
+        return NEWS_API_KEY;
     }
 
 }

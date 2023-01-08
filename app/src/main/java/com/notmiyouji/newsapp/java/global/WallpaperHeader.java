@@ -16,6 +16,7 @@ public class WallpaperHeader extends AppCompatActivity {
     WallpaperHeaderAdpater wallpaperHeaderAdpater;
     RecyclerView recyclerView;
     LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());

@@ -5,19 +5,20 @@
     android:id="@+id/newsapi_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".java.NewsAPI.NewsAPIPage">
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_pane_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/nav_pane_view"
+        android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
+        app:menu="@menu/navigation_menu">
 
     </com.google.android.material.navigation.NavigationView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -172,10 +173,10 @@
             android:focusable="true"
             android:text="@string/choose_country_newsapi"
             app:fabCustomSize="70dp"
+            app:icon="@drawable/baseline_filter_list_36"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/baseline_filter_list_36"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

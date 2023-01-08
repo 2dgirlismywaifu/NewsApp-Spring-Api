@@ -19,7 +19,7 @@ import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 
 import java.util.List;
 
-public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>{
+public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder> {
 
     AppCompatActivity activity;
     List<NewsSource> newsSourceList;
@@ -65,6 +65,7 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
         TextView source_name, source_description;
         ImageView source_image;
         Button detailsbtn;
+
         public ListSourceHolder(@NonNull View itemView) {
             super(itemView);
             source_name = itemView.findViewById(R.id.source_name);

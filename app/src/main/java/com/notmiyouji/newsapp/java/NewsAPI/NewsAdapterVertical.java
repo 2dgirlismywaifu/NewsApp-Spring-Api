@@ -48,11 +48,11 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
         holders.time.setText(" \u2022 " + Utils.DateToTimeFormat(model.getPublishedAt()));
         holders.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, NewsDetail.class);
-            intent.putExtra("url",model.getUrl() );
-            intent.putExtra("title", model.getTitle() );
-            intent.putExtra("img",model.getUrlToImage() );
-            intent.putExtra("source",model.getUrl() );
-            intent.putExtra("pubdate",model.getPublishedAt() );
+            intent.putExtra("url", model.getUrl());
+            intent.putExtra("title", model.getTitle());
+            intent.putExtra("img", model.getUrlToImage());
+            intent.putExtra("source", model.getUrl());
+            intent.putExtra("pubdate", model.getPublishedAt());
             activity.startActivity(intent);
         });
     }

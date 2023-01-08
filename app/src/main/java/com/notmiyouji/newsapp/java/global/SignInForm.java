@@ -16,6 +16,7 @@ public class SignInForm extends AppCompatActivity {
     Button SignUpBtn, forgotpassbtn;
     Intent intent;
     LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());

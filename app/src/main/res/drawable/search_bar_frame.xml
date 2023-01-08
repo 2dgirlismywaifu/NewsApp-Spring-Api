@@ -6,9 +6,7 @@
 
     <group>
 
-        <clip-path
-            android:pathData="M0 0H345V61H0V0Z"
-            />
+        <clip-path android:pathData="M0 0H345V61H0V0Z" />
 
     </group>
 

@@ -50,6 +50,7 @@ public class WallpaperHeaderAdpater extends RecyclerView.Adapter<WallpaperHeader
     public int getItemCount() {
         return data.size();
     }
+
     public ArrayList<Integer> wallpaperList() {
         ArrayList<Integer> data = new ArrayList<>();
         data.add(R.drawable.anime_landscapes_background__1);
@@ -74,6 +75,7 @@ public class WallpaperHeaderAdpater extends RecyclerView.Adapter<WallpaperHeader
         data.add(R.drawable.anime_landscapes_background__20);
         return data;
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView wallpaperHeader;

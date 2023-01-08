@@ -31,8 +31,6 @@ public class FeedMultiRSS {
         System.loadLibrary("keys");
     }
 
-    public native String getRSS2JSONAPIKey();
-
     public final String RSS2JSON_API_KEY = new String(android.util.Base64.decode(getRSS2JSONAPIKey(), Base64.DEFAULT));
     AppCompatActivity activity;
     LinearLayoutManager linearLayoutManager;
@@ -40,25 +38,27 @@ public class FeedMultiRSS {
     Call<ListObject> call;
     List<NewsDetails> listHorizonal, listVertical;
     NewsDetails newsDetails;
+    RecyclerView recyclerView;
+    RSSObject rssObject;
 
     public FeedMultiRSS(AppCompatActivity activity, RecyclerView recyclerView, LinearLayoutManager linearLayoutManager) {
         this.activity = activity;
         this.recyclerView = recyclerView;
         this.linearLayoutManager = linearLayoutManager;
     }
-    RecyclerView recyclerView;
-    RSSObject rssObject;
 
-    public void MultiFeedHorizontal(String url_type, String name,ProgressDialog progressDialog) {
+    public native String getRSS2JSONAPIKey();
+
+    public void MultiFeedHorizontal(String url_type, String name, ProgressDialog progressDialog) {
         call = newsAPPInterface.getAllNewsDetails(url_type, name);
         assert call != null;
         listHorizonal = new ArrayList<>();
         call.enqueue(new retrofit2.Callback<ListObject>() {
             @Override
             public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     assert response.body() != null;
-                    if (response.body().getNewsDetails() !=null) {
+                    if (response.body().getNewsDetails() != null) {
                         if (!listHorizonal.isEmpty()) {
                             listHorizonal.clear();
                         }
@@ -86,6 +86,7 @@ public class FeedMultiRSS {
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
 
@@ -93,7 +94,7 @@ public class FeedMultiRSS {
         });
     }
 
-    public void MultiFeedVertical(String url_type, String name,ProgressDialog progressDialog) {
+    public void MultiFeedVertical(String url_type, String name, ProgressDialog progressDialog) {
         call = newsAPPInterface.getAllNewsDetails(url_type, name);
         assert call != null;
         listVertical = new ArrayList<>();
@@ -112,8 +113,7 @@ public class FeedMultiRSS {
                             if (Objects.equals(newsDetails.getUrllink(), "not_available")) {
                                 progressDialog.dismiss();
                                 Toast.makeText(activity, activity.getString(R.string.no_topic_available) + url_type, Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 String getURL = URLEncoder.encode(newsDetails.getUrllink(), "UTF-8");
                                 @SuppressLint("NotifyDataSetChanged") Thread startFeed = new Thread(() -> {
                                     String RSS_to_Json_API = "https://api.rss2json.com/v1/api.json?rss_url=" + getURL + "&api_key=" + RSS2JSON_API_KEY;
@@ -137,6 +137,7 @@ public class FeedMultiRSS {
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
                 System.out.println("Failure");

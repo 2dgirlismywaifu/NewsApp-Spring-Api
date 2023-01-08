@@ -15,20 +15,18 @@ public class HTTPDataHandler {
     public HTTPDataHandler() {
     }
 
-    public String GetHTTPData(String urlString)
-    {
-        try{
+    public String GetHTTPData(String urlString) {
+        try {
             URL url = new URL(urlString);
-            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-            if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
-            {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
                 BufferedReader r = new BufferedReader(new InputStreamReader(in));
                 StringBuilder sb = new StringBuilder();
                 String line;
-                while((line = r.readLine()) != null)
+                while ((line = r.readLine()) != null)
                     sb.append(line);
                 stream = sb.toString();
                 urlConnection.disconnect();

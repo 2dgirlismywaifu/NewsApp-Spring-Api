@@ -11,6 +11,7 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 
 public class ForgotPasswordForm extends AppCompatActivity {
     LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());

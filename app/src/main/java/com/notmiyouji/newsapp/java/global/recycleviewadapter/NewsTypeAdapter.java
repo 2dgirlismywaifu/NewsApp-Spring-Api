@@ -17,14 +17,16 @@ import com.notmiyouji.newsapp.java.RSSURL.LoadFollowType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTypeHolder>{
+public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTypeHolder> {
 
     AppCompatActivity activity;
     String name;
+
     public NewsTypeAdapter(AppCompatActivity activity, String name) {
         this.activity = activity;
         this.name = name;
     }
+
     @NonNull
     @Override
     public NewsTypeAdapter.NewsTypeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,7 +39,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
         Map<String, String> data = newstype(activity);
         holder.news_type.setText(data.keySet().toArray()[position].toString());
         //Set acction for newsType Buttom
-        holder.news_type.setOnClickListener( v -> {
+        holder.news_type.setOnClickListener(v -> {
             final ProgressDialog mDialog = new ProgressDialog(activity);
             mDialog.setMessage(activity.getString(R.string.loading_messeage));
             mDialog.show();
@@ -55,7 +57,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
     }
 
 
-    public HashMap<String, String> newstype(AppCompatActivity  activity) {
+    public HashMap<String, String> newstype(AppCompatActivity activity) {
         HashMap<String, String> data = new HashMap<>();
         Context context = activity.getBaseContext();
         data.put(context.getString(R.string.breakingnews_type), "BreakingNews");
@@ -73,6 +75,7 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     public static class NewsTypeHolder extends RecyclerView.ViewHolder {
         Button news_type;
+
         public NewsTypeHolder(@NonNull View itemView) {
             super(itemView);
             news_type = itemView.findViewById(R.id.news_type_text);

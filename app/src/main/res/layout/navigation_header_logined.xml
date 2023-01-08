@@ -4,8 +4,8 @@
     android:id="@+id/header_login"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:gravity="bottom"
     android:background="@drawable/anime_landscapes_background__11"
+    android:gravity="bottom"
     android:padding="20dp">
 
     <com.google.android.material.imageview.ShapeableImageView

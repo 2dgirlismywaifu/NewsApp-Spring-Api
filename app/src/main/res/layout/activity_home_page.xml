@@ -122,9 +122,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:nestedScrollingEnabled="false"
                         android:orientation="horizontal"
                         android:scrollbars="horizontal"
-                        android:nestedScrollingEnabled="false"
                         tools:listitem="@layout/news_items_horizontal">
 
                     </androidx.recyclerview.widget.RecyclerView>
@@ -134,9 +134,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:nestedScrollingEnabled="false"
                         android:orientation="horizontal"
                         android:scrollbars="horizontal"
-                        android:nestedScrollingEnabled="false"
                         tools:listitem="@layout/news_type" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -157,6 +157,7 @@
             </androidx.core.widget.NestedScrollView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -182,10 +183,10 @@
             android:focusable="true"
             android:text="@string/choose_rss"
             app:fabCustomSize="70dp"
+            app:icon="@drawable/baseline_filter_list_36"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:icon="@drawable/baseline_filter_list_36"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

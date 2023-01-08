@@ -16,7 +16,7 @@ import com.notmiyouji.newsapp.java.NewsAPI.LoadFollowCategory;
 
 import java.util.HashMap;
 
-public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.NewsTypeHolder>{
+public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.NewsTypeHolder> {
     private final AppCompatActivity activity;
     private final LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
     private final String country;
@@ -25,6 +25,7 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         this.activity = activity;
         this.country = country;
     }
+
     @NonNull
     @Override
     public NewsAPITypeAdapter.NewsTypeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,9 +70,10 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         void onClick(View view, int position, boolean isLongClick);
     }
 
-    public static class NewsTypeHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+    public static class NewsTypeHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         Button news_type;
         private ItemClickListener itemClickListener;
+
         public NewsTypeHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -84,11 +86,12 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),false);
+            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
+
         @Override
         public boolean onLongClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),true);
+            itemClickListener.onClick(v, getAdapterPosition(), true);
             return true;
         }
     }

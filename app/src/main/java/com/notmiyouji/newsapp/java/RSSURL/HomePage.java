@@ -56,7 +56,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     Toolbar toolbar;
     NavigationPane navigationPane;
     Intent intent;
-    LoadWallpaperShared  loadWallpaperShared;
+    LoadWallpaperShared loadWallpaperShared;
     ExtendedFloatingActionButton filterSource;
     TextView chooseTitle;
     TextInputLayout chooseHint;
@@ -65,12 +65,15 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     List<NewsSource> newsSources = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
     private String deafultSource = "VNExpress";
+
     public String getDeafultSource() {
         return deafultSource;
     }
+
     public void setDeafultSource(String deafultSource) {
         this.deafultSource = deafultSource;
     }
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             swipeRefreshLayout.setRefreshing(false);
         });
     }
+
     //Collapse float button
     private void hideWhenScroll() {
         NestedScrollView homepageScroll = findViewById(R.id.homepageScroll);
@@ -168,9 +172,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             call.enqueue(new retrofit2.Callback<ListObject>() {
                 @Override
                 public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         assert response.body() != null;
-                        if (response.body().getNewsSource() !=null) {
+                        if (response.body().getNewsSource() != null) {
                             if (!newsSources.isEmpty()) {
                                 newsSources.clear();
                             }
@@ -185,6 +189,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
                     Logger.getLogger("Error").warning(t.getMessage());
@@ -216,12 +221,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             setDeafultSource(sharedPreferences.getString("name", getDeafultSource()));
         }
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
@@ -234,21 +239,19 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(HomePage.this, NewsAPIPage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.source_menu) {
+        } else if (menuitem == R.id.source_menu) {
             intent = new Intent(HomePage.this, SourceNewsList.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.favourite_menu) {
+        } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(HomePage.this, FavouriteNews.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.settings_menu) {
+        } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(HomePage.this, SettingsPage.class);
             startActivity(intent);
         }
         return true;
     }
+
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();

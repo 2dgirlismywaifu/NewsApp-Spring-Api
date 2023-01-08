@@ -21,20 +21,23 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 
 public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHorizontal.FeedViewHolder> {
+    private final LayoutInflater inflater;
     RSSObject rssObject;
     AppCompatActivity activity;
-    private final LayoutInflater inflater;
+
     public FeedAdapterHorizontal(RSSObject rssObject, AppCompatActivity activity) {
         this.rssObject = rssObject;
         this.activity = activity;
         inflater = LayoutInflater.from(activity);
     }
+
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.news_items_horizontal,parent,false);
+        View itemView = inflater.inflate(R.layout.news_items_horizontal, parent, false);
         return new FeedViewHolder(itemView);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("RtlHardcoded")
     @Override
@@ -48,28 +51,27 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
         loadImageURL.getImageFromURL(holder.imageView, holder);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, NewsDetail.class);
-            intent.putExtra("url",rssObject.getItems().get(position).getLink() );
-            intent.putExtra("title",rssObject.getItems().get(position).getTitle() );
-            intent.putExtra("img",rssObject.getItems().get(position).getThumbnail() );
-            intent.putExtra("source",rssObject.getItems().get(position).getLink() );
-            intent.putExtra("pubdate",rssObject.getItems().get(position).getPubDate() );
+            intent.putExtra("url", rssObject.getItems().get(position).getLink());
+            intent.putExtra("title", rssObject.getItems().get(position).getTitle());
+            intent.putExtra("img", rssObject.getItems().get(position).getThumbnail());
+            intent.putExtra("source", rssObject.getItems().get(position).getLink());
+            intent.putExtra("pubdate", rssObject.getItems().get(position).getPubDate());
             activity.startActivity(intent);
         });
     }
+
     @Override
     public int getItemCount() {
-        try
-        {
+        try {
             return rssObject.getItems().size();
-        }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return 0;
         }
     }
+
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtTitle,txtPubDate,txtsource;
+        public TextView txtTitle, txtPubDate, txtsource;
         public ImageView imageView;
         public Activity activity;
 

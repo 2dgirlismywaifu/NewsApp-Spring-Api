@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardNews_vertical"
         android:layout_width="wrap_content"
         android:layout_height="180dp"
-        app:cardBackgroundColor="@color/seed"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
         android:layout_marginStart="11dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="11dp"
+        android:layout_marginBottom="7dp"
+        app:cardBackgroundColor="@color/seed"
         app:cardCornerRadius="15dp"
         app:cardElevation="@dimen/cardview_default_elevation">
 
@@ -31,6 +30,7 @@
                 android:scaleType="centerCrop"
                 android:transitionName="img"
                 tools:ignore="ContentDescription" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shadow_bottom"
                 android:layout_width="match_parent"

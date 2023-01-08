@@ -20,6 +20,7 @@ public class AboutApplication extends AppCompatActivity {
     RelativeLayout githubbtn, twitterbtn;
     Intent intent;
     LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());
@@ -44,7 +45,7 @@ public class AboutApplication extends AppCompatActivity {
         //Go to GitHub Profile
         githubbtn = findViewById(R.id.linearGithub);
         githubbtn.setOnClickListener(v -> {
-            intent = new Intent (Intent.ACTION_VIEW , Uri.parse("https://github.com/2dgirlismywaifu"));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/2dgirlismywaifu"));
             startActivity(intent);
         });
         //Go to Twitter Profile

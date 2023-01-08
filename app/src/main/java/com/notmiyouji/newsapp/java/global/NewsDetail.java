@@ -46,6 +46,7 @@ public class NewsDetail extends AppCompatActivity {
     TextView titlepreview, sourcepreview, pubdatepreview;
     ProgressBar progressBar;
     LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());
@@ -111,17 +112,20 @@ public class NewsDetail extends AppCompatActivity {
                             super.onPageStarted(view, url, favicon);
                             invalidateOptionsMenu();
                         }
+
                         @Override
-                        public boolean shouldOverrideUrlLoading(WebView view,  WebResourceRequest request) {
+                        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                             webView.loadUrl(url);
                             return true;
                         }
+
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             super.onPageFinished(view, url);
                             swipeRefreshLayout.setRefreshing(false);
                             invalidateOptionsMenu();
                         }
+
                         @Override
                         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                             super.onReceivedError(view, request, error);
@@ -129,6 +133,7 @@ public class NewsDetail extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             invalidateOptionsMenu();
                         }
+
                         //SSL Error
                         @Override
                         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -136,7 +141,7 @@ public class NewsDetail extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext(), R.style.MaterialAlertDialog);
                             builder.setTitle(R.string.SSL_error_title);
-                            String error_messeage = getString(R.string.firstline_ssl_error_messeage) +"\n" + error.toString() + "\n" + getString(R.string.check_ISP_network);
+                            String error_messeage = getString(R.string.firstline_ssl_error_messeage) + "\n" + error.toString() + "\n" + getString(R.string.check_ISP_network);
                             builder.setMessage(error_messeage);
                             builder.setNegativeButton("Cancel", (dialog, which) -> {
                                 handler.cancel();
@@ -197,12 +202,14 @@ public class NewsDetail extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.topbar_webview, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sharebtn) {
@@ -214,14 +221,11 @@ public class NewsDetail extends AppCompatActivity {
                 String body = mTitle + "\n" + mUrl + "\n" + getString(R.string.mainBody) + "\n";
                 sharenews.putExtra(Intent.EXTRA_TEXT, body);
                 startActivity(Intent.createChooser(sharenews, getString(R.string.ShareTitle)));
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(NewsDetail.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
             }
-        }
-        else if (item.getItemId() == R.id.openbrowser) {
+        } else if (item.getItemId() == R.id.openbrowser) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl));
             //go to browser
             this.startActivity(browserIntent);
@@ -236,6 +240,16 @@ public class NewsDetail extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
+        }
+    }
+
     private static class MyWebChromeClient extends WebChromeClient {
         Context context;
         ProgressBar progressBar;
@@ -247,6 +261,7 @@ public class NewsDetail extends AppCompatActivity {
             this.progressBar = progressBar;
             this.swipeRefreshLayout = swipeRefreshLayout;
         }
+
         public void onProgressChanged(WebView view, int progress) {
             // Activities and WebViews measure progress with different scales.
             // The progress meter will automatically disappear when we reach 100%
@@ -254,15 +269,6 @@ public class NewsDetail extends AppCompatActivity {
             if (progress == 100) {
                 swipeRefreshLayout.setRefreshing(false);
             }
-        }
-    }
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-            finish();
         }
     }
 }

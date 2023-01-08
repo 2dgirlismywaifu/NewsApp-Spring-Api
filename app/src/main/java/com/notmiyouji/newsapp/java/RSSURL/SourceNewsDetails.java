@@ -20,7 +20,6 @@ import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ import retrofit2.Call;
 
 public class SourceNewsDetails extends AppCompatActivity {
 
-    public String imagePath, newSourceName, urlmainSource,newSourceDescription;
+    public String imagePath, newSourceName, urlmainSource, newSourceDescription;
     public ImageView imageNews;
     public TextView sourceName, sourceDescription, newsTitle, urlmain;
     public RecyclerView rssRecycler;
@@ -74,7 +73,7 @@ public class SourceNewsDetails extends AppCompatActivity {
         sourceDescription.setText(newSourceDescription);
         newsTitle.setText(newSourceName);
         //Load RSS List follow sourceName
-        loadRSSRecycler(this,newSourceName);
+        loadRSSRecycler(this, newSourceName);
     }
 
     private void loadRSSRecycler(AppCompatActivity activity, String newSourceName) {
@@ -98,6 +97,7 @@ public class SourceNewsDetails extends AppCompatActivity {
                         runOnUiThread(listRSSAdapter::notifyDataSetChanged);
                     }
                 }
+
                 @Override
                 public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
                     Logger.getLogger("Error").warning(t.getMessage());
@@ -106,6 +106,7 @@ public class SourceNewsDetails extends AppCompatActivity {
         });
         loadRSSList.start();
     }
+
     public void onBackPressed() {
         super.onBackPressed();
         ActivityOptions.makeSceneTransitionAnimation(this).toBundle();

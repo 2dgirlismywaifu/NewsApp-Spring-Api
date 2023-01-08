@@ -19,6 +19,7 @@ class News {
     @SerializedName("countrylist")
     @Expose
     var countrylist: List<Country>? = null
+
     @SerializedName("countrycode")
     @Expose
     var countrycode: List<Country>? = null

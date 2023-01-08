@@ -16,17 +16,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsAppAPI {
+    public static final String BASE_URL = "https://newsandroidrest.azurewebsites.net/";
+    private static final String NEWS_APP_HEADER = new String(Base64.decode(geNewsAPPHeader(), Base64.DEFAULT));
+    private static final String NEWS_APP_KEY = new String(Base64.decode(getNewsAPPKey(), Base64.DEFAULT));
+    public static Retrofit retrofit;
+
     static {
         System.loadLibrary("keys");
     }
+
     public static native String geNewsAPPHeader();
+
     public static native String getNewsAPPKey();
-
-    private static final String NEWS_APP_HEADER = new String(Base64.decode(geNewsAPPHeader(), Base64.DEFAULT));
-    private static final String NEWS_APP_KEY = new String(Base64.decode(getNewsAPPKey(), Base64.DEFAULT));
-
-    public static final String BASE_URL = "https://newsandroidrest.azurewebsites.net/";
-    public static Retrofit retrofit;
 
     public static Retrofit getAPIClient() {
         if (retrofit == null) {
@@ -40,7 +41,7 @@ public class NewsAppAPI {
 
 
     public static OkHttpClient.Builder getHttpClient() {
-       //HTTPS Client
+        //HTTPS Client
         try {
             // Create a trust manager that does not validate certificate chains
             @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[]{

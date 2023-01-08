@@ -76,15 +76,18 @@ public class SettingsPage extends AppCompatActivity {
             }
         });
     }
+
     public void onBackPressed() {
         super.onBackPressed();
         ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         finish();
     }
+
     private int loadBackground() {
         prefs = getSharedPreferences("Wallpaper", MODE_PRIVATE);
-        return prefs.getInt("path",drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations());
+        return prefs.getInt("path", drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations());
     }
+
     public void onResume() {
         super.onResume();
         if (loadBackground() != drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations()) {

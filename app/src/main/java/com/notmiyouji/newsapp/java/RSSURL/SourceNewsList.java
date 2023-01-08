@@ -95,7 +95,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
                 public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
                     if (response.isSuccessful()) {
                         assert response.body() != null;
-                        if (response.body().getNewsSource() !=null) {
+                        if (response.body().getNewsSource() != null) {
                             if (!newsSources.isEmpty()) {
                                 newsSources.clear();
                             }
@@ -119,13 +119,11 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     }
 
 
-
     @Override
     public void onBackPressed() {
         if (drawerSourceNews.isDrawerOpen(GravityCompat.START)) {
             drawerSourceNews.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
@@ -138,22 +136,20 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         if (menuitem == R.id.home_menu) {
             intent = new Intent(SourceNewsList.this, HomePage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.newsapi_menu) {
+        } else if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(SourceNewsList.this, NewsAPIPage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.favourite_menu) {
+        } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(SourceNewsList.this, FavouriteNews.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.settings_menu) {
+        } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(SourceNewsList.this, SettingsPage.class);
             startActivity(intent);
         }
 
         return true;
     }
+
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();

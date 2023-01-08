@@ -21,7 +21,7 @@ public class LoadFollowType {
         this.name = name;
     }
 
-    public void startLoad (String url_type) {
+    public void startLoad(String url_type) {
         Thread loadNewsVerticalMode = new Thread(() -> {
             newsViewLayoutVertical = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
             FeedMultiRSS feedMultiRSS = new FeedMultiRSS(activity, newsViewVertical, newsViewLayoutVertical);

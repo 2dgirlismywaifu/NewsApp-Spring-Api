@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Initialization variable
     public static final String API_KEY = new NewsAPIKey().getNEWSAPIKEY(); //the newsAPI key is here
@@ -184,7 +184,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                     if (response.isSuccessful()) {
                         assert response.body() != null;
                         if (response.body().getCountrylist() != null) {
-                            if(!countryList.isEmpty()){
+                            if (!countryList.isEmpty()) {
                                 countryList.clear();
                             }
                             countryList = response.body().getCountrylist();
@@ -198,6 +198,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(@NonNull Call<News> call, @NonNull Throwable t) {
                     Logger.getLogger("Error").warning(t.getMessage());
@@ -229,7 +230,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (response.body().getCountrycode() != null) {
-                        if(!codeList.isEmpty()){
+                        if (!codeList.isEmpty()) {
                             codeList.clear();
                         }
                         codeList = response.body().getCountrycode();
@@ -246,6 +247,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                     }
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<News> call, @NonNull Throwable t) {
                 Logger.getLogger("Error").warning(t.getMessage());
@@ -253,7 +255,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         });
     }
 
-    public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog, String country){
+    public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog, String country) {
         Thread loadSourceAPI = new Thread(() -> {
             call = newsApiInterface.getLatestNews(country, API_KEY);
             assert call != null;
@@ -276,6 +278,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(@NonNull Call<News> call, @NonNull Throwable t) {
                     Toast.makeText(NewsAPIPage.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
@@ -287,18 +290,19 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         });
         loadSourceAPI.start();
     }
-    private void reloadCountryCode(){
+
+    private void reloadCountryCode() {
         SharedPreferences sharedPreferences = getSharedPreferences("CountryCode", MODE_PRIVATE);
-        if(!sharedPreferences.getString("code", "").equals(getCountryCodeDefault())){
+        if (!sharedPreferences.getString("code", "").equals(getCountryCodeDefault())) {
             setCountryCodeDefault(sharedPreferences.getString("code", getCountryCodeDefault()));
         }
     }
+
     @Override
     public void onBackPressed() {
         if (drawerNewsAPI.isDrawerOpen(GravityCompat.START)) {
             drawerNewsAPI.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
@@ -311,16 +315,13 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         if (menuitem == R.id.home_menu) {
             intent = new Intent(NewsAPIPage.this, HomePage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.source_menu) {
+        } else if (menuitem == R.id.source_menu) {
             intent = new Intent(NewsAPIPage.this, SourceNewsList.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.favourite_menu) {
+        } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(NewsAPIPage.this, FavouriteNews.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.settings_menu) {
+        } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(NewsAPIPage.this, SettingsPage.class);
             startActivity(intent);
         }

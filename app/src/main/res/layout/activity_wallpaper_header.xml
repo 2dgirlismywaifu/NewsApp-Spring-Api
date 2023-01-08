@@ -6,18 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".java.global.WallpaperHeader">
 
-        <ImageButton
-            android:id="@+id/BackPressed"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="50dp"
-            android:background="#00FFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck">
-        </ImageButton>
+    <ImageButton
+        android:id="@+id/BackPressed"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_36"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck"></ImageButton>
 
     <TextView
         android:id="@+id/textView11"

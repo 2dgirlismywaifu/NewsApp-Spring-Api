@@ -60,8 +60,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     public void onBackPressed() {
         if (drawerFavourtie.isDrawerOpen(GravityCompat.START)) {
             drawerFavourtie.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
@@ -74,21 +73,19 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         if (menuitem == R.id.home_menu) {
             intent = new Intent(FavouriteNews.this, HomePage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.source_menu) {
+        } else if (menuitem == R.id.source_menu) {
             intent = new Intent(FavouriteNews.this, SourceNewsList.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.newsapi_menu) {
+        } else if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(FavouriteNews.this, NewsAPIPage.class);
             startActivity(intent);
-        }
-        else if (menuitem == R.id.settings_menu) {
+        } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(FavouriteNews.this, SettingsPage.class);
             startActivity(intent);
         }
         return true;
     }
+
     public void onResume() {
         super.onResume();
         //From SharedPreference, change background for header navigation pane

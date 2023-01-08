@@ -5,18 +5,17 @@
     android:id="@+id/favourite_news_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".java.RSSURL.FavouriteNews">
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_pane_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/nav_pane_view"
+        android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
-    </com.google.android.material.navigation.NavigationView>
+        app:menu="@menu/navigation_menu"></com.google.android.material.navigation.NavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarmain"
@@ -65,8 +64,8 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="100dp"
+            android:layout_marginBottom="20dp"
 
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"

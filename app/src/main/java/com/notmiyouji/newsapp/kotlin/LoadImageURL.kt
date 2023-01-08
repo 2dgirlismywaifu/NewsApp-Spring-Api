@@ -9,9 +9,10 @@ import com.notmiyouji.newsapp.R
 class LoadImageURL(
     private var url: String?,
 
-) {
+    ) {
     fun getImageFromURL(
-        imageView: ImageView?, viewHolder: RecyclerView.ViewHolder?) {
+        imageView: ImageView?, viewHolder: RecyclerView.ViewHolder?
+    ) {
         viewHolder?.itemView?.context?.let {
             imageView?.load(url) {
                 crossfade(true)
@@ -19,6 +20,7 @@ class LoadImageURL(
             }
         }
     }
+
     //load image github owner
     fun loadImageOwner(imageView: ShapeableImageView) {
         imageView.load(url) {
@@ -26,6 +28,7 @@ class LoadImageURL(
             error(R.drawable.user_192)
         }
     }
+
     fun loadImageforNewsDetails(imageView: ImageView) {
         imageView.load(url) {
             crossfade(true)

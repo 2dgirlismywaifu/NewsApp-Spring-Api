@@ -16,7 +16,7 @@ import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
 
 import java.util.List;
 
-public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSourceHolder>{
+public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSourceHolder> {
 
     AppCompatActivity activity;
     List<RSSList> rssSourceList;
@@ -25,12 +25,14 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
         this.activity = activity;
         this.rssSourceList = rssSourceList;
     }
+
     @NonNull
     @Override
     public ListSourceHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.source_news_details_layout, parent, false);
         return new ListSourceHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull ListSourceHolder holder, int position) {
         RSSList rssList = rssSourceList.get(position);
@@ -43,13 +45,16 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
         loadImageURL.getImageFromURL(holder.source_image, holder);
         //Picasso.get().load(path).into(holder.source_image);
     }
+
     @Override
     public int getItemCount() {
         return rssSourceList.size();
     }
+
     public static class ListSourceHolder extends RecyclerView.ViewHolder {
         TextView rssTitle, rss_url;
         ImageView source_image;
+
         public ListSourceHolder(@NonNull View itemView) {
             super(itemView);
             rssTitle = itemView.findViewById(R.id.rss_type);
