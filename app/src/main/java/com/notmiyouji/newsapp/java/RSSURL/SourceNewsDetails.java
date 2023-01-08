@@ -1,6 +1,5 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -13,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListRSSAdapter;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,13 @@ public class SourceNewsDetails extends AppCompatActivity {
     LoadImageURL loadImageURL;
     NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
     List<RSSList> rssLists = new ArrayList<>();
+    LanguagePrefManager languagePrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_details);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);

@@ -19,8 +19,12 @@ public class AboutApplication extends AppCompatActivity {
     ShapeableImageView imageView;
     RelativeLayout githubbtn, twitterbtn;
     Intent intent;
+    LanguagePrefManager languagePrefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_application);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -46,13 +50,20 @@ public class AboutApplication extends AppCompatActivity {
         //Go to Twitter Profile
         twitterbtn = findViewById(R.id.linearTwitter);
         twitterbtn.setOnClickListener(v -> {
-            intent = new Intent (Intent.ACTION_VIEW , Uri.parse("https://twitter.com/MyWaifuis2DGirl"));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/MyWaifuis2DGirl"));
             startActivity(intent);
         });
     }
+
     public void onBackPressed() {
         super.onBackPressed();
         ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         finish();
+    }
+
+    public void onResume() {
+        super.onResume();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

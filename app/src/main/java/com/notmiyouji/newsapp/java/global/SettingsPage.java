@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -17,12 +18,17 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 
 public class SettingsPage extends AppCompatActivity {
 
-    RelativeLayout aboutApp, signIn;
+    RelativeLayout aboutApp, signIn, selLanguage;
     Intent intent;
     DrawerLayout drawerLayout;
     SharedPreferences prefs;
+    LanguagePrefManager languagePrefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -60,6 +66,15 @@ public class SettingsPage extends AppCompatActivity {
             intent = new Intent(SettingsPage.this, WallpaperHeader.class);
             startActivity(intent);
         });
+        //Selected Langauge
+        selLanguage = findViewById(R.id.selected_language);
+        selLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(SettingsPage.this, ChangeLanguage.class);
+                startActivity(intent);
+            }
+        });
     }
     public void onBackPressed() {
         super.onBackPressed();
@@ -75,5 +90,7 @@ public class SettingsPage extends AppCompatActivity {
         if (loadBackground() != drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations()) {
             drawerLayout.setBackground(ResourcesCompat.getDrawable(getResources(), loadBackground(), null));
         }
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

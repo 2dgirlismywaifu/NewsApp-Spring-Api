@@ -13,13 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.RSSURL.NewsAppAPI;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>{

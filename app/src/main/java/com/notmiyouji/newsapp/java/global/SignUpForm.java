@@ -13,9 +13,12 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 public class SignUpForm extends AppCompatActivity {
 
     Button signupbtn, signinbtn;
-
+    LanguagePrefManager languagePrefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_form);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -41,5 +44,11 @@ public class SignUpForm extends AppCompatActivity {
         super.onBackPressed();
         ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         finish();
+    }
+
+    public void onResume() {
+        super.onResume();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

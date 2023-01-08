@@ -20,6 +20,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -31,6 +32,7 @@ import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.NewsAppAPI;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
+import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsAPITypeAdapter;
@@ -76,16 +78,24 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     TextView chooseTitle;
     TextInputLayout chooseHint;
     List<Country> countryList, codeList;
+    SwipeRefreshLayout swipeRefreshLayout;
+    LanguagePrefManager languagePrefManager;
     private String countryCodeDefault = "us";
+
     public String getCountryCodeDefault() {
         return countryCodeDefault;
     }
+
     public void setCountryCodeDefault(String countryCodeDefault) {
         this.countryCodeDefault = countryCodeDefault;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_api_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -97,6 +107,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         newstypeView = findViewById(R.id.news_type);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         filterCountry = findViewById(R.id.filterCountry);
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
@@ -110,15 +121,25 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
         //NewsCategory Type List
-        newsAPITypeAdapter = new NewsAPITypeAdapter(this, getCountryCodeDefault());
-        newstypeLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        newstypeView.setLayoutManager(newstypeLayout);
-        newstypeView.setAdapter(newsAPITypeAdapter);
+        LoadCategoryType(getCountryCodeDefault());
         LoadNewsAPI(getCountryCodeDefault());
         //open Country Filter
         openCountryFilter();
         //Hide float button when scroll recyclerview vertical
         hideWhenScroll();
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            LoadNewsAPI(getCountryCodeDefault());
+            swipeRefreshLayout.setRefreshing(false);
+        });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void LoadCategoryType(String countryCodeDefault) {
+        newsAPITypeAdapter = new NewsAPITypeAdapter(this, countryCodeDefault);
+        newstypeLayout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        newstypeView.setLayoutManager(newstypeLayout);
+        newstypeView.setAdapter(newsAPITypeAdapter);
+        newsAPITypeAdapter.notifyDataSetChanged();
     }
 
     private void hideWhenScroll() {
@@ -214,12 +235,12 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                         codeList = response.body().getCountrycode();
                         Country country = codeList.get(0);
                         String code = country.getCountryCode();
-                        System.out.println(code);
                         //Save shared preference
                         SharedPreferenceSettings sharedPreferenceSettings = new SharedPreferenceSettings(NewsAPIPage.this);
                         assert code != null;
                         sharedPreferenceSettings.getSharedCountry(code);
                         setCountryCodeDefault(code);
+                        LoadCategoryType(code);
                         //load newsapi again
                         LoadNewsAPI(code);
                     }
@@ -309,5 +330,6 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();
+        languagePrefManager.loadLocal();
     }
 }

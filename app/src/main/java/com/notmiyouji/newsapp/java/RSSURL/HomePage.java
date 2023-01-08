@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
+import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsTypeAdapter;
@@ -61,6 +63,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     SwipeRefreshLayout swipeRefreshLayout;
     NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
+    LanguagePrefManager languagePrefManager;
     private String deafultSource = "VNExpress";
     public String getDeafultSource() {
         return deafultSource;
@@ -68,8 +71,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public void setDeafultSource(String deafultSource) {
         this.deafultSource = deafultSource;
     }
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -101,6 +108,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         openSourceChoose();
         //Hide float button when scroll recyclerview vertical
         hideWhenScroll();
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            LoadSourceNews(getDeafultSource());
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
     //Collapse float button
     private void hideWhenScroll() {
@@ -114,12 +125,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void LoadCategory(String source) {
         NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, source);
-        newsTypeAdapter.setActivity(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
+        newsTypeAdapter.notifyDataSetChanged();
     }
 
     private void LoadSourceNews(String source) {
@@ -165,11 +177,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                             newsSources = response.body().getNewsSource();
                             List<NewsSource> newsSourceList = newsSources;
                             ArrayList<String> listSource = new ArrayList<>();
-//                            int count = newsSourceList.size();
-//                            while (count > 0) {
-//                                listSource.add(newsSourceList.get(count - 1).getSource_name());
-//                                count--;
-//                            }
                             for (NewsSource newsSource : newsSourceList) {
                                 listSource.add(newsSource.getSource_name());
                             }
@@ -245,5 +252,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

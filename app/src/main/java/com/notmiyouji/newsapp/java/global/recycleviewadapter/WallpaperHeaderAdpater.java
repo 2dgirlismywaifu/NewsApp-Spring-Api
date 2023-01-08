@@ -43,7 +43,6 @@ public class WallpaperHeaderAdpater extends RecyclerView.Adapter<WallpaperHeader
             //Send Image Resource to SharedPreference
             sharedPreferenceSettings.getSharedWallpaperHeader(path);
             Toast.makeText(activity, R.string.change_wall_messeage, Toast.LENGTH_SHORT).show();
-
         });
     }
 

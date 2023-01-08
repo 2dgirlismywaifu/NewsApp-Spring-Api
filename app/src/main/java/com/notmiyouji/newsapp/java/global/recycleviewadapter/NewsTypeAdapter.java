@@ -19,21 +19,12 @@ import java.util.Map;
 
 public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTypeHolder>{
 
-
     AppCompatActivity activity;
     String name;
     public NewsTypeAdapter(AppCompatActivity activity, String name) {
         this.activity = activity;
         this.name = name;
     }
-    public AppCompatActivity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
     @NonNull
     @Override
     public NewsTypeAdapter.NewsTypeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,9 +54,10 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
         return newstype(activity).size();
     }
 
+
     public HashMap<String, String> newstype(AppCompatActivity  activity) {
         HashMap<String, String> data = new HashMap<>();
-        Context context = activity.getApplicationContext();
+        Context context = activity.getBaseContext();
         data.put(context.getString(R.string.breakingnews_type), "BreakingNews");
         data.put(context.getString(R.string.worldnews_type), "World");
         data.put(context.getString(R.string.news_type), "News");

@@ -13,10 +13,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
+import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
@@ -45,11 +47,16 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     LinearLayoutManager linearLayoutManager;
     ListSourceAdapter listSourceAdapter;
     LoadWallpaperShared loadWallpaperShared;
+    SwipeRefreshLayout swipeRefreshLayout;
     NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
+    LanguagePrefManager languagePrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_list);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -59,6 +66,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         navigationView = findViewById(R.id.nav_pane_view);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.sources_list);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
@@ -68,20 +76,24 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
         //Recycle View
+        loadSourceList(this);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            loadSourceList(SourceNewsList.this);
+            swipeRefreshLayout.setRefreshing(false);
+        });
+    }
+
+    public void loadSourceList(AppCompatActivity activity) {
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");
         mDialog.show();
-        loadSourceList(this, mDialog);
-    }
-
-    public void loadSourceList(AppCompatActivity activity, ProgressDialog mDialog) {
         Thread loadSource = new Thread(() -> {
             Call<ListObject> call = newsAPPInterface.getAllSource();
-            assert  call != null;
+            assert call != null;
             call.enqueue(new retrofit2.Callback<ListObject>() {
                 @Override
                 public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         assert response.body() != null;
                         if (response.body().getNewsSource() !=null) {
                             if (!newsSources.isEmpty()) {
@@ -96,6 +108,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
                     Logger.getLogger("Error").warning(t.getMessage());
@@ -144,5 +157,6 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();
+        languagePrefManager.loadLocal();
     }
 }

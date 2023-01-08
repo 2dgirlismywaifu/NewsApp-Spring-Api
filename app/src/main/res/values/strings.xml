@@ -50,7 +50,7 @@
     <string name="twitter_product_owner" translatable="false">\@MyWaifuis2DGirl/Twitter</string>
     <string name="developer_product_owner">Developer/Product Owner</string>
     <string name="powered_by">Powered by</string>
-    <string name="version">Version 2.0.0</string>
+    <string name="version">Version 2.0.0 (Developer Version)</string>
     <string name="note_application">For research and study only, \nthis application is not available for commercial use</string>
     <string name="microsoft_azure_portal" translatable="false">Microsoft Azure Portal</string>
     <string name="change_wallpaper">Wall</string>
@@ -100,4 +100,9 @@
     <string name="list_rss_url_of_this_source">List RSS URL of this source</string>
     <string name="list_rss_type_title">Type: </string>
     <string name="rss_url" translatable="false">URL: </string>
+    <string name="rss2_json_plan">Free plan RSS2JSON limited to 25 RSS</string>
+    <string name="language_change_messeage">Language Changed</string>
+    <string name="english_language">English</string>
+    <string name="vietnam_language">Tiếng Việt</string>
+    <string name="change_language_will_restart_the_application">Change language will restart the application</string>
 </resources>

@@ -15,9 +15,12 @@ public class SignInForm extends AppCompatActivity {
 
     Button SignUpBtn, forgotpassbtn;
     Intent intent;
-
+    LanguagePrefManager languagePrefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_form);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -49,5 +52,11 @@ public class SignInForm extends AppCompatActivity {
         super.onBackPressed();
         ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         finish();
+    }
+
+    public void onResume() {
+        super.onResume();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
+import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
 import com.notmiyouji.newsapp.java.global.NavigationPane;
 import com.notmiyouji.newsapp.java.global.SettingsPage;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -30,9 +31,13 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     Intent intent;
     Thread favouritepage;
     LoadWallpaperShared loadWallpaperShared;
+    LanguagePrefManager languagePrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_news);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -84,10 +89,11 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         }
         return true;
     }
-
     public void onResume() {
         super.onResume();
         //From SharedPreference, change background for header navigation pane
         loadWallpaperShared.loadWallpaper();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
     }
 }

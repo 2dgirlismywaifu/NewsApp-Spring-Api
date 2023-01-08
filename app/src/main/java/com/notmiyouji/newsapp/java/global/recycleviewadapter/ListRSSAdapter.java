@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
+
 import java.util.List;
 
 public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSourceHolder>{

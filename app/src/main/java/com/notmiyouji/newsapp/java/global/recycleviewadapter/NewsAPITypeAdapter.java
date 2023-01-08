@@ -17,8 +17,6 @@ import com.notmiyouji.newsapp.java.NewsAPI.LoadFollowCategory;
 import java.util.HashMap;
 
 public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.NewsTypeHolder>{
-
-
     private final AppCompatActivity activity;
     private final LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
     private final String country;
@@ -27,8 +25,6 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         this.activity = activity;
         this.country = country;
     }
-
-
     @NonNull
     @Override
     public NewsAPITypeAdapter.NewsTypeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,14 +54,7 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
 
     public HashMap<String, String> newstype(AppCompatActivity activity) {
         HashMap<String, String> data = new HashMap<>();
-//        data.add("General");
-//        data.add("Business");
-//        data.add("Entertainment");
-//        data.add("Health");
-//        data.add("Science");
-//        data.add("Sports");
-//        data.add("Technology");
-        Context context = activity.getApplicationContext();
+        Context context = activity.getBaseContext();
         data.put(context.getString(R.string.general_newsapi), "General");
         data.put(context.getString(R.string.business_newsapi), "Business");
         data.put(context.getString(R.string.entertainment_newsapi), "Entertainment");

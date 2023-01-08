@@ -45,9 +45,12 @@ public class NewsDetail extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     TextView titlepreview, sourcepreview, pubdatepreview;
     ProgressBar progressBar;
-
+    LanguagePrefManager languagePrefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -87,9 +90,14 @@ public class NewsDetail extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(() -> webView.reload());
     }
 
+    public void onResume() {
+        super.onResume();
+        languagePrefManager.setLocal(languagePrefManager.getLang());
+        languagePrefManager.loadLocal();
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView(String url, SwipeRefreshLayout swipeRefreshLayout)
-    {
+    private void initWebView(String url, SwipeRefreshLayout swipeRefreshLayout) {
         new Thread(() -> {
             try {
                 Thread.sleep(2000);

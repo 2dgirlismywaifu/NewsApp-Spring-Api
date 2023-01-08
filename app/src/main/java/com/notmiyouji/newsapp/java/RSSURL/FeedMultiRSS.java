@@ -3,7 +3,6 @@ package com.notmiyouji.newsapp.java.RSSURL;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
-import com.notmiyouji.newsapp.kotlin.RSSFeed.Item;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.RSSObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsDetails;
