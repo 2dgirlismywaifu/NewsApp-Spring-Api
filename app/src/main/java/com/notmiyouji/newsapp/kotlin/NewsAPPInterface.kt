@@ -20,5 +20,13 @@ interface NewsAPPInterface {
     fun getCountryCode(
         @Query("name") country: String?,
     ): Call<News?>?
+    @GET("newsdetails/rss/list")
+    fun getRSSList(
+        @Query("name") name: String?,
+    ): Call<ListObject?>?
+    @GET("rss/convertIntoJson")
+    fun getRSS2JSON(
+        @Query("url", encoded = true) urlLink: String?,
+    ): Call<ListObject?>?
 
 }

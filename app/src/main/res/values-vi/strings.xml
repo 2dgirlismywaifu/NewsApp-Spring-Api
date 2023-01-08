@@ -90,4 +90,8 @@
     <string name="choose_country_hint">Chọn một quốc gia để tải</string>
     <string name="source_not_choose">Nguồn chưa được chọn</string>
     <string name="country_not_choose">Quốc gia chưa được chọn</string>
+    <string name="subscribe_button">Đăng ký</string>
+    <string name="unsubscribe_button">Huỷ đăng ký</string>
+    <string name="list_rss_url_of_this_source">Danh sách RSS URL của nguồn này</string>
+    <string name="list_rss_type_title">"Loại: "</string>
 </resources>

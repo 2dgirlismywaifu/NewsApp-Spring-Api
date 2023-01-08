@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:layout_marginTop="10dp"
-        app:cardBackgroundColor="#FD8D92"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
@@ -22,7 +22,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FD8D92">
+            android:background="#FFFFFF">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardholderimage"
@@ -48,50 +48,37 @@
 
 
             <TextView
-                android:id="@+id/source_description"
-                android:layout_width="wrap_content"
+                android:id="@+id/rss_url"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/raleway"
                 android:singleLine="false"
-                android:text="Source description"
+                android:text="RSS_URL"
                 android:textColor="#4E342E"
-                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardholderimage"
-                app:layout_constraintTop_toBottomOf="@+id/source_name"
+                app:layout_constraintTop_toBottomOf="@+id/rss_type"
+                app:layout_constraintVertical_bias="0.269"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/source_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/rss_type"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Source Name"
-                android:textSize="20sp"
+                android:text="RSS Type"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/cardholderimage"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText">
 
             </TextView>
 
-            <Button
-                android:id="@+id/button_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="#0E64D2"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Details"
-                app:cornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

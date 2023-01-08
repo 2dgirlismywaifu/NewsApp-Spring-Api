@@ -9,7 +9,6 @@
     <application
         android:name=".kotlin.ApplyDynamicColor"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Newsapp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".java.RSSURL.SourceNewsDetails"
+            android:exported="false" />
         <activity
             android:name=".java.global.WallpaperHeader"
             android:exported="false" />
@@ -66,8 +69,8 @@
         </activity>
         <activity
             android:name=".java.global.NewsDetail"
-            android:theme="@style/NewsDetails.NoActionBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/NewsDetails.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -107,9 +110,9 @@
                 android:value="" />
         </activity>
 
-        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

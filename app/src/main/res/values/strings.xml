@@ -95,4 +95,9 @@
     <string name="choose_country_hint">Choose one country to feed</string>
     <string name="source_not_choose">Please choose source</string>
     <string name="country_not_choose">Country not choose</string>
+    <string name="subscribe_button">Subscribe</string>
+    <string name="unsubscribe_button">Unsubscribe</string>
+    <string name="list_rss_url_of_this_source">List RSS URL of this source</string>
+    <string name="list_rss_type_title">Type: </string>
+    <string name="rss_url" translatable="false">URL: </string>
 </resources>

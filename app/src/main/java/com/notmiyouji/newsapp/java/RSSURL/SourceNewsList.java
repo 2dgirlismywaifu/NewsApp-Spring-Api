@@ -82,7 +82,6 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
                 @Override
                 public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
                     if (response.isSuccessful()){
-                        System.out.println("Success");
                         assert response.body() != null;
                         if (response.body().getNewsSource() !=null) {
                             if (!newsSources.isEmpty()) {

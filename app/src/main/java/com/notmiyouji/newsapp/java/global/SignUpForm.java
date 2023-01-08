@@ -21,7 +21,7 @@ public class SignUpForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
 
-        signupbtn = findViewById(R.id.ResendCodeBtn);
+        signinbtn = findViewById(R.id.ResendCodeBtn);
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
             onBackPressed();
@@ -29,7 +29,7 @@ public class SignUpForm extends AppCompatActivity {
             finish();
         });
         //Sign Up form only access from Sign In form
-        signupbtn.setOnClickListener(v -> {
+        signinbtn.setOnClickListener(v -> {
             onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();

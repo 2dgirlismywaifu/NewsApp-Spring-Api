@@ -1,8 +1,10 @@
 package com.notmiyouji.newsapp.java.global.recycleviewadapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.NewsAppAPI;
+import com.notmiyouji.newsapp.java.RSSURL.SourceNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
@@ -21,13 +24,8 @@ import java.util.List;
 
 public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>{
 
-    PreparedStatement ps;
     AppCompatActivity activity;
     List<NewsSource> newsSourceList;
-
-
-    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
-    //public final String READ = "SELECT NEWS_SOURCE.source_id, source_name, information, IMAGE_INFORMATION.[image]  FROM NEWS_SOURCE, IMAGE_INFORMATION WHERE NEWS_SOURCE.source_id = IMAGE_INFORMATION.source_id";
 
     public ListSourceAdapter(AppCompatActivity activity, List<NewsSource> newsSourceList) {
         this.activity = activity;
@@ -45,11 +43,19 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
     public void onBindViewHolder(@NonNull ListSourceHolder holder, int position) {
         NewsSource newsSource = newsSourceList.get(position);
         holder.source_name.setText(newsSource.getSource_name());
-        holder.source_description.setText(newsSource.getInformation());
+        holder.source_description.setText(newsSource.getSource_url());
         String path = newsSource.getImgae();
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holder.source_image, holder);
         //Picasso.get().load(path).into(holder.source_image);
+        holder.detailsbtn.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, SourceNewsDetails.class);
+            intent.putExtra("source_name", newsSource.getSource_name());
+            intent.putExtra("source_url", newsSource.getSource_url());
+            intent.putExtra("source_description", newsSource.getInformation());
+            intent.putExtra("source_image", newsSource.getImgae());
+            activity.startActivity(intent);
+        });
     }
 
     @Override
@@ -61,12 +67,13 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
 
         TextView source_name, source_description;
         ImageView source_image;
-
+        Button detailsbtn;
         public ListSourceHolder(@NonNull View itemView) {
             super(itemView);
             source_name = itemView.findViewById(R.id.source_name);
             source_description = itemView.findViewById(R.id.source_description);
             source_image = itemView.findViewById(R.id.imgNews);
+            detailsbtn = itemView.findViewById(R.id.button_details);
         }
     }
 }

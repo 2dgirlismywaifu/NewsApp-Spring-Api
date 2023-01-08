@@ -10,6 +10,9 @@ class NewsSource {
     @SerializedName("source_name")
     @Expose
     var source_name: String? = null
+    @SerializedName("source_url")
+    @Expose
+    var source_url: String? = null
     @SerializedName("information")
     @Expose
     var information: String? = null

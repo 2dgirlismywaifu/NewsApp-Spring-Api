@@ -19,6 +19,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -57,6 +58,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     ExtendedFloatingActionButton filterSource;
     TextView chooseTitle;
     TextInputLayout chooseHint;
+    SwipeRefreshLayout swipeRefreshLayout;
     NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     private String deafultSource = "VNExpress";
@@ -80,6 +82,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         filterSource = findViewById(R.id.filterSource);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
