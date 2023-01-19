@@ -41,7 +41,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        kotlin_version = '1.7.20'
+        kotlin_version = '1.7.21'
     }
     buildFeatures {
         viewBinding true
@@ -51,8 +51,8 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.21"
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -81,4 +81,6 @@ dependencies {
     implementation("io.coil-kt:coil:2.2.2")
     //Gooogle Sign In Button
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    //This is Android Chrome Custom Tab will replace for Android WebView
+    implementation 'androidx.browser:browser:1.5.0-beta01'
 }

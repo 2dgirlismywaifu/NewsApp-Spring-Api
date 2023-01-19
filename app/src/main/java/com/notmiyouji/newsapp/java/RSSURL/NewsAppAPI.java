@@ -16,18 +16,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsAppAPI {
+    static {
+        System.loadLibrary("keys");
+    }
+    public static native String geNewsAPPHeader();
+
+    public static native String getNewsAPPKey();
     public static final String BASE_URL = "https://newsandroidrest.azurewebsites.net/";
     private static final String NEWS_APP_HEADER = new String(Base64.decode(geNewsAPPHeader(), Base64.DEFAULT));
     private static final String NEWS_APP_KEY = new String(Base64.decode(getNewsAPPKey(), Base64.DEFAULT));
     public static Retrofit retrofit;
-
-    static {
-        System.loadLibrary("keys");
-    }
-
-    public static native String geNewsAPPHeader();
-
-    public static native String getNewsAPPKey();
 
     public static Retrofit getAPIClient() {
         if (retrofit == null) {

@@ -37,7 +37,7 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 
 import java.util.Objects;
 
-public class NewsDetail extends AppCompatActivity {
+public class NewsDetailWebView extends AppCompatActivity {
 
     public WebView webView;
     public ImageView imgHeader;
@@ -223,7 +223,7 @@ public class NewsDetail extends AppCompatActivity {
                 startActivity(Intent.createChooser(sharenews, getString(R.string.ShareTitle)));
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(NewsDetail.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewsDetailWebView.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
             }
         } else if (item.getItemId() == R.id.openbrowser) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl));

@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+    <queries>
+        <package android:name="com.android.chrome" />
+    </queries>
     <application
         android:name=".kotlin.ApplyDynamicColor"
         android:allowBackup="true"
@@ -71,7 +73,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.global.NewsDetail"
+            android:name=".java.global.NewsDetailWebView"
             android:exported="false"
             android:theme="@style/NewsDetails.NoActionBar">
             <meta-data
