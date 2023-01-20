@@ -28,18 +28,22 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.Category.RssURLCategory;
+import com.notmiyouji.newsapp.java.Global.FavouriteNews;
+import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
-import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
-import com.notmiyouji.newsapp.java.global.NavigationPane;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsTypeAdapter;
+import com.notmiyouji.newsapp.java.RSS2JSON.FeedMultiRSS;
+import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsTypeAdapter;
+import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
-import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
-import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
-import com.notmiyouji.newsapp.kotlin.sharedSettings.SharedPreferenceSettings;
+import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +65,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     TextView chooseTitle;
     TextInputLayout chooseHint;
     SwipeRefreshLayout swipeRefreshLayout;
-    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
     private String deafultSource = "VNExpress";
@@ -151,8 +155,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         loadLastNews.start();
 
         //load NewsView Vertical
-        LoadFollowType loadFollowType = new LoadFollowType(HomePage.this, newsViewVertical, mDialog, source);
-        loadFollowType.startLoad("BreakingNews");
+        RssURLCategory rssURLCategory = new RssURLCategory(HomePage.this, newsViewVertical, mDialog, source);
+        rssURLCategory.startLoad("BreakingNews");
     }
 
 

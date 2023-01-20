@@ -28,23 +28,25 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.RSSURL.FavouriteNews;
+import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
+import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.SettingsPage;
+import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
-import com.notmiyouji.newsapp.java.RSSURL.NewsAppAPI;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
-import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
-import com.notmiyouji.newsapp.java.global.NavigationPane;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.NewsAPITypeAdapter;
+import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsAPITypeAdapter;
+import com.notmiyouji.newsapp.java.Retrofit.NewsAPIKey;
+import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
-import com.notmiyouji.newsapp.kotlin.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
-import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
-import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
-import com.notmiyouji.newsapp.kotlin.sharedSettings.SharedPreferenceSettings;
+import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
+import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +72,9 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     List<Article> articles = new ArrayList<>(); //not include category
     NewsAdapterHorizontal newsAdapterHorizontal;
     NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
-    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     Call<News> call;
-    LoadFollowCategory loadFollowCategory = new LoadFollowCategory();
+    NewsAPICategory newsAPICategory = new NewsAPICategory();
     LoadWallpaperShared loadWallpaperShared;
     ExtendedFloatingActionButton filterCountry;
     TextView chooseTitle;
@@ -161,7 +163,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         //Load JSONData and apply to RecycleView Horizontal Lastest NewsCategory
         LoadJSONLastestNews(this, mDialog, countryCodeDefault);
         //Load JSONData Business NewsCategory and apply to RecycleView Vertical Lastest NewsCategory
-        loadFollowCategory.LoadJSONCategory(this, mDialog, "business", newsViewVertical, countryCodeDefault);
+        newsAPICategory.LoadJSONCategory(this, mDialog, "business", newsViewVertical, countryCodeDefault);
     }
 
     private void openCountryFilter() {

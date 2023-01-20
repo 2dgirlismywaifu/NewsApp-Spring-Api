@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.global.SettingsPage"
+    tools:context=".java.Global.SettingsPage"
     tools:ignore="ScrollViewCount">
 
     <androidx.core.widget.NestedScrollView
@@ -293,7 +293,7 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/about_application"
+                android:id="@+id/chromecustomtabs"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="20dp"
@@ -302,6 +302,68 @@
                 app:layout_constraintEnd_toEndOf="@+id/space_3"
                 app:layout_constraintStart_toStartOf="@+id/space_3"
                 app:layout_constraintTop_toBottomOf="@+id/space_3">
+
+                <ImageView
+                    android:id="@+id/chromeicon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/round_tab_24"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/chromeicon"
+                    android:text="@string/use_chrome_custom_tabs"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchChrome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/space_4"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/chromecustomtabs"
+                app:layout_constraintStart_toStartOf="@+id/chromecustomtabs"
+                app:layout_constraintTop_toBottomOf="@+id/chromecustomtabs">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/black" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_application"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="@+id/space_4"
+                app:layout_constraintStart_toStartOf="@+id/space_4"
+                app:layout_constraintTop_toBottomOf="@+id/space_4">
 
                 <ImageView
                     android:id="@+id/about_icon"
@@ -336,7 +398,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/space_4"
+                android:id="@+id/space_5"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginStart="20dp"

@@ -21,27 +21,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".java.global.ChangeLanguage"
+            android:name=".java.Global.ChangeLanguage"
             android:exported="false" />
         <activity
             android:name=".java.RSSURL.SourceNewsDetails"
             android:exported="false" />
         <activity
-            android:name=".java.global.WallpaperHeader"
+            android:name=".java.Global.WallpaperHeader"
             android:exported="false" />
         <activity
-            android:name=".java.global.AboutApplication"
+            android:name=".java.Global.AboutApplication"
             android:exported="false" />
         <activity
-            android:name=".java.global.SettingsLogined"
+            android:name=".java.Global.Signed.SettingsLogined"
             android:exported="false"
             android:theme="@style/SettingsForm" />
         <activity
-            android:name=".java.global.SettingsPage"
+            android:name=".java.Global.SettingsPage"
             android:exported="false"
             android:theme="@style/SettingsForm" />
         <activity
-            android:name=".java.global.ForgotPasswordForm"
+            android:name=".java.Global.Signed.ForgotPasswordForm"
             android:exported="false"
             android:theme="@style/LoginForm">
             <meta-data
@@ -49,7 +49,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.global.VerifyAccountForm"
+            android:name=".java.Global.Signed.VerifyAccountForm"
             android:exported="false"
             android:theme="@style/LoginForm">
             <meta-data
@@ -57,7 +57,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.global.SignUpForm"
+            android:name=".java.Global.Signed.SignUpForm"
             android:exported="false"
             android:theme="@style/LoginForm">
             <meta-data
@@ -65,7 +65,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.global.SignInForm"
+            android:name=".java.Global.Signed.SignInForm"
             android:exported="false"
             android:theme="@style/LoginForm">
             <meta-data
@@ -73,7 +73,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.global.NewsDetailWebView"
+            android:name=".java.NewsDetails.NewsDetailWebView"
             android:exported="false"
             android:theme="@style/NewsDetails.NoActionBar">
             <meta-data
@@ -88,7 +88,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.RSSURL.FavouriteNews"
+            android:name=".java.Global.FavouriteNews"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

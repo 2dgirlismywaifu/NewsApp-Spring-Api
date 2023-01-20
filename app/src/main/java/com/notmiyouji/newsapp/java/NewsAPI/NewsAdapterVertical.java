@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.global.NewsDetailsChrome;
+import com.notmiyouji.newsapp.java.NewsDetails.OpenNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.Utils;
@@ -44,15 +44,14 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
         loadImageURL.getImageFromURL(holders.imageView, holders);
         holders.title.setText(model.getTitle());
         holders.source.setText(model.getSource().getName());
-        holders.time.setText(" \u2022 " + Utils.DateToTimeFormat(model.getPublishedAt()));
+        holders.time.setText(" \u2022 " + Utils.dateToTimeFormat(model.getPublishedAt()));
         holders.itemView.setOnClickListener(v -> {
-            NewsDetailsChrome chromeClient = new NewsDetailsChrome(
-                    model.getUrl(),
+            OpenNewsDetails openNewsDetails = new OpenNewsDetails(model.getUrl(),
                     model.getTitle(),
                     model.getUrlToImage(),
                     model.getUrl(),
                     model.getPublishedAt(), activity);
-            chromeClient.openNewsDetails();
+            openNewsDetails.openNewsDetails();
         });
     }
 

@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListRSSAdapter;
+import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListRSSAdapter;
+import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
+import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class SourceNewsDetails extends AppCompatActivity {
     public TextView sourceName, sourceDescription, newsTitle, urlmain;
     public RecyclerView rssRecycler;
     LoadImageURL loadImageURL;
-    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<RSSList> rssLists = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
 

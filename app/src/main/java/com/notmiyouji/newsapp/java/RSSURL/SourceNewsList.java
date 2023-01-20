@@ -17,17 +17,19 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.Global.FavouriteNews;
+import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
-import com.notmiyouji.newsapp.java.global.LanguagePrefManager;
-import com.notmiyouji.newsapp.java.global.NavigationPane;
-import com.notmiyouji.newsapp.java.global.SettingsPage;
-import com.notmiyouji.newsapp.java.global.recycleviewadapter.ListSourceAdapter;
+import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
+import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
-import com.notmiyouji.newsapp.kotlin.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
-import com.notmiyouji.newsapp.kotlin.sharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     ListSourceAdapter listSourceAdapter;
     LoadWallpaperShared loadWallpaperShared;
     SwipeRefreshLayout swipeRefreshLayout;
-    NewsAPPInterface newsAPPInterface = NewsAppAPI.getAPIClient().create(NewsAPPInterface.class);
+    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
 

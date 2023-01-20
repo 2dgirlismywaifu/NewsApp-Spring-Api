@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.global;
+package com.notmiyouji.newsapp.java.SharedSettings;
 
 import static android.content.Context.MODE_PRIVATE;
 

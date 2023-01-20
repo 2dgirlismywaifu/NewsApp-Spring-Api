@@ -1,7 +1,7 @@
 #include <jni.h>
 
 JNIEXPORT jstring JNICALL
-Java_com_notmiyouji_newsapp_java_NewsAPI_NewsAPIKey_getNewsAPIKey(JNIEnv *env, jobject thiz) {
+Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPIKey_getNewsAPIKey(JNIEnv *env, jobject thiz) {
     // TODO: implement getNewsAPIKey()
     return (*env)->NewStringUTF(env, "ODZkOGU1NGUzYWQ4NGZiZDgxMjM0NWNhYzdkODFkMjk=");
 }
@@ -13,13 +13,13 @@ Java_com_notmiyouji_newsapp_java_RSSURL_FeedMultiRSS_getRSS2JSONAPIKey(JNIEnv *e
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_notmiyouji_newsapp_java_RSSURL_NewsAppAPI_geNewsAPPHeader(JNIEnv *env, jobject thiz) {
+Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPPAPI_getNewsAPPKey(JNIEnv *env, jobject thiz) {
     // TODO: implement geNewsAPPHeader()
-    return (*env)->NewStringUTF(env, "ZnJvbS13aXRoLWxvdmUtbm90ZWx5c2lh");
+    return (*env)->NewStringUTF(env, "ZjcxYWVmNmYtMWVjYy00MDIwLWI2YzctMGQ0Nzg4OTA1MDAz");
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_notmiyouji_newsapp_java_RSSURL_NewsAppAPI_getNewsAPPKey(JNIEnv *env, jobject thiz) {
+Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPPAPI_geNewsAPPHeader(JNIEnv *env, jclass clazz) {
     // TODO: implement geNewsAPPHeader()
-    return (*env)->NewStringUTF(env, "ZjcxYWVmNmYtMWVjYy00MDIwLWI2YzctMGQ0Nzg4OTA1MDAz");
+    return (*env)->NewStringUTF(env, "ZnJvbS13aXRoLWxvdmUtbm90ZWx5c2lh");
 }
