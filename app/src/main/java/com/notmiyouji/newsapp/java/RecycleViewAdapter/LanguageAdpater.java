@@ -2,6 +2,7 @@ package com.notmiyouji.newsapp.java.RecycleViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,9 @@ public class LanguageAdpater extends RecyclerView.Adapter<LanguageAdpater.ViewHo
 
     public HashMap<String, String> languageList(AppCompatActivity activity) {
         HashMap<String, String> data = new HashMap<>();
+        String default_local = Resources.getSystem().getConfiguration().getLocales().get(0).getLanguage();
         Context context = activity.getBaseContext();
+        data.put(context.getString(R.string.follow_system), default_local);
         data.put(context.getString(R.string.english_language), "en");
         data.put(context.getString(R.string.vietnam_language), "vi");
         return data;

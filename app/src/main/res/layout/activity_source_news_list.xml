@@ -92,6 +92,7 @@
                         tools:ignore="ContentDescription" />
 
                     <EditText
+                        android:id="@+id/search_input"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

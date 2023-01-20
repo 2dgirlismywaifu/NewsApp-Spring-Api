@@ -16,7 +16,7 @@ class LoadImageURL(
         viewHolder?.itemView?.context?.let {
             imageView?.load(url) {
                 crossfade(true)
-                error(R.drawable.not_available)
+                error(R.drawable.lungcu_hban)
             }
         }
     }

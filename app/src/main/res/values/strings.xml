@@ -102,6 +102,7 @@
     <string name="rss_url" translatable="false">URL: </string>
     <string name="rss2_json_plan">Free plan RSS2JSON limited to 25 RSS</string>
     <string name="language_change_messeage">Language Changed</string>
+    <string name="follow_system">Follow System</string>
     <string name="english_language">English</string>
     <string name="vietnam_language">Tiếng Việt</string>
     <string name="change_language_will_restart_the_application">Change language will restart the application</string>

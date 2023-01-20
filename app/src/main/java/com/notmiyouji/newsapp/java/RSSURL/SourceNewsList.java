@@ -2,12 +2,17 @@ package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,6 +38,7 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
@@ -53,7 +59,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
-
+    EditText searchSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         languagePrefManager = new LanguagePrefManager(getBaseContext());
@@ -83,8 +89,38 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             loadSourceList(SourceNewsList.this);
             swipeRefreshLayout.setRefreshing(false);
         });
+        //Recycle View Filter
+        searchSource = findViewById(R.id.search_input);
+        searchSource.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
     }
 
+    public void filter (String s) {
+        List<NewsSource> newsSourceList = new ArrayList<>();
+        for (NewsSource newsSource : newsSources) {
+            if (Objects.requireNonNull(
+                    newsSource.getSource_name()).toLowerCase().contains(s.toLowerCase()))
+            {
+                newsSourceList.add(newsSource);
+            }
+        }
+        listSourceAdapter.filterList(newsSourceList);
+    }
     public void loadSourceList(AppCompatActivity activity) {
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");

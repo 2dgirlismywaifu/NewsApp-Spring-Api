@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.RecycleViewAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,12 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
 
     AppCompatActivity activity;
     List<NewsSource> newsSourceList;
+    List<NewsSource> newsSourceListOld;
 
     public ListSourceAdapter(AppCompatActivity activity, List<NewsSource> newsSourceList) {
         this.activity = activity;
         this.newsSourceList = newsSourceList;
+        this.newsSourceListOld = newsSourceList;
     }
 
     @NonNull
@@ -58,6 +61,12 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
     @Override
     public int getItemCount() {
         return newsSourceList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(List<NewsSource> newsSourceList) {
+        this.newsSourceList = newsSourceList;
+        notifyDataSetChanged();
     }
 
     public static class ListSourceHolder extends RecyclerView.ViewHolder {
