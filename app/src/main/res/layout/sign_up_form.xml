@@ -94,33 +94,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phonenumber_label"
+                android:id="@+id/Password_label"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/email_label"
                 app:layout_constraintStart_toStartOf="@+id/email_label"
-                app:layout_constraintTop_toBottomOf="@+id/email_label">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:hint="@string/enter_your_phone_number"
-                    android:inputType="number"
-                    android:textColorHint="#000000"
-                    android:textStyle="bold" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/Password_label"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="@+id/phonenumber_label"
-                app:layout_constraintStart_toStartOf="@+id/phonenumber_label"
-                app:layout_constraintTop_toBottomOf="@+id/phonenumber_label"
+                app:layout_constraintTop_toBottomOf="@+id/email_label"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText

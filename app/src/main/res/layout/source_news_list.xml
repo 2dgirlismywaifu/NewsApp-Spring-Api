@@ -86,11 +86,11 @@
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Details"
+                android:text="@string/details"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText,TextContrastCheck" />
+                tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
