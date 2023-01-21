@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.NewsAPI;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,12 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
     @Override
     public int getItemCount() {
         return articleCategory.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(List<ArticleCategory> articleCategory) {
+        this.articleCategory = articleCategory;
+        notifyDataSetChanged();
     }
 
     public interface ItemClickListener {

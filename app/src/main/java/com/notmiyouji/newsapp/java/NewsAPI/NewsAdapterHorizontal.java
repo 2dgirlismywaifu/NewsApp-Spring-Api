@@ -62,6 +62,12 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         return articles.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(List<Article> articles) {
+        this.articles = articles;
+        notifyDataSetChanged();
+    }
+
     public interface ItemClickListener {
         void onClick(View view, int position, boolean isLongClick);
     }

@@ -2,6 +2,7 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -14,19 +15,27 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 public class AboutApplication extends AppCompatActivity {
 
     ShapeableImageView imageView;
     RelativeLayout githubbtn, twitterbtn;
     Intent intent;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+//        languagePrefManager = new LanguagePrefManager(getBaseContext());
+//        if (languagePrefManager.getLang().equals("follow_system")) {
+//            String default_local = Resources.getSystem().getConfiguration().getLocales().get(0).getLanguage();
+//            languagePrefManager.setLocal(default_local);
+//        } else {
+//            languagePrefManager.setLocal(languagePrefManager.getLang());
+//        }
+//        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_application);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -65,7 +74,7 @@ public class AboutApplication extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

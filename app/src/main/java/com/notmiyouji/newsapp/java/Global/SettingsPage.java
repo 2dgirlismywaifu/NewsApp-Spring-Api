@@ -3,6 +3,7 @@ package com.notmiyouji.newsapp.java.Global;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Global.Signed.SignInForm;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared;
 
 public class SettingsPage extends AppCompatActivity {
@@ -27,13 +29,13 @@ public class SettingsPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
     SwitchMaterial useChrome;
     SharedPreferences prefs;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        //check shared preferences for language
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -107,7 +109,7 @@ public class SettingsPage extends AppCompatActivity {
         if (loadBackground() != drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations()) {
             drawerLayout.setBackground(ResourcesCompat.getDrawable(getResources(), loadBackground(), null));
         }
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

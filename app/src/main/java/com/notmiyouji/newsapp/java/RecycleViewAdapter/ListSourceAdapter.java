@@ -24,12 +24,10 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
 
     AppCompatActivity activity;
     List<NewsSource> newsSourceList;
-    List<NewsSource> newsSourceListOld;
 
     public ListSourceAdapter(AppCompatActivity activity, List<NewsSource> newsSourceList) {
         this.activity = activity;
         this.newsSourceList = newsSourceList;
-        this.newsSourceListOld = newsSourceList;
     }
 
     @NonNull

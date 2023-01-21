@@ -10,17 +10,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 public class SignUpForm extends AppCompatActivity {
 
     Button signupbtn, signinbtn;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_form);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -50,7 +50,7 @@ public class SignUpForm extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

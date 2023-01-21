@@ -6,9 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +39,12 @@ import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RSS2JSON.FeedMultiRSS;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsTypeAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
@@ -63,11 +66,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     LoadWallpaperShared loadWallpaperShared;
     ExtendedFloatingActionButton filterSource;
     TextView chooseTitle;
+    EditText searchNews;
     TextInputLayout chooseHint;
     SwipeRefreshLayout swipeRefreshLayout;
+    FeedMultiRSS feedMultiRSS;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
     private String deafultSource = "VNExpress";
 
     public String getDeafultSource() {
@@ -81,9 +86,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -119,7 +123,27 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             LoadSourceNews(getDeafultSource());
             swipeRefreshLayout.setRefreshing(false);
         });
+        //Search with RecyclerView Filter
+        searchNews = findViewById(R.id.search_input);
+        searchNews.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                feedMultiRSS.filterHorizonal(s.toString());
+                //Still can't filter vertical recyclerview, only horizontal can filter
+                //feedMultiRSS.filterVertical(s.toString());
+            }
+        });
     }
+
 
     //Collapse float button
     private void hideWhenScroll() {
@@ -149,7 +173,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //Load Lastest News
         Thread loadLastNews = new Thread(() -> {
             newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
-            FeedMultiRSS feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
+            feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
             feedMultiRSS.MultiFeedHorizontal("BreakingNews", source, mDialog);
         });
         loadLastNews.start();
@@ -259,7 +283,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

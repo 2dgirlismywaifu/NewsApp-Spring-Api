@@ -11,18 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 public class SignInForm extends AppCompatActivity {
 
     Button SignUpBtn, forgotpassbtn;
     Intent intent;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_form);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -58,7 +58,7 @@ public class SignInForm extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

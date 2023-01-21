@@ -12,17 +12,17 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.WallpaperHeaderAdpater;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 public class WallpaperHeader extends AppCompatActivity {
     WallpaperHeaderAdpater wallpaperHeaderAdpater;
     RecyclerView recyclerView;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallpaper_header);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -57,7 +57,7 @@ public class WallpaperHeader extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

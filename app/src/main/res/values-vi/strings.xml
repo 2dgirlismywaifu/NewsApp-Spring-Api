@@ -101,4 +101,5 @@
     <string name="change_language_will_restart_the_application">Thay đổi ngôn ngữ sẽ khởi động lại ứng dụng này</string>
     <string name="use_chrome_custom_tabs">Sử dụng thẻ Chrome</string>
     <string name="follow_system">Theo hệ thống</string>
+    <string name="no_result_found">Không có kết quả hoặc dữ liệu không có sẵn</string>
 </resources>

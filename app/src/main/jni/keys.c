@@ -24,3 +24,8 @@ Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPPAPI_geNewsAPPHeader(JNIEnv *env
     // TODO: implement geNewsAPPHeader()
     return (*env)->NewStringUTF(env, "ZnJvbS13aXRoLWxvdmUtbm90ZWx5c2lh");
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_notmiyouji_newsapp_java_Retrofit_Rss2jsonAPI_getRSS2JSONAPIKey(JNIEnv *env, jobject thiz) {
+    return (*env)->NewStringUTF(env, "a2RramR2a2pkZmZ5ZmJmdWVxd2t3Mmt0Z2locWthY3kzMHhvd203aQ==");
+}

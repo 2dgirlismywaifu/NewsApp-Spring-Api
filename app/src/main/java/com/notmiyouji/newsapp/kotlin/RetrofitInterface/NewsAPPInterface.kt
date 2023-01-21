@@ -29,10 +29,4 @@ interface NewsAPPInterface {
     fun getRSSList(
         @Query("name") name: String?,
     ): Call<ListObject?>?
-
-    @GET("rss/convertIntoJson")
-    fun getRSS2JSON(
-        @Query("url", encoded = true) urlLink: String?,
-    ): Call<ListObject?>?
-
 }

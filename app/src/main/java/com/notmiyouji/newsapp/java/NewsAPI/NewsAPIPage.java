@@ -6,9 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,15 +44,18 @@ import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
+import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
@@ -78,10 +84,11 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     LoadWallpaperShared loadWallpaperShared;
     ExtendedFloatingActionButton filterCountry;
     TextView chooseTitle;
+    EditText searchNews;
     TextInputLayout chooseHint;
     List<Country> countryList, codeList;
     SwipeRefreshLayout swipeRefreshLayout;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
     private String countryCodeDefault = "us";
 
     public String getCountryCodeDefault() {
@@ -95,9 +102,8 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_api_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -133,8 +139,35 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             LoadNewsAPI(getCountryCodeDefault());
             swipeRefreshLayout.setRefreshing(false);
         });
-    }
+        //Search News with recyclerview filter
+        searchNews = findViewById(R.id.search_input);
+        searchNews.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filterHorizonal(s.toString());
+                //This is a feature, not a BUG
+                newsAPICategory.filterVertical(s.toString());
+            }
+        });
+    }
+    private void filterHorizonal(String text) {
+        List<Article> listhorizonal = new ArrayList<>();
+        for (Article item : articles) {
+            if (Objects.requireNonNull(item.getTitle()).toLowerCase().contains(text.toLowerCase())) {
+                listhorizonal.add(item);
+            }
+        }
+        newsAdapterHorizontal.filterList(listhorizonal);
+    }
     @SuppressLint("NotifyDataSetChanged")
     private void LoadCategoryType(String countryCodeDefault) {
         newsAPITypeAdapter = new NewsAPITypeAdapter(this, countryCodeDefault);
@@ -333,6 +366,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     public void onResume() {
         super.onResume();
         loadWallpaperShared.loadWallpaper();
-        languagePrefManager.loadLocal();
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        loadFollowLanguageSystem.loadLanguage();
     }
 }

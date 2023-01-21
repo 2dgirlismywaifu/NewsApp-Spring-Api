@@ -18,6 +18,7 @@ import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 public class NewsAPICategory {
     public static final String API_KEY = new NewsAPIKey().getNEWSAPIKEY(); //the newsAPI key is here
-    List<ArticleCategory> articles2 = new ArrayList<>(); //include category
+    List<ArticleCategory> articleCategories = new ArrayList<>(); //include category
     NewsAdapterVertical newsAdapterVertical;
     NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
     Call<NewsCategory> callCategory;
@@ -41,13 +42,13 @@ public class NewsAPICategory {
                     if (response2.isSuccessful()) {
                         assert response2.body() != null;
                         if (response2.body().getArticle() != null) {
-                            if (!articles2.isEmpty()) {
-                                articles2.clear();
+                            if (!articleCategories.isEmpty()) {
+                                articleCategories.clear();
                             }
-                            articles2 = response2.body().getArticle();
+                            articleCategories = response2.body().getArticle();
                             LinearLayoutManager newsAPIVerticalLayout = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
                             newsViewVertical.setLayoutManager(newsAPIVerticalLayout);
-                            newsAdapterVertical = new NewsAdapterVertical(articles2, activity);
+                            newsAdapterVertical = new NewsAdapterVertical(articleCategories, activity);
                             newsViewVertical.setAdapter(newsAdapterVertical);
                             newsAdapterVertical.notifyDataSetChanged();
                         }
@@ -64,5 +65,16 @@ public class NewsAPICategory {
                     newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
         });
         loadSourceGeneral.start();
+    }
+
+    //Doesn't work if choose another category :(
+    public void filterVertical(String text) {
+        List<ArticleCategory> listVertical = new ArrayList<>();
+        for (ArticleCategory item : articleCategories) {
+            if (Objects.requireNonNull(item.getTitle()).toLowerCase().contains(text.toLowerCase())) {
+                listVertical.add(item);
+            }
+        }
+        newsAdapterVertical.filterList(listVertical);
     }
 }

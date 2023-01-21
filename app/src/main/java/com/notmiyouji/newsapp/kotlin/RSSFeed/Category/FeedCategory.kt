@@ -1,9 +1,9 @@
-package com.notmiyouji.newsapp.kotlin.RSSFeed
+package com.notmiyouji.newsapp.kotlin.RSSFeed.Category
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Feed {
+class FeedCategory {
     @SerializedName("url")
     @Expose
     var url: String? = null

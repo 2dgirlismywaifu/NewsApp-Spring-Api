@@ -42,7 +42,11 @@ public class LanguageAdpater extends RecyclerView.Adapter<LanguageAdpater.ViewHo
             String defLang = data.get(data.keySet().toArray()[position].toString());
             assert defLang != null;
             LanguagePrefManager languagePrefManager = new LanguagePrefManager(activity);
-            languagePrefManager.setLocal(defLang);
+            if (defLang.equals("follow_system")) {
+                languagePrefManager.setLocal(defLang);
+            } else {
+                languagePrefManager.setLocal(defLang);
+            }
             Toast.makeText(activity, R.string.language_change_messeage, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity, HomePage.class);
             activity.overridePendingTransition(0, 0);
@@ -62,9 +66,8 @@ public class LanguageAdpater extends RecyclerView.Adapter<LanguageAdpater.ViewHo
 
     public HashMap<String, String> languageList(AppCompatActivity activity) {
         HashMap<String, String> data = new HashMap<>();
-        String default_local = Resources.getSystem().getConfiguration().getLocales().get(0).getLanguage();
         Context context = activity.getBaseContext();
-        data.put(context.getString(R.string.follow_system), default_local);
+        data.put(context.getString(R.string.follow_system), "system");
         data.put(context.getString(R.string.english_language), "en");
         data.put(context.getString(R.string.vietnam_language), "vi");
         return data;
