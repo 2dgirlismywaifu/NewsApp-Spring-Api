@@ -16,7 +16,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsDetails.OpenNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSFeed.Category.ItemsCategory;
-import com.notmiyouji.newsapp.kotlin.RSSFeed.Items;
+import com.notmiyouji.newsapp.kotlin.RegEXImage;
 
 import java.util.List;
 
@@ -46,7 +46,8 @@ public class FeedAdapterVertical extends RecyclerView.Adapter<FeedAdapterVertica
         holder.txtTitle.setText(items.get(position).getTitle());
         holder.txtPubDate.setText(items.get(position).getPubDate());
         holder.txtsource.setText(name);
-        String path = items.get(position).getThumbnail();
+        RegEXImage regEXImage = new RegEXImage(items.get(position).getDescription(), items.get(position).getThumbnail());
+        String path = regEXImage.regEXImage();
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holder.imageView, holder);
         holder.itemView.setOnClickListener(v -> {
@@ -55,7 +56,7 @@ public class FeedAdapterVertical extends RecyclerView.Adapter<FeedAdapterVertica
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(
                     items.get(position).getLink(),
                     items.get(position).getTitle(),
-                    items.get(position).getThumbnail(),
+                    path,
                     items.get(position).getLink(),
                     items.get(position).getPubDate(), activity);
             openNewsDetails.openNewsDetails();

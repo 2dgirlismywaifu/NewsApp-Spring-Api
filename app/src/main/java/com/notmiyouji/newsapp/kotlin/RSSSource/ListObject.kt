@@ -16,4 +16,5 @@ class ListObject {
     @Expose
     var rssList: List<RSSList>? = null
 
+    constructor()
 }

@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/code_input"
+                    android:id="@+id/nickname_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
@@ -139,7 +139,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/VerifyNowbtn"
+                android:id="@+id/SignUpNow"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -155,11 +155,11 @@
             <LinearLayout
                 android:id="@+id/signin_label"
                 android:layout_width="320dp"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/VerifyNowbtn"
-                app:layout_constraintStart_toStartOf="@+id/VerifyNowbtn"
-                app:layout_constraintTop_toBottomOf="@+id/VerifyNowbtn">
+                app:layout_constraintEnd_toEndOf="@+id/SignUpNow"
+                app:layout_constraintStart_toStartOf="@+id/SignUpNow"
+                app:layout_constraintTop_toBottomOf="@+id/SignUpNow">
 
                 <TextView
                     android:id="@+id/textView5"
