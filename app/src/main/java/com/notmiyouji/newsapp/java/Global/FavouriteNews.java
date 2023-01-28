@@ -74,12 +74,15 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         if (menuitem == R.id.home_menu) {
             intent = new Intent(FavouriteNews.this, HomePage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.source_menu) {
             intent = new Intent(FavouriteNews.this, SourceNewsList.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(FavouriteNews.this, NewsAPIPage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(FavouriteNews.this, SettingsPage.class);
             startActivity(intent);

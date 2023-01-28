@@ -174,12 +174,15 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         if (menuitem == R.id.home_menu) {
             intent = new Intent(SourceNewsList.this, HomePage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(SourceNewsList.this, NewsAPIPage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(SourceNewsList.this, FavouriteNews.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(SourceNewsList.this, SettingsPage.class);
             startActivity(intent);

@@ -350,12 +350,15 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         if (menuitem == R.id.home_menu) {
             intent = new Intent(NewsAPIPage.this, HomePage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.source_menu) {
             intent = new Intent(NewsAPIPage.this, SourceNewsList.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(NewsAPIPage.this, FavouriteNews.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(NewsAPIPage.this, SettingsPage.class);
             startActivity(intent);

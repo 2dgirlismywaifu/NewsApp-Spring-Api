@@ -267,12 +267,15 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         if (menuitem == R.id.newsapi_menu) {
             intent = new Intent(HomePage.this, NewsAPIPage.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.source_menu) {
             intent = new Intent(HomePage.this, SourceNewsList.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.favourite_menu) {
             intent = new Intent(HomePage.this, FavouriteNews.class);
             startActivity(intent);
+            this.finish();
         } else if (menuitem == R.id.settings_menu) {
             intent = new Intent(HomePage.this, SettingsPage.class);
             startActivity(intent);
