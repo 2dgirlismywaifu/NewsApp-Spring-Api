@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
@@ -70,6 +73,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     TextInputLayout chooseHint;
     SwipeRefreshLayout swipeRefreshLayout;
     FeedMultiRSS feedMultiRSS;
+    ProgressBar bar;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
@@ -93,8 +97,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
-        drawerLayout = findViewById(R.id.home_page);
         navigationView = findViewById(R.id.nav_pane_view);
+        //From sharedPreference, if user logined saved, call navigation pane with user name header
+        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader.loadHeader();
+        bar = findViewById(R.id.progressBar);
+        drawerLayout = findViewById(R.id.home_page);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.news_type);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
@@ -117,6 +125,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         LoadSourceNews(getDeafultSource());
         //Select source to load (Settings will save to shared preference)
         openSourceChoose();
+        //User progress bar
+        bar.setVisibility(View.VISIBLE);
         //Hide float button when scroll recyclerview vertical
         hideWhenScroll();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -159,7 +169,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     @SuppressLint("NotifyDataSetChanged")
     private void LoadCategory(String source) {
-        NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, source);
+        NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, bar , source);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
@@ -167,19 +177,16 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void LoadSourceNews(String source) {
-        final ProgressDialog mDialog = new ProgressDialog(this);
-        mDialog.setMessage(this.getString(R.string.loading_messeage));
-        mDialog.show();
         //Load Lastest News
         Thread loadLastNews = new Thread(() -> {
             newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
             feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
-            feedMultiRSS.MultiFeedHorizontal("BreakingNews", source, mDialog);
+            feedMultiRSS.MultiFeedHorizontal("BreakingNews", source, bar);
         });
         loadLastNews.start();
 
         //load NewsView Vertical
-        RssURLCategory rssURLCategory = new RssURLCategory(HomePage.this, newsViewVertical, mDialog, source);
+        RssURLCategory rssURLCategory = new RssURLCategory(HomePage.this, newsViewVertical, bar, source);
         rssURLCategory.startLoad("BreakingNews");
     }
 

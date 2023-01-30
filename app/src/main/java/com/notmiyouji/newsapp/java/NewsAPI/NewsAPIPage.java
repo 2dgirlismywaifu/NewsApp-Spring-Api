@@ -32,24 +32,23 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
+import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
 import com.notmiyouji.newsapp.java.Global.SettingsPage;
-import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPIKey;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
-import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Category.ArticleCategory;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
@@ -111,6 +110,9 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         //Hooks
         drawerNewsAPI = findViewById(R.id.newsapi_page);
         navigationView = findViewById(R.id.nav_pane_view);
+        //From sharedPreference, if user logined saved, call navigation pane with user name header
+        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader.loadHeader();
         toolbar = findViewById(R.id.nav_button);
         newstypeView = findViewById(R.id.news_type);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
@@ -159,6 +161,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             }
         });
     }
+
     private void filterHorizonal(String text) {
         List<Article> listhorizonal = new ArrayList<>();
         for (Article item : articles) {
@@ -168,6 +171,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         }
         newsAdapterHorizontal.filterList(listhorizonal);
     }
+
     @SuppressLint("NotifyDataSetChanged")
     private void LoadCategoryType(String countryCodeDefault) {
         newsAPITypeAdapter = new NewsAPITypeAdapter(this, countryCodeDefault);

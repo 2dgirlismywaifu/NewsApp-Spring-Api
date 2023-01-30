@@ -21,6 +21,7 @@ public class NewsDetailsChrome {
     private final String pubdate;
     private final Activity activity;
     Intent intent;
+
     public NewsDetailsChrome(String url, String title, String img, String source, String pubdate, Activity activity) {
         this.url = url;
         this.title = title;

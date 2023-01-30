@@ -5,9 +5,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <queries>
         <package android:name="com.android.chrome" />
     </queries>
+
     <application
         android:name=".kotlin.ApplyDynamicColor"
         android:allowBackup="true"
@@ -20,6 +22,9 @@
         android:theme="@style/Theme.Newsapp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".java.Global.Signed.RegisterSuccess"
+            android:exported="false" />
         <activity
             android:name=".java.Global.ChangeLanguage"
             android:exported="false" />

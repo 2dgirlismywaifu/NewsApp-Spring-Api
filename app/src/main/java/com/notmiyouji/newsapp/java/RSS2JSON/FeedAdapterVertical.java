@@ -60,7 +60,7 @@ public class FeedAdapterVertical extends RecyclerView.Adapter<FeedAdapterVertica
                     items.get(position).getLink(),
                     items.get(position).getPubDate(), activity);
             openNewsDetails.openNewsDetails();
-            });
+        });
     }
 
     @Override

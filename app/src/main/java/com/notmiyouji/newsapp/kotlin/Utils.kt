@@ -3,7 +3,7 @@ package com.notmiyouji.newsapp.kotlin
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 object Utils {
     @JvmStatic

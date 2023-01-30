@@ -14,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header"
         app:menu="@menu/navigation_menu">
 
     </com.google.android.material.navigation.NavigationView>
@@ -35,11 +34,21 @@
             app:navigationIcon="@drawable/ic_baseline_menu_40" />
 
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,8 +133,8 @@
                         android:id="@+id/cardnews_view_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
                         android:nestedScrollingEnabled="false"
                         android:orientation="horizontal"
                         android:scrollbars="horizontal"

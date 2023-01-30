@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.LanguageAdpater;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 

@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CheckNickName;
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Register;
@@ -41,7 +42,7 @@ public class SignUpForm extends AppCompatActivity {
         email = findViewById(R.id.email_input);
         password = findViewById(R.id.password_input);
         confirmpassword = findViewById(R.id.Repassword_input);
-        username = findViewById(R.id.nickname_input);
+        username = findViewById(R.id.recovey_code);
         signinbtn = findViewById(R.id.ResendCodeBtn);
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
@@ -56,7 +57,7 @@ public class SignUpForm extends AppCompatActivity {
             finish();
         });
         //sign up button
-        signupbtn = findViewById(R.id.SignUpNow);
+        signupbtn = findViewById(R.id.VerifiedButton);
         signupbtn.setOnClickListener(v -> {
             //check input
             checkInput();
@@ -75,6 +76,7 @@ public class SignUpForm extends AppCompatActivity {
                     //if password and confirm password is same, sign up
                     //sign up function
                     RegisterAccount(email.getText().toString(), password.getText().toString(), username.getText().toString());
+                    gotoVerifyEmail(email.getText().toString(), password.getText().toString(), username.getText().toString());
                 }
             }
         });
@@ -108,10 +110,10 @@ public class SignUpForm extends AppCompatActivity {
             username.setError("Username is required");
         }
     }
+
     private void checkNickname() {
         //Use Retrofit to check nickname
-        Call<CheckNickName> call = newsAPPInterface.checkNickname(
-                new CheckNickName(username.getText().toString(), email.getText().toString()));
+        Call<CheckNickName> call = newsAPPInterface.checkNickname(username.getText().toString(), email.getText().toString() );
         call.enqueue(new retrofit2.Callback<CheckNickName>() {
 
             @Override
@@ -123,6 +125,7 @@ public class SignUpForm extends AppCompatActivity {
                     email.setError("Email is already used");
                 }
             }
+
             @Override
             public void onFailure(Call<CheckNickName> call, Throwable t) {
 
@@ -131,28 +134,45 @@ public class SignUpForm extends AppCompatActivity {
     }
 
     private void RegisterAccount(String email, String password, String username) {
-        Call<Register> call = newsAPPInterface.register(
-                new Register(email, password, username));
+        Call<Register> call = newsAPPInterface.register(email, password, username);
         call.enqueue(new retrofit2.Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 //Save user account to firebase realtime database
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password);
-                //go to verify account activity
-                Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
-                intent.putExtra("email", email);
-                intent.putExtra("password", password);
-                intent.putExtra("username", username);
-                //send verify code to email with firebase authentication
-                FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
-                ActivityOptions.makeSceneTransitionAnimation(SignUpForm.this).toBundle();
-                SignUpForm.this.finish();
-                startActivity(intent);
+                if (response.isSuccessful()) {
+
+                }
             }
+
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
 
             }
         });
+    }
+
+    private void gotoVerifyEmail(String email, String password, String username) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                //Send email verification
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                firebaseUser.sendEmailVerification().addOnCompleteListener(task1 -> {
+                    if (task1.isSuccessful()) {
+                        Toast.makeText(SignUpForm.this, R.string.a_confirmation_email_has_been_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        //go to verify account activity
+        Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
+        intent.putExtra("username", username);
+        ActivityOptions.makeSceneTransitionAnimation(SignUpForm.this).toBundle();
+        SignUpForm.this.finish();
+        startActivity(intent);
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 public class SettingsLogined extends AppCompatActivity {

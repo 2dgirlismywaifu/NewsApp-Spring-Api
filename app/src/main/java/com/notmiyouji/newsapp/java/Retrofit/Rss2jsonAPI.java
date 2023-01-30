@@ -14,13 +14,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Rss2jsonAPI {
+    public static final String BASE_URL = "https://api.rss2json.com/v1/";
+    public static Retrofit retrofit;
+
     static {
         System.loadLibrary("keys");
     }
-    public native String getRSS2JSONAPIKey();
+
     public final String RSS2JSON_API_KEY = new String(android.util.Base64.decode(getRSS2JSONAPIKey(), Base64.DEFAULT));
-    public static final String BASE_URL = "https://api.rss2json.com/v1/";
-    public static Retrofit retrofit;
 
     public static Retrofit getAPIClient() {
         if (retrofit == null) {
@@ -30,10 +31,6 @@ public class Rss2jsonAPI {
                     .build();
         }
         return retrofit;
-    }
-
-    public String getRSS2JSON_API_KEY() {
-        return RSS2JSON_API_KEY;
     }
 
     public static OkHttpClient.Builder getHttpClient() {
@@ -70,5 +67,11 @@ public class Rss2jsonAPI {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public native String getRSS2JSONAPIKey();
+
+    public String getRSS2JSON_API_KEY() {
+        return RSS2JSON_API_KEY;
     }
 }

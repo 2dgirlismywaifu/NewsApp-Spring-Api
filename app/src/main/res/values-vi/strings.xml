@@ -31,9 +31,9 @@
     <string name="enter_your_username">Nhập tài khoản</string>
     <string name="enter_your_email">Nhập email</string>
     <string name="verification_code_email">Nhập mã xác thực gửi tới \nemail của bạn</string>
-    <string name="verification_code_demo">Nhập mã xác thực gửi tới  \nemail của bạn: email@example.com</string>
+    <string name="verification_code_demo">Vui lòng nhấn vào liên kết xác thực \nđược gửi vào email và nhấn vào nút \nđã xác nhận để hoàn tất</string>
     <string name="not_received_yet">Chưa nhận được?</string>
-    <string name="resend_code">Gửi lại mã</string>
+    <string name="resend_code">Gửi lại email</string>
     <string name="verify_account">Xác thực tài khoản</string>
     <string name="enter_verification_code">Nhập mã xác thực</string>
     <string name="forgotpass_note_info">Bạn đã yêu cầu quên mật khẩu.\nVui lòng nhập email để nhận mã</string>
@@ -103,4 +103,5 @@
     <string name="follow_system">Theo hệ thống</string>
     <string name="no_result_found">Không có kết quả hoặc dữ liệu không có sẵn</string>
     <string name="details">Chi tiết</string>
+    <string name="a_confirmation_email_has_been_sent_to_your_mailbox">Một thư xác thực đã được gửi tới hộp thư của bạn</string>
 </resources>

@@ -2,7 +2,6 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;

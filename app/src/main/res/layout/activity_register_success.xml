@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/signinbackground"
-    tools:context=".java.Global.Signed.VerifyAccountForm"
+    tools:context=".java.Global.Signed.RegisterSuccess"
     tools:ignore="ScrollViewCount">
 
     <androidx.core.widget.NestedScrollView
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins"
-                android:text="@string/verify_account"
+                android:text="Register Success"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
-                android:text="@string/verification_code_demo"
+                android:text="Thank you to become member\n of this application. "
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -70,12 +70,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/SignUpLabel" />
 
             <TextView
-                android:id="@+id/email_send"
+                android:id="@+id/recovey_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
-                android:text="Email"
+                android:text="Here is your recovery code\n for recovery account"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -84,6 +84,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/Verifi_account_note"
                 tools:ignore="HardcodedText" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/code_label"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/recovey_label"
+                app:layout_constraintStart_toStartOf="@+id/recovey_label"
+                app:layout_constraintTop_toBottomOf="@+id/recovey_label">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/recovey_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:inputType="none"
+                    android:textColorHint="#616161"
+                    android:textStyle="bold"
+                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/VerifiedButton"
                 android:layout_width="350dp"
@@ -91,47 +111,12 @@
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
-                android:text="@string/verify"
+                android:text="Surf Now"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/email_send"
-                app:layout_constraintStart_toStartOf="@+id/email_send"
-                app:layout_constraintTop_toBottomOf="@+id/email_send"
+                app:layout_constraintEnd_toEndOf="@+id/code_label"
+                app:layout_constraintStart_toStartOf="@+id/code_label"
+                app:layout_constraintTop_toBottomOf="@+id/code_label"
                 tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck,VisualLintButtonSize" />
-
-            <LinearLayout
-                android:id="@+id/signin_label"
-                android:layout_width="320dp"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/VerifiedButton"
-                app:layout_constraintStart_toStartOf="@+id/VerifiedButton"
-                app:layout_constraintTop_toBottomOf="@+id/VerifiedButton">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/raleway"
-                    android:text="@string/not_received_yet"
-                    android:textAlignment="center"
-                    android:textColor="#D0000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:ignore="TextSizeCheck" />
-
-                <Button
-                    android:id="@+id/ResendCodeBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:fontFamily="@font/raleway_bold"
-                    android:text="@string/resend_code"
-                    android:textColor="#2F89FC"
-                    android:textSize="16sp"
-                    tools:ignore="TextContrastCheck" />
-            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

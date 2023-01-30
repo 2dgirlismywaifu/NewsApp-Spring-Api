@@ -12,6 +12,7 @@ interface RSS2JSONInterface {
         @Query("rss_url") url: String?,
         @Query("api_key") api_key: String?
     ): Call<RSS2JSON?>?
+
     @GET("api.json")
     fun getCategoryType(
         @Query("rss_url") url: String?,

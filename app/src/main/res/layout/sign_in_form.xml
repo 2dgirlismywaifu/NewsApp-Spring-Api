@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nickname_input"
+                    android:id="@+id/recovey_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"

@@ -2,7 +2,6 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -17,10 +16,10 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,7 +30,6 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     Toolbar toolbar;
     NavigationPane navigationPane;
     Intent intent;
-    Thread favouritepage;
     LoadWallpaperShared loadWallpaperShared;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
 
@@ -46,6 +44,9 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         //Hooks
         drawerFavourtie = findViewById(R.id.favourite_news_page);
         navigationView = findViewById(R.id.nav_pane_view);
+        //From sharedPreference, if user logined saved, call navigation pane with user name header
+        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader.loadHeader();
         toolbar = findViewById(R.id.nav_button);
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();

@@ -2,7 +2,6 @@ package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,13 +26,13 @@ import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 
 import java.util.ArrayList;
@@ -61,6 +59,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     EditText searchSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
@@ -72,6 +71,9 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         //Hooks
         drawerSourceNews = findViewById(R.id.source_news_page);
         navigationView = findViewById(R.id.nav_pane_view);
+        //From sharedPreference, if user logined saved, call navigation pane with user name header
+        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader.loadHeader();
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.sources_list);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
@@ -110,17 +112,17 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
 
     }
 
-    public void filter (String s) {
+    public void filter(String s) {
         List<NewsSource> newsSourceList = new ArrayList<>();
         for (NewsSource newsSource : newsSources) {
             if (Objects.requireNonNull(
-                    newsSource.getSource_name()).toLowerCase().contains(s.toLowerCase()))
-            {
+                    newsSource.getSource_name()).toLowerCase().contains(s.toLowerCase())) {
                 newsSourceList.add(newsSource);
             }
         }
         listSourceAdapter.filterList(newsSourceList);
     }
+
     public void loadSourceList(AppCompatActivity activity) {
         final ProgressDialog mDialog = new ProgressDialog(this);
         mDialog.setMessage("Loading, please wait...");

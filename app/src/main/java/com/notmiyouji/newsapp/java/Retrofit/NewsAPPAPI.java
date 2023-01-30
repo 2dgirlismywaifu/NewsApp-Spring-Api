@@ -19,6 +19,7 @@ public class NewsAPPAPI {
     static {
         System.loadLibrary("keys");
     }
+
     public static native String geNewsAPPHeader();
 
     public static native String getNewsAPPKey();

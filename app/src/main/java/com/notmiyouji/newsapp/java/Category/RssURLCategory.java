@@ -1,6 +1,7 @@
 package com.notmiyouji.newsapp.java.Category;
 
 import android.app.ProgressDialog;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,13 +14,13 @@ public class RssURLCategory {
     RecyclerView newsViewVertical;
     LinearLayoutManager newsViewLayoutVertical;
     AppCompatActivity activity;
-    ProgressDialog mDialog;
+    ProgressBar bar;
     String name;
 
-    public RssURLCategory(AppCompatActivity activity, RecyclerView newsViewVertical, ProgressDialog mDialog, String name) {
+    public RssURLCategory(AppCompatActivity activity, RecyclerView newsViewVertical, ProgressBar bar, String name) {
         this.activity = activity;
         this.newsViewVertical = newsViewVertical;
-        this.mDialog = mDialog;
+       this.bar = bar;
         this.name = name;
     }
 
@@ -27,7 +28,7 @@ public class RssURLCategory {
         Thread loadNewsVerticalMode = new Thread(() -> {
             newsViewLayoutVertical = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
             FeedMultiRSS feedMultiRSS = new FeedMultiRSS(activity, newsViewVertical, newsViewLayoutVertical);
-            feedMultiRSS.MultiFeedVertical(url_type, name, mDialog);
+            feedMultiRSS.MultiFeedVertical(url_type, name, bar);
         });
         loadNewsVerticalMode.start();
     }
