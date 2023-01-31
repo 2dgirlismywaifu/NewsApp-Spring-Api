@@ -56,7 +56,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/code_label"
+                android:id="@+id/username_label_login"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/recovey_code"
+                    android:id="@+id/username_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
@@ -80,9 +80,9 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="@+id/code_label"
-                app:layout_constraintStart_toStartOf="@+id/code_label"
-                app:layout_constraintTop_toBottomOf="@+id/code_label"
+                app:layout_constraintEnd_toEndOf="@+id/username_label_login"
+                app:layout_constraintStart_toStartOf="@+id/username_label_login"
+                app:layout_constraintTop_toBottomOf="@+id/username_label_login"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText

@@ -20,6 +20,8 @@ import com.notmiyouji.newsapp.kotlin.LoginedModel.Register;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -59,24 +61,25 @@ public class SignUpForm extends AppCompatActivity {
         //sign up button
         signupbtn = findViewById(R.id.VerifiedButton);
         signupbtn.setOnClickListener(v -> {
+            //disable button
+            signupbtn.setEnabled(false);
             //check input
             checkInput();
-            //check nickname
-            checkNickname();
             //if all input is not null, sign up
             if (!email.getText().toString().isEmpty()
                     && !password.getText().toString().isEmpty()
                     && !confirmpassword.getText().toString().isEmpty()
-                    && !username.getText().toString().isEmpty()) {
+                    && !username.getText().toString().isEmpty())
+            {
                 //if password and confirm password is not same, show error
                 if (!password.getText().toString().equals(confirmpassword.getText().toString())) {
                     password.setError("Password is not same");
                     confirmpassword.setError("Password is not same");
-                } else {
-                    //if password and confirm password is same, sign up
-                    //sign up function
-                    RegisterAccount(email.getText().toString(), password.getText().toString(), username.getText().toString());
-                    gotoVerifyEmail(email.getText().toString(), password.getText().toString(), username.getText().toString());
+                    Toast.makeText(this, "Password is not same", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //check nickname
+                    checkNickname();
                 }
             }
         });
@@ -99,15 +102,19 @@ public class SignUpForm extends AppCompatActivity {
         //if all input is null, textinputlayout will show error
         if (email.getText().toString().isEmpty()) {
             email.setError("Email is required");
+            signupbtn.setEnabled(true);
         }
         if (password.getText().toString().isEmpty()) {
             password.setError("Password is required");
+            signupbtn.setEnabled(true);
         }
         if (confirmpassword.getText().toString().isEmpty()) {
             confirmpassword.setError("Confirm password is required");
+            signupbtn.setEnabled(true);
         }
         if (username.getText().toString().isEmpty()) {
             username.setError("Username is required");
+            signupbtn.setEnabled(true);
         }
     }
 
@@ -115,43 +122,32 @@ public class SignUpForm extends AppCompatActivity {
         //Use Retrofit to check nickname
         Call<CheckNickName> call = newsAPPInterface.checkNickname(username.getText().toString(), email.getText().toString() );
         call.enqueue(new retrofit2.Callback<CheckNickName>() {
-
             @Override
             public void onResponse(Call<CheckNickName> call, Response<CheckNickName> response) {
                 if (response.body().getNickname().equals(username.getText().toString())) {
                     username.setError("Nickname is already used");
+                    signupbtn.setEnabled(true);
                 }
                 if (response.body().getEmail().equals(email.getText().toString())) {
                     email.setError("Email is already used");
+                    signupbtn.setEnabled(true);
                 }
-            }
+                else {
+                    //if password and confirm password is same, sign up
+                    //sign up function
+                    //lowercase email
+                    RegisterAccount(email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
+                    gotoVerifyEmail(email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
+                }
 
+            }
             @Override
             public void onFailure(Call<CheckNickName> call, Throwable t) {
-
             }
         });
     }
 
     private void RegisterAccount(String email, String password, String username) {
-        Call<Register> call = newsAPPInterface.register(email, password, username);
-        call.enqueue(new retrofit2.Callback<Register>() {
-            @Override
-            public void onResponse(Call<Register> call, Response<Register> response) {
-                //Save user account to firebase realtime database
-                if (response.isSuccessful()) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Register> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void gotoVerifyEmail(String email, String password, String username) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -166,13 +162,30 @@ public class SignUpForm extends AppCompatActivity {
                 });
             }
         });
-        //go to verify account activity
-        Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
-        intent.putExtra("email", email);
-        intent.putExtra("password", password);
-        intent.putExtra("username", username);
-        ActivityOptions.makeSceneTransitionAnimation(SignUpForm.this).toBundle();
-        SignUpForm.this.finish();
-        startActivity(intent);
+
+    }
+
+    private void gotoVerifyEmail(String email, String password, String username) {
+        //First, save it to database
+        Call<Register> call = newsAPPInterface.register(email, password, username);
+        call.enqueue(new retrofit2.Callback<Register>() {
+            @Override
+            public void onResponse(Call<Register> call, Response<Register> response) {
+                //Save successfully, go to verify account activity
+                if (response.isSuccessful()) {
+                    //go to verify account activity
+                    Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
+                    intent.putExtra("email", email);
+                    intent.putExtra("password", password);
+                    intent.putExtra("username", username);
+                    ActivityOptions.makeSceneTransitionAnimation(SignUpForm.this).toBundle();
+                    SignUpForm.this.finish();
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onFailure(Call<Register> call, Throwable t) {
+            }
+        });
     }
 }

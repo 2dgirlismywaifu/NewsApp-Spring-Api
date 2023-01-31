@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signinbackground"
     tools:context=".java.Global.Signed.RegisterSuccess"
     tools:ignore="ScrollViewCount">
 
@@ -84,25 +83,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/Verifi_account_note"
                 tools:ignore="HardcodedText" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/code_label"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+            <TextView
+                android:id="@+id/recovery_code_label"
+                android:layout_width="360dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:text="code here"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/recovey_label"
                 app:layout_constraintStart_toStartOf="@+id/recovey_label"
-                app:layout_constraintTop_toBottomOf="@+id/recovey_label">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/recovey_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins"
-                    android:inputType="none"
-                    android:textColorHint="#616161"
-                    android:textStyle="bold"
-                    tools:ignore="TextContrastCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/recovey_label"
+                tools:ignore="HardcodedText,SpeakableTextPresentCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/VerifiedButton"
@@ -113,9 +108,9 @@
                 android:fontFamily="@font/raleway_bold"
                 android:text="Surf Now"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/code_label"
-                app:layout_constraintStart_toStartOf="@+id/code_label"
-                app:layout_constraintTop_toBottomOf="@+id/code_label"
+                app:layout_constraintEnd_toEndOf="@+id/recovery_code_label"
+                app:layout_constraintStart_toStartOf="@+id/recovery_code_label"
+                app:layout_constraintTop_toBottomOf="@+id/recovery_code_label"
                 tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

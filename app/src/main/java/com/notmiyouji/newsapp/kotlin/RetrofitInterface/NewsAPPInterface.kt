@@ -10,6 +10,7 @@ import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -40,7 +41,6 @@ interface NewsAPPInterface {
     ): Call<ListObject?>?
 
     @POST("register")
-
     fun register(
         @Query("email", encoded = true) email: String?,
         @Query("password", encoded = true) password: String?,
@@ -51,8 +51,8 @@ interface NewsAPPInterface {
         @Query("nickname") nickname: String?,
         @Query("email") email: String?
     ): Call<CheckNickName?>?
-    @POST("verifiy")
-    fun verifiy(@Body verify: Verify): Call<Verify?>?
+    @POST("verify")
+    fun verify(@Query("email", encoded = true) email: String?): Call<Verify?>?
     @GET("recoverycode")
-    fun recoveryCode(@Body recovery: Recovery): Call<Recovery?>?
+    fun recoveryCode(@Query("email", encoded = true) email: String?): Call<Recovery?>?
 }

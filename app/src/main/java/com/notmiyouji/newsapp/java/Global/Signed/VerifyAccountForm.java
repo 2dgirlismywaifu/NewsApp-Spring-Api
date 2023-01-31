@@ -3,6 +3,7 @@ package com.notmiyouji.newsapp.java.Global.Signed;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,28 +37,38 @@ public class VerifyAccountForm extends AppCompatActivity {
         String email = getIntent().getStringExtra("email");
         String password = getIntent().getStringExtra("password");
         String username = getIntent().getStringExtra("username");
+        TextView emailtext = findViewById(R.id.email_send);
+        emailtext.setText(email);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //check if user is verified or not
         verifybtn = findViewById(R.id.VerifiedButton);
         verifybtn.setOnClickListener(v -> {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if (user.isEmailVerified()) {
-                //if user is verified, change verified status to true
-                updateStatus(email);
-                //After that, save user account to shared preferences
-                SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                saveUserLogined.saveUserLogined(email, password, username);
-                //go to RegisteoSuccesful form
-                Intent intent = new Intent(this, RegisterSuccess.class);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Please verify your email first with link sent to your mailbox", Toast.LENGTH_SHORT).show();
-            }
+            //re-sign in user
+            FirebaseAuth authVerifed = FirebaseAuth.getInstance();
+            authVerifed.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser userVerifed = authVerifed.getCurrentUser();
+                    if (userVerifed.isEmailVerified()) {
+                        //if user is verified, change verified status to true
+                        updateStatus(email);
+                        //After that, save user account to shared preferences
+                        SaveUserLogined saveUserLogined = new SaveUserLogined(this);
+                        saveUserLogined.saveUserLogined(email, password, username);
+                        //go to RegisteoSuccesful form
+                        Intent intent = new Intent(this, RegisterSuccess.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Please verify your email first with link sent to your mailbox", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
         });
         //resend verification email
         resendbtn = findViewById(R.id.ResendCodeBtn);
         resendbtn.setOnClickListener(v -> {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            assert user != null;
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Verification email sent to your mailbox", Toast.LENGTH_SHORT).show();
@@ -69,12 +80,14 @@ public class VerifyAccountForm extends AppCompatActivity {
     }
 
     private void updateStatus(String email) {
-        Call<Verify> call = newsAPPInterface.verifiy(new Verify(email));
+        Call<Verify> call = newsAPPInterface.verify(email);
         call.enqueue(new retrofit2.Callback<Verify>() {
             @Override
             public void onResponse(Call<Verify> call, retrofit2.Response<Verify> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(VerifyAccountForm.this, "Account Verified Success", Toast.LENGTH_SHORT).show();
+                    if (response.body().getVerifyStatus().equals("true")) {
+                        Toast.makeText(VerifyAccountForm.this, "Account Verified Success", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

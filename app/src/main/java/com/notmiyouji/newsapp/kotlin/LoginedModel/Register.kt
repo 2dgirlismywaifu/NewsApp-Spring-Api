@@ -1,7 +1,13 @@
 package com.notmiyouji.newsapp.kotlin.LoginedModel
 
-class Register(
-    var email: String?, var password: String?, var nickname: String?
-) {
+import com.google.gson.annotations.SerializedName
+
+class Register {
+    @SerializedName("email")
+    var email: String? = null
+    @SerializedName("password")
+    var password: String? = null
+    @SerializedName("nickname")
+    var nickname: String? = null
 
 }
