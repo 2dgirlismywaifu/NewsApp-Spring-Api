@@ -59,7 +59,7 @@ public class FeedMultiRSS {
 
     public native String getRSS2JSONAPIKey();
 
-    public void MultiFeedHorizontal(String url_type, String name, AlertDialog bar) {
+    public void MultiFeedHorizontal(String url_type, String name, AlertDialog alertDialog) {
         call = newsAPPInterface.getAllNewsDetails(url_type, name);
         assert call != null;
         listHorizonal = new ArrayList<>();
@@ -78,7 +78,7 @@ public class FeedMultiRSS {
                         String getURL = newsDetails.getUrllink();
                         //first clear adapter
                         clearAdapterHorizontal(name);
-                        RSS2JSONHorizonal(getURL, name, bar);
+                        RSS2JSONHorizonal(getURL, name, alertDialog);
                     }
                 }
             }
@@ -90,7 +90,7 @@ public class FeedMultiRSS {
         });
     }
 
-    public void MultiFeedVertical(String url_type, String name, AlertDialog bar) {
+    public void MultiFeedVertical(String url_type, String name, AlertDialog alertDialog) {
         call = newsAPPInterface.getAllNewsDetails(url_type, name);
         assert call != null;
         listVertical = new ArrayList<>();
@@ -106,12 +106,12 @@ public class FeedMultiRSS {
                         listVertical = response.body().getNewsDetails();
                         newsDetails = listVertical.get(0);
                         if (Objects.equals(newsDetails.getUrllink(), "not_available")) {
-                            bar.dismiss();
+                            alertDialog.dismiss();
                             Toast.makeText(activity, activity.getString(R.string.no_topic_available) + url_type, Toast.LENGTH_SHORT).show();
                         } else {
                             //String getURL = URLEncoder.encode(newsDetails.getUrllink(), "UTF-8");
                             String getURL = newsDetails.getUrllink();
-                            RSS2JSONVertical(getURL, name, bar);
+                            RSS2JSONVertical(getURL, name, alertDialog);
                             clearAdapterVertical(name);
                         }
                     }
@@ -132,7 +132,7 @@ public class FeedMultiRSS {
         adapterVertical.notifyDataSetChanged();
     }
 
-    public void RSS2JSONVertical(String url, String name, AlertDialog bar) {
+    public void RSS2JSONVertical(String url, String name, AlertDialog alertDialog) {
         callVertical = rss2JSONInterface.getCategoryType(url, RSS2JSON_API_KEY);
         assert callVertical != null;
         callVertical.enqueue(new retrofit2.Callback<CategoryType>() {
@@ -153,7 +153,7 @@ public class FeedMultiRSS {
                             recyclerView.setAdapter(adapterVertical);
                             recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
                                 if (adapterVertical.getItemCount() > 0) {
-                                    bar.dismiss();
+                                    alertDialog.dismiss();
                                 }
                             });
                             adapterVertical.notifyDataSetChanged();

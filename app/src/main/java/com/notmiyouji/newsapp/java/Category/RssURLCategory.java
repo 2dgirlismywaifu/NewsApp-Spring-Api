@@ -12,13 +12,13 @@ public class RssURLCategory {
     RecyclerView newsViewVertical;
     LinearLayoutManager newsViewLayoutVertical;
     AppCompatActivity activity;
-    AlertDialog bar;
+    AlertDialog alertDialog;
     String name;
 
-    public RssURLCategory(AppCompatActivity activity, RecyclerView newsViewVertical, AlertDialog bar, String name) {
+    public RssURLCategory(AppCompatActivity activity, RecyclerView newsViewVertical, AlertDialog alertDialog, String name) {
         this.activity = activity;
         this.newsViewVertical = newsViewVertical;
-        this.bar = bar;
+        this.alertDialog = alertDialog;
         this.name = name;
     }
 
@@ -26,7 +26,7 @@ public class RssURLCategory {
         Thread loadNewsVerticalMode = new Thread(() -> {
             newsViewLayoutVertical = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
             FeedMultiRSS feedMultiRSS = new FeedMultiRSS(activity, newsViewVertical, newsViewLayoutVertical);
-            feedMultiRSS.MultiFeedVertical(url_type, name, bar);
+            feedMultiRSS.MultiFeedVertical(url_type, name, alertDialog);
         });
         loadNewsVerticalMode.start();
     }
