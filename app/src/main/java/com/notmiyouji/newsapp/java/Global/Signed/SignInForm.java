@@ -22,7 +22,7 @@ import retrofit2.Call;
 
 public class SignInForm extends AppCompatActivity {
 
-    Button SignInBtn ,SignUpBtn, forgotpassbtn;
+    Button SignInBtn, SignUpBtn, forgotpassbtn;
     Intent intent;
     TextInputEditText account, password;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
@@ -69,7 +69,7 @@ public class SignInForm extends AppCompatActivity {
                 SignInBtn.setEnabled(true);
                 SignUpBtn.setEnabled(true);
             } else {
-               //Retrofit call signin request
+                //Retrofit call signin request
                 SignInMethod(account.getText().toString(), password.getText().toString());
             }
         });
@@ -88,7 +88,7 @@ public class SignInForm extends AppCompatActivity {
                         if (signIn.getVerify().equals("true")) {
                             //Save user data to Shared Preferences
                             SaveUserLogined saveUserLogined = new SaveUserLogined(SignInForm.this);
-                            saveUserLogined.saveUserLogined(signIn.getEmail(), password, signIn.getNickname(), "login");
+                            saveUserLogined.saveUserLogined(signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), "login");
                             //If account verify, go to main page
                             Toast.makeText(SignInForm.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                             SignInBtn.setEnabled(true);
@@ -108,15 +108,18 @@ public class SignInForm extends AppCompatActivity {
                             SignUpBtn.setEnabled(true);
                         }
 
-                    } else {
+                    } else if (signIn.getStatus().equals("fail")) {
+                        Toast.makeText(SignInForm.this, R.string.Error_login, Toast.LENGTH_SHORT).show();
                         SignInBtn.setEnabled(true);
                         SignUpBtn.setEnabled(true);
                     }
                 } else {
+                    Toast.makeText(SignInForm.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
                     SignInBtn.setEnabled(true);
                     SignUpBtn.setEnabled(true);
                 }
             }
+
             @Override
             public void onFailure(Call<SignIn> call, Throwable t) {
                 SignInBtn.setEnabled(true);

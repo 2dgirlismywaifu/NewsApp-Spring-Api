@@ -2,22 +2,20 @@ package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -28,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -35,15 +34,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.RssURLCategory;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
+import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
-import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
-import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RSS2JSON.FeedMultiRSS;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsTypeAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
@@ -77,7 +76,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     TextInputLayout chooseHint;
     SwipeRefreshLayout swipeRefreshLayout;
     FeedMultiRSS feedMultiRSS;
-    ProgressBar bar;
+    TextView welcomeText;
     LoadNavigationHeader loadNavigationHeader;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
@@ -103,6 +102,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
+        welcomeText = findViewById(R.id.welcome_title);
         navigationView = findViewById(R.id.nav_pane_view);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
@@ -110,14 +110,15 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
         if (getUserLogined.getStatus().equals("login")) {
+            String welcomUserName = getString(R.string.user_welcome) + " @" + getUserLogined.getUsername() + "\n" + getString(R.string.user_welcome_2);
+            welcomeText.setText(welcomUserName);
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
+        } else {
+            welcomeText.setText(R.string.Guest_welcome);
             loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
-        bar = findViewById(R.id.progressBar);
         drawerLayout = findViewById(R.id.home_page);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.news_type);
@@ -141,7 +142,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //Select source to load (Settings will save to shared preference)
         openSourceChoose();
         //User progress bar
-        bar.setVisibility(View.VISIBLE);
         //Hide float button when scroll recyclerview vertical
         hideWhenScroll();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -184,7 +184,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     @SuppressLint("NotifyDataSetChanged")
     private void LoadCategory(String source) {
-        NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, bar , source);
+        NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, source);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(newsTypeAdapter);
@@ -192,16 +192,20 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     private void LoadSourceNews(String source) {
+        MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+        AlertDialog alertDialog = mDialog.create();
+        alertDialog.show();
         //Load Lastest News
         Thread loadLastNews = new Thread(() -> {
             newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
             feedMultiRSS = new FeedMultiRSS(HomePage.this, newsViewHorizontal, newsViewLayoutHorizontal);
-            feedMultiRSS.MultiFeedHorizontal("BreakingNews", source, bar);
+            feedMultiRSS.MultiFeedHorizontal("BreakingNews", source, alertDialog);
         });
         loadLastNews.start();
 
         //load NewsView Vertical
-        RssURLCategory rssURLCategory = new RssURLCategory(HomePage.this, newsViewVertical, bar, source);
+        RssURLCategory rssURLCategory = new RssURLCategory(HomePage.this, newsViewVertical, alertDialog, source);
         rssURLCategory.startLoad("BreakingNews");
     }
 
@@ -310,11 +314,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         if (getUserLogined.getStatus().equals("login")) {
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, HomePage.this);
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
+        } else {
             loadWallpaperShared = new LoadWallpaperShared(navigationView, HomePage.this);
             loadWallpaperShared.loadWallpaper();
         }
+        navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
+        navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

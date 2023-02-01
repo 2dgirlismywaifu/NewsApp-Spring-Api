@@ -7,6 +7,7 @@ class CheckNickName {
     @SerializedName("nickname")
     @Expose
     var nickname: String? = null
+
     @SerializedName("email")
     @Expose
     var email: String? = null

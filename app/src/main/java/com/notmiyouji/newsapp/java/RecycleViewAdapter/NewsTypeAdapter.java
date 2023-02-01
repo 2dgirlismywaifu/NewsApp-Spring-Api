@@ -1,19 +1,20 @@
 package com.notmiyouji.newsapp.java.RecycleViewAdapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.RssURLCategory;
+import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,11 +23,9 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
 
     AppCompatActivity activity;
     String name;
-    ProgressBar bar;
 
-    public NewsTypeAdapter(AppCompatActivity activity, ProgressBar bar, String name) {
+    public NewsTypeAdapter(AppCompatActivity activity, String name) {
         this.activity = activity;
-        this.bar = bar;
         this.name = name;
     }
 
@@ -45,8 +44,13 @@ public class NewsTypeAdapter extends RecyclerView.Adapter<NewsTypeAdapter.NewsTy
         holder.news_type.setOnClickListener(v -> {
             //fetch follow category
             //get value from key HashMap
+            //show alert dialog
+            MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(activity);
+            MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+            AlertDialog alertDialog = mDialog.create();
+            alertDialog.show();
             String category = data.get(data.keySet().toArray()[position].toString());
-            RssURLCategory rssURLCategory = new RssURLCategory(activity, activity.findViewById(R.id.cardnews_view_vertical), bar, name);
+            RssURLCategory rssURLCategory = new RssURLCategory(activity, activity.findViewById(R.id.cardnews_view_vertical), alertDialog, name);
             rssURLCategory.startLoad(category);
         });
     }

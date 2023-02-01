@@ -21,7 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Newsapp"
         android:usesCleartextTraffic="true"
+        android:screenOrientation="sensorPortrait"
         tools:targetApi="31">
+        <activity
+            android:name=".java.Global.Signed.AccountSettings"
+            android:exported="false" />
         <activity
             android:name=".java.Global.Signed.RegisterSuccess"
             android:exported="false" />

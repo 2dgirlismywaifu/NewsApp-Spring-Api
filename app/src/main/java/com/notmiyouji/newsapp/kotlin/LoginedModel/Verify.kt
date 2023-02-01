@@ -7,6 +7,7 @@ class Verify {
     @SerializedName("verify")
     @Expose
     var verifyStatus: String? = null
+
     @SerializedName("email")
     @Expose
     var email: String? = null

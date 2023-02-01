@@ -112,4 +112,11 @@
     <string name="password_must_contain_at_least_1_number_1_uppercase_1_special_character">Mật khẩu phải chứa ít nhất 1 chữ số, 1 chữ in hoa và 1 ký tự đặc biệt</string>
     <string name="nickname_is_already_used">Nickname đã tồn tại</string>
     <string name="email_is_already_used">Email đã tồn tại</string>
+    <string name="enter_your_fullname">Nhập tên đầy đủ</string>
+    <string name="sign_out_success">Đăng xuất thành công</string>
+    <string name="sign_out_message">Bạn chắc chắn muốn đăng xuất</string>
+    <string name="cancel">Huỷ bỏ</string>
+    <string name="Error_login">Vui lòng kiểm tra tài khoản hoặc mật khẩu</string>
+    <string name="user_welcome">"Xin chào, "</string>
+    <string name="user_welcome_2">Đây là danh sách các tin tức cập nhật</string>
 </resources>

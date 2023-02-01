@@ -1,27 +1,23 @@
-package com.notmiyouji.newsapp.java.Global;
+package com.notmiyouji.newsapp.kotlin
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import com.notmiyouji.newsapp.java.Global.SettingsPage
+import com.notmiyouji.newsapp.java.Global.Signed.SettingsLogined
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.notmiyouji.newsapp.java.Global.Signed.SettingsLogined;
-import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
-
-public class OpenSettingsPage {
-    AppCompatActivity activity;
-    SharedPreferences sharedPreferences;
-    public OpenSettingsPage(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-    public void openSettings() {
-        GetUserLogined getUserLogined = new GetUserLogined(activity);
-        if (getUserLogined.getStatus().equals("login")) {
-            activity.startActivity(new Intent(activity, SettingsLogined.class));
+class OpenSettingsPage(var activity: AppCompatActivity) {
+    var sharedPreferences: SharedPreferences? = null
+    var intent: Intent? = null
+    fun openSettings() {
+        val getUserLogined = GetUserLogined(activity)
+        if (getUserLogined.status == "login") {
+            intent = Intent(activity, SettingsLogined::class.java)
+            activity.startActivity(intent)
         } else {
-
-            activity.startActivity(new Intent(activity, SettingsPage.class));
+            intent = Intent(activity, SettingsPage::class.java)
+            activity.startActivity(intent)
         }
     }
 }

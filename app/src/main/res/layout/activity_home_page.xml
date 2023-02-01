@@ -13,8 +13,8 @@
         android:id="@+id/nav_pane_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:maxWidth="360dp"
         android:layout_gravity="start"
+        android:maxWidth="360dp"
         app:menu="@menu/navigation_menu">
 
     </com.google.android.material.navigation.NavigationView>
@@ -34,17 +34,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_baseline_menu_40" />
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            android:indeterminate="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
@@ -174,6 +163,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView
+            android:id="@+id/welcome_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

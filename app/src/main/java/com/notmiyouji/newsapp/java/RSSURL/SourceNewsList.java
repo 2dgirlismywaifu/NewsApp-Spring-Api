@@ -1,7 +1,6 @@
 package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.app.ActivityOptions;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -18,17 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
+import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
-import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
-import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
@@ -75,29 +76,30 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
-        drawerSourceNews = findViewById(R.id.source_news_page);
-        navigationView = findViewById(R.id.nav_pane_view);
+        navigationView = findViewById(R.id.nav_pane_sourceList);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
+        //From SharedPreference, change background for header navigation pane
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        } else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+            loadWallpaperShared.loadWallpaper();
+        }
+        drawerSourceNews = findViewById(R.id.source_news_page);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.sources_list);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
         navigationPane.CallFromUser();
-        //From SharedPreference, change background for header navigation pane
-        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
-        getUserLogined = new GetUserLogined(this);
-        if (getUserLogined.getStatus().equals("login")) {
-            loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
-            loadWallpaperShared.loadWallpaper();
-        }
         //open sign in page from navigationview
-        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
-        callSignInForm.callSignInForm();
+        if (!getUserLogined.getStatus().equals("login")) {
+            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+            callSignInForm.callSignInForm();
+        }
         //Recycle View
         loadSourceList(this);
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -137,9 +139,10 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     }
 
     public void loadSourceList(AppCompatActivity activity) {
-        final ProgressDialog mDialog = new ProgressDialog(this);
-        mDialog.setMessage("Loading, please wait...");
-        mDialog.show();
+        MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+        AlertDialog alertDialog = mDialog.create();
+        alertDialog.show();
         Thread loadSource = new Thread(() -> {
             Call<ListObject> call = newsAPPInterface.getAllSource();
             assert call != null;
@@ -157,7 +160,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
                             recyclerView.setLayoutManager(linearLayoutManager);
                             listSourceAdapter = new ListSourceAdapter(activity, newsSources);
                             recyclerView.setAdapter(listSourceAdapter);
-                            runOnUiThread(() -> recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
+                            runOnUiThread(() -> recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(alertDialog::dismiss));
                         }
                     }
                 }
@@ -210,10 +213,11 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         super.onResume();
         if (getUserLogined.getStatus().equals("login")) {
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
+        } else {
             loadWallpaperShared.loadWallpaper();
         }
+        navigationPane = new NavigationPane(drawerSourceNews, this, toolbar, navigationView, R.id.source_menu);
+        navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

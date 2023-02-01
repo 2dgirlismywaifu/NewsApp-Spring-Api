@@ -1,10 +1,10 @@
 package com.notmiyouji.newsapp.java.Category;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +31,7 @@ public class NewsAPICategory {
     NewsAPIInterface newsApiInterface = NewsAPIKey.getAPIClient().create(NewsAPIInterface.class);
     Call<NewsCategory> callCategory;
 
-    public void LoadJSONCategory(AppCompatActivity activity, ProgressDialog mDialog, String categoryname, RecyclerView newsViewVertical, String country) {
+    public void LoadJSONCategory(AppCompatActivity activity, AlertDialog mDialog, String categoryname, RecyclerView newsViewVertical, String country) {
         Thread loadSourceGeneral = new Thread(() -> {
             callCategory = newsApiInterface.getNewsCategory(country, categoryname, API_KEY);
             assert callCategory != null;

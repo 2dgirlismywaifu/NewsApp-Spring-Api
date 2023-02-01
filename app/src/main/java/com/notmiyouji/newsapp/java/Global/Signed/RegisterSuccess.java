@@ -9,7 +9,6 @@ import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
-import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
 import retrofit2.Call;
@@ -18,6 +17,7 @@ public class RegisterSuccess extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     TextView recoveryCode;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
+
     protected void onCreate(android.os.Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
@@ -31,7 +31,7 @@ public class RegisterSuccess extends AppCompatActivity {
         ShowRecoveryCode(email);
     }
 
-    private void ShowRecoveryCode (String email) {
+    private void ShowRecoveryCode(String email) {
         Call<Recovery> call = newsAPPInterface.recoveryCode(email);
         call.enqueue(new retrofit2.Callback<Recovery>() {
             @Override

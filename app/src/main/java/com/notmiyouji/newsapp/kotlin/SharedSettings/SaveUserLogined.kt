@@ -12,7 +12,14 @@ class SaveUserLogined(context: Context) {
         editor = sharedPreferences.edit()
     }
 
-    fun saveUserLogined(email: String?, password: String?, username: String?, status: String?) {
+    fun saveUserLogined(
+        fullname: String?,
+        email: String?,
+        password: String?,
+        username: String?,
+        status: String?
+    ) {
+        editor.putString("fullname", fullname)
         editor.putString("email", email)
         editor.putString("password", password)
         editor.putString("username", username)

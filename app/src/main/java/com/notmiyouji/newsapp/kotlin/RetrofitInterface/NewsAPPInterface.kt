@@ -1,6 +1,5 @@
 package com.notmiyouji.newsapp.kotlin.RetrofitInterface
 
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CheckNickName
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Register
@@ -9,9 +8,6 @@ import com.notmiyouji.newsapp.kotlin.LoginedModel.Verify
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -43,19 +39,24 @@ interface NewsAPPInterface {
 
     @POST("register")
     fun register(
+        @Query("fullname", encoded = true) fullname: String?,
         @Query("email", encoded = true) email: String?,
         @Query("password", encoded = true) password: String?,
         @Query("nickname", encoded = true) nickname: String?
     ): Call<Register?>?
+
     @GET("checknickname")
     fun checkNickname(
         @Query("nickname") nickname: String?,
         @Query("email") email: String?
     ): Call<CheckNickName?>?
+
     @POST("verify")
     fun verify(@Query("email", encoded = true) email: String?): Call<Verify?>?
+
     @GET("recoverycode")
     fun recoveryCode(@Query("email", encoded = true) email: String?): Call<Recovery?>?
+
     @GET("signin")
     fun signIn(
         @Query("account", encoded = true) account: String?,

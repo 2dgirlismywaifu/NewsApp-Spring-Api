@@ -1,6 +1,5 @@
 package com.notmiyouji.newsapp.java.RecycleViewAdapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
+import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 
 import java.util.HashMap;
 
@@ -39,12 +41,12 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         holder.news_type.setText(data.keySet().toArray()[position].toString());
         holder.news_type.setOnClickListener(v -> {
             //load Dialog
-            final ProgressDialog mDialog = new ProgressDialog(activity);
-            mDialog.setMessage("Loading, please wait...");
-            mDialog.show();
+            MaterialAlertDialogBuilder mDialog = new MaterialAltertLoading(activity).getDiaglog();
+            AlertDialog dialog = mDialog.create();
+            dialog.show();
             //fetch follow category
             String category = data.get(data.keySet().toArray()[position].toString());
-            newsAPICategory.LoadJSONCategory(activity, mDialog, category, activity.findViewById(R.id.cardnews_view_vertical), country);
+            newsAPICategory.LoadJSONCategory(activity, dialog, category, activity.findViewById(R.id.cardnews_view_vertical), country);
         });
     }
 
@@ -70,29 +72,15 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         void onClick(View view, int position, boolean isLongClick);
     }
 
-    public static class NewsTypeHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class NewsTypeHolder extends RecyclerView.ViewHolder {
         Button news_type;
         private ItemClickListener itemClickListener;
 
         public NewsTypeHolder(@NonNull View itemView) {
 
             super(itemView);
-            itemView.setOnClickListener(this);
             news_type = itemView.findViewById(R.id.news_type_text);
-            //Set Event
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
 
-        @Override
-        public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
-            return true;
         }
     }
 }

@@ -2,7 +2,6 @@ package com.notmiyouji.newsapp.java.NewsAPI;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -33,9 +34,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
+import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
-import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
-import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsAPITypeAdapter;
@@ -46,6 +46,7 @@ import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
+import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
@@ -114,11 +115,20 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
-        drawerNewsAPI = findViewById(R.id.newsapi_page);
-        navigationView = findViewById(R.id.nav_pane_view);
+        navigationView = findViewById(R.id.nav_pane_newsapi);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
-        loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader = new LoadNavigationHeader(NewsAPIPage.this, navigationView);
         loadNavigationHeader.loadHeader();
+        //From SharedPreference, change background for header navigation pane
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        } else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+            loadWallpaperShared.loadWallpaper();
+        }
+        drawerNewsAPI = findViewById(R.id.newsapi_page);
         toolbar = findViewById(R.id.nav_button);
         newstypeView = findViewById(R.id.news_type);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
@@ -128,21 +138,13 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
         navigationPane.CallFromUser();
-        //From SharedPreference, change background for header navigation pane
-        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
-        getUserLogined = new GetUserLogined(this);
-        if (getUserLogined.getStatus().equals("login")) {
-            loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
-            loadWallpaperShared.loadWallpaper();
-        }
         //From SharedPreference, load country code
         reloadCountryCode();
         //open sign in page from navigationview
-        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
-        callSignInForm.callSignInForm();
+        if (!getUserLogined.getStatus().equals("login")) {
+            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+            callSignInForm.callSignInForm();
+        }
         //NewsCategory Type List
         LoadCategoryType(getCountryCodeDefault());
         LoadNewsAPI(getCountryCodeDefault());
@@ -207,13 +209,17 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
 
     private void LoadNewsAPI(String countryCodeDefault) {
         //Loading Messeage
-        final ProgressDialog mDialog = new ProgressDialog(this);
-        mDialog.setMessage(this.getString(R.string.loading_messeage));
-        mDialog.show();
+        //final ProgressDialog mDialog = new ProgressDialog(this);
+        //mDialog.setMessage(this.getString(R.string.loading_messeage));
+        //mDialog.show();
+        MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+        AlertDialog alertDialog = mDialog.create();
+        alertDialog.show();
         //Load JSONData and apply to RecycleView Horizontal Lastest NewsCategory
-        LoadJSONLastestNews(this, mDialog, countryCodeDefault);
+        LoadJSONLastestNews(this, alertDialog, countryCodeDefault);
         //Load JSONData Business NewsCategory and apply to RecycleView Vertical Lastest NewsCategory
-        newsAPICategory.LoadJSONCategory(this, mDialog, "business", newsViewVertical, countryCodeDefault);
+        newsAPICategory.LoadJSONCategory(this, alertDialog, "business", newsViewVertical, countryCodeDefault);
     }
 
     private void openCountryFilter() {
@@ -307,7 +313,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         });
     }
 
-    public void LoadJSONLastestNews(AppCompatActivity activity, ProgressDialog mDialog, String country) {
+    public void LoadJSONLastestNews(AppCompatActivity activity, AlertDialog mDialog, String country) {
         Thread loadSourceAPI = new Thread(() -> {
             call = newsApiInterface.getLatestNews(country, API_KEY);
             assert call != null;
@@ -338,6 +344,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             });
 
             runOnUiThread(() ->
+                    //close material dialog
                     newsViewHorizontal.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
         });
         loadSourceAPI.start();
@@ -387,11 +394,14 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     public void onResume() {
         super.onResume();
         if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, NewsAPIPage.this);
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
+        } else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, NewsAPIPage.this);
             loadWallpaperShared.loadWallpaper();
         }
+        navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
+        navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

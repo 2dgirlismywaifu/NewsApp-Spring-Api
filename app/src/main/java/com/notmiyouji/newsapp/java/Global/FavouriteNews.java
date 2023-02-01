@@ -18,6 +18,7 @@ import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
@@ -46,24 +47,23 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
-        drawerFavourtie = findViewById(R.id.favourite_news_page);
-        navigationView = findViewById(R.id.nav_pane_view);
+        navigationView = findViewById(R.id.nav_pane_favourite_news);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
-        toolbar = findViewById(R.id.nav_button);
-        navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
-        navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
         if (getUserLogined.getStatus().equals("login")) {
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
+        } else {
             loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
+        drawerFavourtie = findViewById(R.id.favourite_news_page);
+        toolbar = findViewById(R.id.nav_button);
+        navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
+        navigationPane.CallFromUser();
         //open sign in page from navigationview
         if (!getUserLogined.getStatus().equals("login")) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
@@ -108,13 +108,12 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         super.onResume();
         //From SharedPreference, change background for header navigation pane
         if (getUserLogined.getStatus().equals("login")) {
-            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, FavouriteNews.this);
             loadWallpaperSharedLogined.loadWallpaper();
-        }
-        else {
-            loadWallpaperShared = new LoadWallpaperShared(navigationView, FavouriteNews.this);
+        } else {
             loadWallpaperShared.loadWallpaper();
         }
+        navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
+        navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

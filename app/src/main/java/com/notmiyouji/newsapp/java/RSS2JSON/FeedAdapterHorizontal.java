@@ -74,6 +74,12 @@ public class FeedAdapterHorizontal extends RecyclerView.Adapter<FeedAdapterHoriz
         }
     }
 
+    public void clear() {
+        int size = items.size();
+        items.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void filterList(List<Items> filterList2) {
         this.items = filterList2;

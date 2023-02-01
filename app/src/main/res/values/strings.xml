@@ -4,6 +4,8 @@
     <string name="see_all_button">See All</string>
     <string name="powered_by_newsapi">Powered by NewsAPI</string>
     <string name="Guest_welcome">Hello, Guest User\nHere are the updated news</string>
+    <string name="user_welcome">Hello, </string>
+    <string name="user_welcome_2">\nHere are the updated news</string>
     <string name="favorites_archive_list">Favorites Archive List</string>
     <string name="search_here">Search here …</string>
     <string name="list_news_source">Here is the list of news source\n available on the server</string>
@@ -118,4 +120,9 @@
     <string name="password_must_contain_at_least_1_number_1_uppercase_1_special_character">Password must contain at least 1 Number, 1 Uppercase, 1 Special character</string>
     <string name="nickname_is_already_used">Nickname is already used</string>
     <string name="email_is_already_used">Email is already used</string>
+    <string name="enter_your_fullname">Enter Your Fullname</string>
+    <string name="sign_out_success">Sign out success</string>
+    <string name="sign_out_message">Are you sure want to log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="Error_login">Please check your account or password</string>
 </resources>

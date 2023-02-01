@@ -12,6 +12,7 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
     fun loadHeader() {
         val sharedPreferences = activity.getSharedPreferences("UserLogined", Context.MODE_PRIVATE)
         //Get String from sharedPreference
+        val fullname = sharedPreferences.getString("fullname", "")
         val username = sharedPreferences.getString("username", "")
         val password = sharedPreferences.getString("password", "")
         val email = sharedPreferences.getString("email", "")
@@ -22,7 +23,7 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
             navigationView.inflateHeaderView(R.layout.navigation_header_logined)
             val fullnameHeader =
                 navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
-            fullnameHeader.text = email
+            fullnameHeader.text = fullname
             val usernameHeader =
                 navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
             usernameHeader.text = "@$username"

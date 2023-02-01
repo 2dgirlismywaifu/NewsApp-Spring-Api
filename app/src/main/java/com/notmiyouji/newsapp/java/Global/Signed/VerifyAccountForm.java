@@ -27,7 +27,7 @@ public class VerifyAccountForm extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     Button verifybtn, resendbtn;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
-    String email, password, username;
+    String fullname, email, password, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class VerifyAccountForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Get string send from Sign Up form
+        fullname = getIntent().getStringExtra("fullname");
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
@@ -57,7 +58,7 @@ public class VerifyAccountForm extends AppCompatActivity {
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(email, password, username, "true");
+                        saveUserLogined.saveUserLogined(fullname, email, password, username, "true");
                         //go to RegisteoSuccesful form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);
@@ -116,6 +117,7 @@ public class VerifyAccountForm extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<Verify> call, Throwable t) {
                 Toast.makeText(VerifyAccountForm.this, "Error", Toast.LENGTH_SHORT).show();

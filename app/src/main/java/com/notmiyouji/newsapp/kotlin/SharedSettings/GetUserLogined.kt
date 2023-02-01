@@ -11,6 +11,8 @@ class GetUserLogined(var activity: AppCompatActivity) {
         sharedPreferences = activity.getSharedPreferences("UserLogined", Context.MODE_PRIVATE)
     }
 
+    val fullname: String?
+        get() = sharedPreferences.getString("fullname", "")
     val email: String?
         get() = sharedPreferences.getString("email", "")
     val password: String?

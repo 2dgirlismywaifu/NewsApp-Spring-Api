@@ -57,9 +57,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/username_label_login"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/SignUpLabel">
@@ -77,9 +79,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/Password_label"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintEnd_toEndOf="@+id/username_label_login"
                 app:layout_constraintStart_toStartOf="@+id/username_label_login"
                 app:layout_constraintTop_toBottomOf="@+id/username_label_login"
@@ -111,12 +115,14 @@
 
             <Button
                 android:id="@+id/SignInBtn"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
                 android:text="@string/sign_in"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/ForgotPasswordBtn"
                 app:layout_constraintStart_toStartOf="@+id/ForgotPasswordBtn"
                 app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBtn"
@@ -153,14 +159,16 @@
                     android:fontFamily="@font/raleway_bold"
                     android:text="@string/sign_up"
                     android:textColor="#2F89FC"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="24dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/signin_label"
                 app:layout_constraintStart_toStartOf="@+id/signin_label"
@@ -195,9 +203,11 @@
 
             <LinearLayout
                 android:id="@+id/Google_signin"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -226,7 +236,7 @@
                     android:text="@string/sign_in_with_google"
                     android:textAlignment="center"
                     android:textColor="#C4000000"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     tools:ignore="TextContrastCheck" />
 
             </LinearLayout>

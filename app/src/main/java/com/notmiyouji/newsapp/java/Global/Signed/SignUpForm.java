@@ -20,15 +20,13 @@ import com.notmiyouji.newsapp.kotlin.LoginedModel.Register;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
-import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class SignUpForm extends AppCompatActivity {
 
     Button signupbtn, signinbtn;
-    TextInputEditText email, password, confirmpassword, username;
+    TextInputEditText fullname, email, password, confirmpassword, username;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
 
@@ -41,6 +39,7 @@ public class SignUpForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
 
+        fullname = findViewById(R.id.fullname_input);
         email = findViewById(R.id.email_input);
         password = findViewById(R.id.password_input);
         confirmpassword = findViewById(R.id.Repassword_input);
@@ -66,11 +65,11 @@ public class SignUpForm extends AppCompatActivity {
             //check input
             checkInput();
             //if all input is not null, sign up
-            if (!email.getText().toString().isEmpty()
+            if (!fullname.getText().toString().isEmpty()
+                    && !email.getText().toString().isEmpty()
                     && !password.getText().toString().isEmpty()
                     && !confirmpassword.getText().toString().isEmpty()
-                    && !username.getText().toString().isEmpty())
-            {
+                    && !username.getText().toString().isEmpty()) {
                 //if password and confirm password is not same, show error
                 if (!password.getText().toString().equals(confirmpassword.getText().toString())) {
                     password.setError(getString(R.string.password_is_not_same));
@@ -86,8 +85,7 @@ public class SignUpForm extends AppCompatActivity {
                 else if (!password.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$")) {
                     password.setError(getString(R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character));
                     Toast.makeText(this, R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character, Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     //check nickname
                     checkNickname();
                 }
@@ -110,6 +108,10 @@ public class SignUpForm extends AppCompatActivity {
 
     private void checkInput() {
         //if all input is null, textinputlayout will show error
+        if (fullname.getText().toString().isEmpty()) {
+            fullname.setError("Full name is required");
+            signupbtn.setEnabled(true);
+        }
         if (email.getText().toString().isEmpty()) {
             email.setError("Email is required");
             signupbtn.setEnabled(true);
@@ -130,7 +132,7 @@ public class SignUpForm extends AppCompatActivity {
 
     private void checkNickname() {
         //Use Retrofit to check nickname
-        Call<CheckNickName> call = newsAPPInterface.checkNickname(username.getText().toString(), email.getText().toString() );
+        Call<CheckNickName> call = newsAPPInterface.checkNickname(username.getText().toString(), email.getText().toString());
         call.enqueue(new retrofit2.Callback<CheckNickName>() {
             @Override
             public void onResponse(Call<CheckNickName> call, Response<CheckNickName> response) {
@@ -141,16 +143,16 @@ public class SignUpForm extends AppCompatActivity {
                 if (response.body().getEmail().equals(email.getText().toString())) {
                     email.setError(getString(R.string.email_is_already_used));
                     signupbtn.setEnabled(true);
-                }
-                else {
+                } else {
                     //if password and confirm password is same, sign up
                     //sign up function
                     //lowercase email
                     RegisterAccount(email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
-                    gotoVerifyEmail(email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
+                    gotoVerifyEmail(fullname.getText().toString(), email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
                 }
 
             }
+
             @Override
             public void onFailure(Call<CheckNickName> call, Throwable t) {
             }
@@ -175,9 +177,9 @@ public class SignUpForm extends AppCompatActivity {
 
     }
 
-    private void gotoVerifyEmail(String email, String password, String username) {
+    private void gotoVerifyEmail(String fullname, String email, String password, String username) {
         //First, save it to database
-        Call<Register> call = newsAPPInterface.register(email, password, username);
+        Call<Register> call = newsAPPInterface.register(fullname, email, password, username);
         call.enqueue(new retrofit2.Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
@@ -185,6 +187,7 @@ public class SignUpForm extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     //go to verify account activity
                     Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
+                    intent.putExtra("fullname", fullname);
                     intent.putExtra("email", email);
                     intent.putExtra("password", password);
                     intent.putExtra("username", username);
@@ -193,6 +196,7 @@ public class SignUpForm extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
             }

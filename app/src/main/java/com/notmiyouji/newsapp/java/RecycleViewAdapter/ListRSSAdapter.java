@@ -1,5 +1,8 @@
 package com.notmiyouji.newsapp.java.RecycleViewAdapter;
 
+import static android.util.Base64.decode;
+
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,11 @@ import java.util.List;
 
 public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSourceHolder> {
 
+    static {
+        System.loadLibrary("keys");
+    }
+
+    public final String SECRET_KEY_ACCESS = new String(decode(decode(getSecretKey(), Base64.DEFAULT), Base64.DEFAULT));
     AppCompatActivity activity;
     List<RSSList> rssSourceList;
 
@@ -25,6 +33,8 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
         this.activity = activity;
         this.rssSourceList = rssSourceList;
     }
+
+    public native String getSecretKey();
 
     @NonNull
     @Override
@@ -40,7 +50,7 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
         holder.rssTitle.setText(title);
         String url = activity.getString(R.string.rss_url) + rssList.getUrllink();
         holder.rss_url.setText(url);
-        String path = rssList.getUrl_image();
+        String path = rssList.getUrl_image() + "?" + SECRET_KEY_ACCESS;
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holder.source_image, holder);
         //Picasso.get().load(path).into(holder.source_image);
