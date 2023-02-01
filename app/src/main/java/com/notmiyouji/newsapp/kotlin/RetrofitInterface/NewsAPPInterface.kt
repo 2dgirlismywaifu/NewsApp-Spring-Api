@@ -4,6 +4,7 @@ import android.provider.ContactsContract.CommonDataKinds.Nickname
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CheckNickName
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Register
+import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Verify
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject
@@ -55,4 +56,9 @@ interface NewsAPPInterface {
     fun verify(@Query("email", encoded = true) email: String?): Call<Verify?>?
     @GET("recoverycode")
     fun recoveryCode(@Query("email", encoded = true) email: String?): Call<Recovery?>?
+    @GET("signin")
+    fun signIn(
+        @Query("account", encoded = true) account: String?,
+        @Query("password", encoded = true) password: String?
+    ): Call<SignIn?>?
 }

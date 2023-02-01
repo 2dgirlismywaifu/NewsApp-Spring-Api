@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
 import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
@@ -31,9 +32,11 @@ import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +57,13 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     LinearLayoutManager linearLayoutManager;
     ListSourceAdapter listSourceAdapter;
     LoadWallpaperShared loadWallpaperShared;
+    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
     SwipeRefreshLayout swipeRefreshLayout;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadNavigationHeader loadNavigationHeader;
+    GetUserLogined getUserLogined;
     EditText searchSource;
 
     @Override
@@ -72,7 +78,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         drawerSourceNews = findViewById(R.id.source_news_page);
         navigationView = findViewById(R.id.nav_pane_view);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
-        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.sources_list);
@@ -81,7 +87,14 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
         loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperShared.loadWallpaper();
+        loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared.loadWallpaper();
+        }
         //open sign in page from navigationview
         CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
         callSignInForm.callSignInForm();
@@ -186,8 +199,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             startActivity(intent);
             this.finish();
         } else if (menuitem == R.id.settings_menu) {
-            intent = new Intent(SourceNewsList.this, SettingsPage.class);
-            startActivity(intent);
+            OpenSettingsPage openSettingsPage = new OpenSettingsPage(SourceNewsList.this);
+            openSettingsPage.openSettings();
         }
 
         return true;
@@ -195,7 +208,12 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
 
     public void onResume() {
         super.onResume();
-        loadWallpaperShared.loadWallpaper();
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared.loadWallpaper();
+        }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

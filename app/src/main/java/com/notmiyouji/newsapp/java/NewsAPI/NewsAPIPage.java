@@ -34,6 +34,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
 import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
@@ -47,9 +48,11 @@ import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
@@ -81,6 +84,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     Call<News> call;
     NewsAPICategory newsAPICategory = new NewsAPICategory();
     LoadWallpaperShared loadWallpaperShared;
+    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
     ExtendedFloatingActionButton filterCountry;
     TextView chooseTitle;
     EditText searchNews;
@@ -88,6 +92,8 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     List<Country> countryList, codeList;
     SwipeRefreshLayout swipeRefreshLayout;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadNavigationHeader loadNavigationHeader;
+    GetUserLogined getUserLogined;
     private String countryCodeDefault = "us";
 
     public String getCountryCodeDefault() {
@@ -111,7 +117,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         drawerNewsAPI = findViewById(R.id.newsapi_page);
         navigationView = findViewById(R.id.nav_pane_view);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
-        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
         toolbar = findViewById(R.id.nav_button);
         newstypeView = findViewById(R.id.news_type);
@@ -124,7 +130,14 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
         loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperShared.loadWallpaper();
+        loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared.loadWallpaper();
+        }
         //From SharedPreference, load country code
         reloadCountryCode();
         //open sign in page from navigationview
@@ -364,15 +377,21 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
             this.finish();
         } else if (menuitem == R.id.settings_menu) {
-            intent = new Intent(NewsAPIPage.this, SettingsPage.class);
-            startActivity(intent);
+            OpenSettingsPage openSettingsPage = new OpenSettingsPage(NewsAPIPage.this);
+            openSettingsPage.openSettings();
         }
         return true;
     }
 
+
     public void onResume() {
         super.onResume();
-        loadWallpaperShared.loadWallpaper();
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared.loadWallpaper();
+        }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

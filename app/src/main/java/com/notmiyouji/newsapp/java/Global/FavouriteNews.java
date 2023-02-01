@@ -18,9 +18,11 @@ import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,8 +31,10 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     NavigationView navigationView;
     Toolbar toolbar;
     NavigationPane navigationPane;
+    GetUserLogined getUserLogined;
     Intent intent;
     LoadWallpaperShared loadWallpaperShared;
+    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
 
     @Override
@@ -51,11 +55,20 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();
         //From SharedPreference, change background for header navigation pane
-        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperShared.loadWallpaper();
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+            loadWallpaperShared.loadWallpaper();
+        }
         //open sign in page from navigationview
-        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
-        callSignInForm.callSignInForm();
+        if (!getUserLogined.getStatus().equals("login")) {
+            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+            callSignInForm.callSignInForm();
+        }
     }
 
     @Override
@@ -85,8 +98,8 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
             this.finish();
         } else if (menuitem == R.id.settings_menu) {
-            intent = new Intent(FavouriteNews.this, SettingsPage.class);
-            startActivity(intent);
+            OpenSettingsPage openSettingsPage = new OpenSettingsPage(FavouriteNews.this);
+            openSettingsPage.openSettings();
         }
         return true;
     }
@@ -94,7 +107,14 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     public void onResume() {
         super.onResume();
         //From SharedPreference, change background for header navigation pane
-        loadWallpaperShared.loadWallpaper();
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, FavouriteNews.this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, FavouriteNews.this);
+            loadWallpaperShared.loadWallpaper();
+        }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

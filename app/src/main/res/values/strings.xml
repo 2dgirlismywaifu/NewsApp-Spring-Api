@@ -110,4 +110,12 @@
     <string name="no_result_found">No result or data not available</string>
     <string name="details">Details</string>
     <string name="a_confirmation_email_has_been_sent_to_your_mailbox">A confirmation email has been sent to your mailbox</string>
+    <string name="please_verify_your_email_first_with_link_sent_to_your_mailbox">Please verify your email first with link sent to your mailbox</string>
+    <string name="verification_email_sent_to_your_mailbox">Verification email sent to your mailbox</string>
+    <string name="sign_in_success">Sign In Success</string>
+    <string name="password_is_not_same">Password is not same</string>
+    <string name="password_must_be_at_least_6_character">Password must be at least 6 character</string>
+    <string name="password_must_contain_at_least_1_number_1_uppercase_1_special_character">Password must contain at least 1 Number, 1 Uppercase, 1 Special character</string>
+    <string name="nickname_is_already_used">Nickname is already used</string>
+    <string name="email_is_already_used">Email is already used</string>
 </resources>

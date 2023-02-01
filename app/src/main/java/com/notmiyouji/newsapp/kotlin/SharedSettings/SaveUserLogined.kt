@@ -12,18 +12,11 @@ class SaveUserLogined(context: Context) {
         editor = sharedPreferences.edit()
     }
 
-    fun saveUserLogined(email: String?, password: String?, username: String?) {
+    fun saveUserLogined(email: String?, password: String?, username: String?, status: String?) {
         editor.putString("email", email)
         editor.putString("password", password)
         editor.putString("username", username)
+        editor.putString("status", status)
         editor.apply()
     }
-
-    val userLogined: Unit
-        get() {
-            val email = sharedPreferences.getString("email", "")
-            val password = sharedPreferences.getString("password", "")
-            val username = sharedPreferences.getString("username", "")
-            saveUserLogined(email, password, username)
-        }
 }

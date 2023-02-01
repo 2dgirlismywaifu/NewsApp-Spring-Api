@@ -26,9 +26,7 @@ public class RegisterSuccess extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         recoveryCode = findViewById(R.id.recovery_code_label);
-        //Get email logined from shared preferences
-        GetUserLogined getUserLogined = new GetUserLogined(this);
-        String email = getUserLogined.getEmail();
+        String email = getIntent().getStringExtra("email");
         //Show recovery code
         ShowRecoveryCode(email);
     }

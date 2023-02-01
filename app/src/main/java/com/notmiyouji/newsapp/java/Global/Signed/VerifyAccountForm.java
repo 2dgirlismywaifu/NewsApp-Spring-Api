@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.Global.Signed;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -18,12 +19,15 @@ import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveUserLogined;
 
+import java.util.Timer;
+
 import retrofit2.Call;
 
 public class VerifyAccountForm extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     Button verifybtn, resendbtn;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
+    String email, password, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,9 @@ public class VerifyAccountForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Get string send from Sign Up form
-        String email = getIntent().getStringExtra("email");
-        String password = getIntent().getStringExtra("password");
-        String username = getIntent().getStringExtra("username");
+        email = getIntent().getStringExtra("email");
+        password = getIntent().getStringExtra("password");
+        username = getIntent().getStringExtra("username");
         TextView emailtext = findViewById(R.id.email_send);
         emailtext.setText(email);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -53,13 +57,14 @@ public class VerifyAccountForm extends AppCompatActivity {
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(email, password, username);
+                        saveUserLogined.saveUserLogined(email, password, username, "true");
                         //go to RegisteoSuccesful form
                         Intent intent = new Intent(this, RegisterSuccess.class);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(this, "Please verify your email first with link sent to your mailbox", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.please_verify_your_email_first_with_link_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -69,13 +74,34 @@ public class VerifyAccountForm extends AppCompatActivity {
         resendbtn = findViewById(R.id.ResendCodeBtn);
         resendbtn.setOnClickListener(v -> {
             assert user != null;
+            //send verification email and wait 60 second to send again
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(this, "Verification email sent to your mailbox", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.verification_email_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
                 }
             });
+            Timer timer = new Timer();
+            timer.schedule(new java.util.TimerTask() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void run() {
+                    //count down 60 second and button set text with time count down, when time is zero, enable back button
+                    try {
+                        for (int i = 60; i >= 0; i--) {
+                            resendbtn.setText(R.string.resend_code + "(" + i + "s)");
+                            Thread.sleep(1000);
+                            if (i == 0) {
+                                resendbtn.setText(R.string.resend_code);
+                                resendbtn.setEnabled(true);
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 60000);
         });
     }
 
@@ -90,7 +116,6 @@ public class VerifyAccountForm extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<Verify> call, Throwable t) {
                 Toast.makeText(VerifyAccountForm.this, "Error", Toast.LENGTH_SHORT).show();

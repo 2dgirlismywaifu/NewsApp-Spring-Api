@@ -36,6 +36,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.RssURLCategory;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
+import com.notmiyouji.newsapp.java.Global.OpenSettingsPage;
 import com.notmiyouji.newsapp.java.Global.SettingsPage;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RSS2JSON.FeedMultiRSS;
@@ -46,9 +47,11 @@ import com.notmiyouji.newsapp.kotlin.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
@@ -67,6 +70,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     NavigationPane navigationPane;
     Intent intent;
     LoadWallpaperShared loadWallpaperShared;
+    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
     ExtendedFloatingActionButton filterSource;
     TextView chooseTitle;
     EditText searchNews;
@@ -74,9 +78,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     SwipeRefreshLayout swipeRefreshLayout;
     FeedMultiRSS feedMultiRSS;
     ProgressBar bar;
+    LoadNavigationHeader loadNavigationHeader;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    GetUserLogined getUserLogined;
     private String deafultSource = "VNExpress";
 
     public String getDeafultSource() {
@@ -99,8 +105,18 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //Hooks
         navigationView = findViewById(R.id.nav_pane_view);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
-        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
+        //From SharedPreference, change background for header navigation pane
+        getUserLogined = new GetUserLogined(this);
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
+            loadWallpaperShared.loadWallpaper();
+        }
         bar = findViewById(R.id.progressBar);
         drawerLayout = findViewById(R.id.home_page);
         toolbar = findViewById(R.id.nav_button);
@@ -111,16 +127,15 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
-        //From SharedPreference, change background for header navigation pane
-        loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
-        loadWallpaperShared.loadWallpaper();
         //From SharedPreference, call back source name
         reloadData();
         //NewsCategory Type List
         LoadCategory(getDeafultSource());
         //open sign in page from navigationview
-        CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
-        callSignInForm.callSignInForm();
+        if (!getUserLogined.getStatus().equals("login")) {
+            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+            callSignInForm.callSignInForm();
+        }
         //this is global method on this class
         LoadSourceNews(getDeafultSource());
         //Select source to load (Settings will save to shared preference)
@@ -284,15 +299,22 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             startActivity(intent);
             this.finish();
         } else if (menuitem == R.id.settings_menu) {
-            intent = new Intent(HomePage.this, SettingsPage.class);
-            startActivity(intent);
+            OpenSettingsPage openSettingsPage = new OpenSettingsPage(HomePage.this);
+            openSettingsPage.openSettings();
         }
         return true;
     }
 
     public void onResume() {
         super.onResume();
-        loadWallpaperShared.loadWallpaper();
+        if (getUserLogined.getStatus().equals("login")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, HomePage.this);
+            loadWallpaperSharedLogined.loadWallpaper();
+        }
+        else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, HomePage.this);
+            loadWallpaperShared.loadWallpaper();
+        }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
     }

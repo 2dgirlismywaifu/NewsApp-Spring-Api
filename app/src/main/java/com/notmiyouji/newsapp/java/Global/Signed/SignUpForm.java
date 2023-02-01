@@ -73,9 +73,19 @@ public class SignUpForm extends AppCompatActivity {
             {
                 //if password and confirm password is not same, show error
                 if (!password.getText().toString().equals(confirmpassword.getText().toString())) {
-                    password.setError("Password is not same");
-                    confirmpassword.setError("Password is not same");
-                    Toast.makeText(this, "Password is not same", Toast.LENGTH_SHORT).show();
+                    password.setError(getString(R.string.password_is_not_same));
+                    confirmpassword.setError(getString(R.string.password_is_not_same));
+                    Toast.makeText(this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
+                }
+                //if password not containt al least 6 character, show error
+                else if (password.getText().toString().length() < 6) {
+                    password.setError(getString(R.string.password_must_be_at_least_6_character));
+                    Toast.makeText(this, R.string.password_must_be_at_least_6_character, Toast.LENGTH_SHORT).show();
+                }
+                //password must contain at least 1 number, 1 uppercase, 1 special character
+                else if (!password.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$")) {
+                    password.setError(getString(R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character));
+                    Toast.makeText(this, R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //check nickname
@@ -125,11 +135,11 @@ public class SignUpForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<CheckNickName> call, Response<CheckNickName> response) {
                 if (response.body().getNickname().equals(username.getText().toString())) {
-                    username.setError("Nickname is already used");
+                    username.setError(getString(R.string.nickname_is_already_used));
                     signupbtn.setEnabled(true);
                 }
                 if (response.body().getEmail().equals(email.getText().toString())) {
-                    email.setError("Email is already used");
+                    email.setError(getString(R.string.email_is_already_used));
                     signupbtn.setEnabled(true);
                 }
                 else {
