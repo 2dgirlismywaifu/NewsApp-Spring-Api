@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import com.notmiyouji.newsapp.R
+import com.notmiyouji.newsapp.kotlin.LoadImageURL
 
 class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: NavigationView) {
     @SuppressLint("SetTextI18n")
@@ -14,12 +16,9 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
         //Get String from sharedPreference
         val fullname = sharedPreferences.getString("fullname", "")
         val username = sharedPreferences.getString("username", "")
-        val password = sharedPreferences.getString("password", "")
-        val email = sharedPreferences.getString("email", "")
+        val avatar = sharedPreferences.getString("avatar", "")
         val status = sharedPreferences.getString("status", "")
-        if (!status.equals("login")) {
-            navigationView.inflateHeaderView(R.layout.navigation_header)
-        } else {
+        if (status.equals("login") || status.equals("google")) {
             navigationView.inflateHeaderView(R.layout.navigation_header_logined)
             val fullnameHeader =
                 navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
@@ -27,6 +26,14 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
             val usernameHeader =
                 navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
             usernameHeader.text = "@$username"
+            val avatarHeader =
+                navigationView.getHeaderView(0).findViewById<ShapeableImageView>(R.id.avatar_user)
+            //Call LoadImageURL.kt
+            val loadImageURL = LoadImageURL(avatar)
+            loadImageURL.loadImageUser(avatarHeader)
+        }
+        else {
+            navigationView.inflateHeaderView(R.layout.navigation_header)
         }
     }
 }

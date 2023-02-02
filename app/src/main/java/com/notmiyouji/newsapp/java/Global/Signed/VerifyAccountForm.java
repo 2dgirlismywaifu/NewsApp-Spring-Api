@@ -1,14 +1,18 @@
 package com.notmiyouji.newsapp.java.Global.Signed;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
@@ -58,10 +62,11 @@ public class VerifyAccountForm extends AppCompatActivity {
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(fullname, email, password, username, "true");
+                        saveUserLogined.saveUserLogined(fullname, email, password, username, "not_available","true");
                         //go to RegisteoSuccesful form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);
+                        intent.putExtra("password", password);
                         startActivity(intent);
                         finish();
                     } else {
@@ -71,46 +76,63 @@ public class VerifyAccountForm extends AppCompatActivity {
             });
 
         });
+        //Back to Sign In form
+        ImageButton backButton = findViewById(R.id.BackPressed);
+        backButton.setOnClickListener(v -> {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setTitle(R.string.verify_account);
+            builder.setMessage(R.string.your_account_is_not_verified_yet_are_you_sure_to_go_back);
+            builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+                onBackPressed();
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+                finish();
+            });
+            builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+            builder.show();
+        });
         //resend verification email
         resendbtn = findViewById(R.id.ResendCodeBtn);
         resendbtn.setOnClickListener(v -> {
+            resendbtn.setEnabled(false);
             assert user != null;
             //send verification email and wait 60 second to send again
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, R.string.verification_email_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
+                    Timer timer = new Timer();
+                    timer.schedule(new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            runOnUiThread(() -> resendbtn.setEnabled(true));
+                        }
+                    }, 300);
                 } else {
                     Toast.makeText(this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                    resendbtn.setEnabled(true);
                 }
             });
-            Timer timer = new Timer();
-            timer.schedule(new java.util.TimerTask() {
-                @SuppressLint("SetTextI18n")
-                @Override
-                public void run() {
-                    //count down 60 second and button set text with time count down, when time is zero, enable back button
-                    try {
-                        for (int i = 60; i >= 0; i--) {
-                            resendbtn.setText(R.string.resend_code + "(" + i + "s)");
-                            Thread.sleep(1000);
-                            if (i == 0) {
-                                resendbtn.setText(R.string.resend_code);
-                                resendbtn.setEnabled(true);
-                            }
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 60000);
+
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        builder.setTitle(R.string.verify_account);
+        builder.setMessage(R.string.your_account_is_not_verified_yet_are_you_sure_to_go_back);
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+            finish();
+        });
+        builder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
+    }
     private void updateStatus(String email) {
         Call<Verify> call = newsAPPInterface.verify(email);
         call.enqueue(new retrofit2.Callback<Verify>() {
             @Override
-            public void onResponse(Call<Verify> call, retrofit2.Response<Verify> response) {
+            public void onResponse(@NonNull Call<Verify> call, retrofit2.Response<Verify> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getVerifyStatus().equals("true")) {
                         Toast.makeText(VerifyAccountForm.this, "Account Verified Success", Toast.LENGTH_SHORT).show();
@@ -123,7 +145,6 @@ public class VerifyAccountForm extends AppCompatActivity {
                 Toast.makeText(VerifyAccountForm.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void onResume() {

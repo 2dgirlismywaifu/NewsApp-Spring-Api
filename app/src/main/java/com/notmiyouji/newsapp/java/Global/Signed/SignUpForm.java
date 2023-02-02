@@ -75,16 +75,19 @@ public class SignUpForm extends AppCompatActivity {
                     password.setError(getString(R.string.password_is_not_same));
                     confirmpassword.setError(getString(R.string.password_is_not_same));
                     Toast.makeText(this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
+                    signupbtn.setEnabled(true);
                 }
                 //if password not containt al least 6 character, show error
                 else if (password.getText().toString().length() < 6) {
                     password.setError(getString(R.string.password_must_be_at_least_6_character));
                     Toast.makeText(this, R.string.password_must_be_at_least_6_character, Toast.LENGTH_SHORT).show();
+                    signupbtn.setEnabled(true);
                 }
                 //password must contain at least 1 number, 1 uppercase, 1 special character
                 else if (!password.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$")) {
                     password.setError(getString(R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character));
                     Toast.makeText(this, R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character, Toast.LENGTH_SHORT).show();
+                    signupbtn.setEnabled(true);
                 } else {
                     //check nickname
                     checkNickname();
@@ -147,7 +150,7 @@ public class SignUpForm extends AppCompatActivity {
                     //if password and confirm password is same, sign up
                     //sign up function
                     //lowercase email
-                    RegisterAccount(email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
+                    RegisterAccount(email.getText().toString().toLowerCase(), password.getText().toString());
                     gotoVerifyEmail(fullname.getText().toString(), email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
                 }
 
@@ -159,7 +162,7 @@ public class SignUpForm extends AppCompatActivity {
         });
     }
 
-    private void RegisterAccount(String email, String password, String username) {
+    private void RegisterAccount(String email, String password) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

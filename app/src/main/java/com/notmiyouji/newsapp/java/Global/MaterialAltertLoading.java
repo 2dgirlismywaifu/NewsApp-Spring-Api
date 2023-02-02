@@ -16,7 +16,7 @@ public class MaterialAltertLoading {
             builder = new MaterialAlertDialogBuilder(activity);
             builder.setIcon(R.mipmap.ic_launcher);
             builder.setTitle(activity.getString(R.string.app_name));
-            builder.setCancelable(false);
+            //builder.setCancelable(false);
             builder.setView(R.layout.show_loading_bar);
         }
         return builder;

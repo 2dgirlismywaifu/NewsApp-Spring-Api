@@ -121,7 +121,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         loadNavigationHeader.loadHeader();
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
-        if (getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
         } else {
@@ -141,7 +141,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         //From SharedPreference, load country code
         reloadCountryCode();
         //open sign in page from navigationview
-        if (!getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("")) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
@@ -393,11 +393,11 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
 
     public void onResume() {
         super.onResume();
-        if (getUserLogined.getStatus().equals("login")) {
-            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, NewsAPIPage.this);
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
         } else {
-            loadWallpaperShared = new LoadWallpaperShared(navigationView, NewsAPIPage.this);
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);

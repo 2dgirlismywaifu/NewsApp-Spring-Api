@@ -109,7 +109,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         loadNavigationHeader.loadHeader();
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
-        if (getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
             String welcomUserName = getString(R.string.user_welcome) + " @" + getUserLogined.getUsername() + "\n" + getString(R.string.user_welcome_2);
             welcomeText.setText(welcomUserName);
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
@@ -133,7 +133,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //NewsCategory Type List
         LoadCategory(getDeafultSource());
         //open sign in page from navigationview
-        if (!getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("")) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
@@ -311,11 +311,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     public void onResume() {
         super.onResume();
-        if (getUserLogined.getStatus().equals("login")) {
-            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, HomePage.this);
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
         } else {
-            loadWallpaperShared = new LoadWallpaperShared(navigationView, HomePage.this);
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);

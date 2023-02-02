@@ -53,7 +53,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         loadNavigationHeader.loadHeader();
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
-        if (getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
             loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
         } else {
@@ -65,7 +65,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();
         //open sign in page from navigationview
-        if (!getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("")) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
@@ -107,9 +107,11 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     public void onResume() {
         super.onResume();
         //From SharedPreference, change background for header navigation pane
-        if (getUserLogined.getStatus().equals("login")) {
+        if (getUserLogined.getStatus().equals("login") || getUserLogined.getStatus().equals("google")) {
+            loadWallpaperSharedLogined = new LoadWallpaperSharedLogined(navigationView, this);
             loadWallpaperSharedLogined.loadWallpaper();
         } else {
+            loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);

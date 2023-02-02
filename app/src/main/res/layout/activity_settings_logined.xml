@@ -61,7 +61,7 @@
             </androidx.drawerlayout.widget.DrawerLayout>
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/owner_avatar"
+                android:id="@+id/avatar_user_logined"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="124dp"
@@ -83,10 +83,10 @@
                 android:text="@string/guest_mode"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/owner_avatar"
+                app:layout_constraintEnd_toEndOf="@+id/avatar_user_logined"
                 app:layout_constraintHorizontal_bias="0.516"
-                app:layout_constraintStart_toStartOf="@+id/owner_avatar"
-                app:layout_constraintTop_toBottomOf="@+id/owner_avatar" />
+                app:layout_constraintStart_toStartOf="@+id/avatar_user_logined"
+                app:layout_constraintTop_toBottomOf="@+id/avatar_user_logined" />
 
             <TextView
                 android:id="@+id/username"

@@ -17,12 +17,14 @@ class SaveUserLogined(context: Context) {
         email: String?,
         password: String?,
         username: String?,
+        avatar: String?,
         status: String?
     ) {
         editor.putString("fullname", fullname)
         editor.putString("email", email)
         editor.putString("password", password)
         editor.putString("username", username)
+        editor.putString("avatar", avatar)
         editor.putString("status", status)
         editor.apply()
     }

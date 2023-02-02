@@ -16,13 +16,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Global.AboutApplication;
 import com.notmiyouji.newsapp.java.Global.ChangeLanguage;
 import com.notmiyouji.newsapp.java.Global.WallpaperHeader;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveUserLogined;
@@ -67,6 +72,10 @@ public class SettingsLogined extends AppCompatActivity {
             intent = new Intent(SettingsLogined.this, AboutApplication.class);
             startActivity(intent);
         });
+        //Load avatar
+        ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
+        LoadImageURL loadImageURL = new LoadImageURL(getUserLogined.getAvatar());
+        loadImageURL.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
@@ -109,12 +118,23 @@ public class SettingsLogined extends AppCompatActivity {
         signOut.setOnClickListener(v -> {
             //Show alert dialog
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+            builder.setIcon(R.mipmap.ic_launcher);
             builder.setTitle(R.string.sign_out);
             builder.setMessage(R.string.sign_out_message);
             builder.setPositiveButton(R.string.sign_out, (dialog, which) -> {
                 //Sign out account
-                SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                saveUserLogined.saveUserLogined("", "", "", "", "");
+                if (getUserLogined.getStatus().equals("google")) {
+                    GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                            build()).signOut();
+                    FirebaseAuth.getInstance().signOut();
+                    SaveUserLogined saveUserLogined = new SaveUserLogined(this);
+                    saveUserLogined.saveUserLogined("", "", "", "", "","");
+                }
+                else if (getUserLogined.getStatus().equals("login")) {
+                    FirebaseAuth.getInstance().signOut();
+                    SaveUserLogined saveUserLogined = new SaveUserLogined(this);
+                    saveUserLogined.saveUserLogined("", "", "", "", "","");
+                }
                 //Restart application
                 Toast.makeText(this, R.string.sign_out_success, Toast.LENGTH_SHORT).show();
                 intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login"
     tools:context=".java.Global.Signed.RegisterSuccess"
     tools:ignore="ScrollViewCount">
 
@@ -29,15 +30,16 @@
 
             </ImageButton>
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="110dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_foreground"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:background="@mipmap/ic_launcher"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <TextView
@@ -46,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins"
-                android:text="Register Success"
+                android:text="@string/register_success"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -60,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
-                android:text="Thank you to become member\n of this application. "
+                android:text="@string/thank_you_to_become_member_n_of_this_application"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,25 +76,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/poppins"
-                android:text="Here is your recovery code\n for recovery account"
+                android:text="@string/here_is_your_recovery_code_n_for_recovery_account"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/Verifi_account_note"
                 app:layout_constraintStart_toStartOf="@+id/Verifi_account_note"
-                app:layout_constraintTop_toBottomOf="@+id/Verifi_account_note"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toBottomOf="@+id/Verifi_account_note" />
 
             <TextView
                 android:id="@+id/recovery_code_label"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:text="code here"
                 android:textAlignment="center"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/recovey_label"
                 app:layout_constraintStart_toStartOf="@+id/recovey_label"
@@ -100,17 +103,35 @@
                 tools:ignore="HardcodedText,SpeakableTextPresentCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
             <Button
-                android:id="@+id/VerifiedButton"
-                android:layout_width="350dp"
+                android:id="@+id/SignInNow"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
                 android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Surf Now"
+                android:text="@string/login_now"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/recovery_code_label"
                 app:layout_constraintStart_toStartOf="@+id/recovery_code_label"
                 app:layout_constraintTop_toBottomOf="@+id/recovery_code_label"
+                tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+
+            <Button
+                android:id="@+id/GoBackLoginScreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:backgroundTint="#0E64D2"
+                android:fontFamily="@font/raleway_bold"
+                android:text="@string/go_back_login_screen"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/SignInNow"
+                app:layout_constraintStart_toStartOf="@+id/SignInNow"
+                app:layout_constraintTop_toBottomOf="@+id/SignInNow"
                 tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

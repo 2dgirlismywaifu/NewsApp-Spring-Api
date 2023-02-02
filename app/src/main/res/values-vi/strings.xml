@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NewsAPP Reader</string>
+    <string name="app_name">Trình Đọc Tin Tức</string>
     <string name="lastest_news">Tin tức mới nhất</string>
     <string name="see_all_button">Xem tất cả</string>
     <string name="powered_by_newsapi">Dựa trên NewsAPI</string>
@@ -119,4 +119,12 @@
     <string name="Error_login">Vui lòng kiểm tra tài khoản hoặc mật khẩu</string>
     <string name="user_welcome">"Xin chào, "</string>
     <string name="user_welcome_2">Đây là danh sách các tin tức cập nhật</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="your_account_is_not_verified_yet_are_you_sure_to_go_back">Tài khoản chưa được xác thực, bạn chắc chắn muốn quay lại</string>
+    <string name="register_success">Đăng ký thành công</string>
+    <string name="thank_you_to_become_member_n_of_this_application">Cảm ơn đã trở thành thành viên \ncủa ứng dụng này</string>
+    <string name="here_is_your_recovery_code_n_for_recovery_account">Đây là mã phục hồi dùng cho \nphục hồi tài khoản</string>
+    <string name="login_now">Đăng nhập ngay</string>
+    <string name="go_back_login_screen">Quay lại màn hình đăng nhập</string>
 </resources>

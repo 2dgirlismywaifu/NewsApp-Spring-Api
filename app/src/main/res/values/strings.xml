@@ -37,7 +37,7 @@
     <string name="resend_code">Resend Email</string>
     <string name="verify_account">Verify Account</string>
     <string name="enter_verification_code">Enter Verification Code</string>
-    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your email to get code</string>
+    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your recovery code to continue</string>
     <string name="verify">Verify Now</string>
     <string name="send_verify_code">Send</string>
     <string name="Some_things_went_wrong">Some things went wrong! Please try again.</string>
@@ -125,4 +125,12 @@
     <string name="sign_out_message">Are you sure want to log out?</string>
     <string name="cancel">Cancel</string>
     <string name="Error_login">Please check your account or password</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="your_account_is_not_verified_yet_are_you_sure_to_go_back">Your account is not verified yet, are you sure to go back?</string>
+    <string name="register_success">Register Success</string>
+    <string name="thank_you_to_become_member_n_of_this_application">Thank you to become member\n of this application.</string>
+    <string name="here_is_your_recovery_code_n_for_recovery_account">Here is your recovery code\n for recovery account</string>
+    <string name="login_now">Login Now</string>
+    <string name="go_back_login_screen">Go Back Login Screen</string>
 </resources>

@@ -29,6 +29,12 @@ class LoadImageURL(
         }
     }
 
+    fun loadImageUser(imageView: ShapeableImageView) {
+        imageView.load(url) {
+            crossfade(true)
+            error(R.drawable.user_192)
+        }
+    }
     fun loadImageforNewsDetails(imageView: ImageView) {
         imageView.load(url) {
             crossfade(true)

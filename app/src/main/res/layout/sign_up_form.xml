@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signinbackground"
+    android:background="@drawable/background_login"
     tools:context=".java.Global.Signed.SignUpForm"
     tools:ignore="ScrollViewCount">
 
@@ -30,15 +30,16 @@
 
             </ImageButton>
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="110dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_foreground"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:background="@mipmap/ic_launcher"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <TextView

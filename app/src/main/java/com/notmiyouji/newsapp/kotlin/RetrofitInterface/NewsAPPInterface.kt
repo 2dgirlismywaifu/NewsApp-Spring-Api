@@ -1,8 +1,10 @@
 package com.notmiyouji.newsapp.kotlin.RetrofitInterface
 
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CheckNickName
+import com.notmiyouji.newsapp.kotlin.LoginedModel.CountSSO
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Register
+import com.notmiyouji.newsapp.kotlin.LoginedModel.SSO
 import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Verify
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
@@ -45,6 +47,18 @@ interface NewsAPPInterface {
         @Query("nickname", encoded = true) nickname: String?
     ): Call<Register?>?
 
+    @POST("sso")
+    fun sso(
+        @Query("fullname", encoded = true) fullname: String?,
+        @Query("email", encoded = true) email: String?,
+        @Query("nickname", encoded = true) nickname: String?,
+        @Query("avatar", encoded = true) type: String?
+    ): Call<SSO?>?
+
+    @GET("/sso/count")
+    fun ssoCount(
+        @Query("account", encoded = true) email: String?
+    ): Call<CountSSO?>?
     @GET("checknickname")
     fun checkNickname(
         @Query("nickname") nickname: String?,
