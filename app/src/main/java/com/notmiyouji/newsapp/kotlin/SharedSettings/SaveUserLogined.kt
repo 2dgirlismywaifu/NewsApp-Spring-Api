@@ -13,6 +13,7 @@ class SaveUserLogined(context: Context) {
     }
 
     fun saveUserLogined(
+        userID: String?,
         fullname: String?,
         email: String?,
         password: String?,
@@ -20,6 +21,7 @@ class SaveUserLogined(context: Context) {
         avatar: String?,
         status: String?
     ) {
+        editor.putString("userID", userID)
         editor.putString("fullname", fullname)
         editor.putString("email", email)
         editor.putString("password", password)

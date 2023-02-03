@@ -128,12 +128,12 @@ public class SettingsLogined extends AppCompatActivity {
                             build()).signOut();
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogined("", "", "", "", "","");
+                    saveUserLogined.saveUserLogined("", "", "", "", "", "","");
                 }
                 else if (getUserLogined.getStatus().equals("login")) {
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogined("", "", "", "", "","");
+                    saveUserLogined.saveUserLogined("", "", "", "", "", "","");
                 }
                 //Restart application
                 Toast.makeText(this, R.string.sign_out_success, Toast.LENGTH_SHORT).show();

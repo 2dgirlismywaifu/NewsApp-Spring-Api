@@ -90,20 +90,7 @@ public class SignInForm extends AppCompatActivity {
                 SignInBtn.setEnabled(true);
                 SignUpBtn.setEnabled(true);
             } else {
-                //Firebase Sign In
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.signInWithEmailAndPassword(account.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener(this, task -> {
-                            if (task.isSuccessful()) {
-                                //Retrofit call signin request
-                                SignInMethod(account.getText().toString(), password.getText().toString());
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(SignInForm.this, R.string.Error_login, Toast.LENGTH_SHORT).show();
-                                SignInBtn.setEnabled(true);
-                                SignUpBtn.setEnabled(true);
-                            }
-                        });
+                SignInMethod(account.getText().toString(), password.getText().toString());
             }
         });
         //Google SSO
@@ -147,14 +134,7 @@ public class SignInForm extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
-                        //Need count this to prevent duplicate user
-                        //Always save to database with Google SSO even email is already add in Firebase Authentication
-                        //Google Avatar Image default so terrible, this line will fix it
-                        CheckSSOAccount(user.getDisplayName(),
-                                user.getEmail(), user.getUid(),
-                                user.getDisplayName(),
-                                new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL());
-                        //Check if user is already registered
+
                         mAuth.fetchSignInMethodsForEmail(user.getEmail()).addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
                                 SignInMethodQueryResult result = task1.getResult();
@@ -162,8 +142,16 @@ public class SignInForm extends AppCompatActivity {
                                     String fullname = user.getDisplayName();
                                     String email = user.getEmail();
                                     String password = user.getUid();
-                                    String username = "Google SSO";
+                                    //String username = "Google SSO";
+                                    String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
                                     //User is not registered, save to database
+                                    //Always save to database with Google SSO Sign In
+                                    //Google Avatar Image default so terrible, this line will fix it
+                                    CheckSSOAccount(user.getDisplayName(),
+                                            user.getEmail(), user.getUid(),
+                                            user.getDisplayName(),
+                                            avatar);
+
                                     Toast.makeText(SignInForm.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                                     //If user login successfully, go to main activity
                                     SignInBtn.setEnabled(true);
@@ -176,12 +164,13 @@ public class SignInForm extends AppCompatActivity {
                                 } else {
                                     String fullname = user.getDisplayName();
                                     String email = user.getEmail();
-                                    String password = user.getUid();
+                                    String password = user.getUid(); //also is UID
                                     //String username = "Google SSO";
                                     String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
+                                    //Before save to shared settings, we need update user information
                                     //User is already registered, save to shared settings
                                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                                    saveUserLogined.saveUserLogined(fullname, email, password, fullname, avatar,"google");
+                                    saveUserLogined.saveUserLogined(password, fullname, email, password, fullname, avatar,"google");
                                     Toast.makeText(SignInForm.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                                     //If user login successfully, go to main activity
                                     SignInBtn.setEnabled(true);
@@ -214,6 +203,11 @@ public class SignInForm extends AppCompatActivity {
                         //Save to database
                         SavedToDatabase(displayName, email, uid, username, url);
                     }
+                    else {
+                        //User is already registered, save to shared settings
+                        SaveUserLogined saveUserLogined = new SaveUserLogined(SignInForm.this);
+                        saveUserLogined.saveUserLogined(uid, displayName, email, uid, username, url,"google");
+                    }
                 }
             }
             @Override
@@ -232,8 +226,9 @@ public class SignInForm extends AppCompatActivity {
                 //Save successfully,
                 if (response.isSuccessful()) {
                     //Save user logined
+                    SSO sso = response.body();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(SignInForm.this);
-                    saveUserLogined.saveUserLogined(fullname, email, password, username, avatar,"google");
+                    saveUserLogined.saveUserLogined(sso.getEmail(), fullname, email, password, username, avatar,"google");
                 }
             }
             @Override
@@ -253,9 +248,12 @@ public class SignInForm extends AppCompatActivity {
                     if (signIn.getStatus().equals("pass")) {
                         //Check Account Verify or not, if not go to verify page to continue
                         if (signIn.getVerify().equals("true")) {
+                            //Firebase Sign In
+                            mAuth = FirebaseAuth.getInstance();
+                            mAuth.signInWithEmailAndPassword(signIn.getEmail(), password);
                             //Save user data to Shared Preferences
                             SaveUserLogined saveUserLogined = new SaveUserLogined(SignInForm.this);
-                            saveUserLogined.saveUserLogined(signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
+                            saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
                             //If account verify, go to main page
                             Toast.makeText(SignInForm.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                             SignInBtn.setEnabled(true);

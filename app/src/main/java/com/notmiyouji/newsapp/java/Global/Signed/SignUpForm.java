@@ -150,8 +150,11 @@ public class SignUpForm extends AppCompatActivity {
                     //if password and confirm password is same, sign up
                     //sign up function
                     //lowercase email
-                    RegisterAccount(email.getText().toString().toLowerCase(), password.getText().toString());
-                    gotoVerifyEmail(fullname.getText().toString(), email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
+                    RegisterAccount(fullname.getText().toString(),
+                            email.getText().toString().toLowerCase(),
+                            password.getText().toString(),
+                            username.getText().toString());
+                    //gotoVerifyEmail(fullname.getText().toString(), email.getText().toString().toLowerCase(), password.getText().toString(), username.getText().toString());
                 }
 
             }
@@ -162,22 +165,34 @@ public class SignUpForm extends AppCompatActivity {
         });
     }
 
-    private void RegisterAccount(String email, String password) {
+    private void RegisterAccount(String fullname, String email, String password, String username) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+        //We need make sure no duplicate email in firebase
+        firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                //Send email verification
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                firebaseUser.sendEmailVerification().addOnCompleteListener(task1 -> {
-                    if (task1.isSuccessful()) {
-                        Toast.makeText(SignUpForm.this, R.string.a_confirmation_email_has_been_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (task.getResult().getSignInMethods().size() == 0) {
+                    //Email not exist, create new account
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            //Send email verification
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            firebaseUser.sendEmailVerification().addOnCompleteListener(task2 -> {
+                                if (task2.isSuccessful()) {
+                                    Toast.makeText(SignUpForm.this, R.string.a_confirmation_email_has_been_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
+                                    gotoVerifyEmail(fullname, email, password, username);
+                                } else {
+                                    Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    //Email exist, show error
+                    Toast.makeText(SignUpForm.this, R.string.email_is_already_used, Toast.LENGTH_SHORT).show();
+                    signupbtn.setEnabled(true);
+                }
             }
         });
-
     }
 
     private void gotoVerifyEmail(String fullname, String email, String password, String username) {
@@ -188,8 +203,10 @@ public class SignUpForm extends AppCompatActivity {
             public void onResponse(Call<Register> call, Response<Register> response) {
                 //Save successfully, go to verify account activity
                 if (response.isSuccessful()) {
+                    Register register = response.body();
                     //go to verify account activity
                     Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
+                    intent.putExtra("user_id", register.getUserId());
                     intent.putExtra("fullname", fullname);
                     intent.putExtra("email", email);
                     intent.putExtra("password", password);

@@ -31,7 +31,7 @@ public class VerifyAccountForm extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     Button verifybtn, resendbtn;
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
-    String fullname, email, password, username;
+    String userID, fullname, email, password, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class VerifyAccountForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Get string send from Sign Up form
+        userID = getIntent().getStringExtra("user_id");
         fullname = getIntent().getStringExtra("fullname");
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
@@ -62,7 +63,7 @@ public class VerifyAccountForm extends AppCompatActivity {
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(fullname, email, password, username, "not_available","true");
+                        saveUserLogined.saveUserLogined(userID, fullname, email, password, username, "not_available","true");
                         //go to RegisteoSuccesful form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);
@@ -95,7 +96,6 @@ public class VerifyAccountForm extends AppCompatActivity {
         resendbtn = findViewById(R.id.ResendCodeBtn);
         resendbtn.setOnClickListener(v -> {
             resendbtn.setEnabled(false);
-            assert user != null;
             //send verification email and wait 60 second to send again
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
