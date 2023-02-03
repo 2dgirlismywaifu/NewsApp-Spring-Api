@@ -133,4 +133,18 @@
     <string name="here_is_your_recovery_code_n_for_recovery_account">Here is your recovery code\n for recovery account</string>
     <string name="login_now">Login Now</string>
     <string name="go_back_login_screen">Go Back Login Screen</string>
+    <string name="full_name_settings_account">Full Name:</string>
+    <string name="user_name_settings_account">User Name:</string>
+    <string name="birthday_settings_account">Birthday:</string>
+    <string name="gender_settings_account">Gender:</string>
+    <string name="recovery_code_account">Recovery Code</string>
+    <string name="change_password_account">Change Password</string>
+    <string name="change_avatar_account">Change Avatar</string>
+    <string name="sync_settings_account">Sync Settings</string>
+    <string name="your_recovery_code_label">Your Recovery Code</string>
+    <string name="request_new_recovery_code_button">Request New Recovery Code</string>
+    <string name="change_password_button">Change Password</string>
+    <string name="confirm_new_password_hint">Confirm New Password</string>
+    <string name="enter_your_new_password_hint">Enter Your New Password</string>
+    <string name="enter_your_old_password_hint">Enter Your Old Password</string>
 </resources>

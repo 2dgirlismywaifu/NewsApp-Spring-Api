@@ -18,11 +18,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="sensorPortrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Newsapp"
         android:usesCleartextTraffic="true"
-        android:screenOrientation="sensorPortrait"
         tools:targetApi="31">
+        <activity
+            android:name=".java.Global.NoInternetConnection"
+            android:exported="false" />
+        <activity
+            android:name=".java.Global.HelloScreen"
+            android:exported="false" />
+        <activity
+            android:name=".java.Global.Signed.SyncSettings"
+            android:exported="false" />
+        <activity
+            android:name=".java.Global.Signed.ViewRecoveryCode"
+            android:exported="false" />
+        <activity
+            android:name=".java.Global.Signed.ChangePassword"
+            android:exported="false" />
         <activity
             android:name=".java.Global.Signed.AccountSettings"
             android:exported="false" />

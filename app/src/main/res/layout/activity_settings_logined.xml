@@ -106,10 +106,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="400dp"
+                android:layout_marginTop="380dp"
                 android:fontFamily="@font/poppins"
                 android:text="@string/settings"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +155,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="156dp"
-                    android:layout_marginEnd="20dp"
                     app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>
@@ -218,7 +217,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
                     app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>
@@ -281,7 +279,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
                     app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>
@@ -343,8 +340,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
             <LinearLayout
@@ -404,7 +400,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
+
                     app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>

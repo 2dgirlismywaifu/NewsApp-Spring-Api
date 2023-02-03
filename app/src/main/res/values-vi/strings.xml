@@ -127,4 +127,18 @@
     <string name="here_is_your_recovery_code_n_for_recovery_account">Đây là mã phục hồi dùng cho \nphục hồi tài khoản</string>
     <string name="login_now">Đăng nhập ngay</string>
     <string name="go_back_login_screen">Quay lại màn hình đăng nhập</string>
+    <string name="full_name_settings_account">Họ và tên:</string>
+    <string name="user_name_settings_account">Tài khoản:</string>
+    <string name="birthday_settings_account">Ngày sinh:</string>
+    <string name="gender_settings_account">Giới tính:</string>
+    <string name="recovery_code_account">Mã phục hồi</string>
+    <string name="change_password_account">Thay đổi mật khẩu</string>
+    <string name="change_avatar_account">Đổi ảnh đại diện</string>
+    <string name="sync_settings_account">Đồng bộ</string>
+    <string name="your_recovery_code_label">Mã phục hồi của bạn</string>
+    <string name="request_new_recovery_code_button">Yêu cầu mã mới</string>
+    <string name="change_password_button">Thay đổi mật khẩu</string>
+    <string name="confirm_new_password_hint">Xác nhận mật khẩu mới</string>
+    <string name="enter_your_new_password_hint">Nhập mật khẩu mới</string>
+    <string name="enter_your_old_password_hint">Nhập mật khẩu cũ</string>
 </resources>

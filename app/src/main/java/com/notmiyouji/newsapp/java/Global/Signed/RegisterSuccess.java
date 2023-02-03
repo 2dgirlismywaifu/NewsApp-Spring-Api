@@ -72,7 +72,7 @@ public class RegisterSuccess extends AppCompatActivity {
                         if (signIn.getVerify().equals("true")) {
                             //Save user data to Shared Preferences
                             SaveUserLogined saveUserLogined = new SaveUserLogined(RegisterSuccess.this);
-                            saveUserLogined.saveUserLogined(signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
+                            saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
                             //If account verify, go to main page
                             Toast.makeText(RegisterSuccess.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                             RegisterSuccess.this.finish();
