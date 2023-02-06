@@ -107,7 +107,7 @@
     <string name="follow_system">Follow System</string>
     <string name="english_language">English</string>
     <string name="vietnam_language">Tiếng Việt</string>
-    <string name="change_language_will_restart_the_application">Change language will restart the application</string>
+    <string name="change_language_will_restart_the_application">Change Language</string>
     <string name="use_chrome_custom_tabs">Use Chrome Custom Tabs</string>
     <string name="no_result_found">No result or data not available</string>
     <string name="details">Details</string>
@@ -147,4 +147,15 @@
     <string name="confirm_new_password_hint">Confirm New Password</string>
     <string name="enter_your_new_password_hint">Enter Your New Password</string>
     <string name="enter_your_old_password_hint">Enter Your Old Password</string>
+    <string name="see_you_again">See you again!</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other_gender">Other</string>
+    <string name="choose_gender">Choose Gender</string>
+    <string name="select_your_gender">Select your gender</string>
+    <string name="single_sign_on_can_not_edit">Single Sign On Can Not Edit</string>
+    <string name="upload_avatar_user">Upload Avatar</string>
+    <string name="open_photo_library">Open Photo Library</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="cannot_open_default_camera">Cannot open default camera</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.Global.Signed.AccountSettings"
+    tools:context=".java.Signed.AccountSettings"
     tools:ignore="ScrollViewCount">
 
     <!--    This design is a demo when one user logined-->
@@ -109,7 +109,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/fullname_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -153,7 +153,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/username_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -197,7 +197,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/birth_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -241,7 +241,7 @@
                     tools:ignore="RelativeOverlap" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/gender_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -410,56 +410,6 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@android:color/black" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/sync_settings_view"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="?attr/selectableItemBackground"
-                app:layout_constraintEnd_toEndOf="@+id/space_3"
-                app:layout_constraintStart_toStartOf="@+id/space_3"
-                app:layout_constraintTop_toBottomOf="@+id/space_3">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/sync_settings_account"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:ignore="RelativeOverlap" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/baseline_arrow_forward_ios_24"
-                    tools:ignore="ContentDescription" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/space_4"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@+id/sync_settings_view"
-                app:layout_constraintStart_toStartOf="@+id/sync_settings_view"
-                app:layout_constraintTop_toBottomOf="@+id/sync_settings_view">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/black" />
-
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

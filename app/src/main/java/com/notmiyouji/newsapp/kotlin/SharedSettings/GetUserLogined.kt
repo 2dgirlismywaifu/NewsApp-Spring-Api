@@ -23,6 +23,10 @@ class GetUserLogined(var activity: AppCompatActivity) {
         get() = sharedPreferences.getString("username", "")
     val avatar: String?
         get() = sharedPreferences.getString("avatar", "")
+    val gender: String?
+        get() = sharedPreferences.getString("gender", "")
+    val birthday: String?
+        get() = sharedPreferences.getString("birthday", "")
     val status: String?
         get() = sharedPreferences.getString("status", "")
 }

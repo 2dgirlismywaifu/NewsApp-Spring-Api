@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.Global.Signed;
+package com.notmiyouji.newsapp.java.Signed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.notmiyouji.newsapp.R;
 
-public class SyncSettings extends AppCompatActivity {
+public class ViewRecoveryCode extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sync_settings);
+        setContentView(R.layout.activity_view_recovery_code);
     }
 }

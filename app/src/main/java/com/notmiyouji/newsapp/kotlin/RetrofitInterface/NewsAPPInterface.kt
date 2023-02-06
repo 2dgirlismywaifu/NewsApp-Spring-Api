@@ -6,6 +6,7 @@ import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Register
 import com.notmiyouji.newsapp.kotlin.LoginedModel.SSO
 import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn
+import com.notmiyouji.newsapp.kotlin.LoginedModel.UpdateSSO
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Verify
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject
@@ -59,6 +60,14 @@ interface NewsAPPInterface {
     fun ssoCount(
         @Query("account", encoded = true) email: String?
     ): Call<CountSSO?>?
+
+    @POST("/sso/update")
+    fun updateSSO(
+        @Query("user_id", encoded = true) user_id: String?,
+        @Query("name") name: String?,
+        @Query("avatar") avatar: String?,
+    ): Call<UpdateSSO?>?
+
     @GET("checknickname")
     fun checkNickname(
         @Query("nickname") nickname: String?,

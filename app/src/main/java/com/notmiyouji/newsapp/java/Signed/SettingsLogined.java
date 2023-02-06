@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.Global.Signed;
+package com.notmiyouji.newsapp.java.Signed;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -45,7 +47,7 @@ public class SettingsLogined extends AppCompatActivity {
     SharedPreferences prefs;
     GetUserLogined getUserLogined;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "MissingPermission"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
@@ -111,7 +113,9 @@ public class SettingsLogined extends AppCompatActivity {
         //Account Settings
         accountSettings = findViewById(R.id.account_settings);
         accountSettings.setOnClickListener(v -> {
-
+            //go to account settings
+            intent = new Intent(SettingsLogined.this, AccountSettings.class);
+            startActivity(intent);
         });
         //Sign Out account
         signOut = findViewById(R.id.sign_out);
@@ -135,6 +139,14 @@ public class SettingsLogined extends AppCompatActivity {
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
                     saveUserLogined.saveUserLogined("", "", "", "", "", "","");
                 }
+                //Push android notification
+                NotificationCompat.Builder builder1 = new NotificationCompat.Builder(this, "NewsApp")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(getString(R.string.sign_out))
+                        .setContentText(getString(R.string.sign_out_success) +". " + getString(R.string.see_you_again))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+                notificationManagerCompat.notify(1, builder1.build());
                 //Restart application
                 Toast.makeText(this, R.string.sign_out_success, Toast.LENGTH_SHORT).show();
                 intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
@@ -154,7 +166,12 @@ public class SettingsLogined extends AppCompatActivity {
         prefs = getSharedPreferences("Wallpaper", MODE_PRIVATE);
         return prefs.getInt("path", drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations());
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        finish();
+    }
     @Override
     public void onResume() {
         super.onResume();

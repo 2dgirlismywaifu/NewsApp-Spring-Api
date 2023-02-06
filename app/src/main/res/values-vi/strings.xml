@@ -98,7 +98,7 @@
     <string name="language_change_messeage">Đã thay đổi ngôn ngữ</string>
     <string name="english_language">English</string>
     <string name="vietnam_language">Tiếng Việt</string>
-    <string name="change_language_will_restart_the_application">Thay đổi ngôn ngữ sẽ khởi động lại ứng dụng này</string>
+    <string name="change_language_will_restart_the_application">Thay đổi ngôn ngữ</string>
     <string name="use_chrome_custom_tabs">Sử dụng thẻ Chrome</string>
     <string name="follow_system">Theo hệ thống</string>
     <string name="no_result_found">Không có kết quả hoặc dữ liệu không có sẵn</string>
@@ -141,4 +141,15 @@
     <string name="confirm_new_password_hint">Xác nhận mật khẩu mới</string>
     <string name="enter_your_new_password_hint">Nhập mật khẩu mới</string>
     <string name="enter_your_old_password_hint">Nhập mật khẩu cũ</string>
+    <string name="see_you_again">Hẹn gặp lại bạn!</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="other_gender">Khác</string>
+    <string name="choose_gender">Chọn giới tính</string>
+    <string name="select_your_gender">Chọn giới tính của bạn</string>
+    <string name="single_sign_on_can_not_edit">Đăng nhập một lần không thể chỉnh sửa</string>
+    <string name="upload_avatar_user">Tải ảnh đại diện</string>
+    <string name="open_photo_library">Mở thư viện ảnh</string>
+    <string name="open_camera">Mở Camera</string>
+    <string name="cannot_open_default_camera">Không thể mở Camera mặc định</string>
 </resources>

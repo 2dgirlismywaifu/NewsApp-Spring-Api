@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.Global.Signed;
+package com.notmiyouji.newsapp.java.Signed;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ public class VerifyAccountForm extends AppCompatActivity {
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     String userID, fullname, email, password, username;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
@@ -99,6 +102,13 @@ public class VerifyAccountForm extends AppCompatActivity {
             //send verification email and wait 60 second to send again
             user.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "NewsApp");
+                    builder.setSmallIcon(R.mipmap.ic_launcher);
+                    builder.setContentTitle(getString(R.string.verify_account));
+                    builder.setContentText(getString(R.string.verification_email_sent_to_your_mailbox));
+                    builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+                    notificationManagerCompat.notify(1, builder.build());
                     Toast.makeText(this, R.string.verification_email_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
                     Timer timer = new Timer();
                     timer.schedule(new java.util.TimerTask() {

@@ -6,7 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.navigation.NavigationView
 import com.notmiyouji.newsapp.R
-import com.notmiyouji.newsapp.java.Global.Signed.SignInForm
+import com.notmiyouji.newsapp.java.Signed.SignInForm
 
 class CallSignInForm(var navigationView: NavigationView, var activity: AppCompatActivity) {
 

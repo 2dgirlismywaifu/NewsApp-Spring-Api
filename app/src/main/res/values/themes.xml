@@ -137,7 +137,6 @@
         </item>
 
     </style>
-
     <style name="Theme.SearchBar" parent="Widget.Material3.CardView.Filled">
         <item name="materialCardViewFilledStyle">@color/searchbar</item>
     </style>

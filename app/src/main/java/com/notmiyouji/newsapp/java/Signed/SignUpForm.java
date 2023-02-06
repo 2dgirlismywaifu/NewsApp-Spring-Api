@@ -1,5 +1,6 @@
-package com.notmiyouji.newsapp.java.Global.Signed;
+package com.notmiyouji.newsapp.java.Signed;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -165,32 +168,42 @@ public class SignUpForm extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("MissingPermission")
     private void RegisterAccount(String fullname, String email, String password, String username) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         //We need make sure no duplicate email in firebase
-        firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().getSignInMethods().size() == 0) {
-                    //Email not exist, create new account
-                    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task1 -> {
-                        if (task1.isSuccessful()) {
-                            //Send email verification
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            firebaseUser.sendEmailVerification().addOnCompleteListener(task2 -> {
-                                if (task2.isSuccessful()) {
-                                    Toast.makeText(SignUpForm.this, R.string.a_confirmation_email_has_been_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
-                                    gotoVerifyEmail(fullname, email, password, username);
-                                } else {
-                                    Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    //Email exist, show error
-                    Toast.makeText(SignUpForm.this, R.string.email_is_already_used, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
-                }
+//        firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                if (task.getResult().getSignInMethods().size() == 0) {
+//                    //Email not exist, create new account
+//
+//                } else {
+//                    //Email exist, show error
+//                    Toast.makeText(SignUpForm.this, R.string.email_is_already_used, Toast.LENGTH_SHORT).show();
+//                    signupbtn.setEnabled(true);
+//                }
+//            }
+//        });
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()) {
+                //Send email verification
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                firebaseUser.sendEmailVerification().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(SignUpForm.this, "NewsApp")
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle(getString(R.string.sign_up))
+                                .setContentText(getString(R.string.a_confirmation_email_has_been_sent_to_your_mailbox))
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                        Toast.makeText(SignUpForm.this, R.string.a_confirmation_email_has_been_sent_to_your_mailbox, Toast.LENGTH_SHORT).show();
+                        //Create notification
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(SignUpForm.this);
+                        notificationManager.notify(1, builder.build());
+                        gotoVerifyEmail(fullname, email, password, username);
+                    } else {
+                        Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

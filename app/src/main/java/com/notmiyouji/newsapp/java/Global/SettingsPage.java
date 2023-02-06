@@ -15,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.Global.Signed.SignInForm;
+import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared;

@@ -30,4 +30,29 @@ class SaveUserLogined(context: Context) {
         editor.putString("status", status)
         editor.apply()
     }
+
+    fun saveFullname(fullname: String?) {
+        editor.putString("fullname", fullname)
+        editor.apply()
+    }
+
+    fun saveUsername(username: String?) {
+        editor.putString("username", username)
+        editor.apply()
+    }
+
+    fun saveAvatar(avatar: String?) {
+        editor.putString("avatar", avatar)
+        editor.apply()
+    }
+
+    fun saveGender(gender: String?) {
+        editor.putString("gender", gender)
+        editor.apply()
+    }
+
+    fun saveBirthday(birthday: String?) {
+        editor.putString("birthday", birthday)
+        editor.apply()
+    }
 }

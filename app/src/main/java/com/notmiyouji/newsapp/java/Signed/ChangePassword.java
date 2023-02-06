@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.java.Global.Signed;
+package com.notmiyouji.newsapp.java.Signed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
