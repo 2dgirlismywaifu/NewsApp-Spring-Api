@@ -47,6 +47,8 @@ public class EmailMethod {
                             //Save user data to Shared Preferences
                             SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
                             saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
+                            saveUserLogined.saveBirthday(signIn.getBirthday());
+                            saveUserLogined.saveGender(signIn.getGender());
                             //If account verify, go to main page
                             Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
                             signInButton.setEnabled(true);

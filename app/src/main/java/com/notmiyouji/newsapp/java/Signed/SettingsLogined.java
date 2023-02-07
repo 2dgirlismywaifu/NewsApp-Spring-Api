@@ -133,11 +133,15 @@ public class SettingsLogined extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
                     saveUserLogined.saveUserLogined("", "", "", "", "", "","");
+                    saveUserLogined.saveBirthday("");
+                    saveUserLogined.saveGender("");
                 }
                 else if (getUserLogined.getStatus().equals("login")) {
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
                     saveUserLogined.saveUserLogined("", "", "", "", "", "","");
+                    saveUserLogined.saveBirthday("");
+                    saveUserLogined.saveGender("");
                 }
                 //Push android notification
                 NotificationCompat.Builder builder1 = new NotificationCompat.Builder(this, "NewsApp")

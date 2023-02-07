@@ -1,8 +1,6 @@
 package com.notmiyouji.newsapp.java.Signed;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -22,8 +20,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -31,11 +27,12 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.java.Global.FileToMultipart;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
-import java.io.IOException;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,8 +40,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+
 public class AccountSettings extends AppCompatActivity {
     TextView fullName, username, chooseTitle;
+    ShapeableImageView avatar;
     TextView fullnameView,usernameView, birthdayView, genderView;
     RelativeLayout changeFullName, changeUserName, changeBirthDay, changeGender, showRecoveryCode, changePassword, changeAvatar;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
@@ -85,7 +85,7 @@ public class AccountSettings extends AppCompatActivity {
         genderView.setText(getUserLogined.getGender());
         //////////////////////////////////////////////////////////////
         //Load avatar
-        ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
+        avatar = findViewById(R.id.avatar_user_logined);
         LoadImageURL loadImageURL = new LoadImageURL(getUserLogined.getAvatar());
         loadImageURL.loadImageUser(avatar);
         //back button
@@ -233,13 +233,13 @@ public class AccountSettings extends AppCompatActivity {
                         Uri uri = data.getData();
                         if (uri != null) {
                             //Get image from photo library
-                            Bitmap bitmap = null;
-                            try {
-                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
+                            File file = new File(uri.getPath());
+                            FileToMultipart fileToMultipart = new FileToMultipart();
+                            String key = getUserLogined.getUsername();
+                            MultipartBody.Part body = fileToMultipart.fileToMultipart(String.valueOf(file), key);
+                            System.out.println(body);
+                            //set image to image view
+                            //Upload image to server
 
                         }
                     }

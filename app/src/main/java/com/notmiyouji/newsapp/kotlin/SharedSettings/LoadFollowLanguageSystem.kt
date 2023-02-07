@@ -1,6 +1,5 @@
 package com.notmiyouji.newsapp.kotlin.SharedSettings
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager
 import java.util.Locale

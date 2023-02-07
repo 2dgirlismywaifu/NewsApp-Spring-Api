@@ -14,30 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.java.SignInMethod.EmailMethod;
 import com.notmiyouji.newsapp.java.SignInMethod.GoogleMethod;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoginedModel.CountSSO;
-import com.notmiyouji.newsapp.kotlin.LoginedModel.SSO;
-import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn;
-import com.notmiyouji.newsapp.kotlin.LoginedModel.UpdateSSO;
-import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveUserLogined;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class SignInForm extends AppCompatActivity {
 

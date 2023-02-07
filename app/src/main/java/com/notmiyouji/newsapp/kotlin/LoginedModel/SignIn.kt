@@ -34,7 +34,7 @@ class SignIn {
 
     @SerializedName("birthaday")
     @Expose
-    var birthaday: String? = null
+    var birthday: String? = null
 
     @SerializedName("name")
     @Expose
