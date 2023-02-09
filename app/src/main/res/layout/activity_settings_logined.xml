@@ -363,7 +363,7 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/about_application"
+                android:id="@+id/showWelcome"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="20dp"
@@ -372,6 +372,67 @@
                 app:layout_constraintEnd_toEndOf="@+id/space_4"
                 app:layout_constraintStart_toStartOf="@+id/space_4"
                 app:layout_constraintTop_toBottomOf="@+id/space_4">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/welcomeIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    app:shapeAppearanceOverlay="@style/rounded_corner"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/welcomeIcon"
+                    android:text="@string/show_welcome_screen"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/turnoffWelcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/space_5"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/showWelcome"
+                app:layout_constraintStart_toStartOf="@+id/showWelcome"
+                app:layout_constraintTop_toBottomOf="@+id/showWelcome">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/black" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_application"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="@+id/space_5"
+                app:layout_constraintStart_toStartOf="@+id/space_5"
+                app:layout_constraintTop_toBottomOf="@+id/space_5">
 
                 <ImageView
                     android:id="@+id/about_icon"
@@ -406,7 +467,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/space_5"
+                android:id="@+id/space_6"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginStart="20dp"
@@ -439,9 +500,9 @@
                 app:icon="@drawable/baseline_logout_24"
                 app:iconGravity="textStart"
                 app:iconSize="24dp"
-                app:layout_constraintEnd_toEndOf="@+id/space_5"
-                app:layout_constraintStart_toStartOf="@+id/space_5"
-                app:layout_constraintTop_toBottomOf="@+id/space_5">
+                app:layout_constraintEnd_toEndOf="@+id/space_6"
+                app:layout_constraintStart_toStartOf="@+id/space_6"
+                app:layout_constraintTop_toBottomOf="@+id/space_6">
 
             </Button>
 

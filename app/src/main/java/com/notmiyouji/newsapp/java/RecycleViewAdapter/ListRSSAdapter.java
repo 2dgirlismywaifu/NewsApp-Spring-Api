@@ -24,7 +24,7 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
     static {
         System.loadLibrary("keys");
     }
-
+    public native String getSecretKey();
     public final String SECRET_KEY_ACCESS = new String(decode(decode(getSecretKey(), Base64.DEFAULT), Base64.DEFAULT));
     AppCompatActivity activity;
     List<RSSList> rssSourceList;
@@ -33,9 +33,6 @@ public class ListRSSAdapter extends RecyclerView.Adapter<ListRSSAdapter.ListSour
         this.activity = activity;
         this.rssSourceList = rssSourceList;
     }
-
-    public native String getSecretKey();
-
     @NonNull
     @Override
     public ListSourceHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

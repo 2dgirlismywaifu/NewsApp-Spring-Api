@@ -66,6 +66,9 @@ public class PasswordController {
                     Password password = response.body();
                     if (password.getStatus().equals("pass")) {
                         Toast.makeText(activity, R.string.password_updated, Toast.LENGTH_SHORT).show();
+                        //Update password in firebase
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(newpassword);
+                        //Sign out
                         FirebaseAuth.getInstance().signOut();
                         SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
                         saveUserLogined.saveUserLogined("", "", "", "", "", "","");

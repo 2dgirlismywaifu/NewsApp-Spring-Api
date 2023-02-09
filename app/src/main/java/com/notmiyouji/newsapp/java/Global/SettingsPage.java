@@ -19,13 +19,14 @@ import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.WelcomeScreenShared;
 
 public class SettingsPage extends AppCompatActivity {
 
     RelativeLayout aboutApp, signIn, selLanguage;
     Intent intent;
     DrawerLayout drawerLayout;
-    SwitchMaterial useChrome;
+    SwitchMaterial useChrome, showWelcome;
     SharedPreferences prefs;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
 
@@ -87,6 +88,15 @@ public class SettingsPage extends AppCompatActivity {
             prefs = getSharedPreferences("useChrome", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("useChromeDefault", isChecked);
+            editor.apply();
+        });
+        //Switch Show Welcome
+        showWelcome = findViewById(R.id.turnoffWelcome);
+        showWelcome.setChecked(new WelcomeScreenShared(this).getEnableWelcome());
+        showWelcome.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefs = getSharedPreferences("welcomeScreen", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("showWelcomeScreen", isChecked);
             editor.apply();
         });
     }

@@ -181,4 +181,8 @@
     <string name="copied_to_clipboard">Sao chép tới bộ nhớ đệm</string>
     <string name="email_is_not_valid">Email không tồn tại</string>
     <string name="make_sure_email_correct">Hãy đảm bảo email chính xác vì chúng tôi sẽ gửi liên kết xác thực</string>
+    <string name="hello_screen_messeage_2">Đừng bỏ lỡ tin tức \nxung quanh thế giới</string>
+    <string name="get_started">BẮT ĐẦU</string>
+    <string name="welcome_to">Chào mừng tới \n</string>
+    <string name="show_welcome_screen">Hiện cửa sổ chào mừng</string>
 </resources>

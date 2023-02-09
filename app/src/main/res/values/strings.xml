@@ -187,4 +187,9 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="email_is_not_valid">Email not available</string>
     <string name="make_sure_email_correct">Make sure your email is correct, because we will send a verification code to your email</string>
+    <string name="hello_screen_messeage_2">Don\'t miss news updates from\naround the world</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="welcome_to">Welcome to \n</string>
+    <string name="show_welcome_screen">Show Welcome Screen</string>
+
 </resources>
