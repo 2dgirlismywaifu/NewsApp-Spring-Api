@@ -39,19 +39,18 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/hint_to_choose"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Demo"
-                android:spinnerMode="dropdown"
                 tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck">
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinner_gender"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullname_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
+                    android:hint="Demo"
+                    android:inputType="text"
                     tools:ignore="LabelFor,SpeakableTextPresentCheck,TextContrastCheck,VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 

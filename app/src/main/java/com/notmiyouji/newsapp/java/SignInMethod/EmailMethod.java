@@ -1,5 +1,7 @@
 package com.notmiyouji.newsapp.java.SignInMethod;
 
+import static com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI.getAPIClient;
+
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Signed.VerifyAccountForm;
+import com.notmiyouji.newsapp.kotlin.Gravatar.RequestImage;
 import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveUserLogined;
@@ -22,7 +25,7 @@ public class EmailMethod {
     private Button signInButton, signUpButton;
     private Intent intent;
     private AppCompatActivity activity;
-    NewsAPPInterface newsAPPInterface = com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
+    NewsAPPInterface newsAPPInterface = getAPIClient().create(NewsAPPInterface.class);
 
     public EmailMethod(AppCompatActivity activity, Button signInButton, Button signUpButton) {
         this.activity = activity;
@@ -45,8 +48,10 @@ public class EmailMethod {
                             mAuth = FirebaseAuth.getInstance();
                             mAuth.signInWithEmailAndPassword(signIn.getEmail(), password);
                             //Save user data to Shared Preferences
+                            RequestImage requestImage = new RequestImage(signIn.getEmail());
+                            String avatar = requestImage.getGravatarURL();
                             SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
-                            saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
+                            saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), avatar,"login");
                             saveUserLogined.saveBirthday(signIn.getBirthday());
                             saveUserLogined.saveGender(signIn.getGender());
                             //If account verify, go to main page

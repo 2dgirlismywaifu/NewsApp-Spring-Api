@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -80,6 +81,12 @@ public class SignUpForm extends AppCompatActivity {
                     Toast.makeText(this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
                     signupbtn.setEnabled(true);
                 }
+                //regex email
+                else if (!email.getText().toString().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                    email.setError(getString(R.string.email_is_not_valid));
+                    Toast.makeText(this, R.string.email_is_not_valid, Toast.LENGTH_SHORT).show();
+                    signupbtn.setEnabled(true);
+                }
                 //if password not containt al least 6 character, show error
                 else if (password.getText().toString().length() < 6) {
                     password.setError(getString(R.string.password_must_be_at_least_6_character));
@@ -92,8 +99,19 @@ public class SignUpForm extends AppCompatActivity {
                     Toast.makeText(this, R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character, Toast.LENGTH_SHORT).show();
                     signupbtn.setEnabled(true);
                 } else {
-                    //check nickname
-                    checkNickname();
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                    builder.setIcon(R.mipmap.ic_launcher);
+                    builder.setTitle(R.string.sign_up);
+                    builder.setMessage(R.string.make_sure_email_correct);
+                    builder.setCancelable(false);
+                    builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+                        //check nickname
+                        checkNickname();
+                    });
+                    builder.setNegativeButton(R.string.no, (dialog, which) -> {
+                        dialog.dismiss();
+                        signupbtn.setEnabled(true);
+                    });
                 }
             }
         });

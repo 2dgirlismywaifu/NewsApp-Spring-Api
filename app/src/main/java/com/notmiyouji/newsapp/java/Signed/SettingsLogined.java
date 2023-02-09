@@ -179,6 +179,8 @@ public class SettingsLogined extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        fullName.setText(getUserLogined.getFullname());
+        username.setText("@" + getUserLogined.getUsername());
         if (loadBackground() != drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations()) {
             drawerLayout.setBackground(ResourcesCompat.getDrawable(getResources(), loadBackground(), null));
         }

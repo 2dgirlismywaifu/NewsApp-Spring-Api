@@ -30,7 +30,10 @@ class SaveUserLogined(context: Context) {
         editor.putString("status", status)
         editor.apply()
     }
-
+    fun saveUserPassword(password: String?) {
+        editor.putString("password", password)
+        editor.apply()
+    }
     fun saveFullname(fullname: String?) {
         editor.putString("fullname", fullname)
         editor.apply()

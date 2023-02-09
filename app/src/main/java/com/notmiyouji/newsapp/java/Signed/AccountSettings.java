@@ -4,12 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,30 +13,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.UpdateInformation.BirthdayController;
+import com.notmiyouji.newsapp.java.UpdateInformation.FullNameController;
+import com.notmiyouji.newsapp.java.UpdateInformation.GenderController;
+import com.notmiyouji.newsapp.java.UpdateInformation.UserNameController;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.java.Global.FileToMultipart;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import okhttp3.MultipartBody;
 
 public class AccountSettings extends AppCompatActivity {
     TextView fullName, username, chooseTitle;
@@ -51,9 +47,9 @@ public class AccountSettings extends AppCompatActivity {
     GetUserLogined getUserLogined;
     BottomSheetDialog bottomSheetDialog;
     MaterialAutoCompleteTextView materialAutoCompleteTextView;
+    TextInputEditText fullname_input, username_input;
     Button okbtn;
     Intent intent;
-    RelativeLayout photoLibrary, camera;
     String status;
     TextInputLayout chooseHint;
     @Override
@@ -101,6 +97,30 @@ public class AccountSettings extends AppCompatActivity {
             //go to change fullname
             if (status.equals("login")) {
                 //go to change fullname
+                bottomSheetDialog = new BottomSheetDialog(this);
+                bottomSheetDialog.setContentView(R.layout.update_fullname);
+                bottomSheetDialog.show();
+                fullname_input = bottomSheetDialog.findViewById(R.id.fullname_input);
+                chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
+                chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
+                chooseTitle.setText(R.string.enter_your_new_fullname);
+                chooseHint.setHint(R.string.enter_your_new_fullname);
+                okbtn = bottomSheetDialog.findViewById(R.id.btnLoad);
+                assert okbtn != null;
+                okbtn.setOnClickListener(v1 -> {
+                    //Update fullname
+                    String fullname = fullname_input.getText().toString();
+                    if (fullname.isEmpty()) {
+                        Toast.makeText(this, R.string.please_enter_your_new_fullname, Toast.LENGTH_SHORT).show();
+                    } else {
+                        fullName.setText(fullname);
+                        //Update fullname
+                        FullNameController fullNameController = new FullNameController
+                                (getUserLogined.getUserID(),fullname,this);
+                        fullNameController.updateFullName();
+                        bottomSheetDialog.dismiss();
+                    }
+                });
             } else {
                 //SSO can't edit
                 Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
@@ -111,7 +131,31 @@ public class AccountSettings extends AppCompatActivity {
         changeUserName.setOnClickListener(v -> {
             //go to change username
             if (status.equals("login")) {
-                //go to change fullname
+                //go to change username
+                bottomSheetDialog = new BottomSheetDialog(this);
+                bottomSheetDialog.setContentView(R.layout.update_username);
+                bottomSheetDialog.show();
+                username_input = bottomSheetDialog.findViewById(R.id.username_input);
+                chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
+                chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
+                chooseTitle.setText(R.string.enter_your_new_username);
+                chooseHint.setHint(R.string.enter_your_new_username);
+                okbtn = bottomSheetDialog.findViewById(R.id.btnLoad);
+                assert okbtn != null;
+                okbtn.setOnClickListener(v1 -> {
+                    //Update username
+                    String username = username_input.getText().toString();
+                    if (username.isEmpty()) {
+                        Toast.makeText(this, R.string.please_enter_your_new_username, Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Update fullname
+                        usernameView.setText("@" + username);
+                        UserNameController userNameController = new UserNameController
+                                (getUserLogined.getUserID(),username,getUserLogined.getEmail(),this);
+                        userNameController.checkUserName();
+                        bottomSheetDialog.dismiss();
+                    }
+                });
             } else {
                 //SSO can't edit
                 Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
@@ -120,54 +164,67 @@ public class AccountSettings extends AppCompatActivity {
         //Change Birthday
         changeBirthDay = findViewById(R.id.birthday_line);
         changeBirthDay.setOnClickListener(v -> {
-            if (status.equals("login")) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(getDay(getUserLogined.getBirthday()));
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
+                //Set Birthday
                 //Open Android DatePicker
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(getDay(getUserLogined.getBirthday()));
-                DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                    //Set Birthday
-                    @SuppressLint("DefaultLocale")
-                    String dateString = String.format("%d-%02d-%02d", year, month, dayOfMonth);
-                    //Update Birthday
-                    birthdayView.setText(dateString);
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                //Date Picker Dialog show date like textView
-                datePickerDialog.show();
-            } else {
-                //SSO can't edit
-                Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
-            }
+                @SuppressLint("DefaultLocale")
+                String dateString = String.format("%d-%02d-%02d", year, (month+1), dayOfMonth);
+                BirthdayController birthdayController = new BirthdayController
+                        (getUserLogined.getUserID(),dateString,this);
+                if (status.equals("login")) {
+                    birthdayController.updateBirthday();
+                } else {
+                    //for SSO account
+                    birthdayController.updateBirthdaySSO();
+                }
+
+                //Update Birthday
+                birthdayView.setText(dateString);
+                //Update Birthday to database
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            //Date Picker Dialog show date like textView
+            datePickerDialog.show();
 
         });
         //Change Gender
         changeGender = findViewById(R.id.gender_line);
         changeGender.setOnClickListener(v-> {
-            if (status.equals("login")) {
-                //Open BottomSheetDialog
-                bottomSheetDialog = new BottomSheetDialog(this);
-                bottomSheetDialog.setContentView(R.layout.choose_gender);
-                bottomSheetDialog.show();
-                materialAutoCompleteTextView = bottomSheetDialog.findViewById(R.id.spinner_gender);
-                chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
-                chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
-                chooseTitle.setText(R.string.choose_gender);
-                chooseHint.setHint(R.string.select_your_gender);
-                materialAutoCompleteTextView.setAdapter(new ArrayAdapter<>(this,
-                        androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, genderList()));
-                okbtn = bottomSheetDialog.findViewById(R.id.btnLoad);
-                okbtn.setOnClickListener(v1 -> {
+            //Open BottomSheetDialog
+            bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.choose_gender);
+            bottomSheetDialog.show();
+            materialAutoCompleteTextView = bottomSheetDialog.findViewById(R.id.spinner_gender);
+            chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
+            chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
+            chooseTitle.setText(R.string.choose_gender);
+            chooseHint.setHint(R.string.select_your_gender);
+            materialAutoCompleteTextView.setAdapter(new ArrayAdapter<>(this,
+                    androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, genderList()));
+            okbtn = bottomSheetDialog.findViewById(R.id.btnLoad);
+            assert okbtn != null;
+            okbtn.setOnClickListener(v1 -> {
+                bottomSheetDialog.dismiss();
+                genderView.setText(materialAutoCompleteTextView.getText().toString());
+                GenderController genderController = new GenderController
+                        (getUserLogined.getUserID(),materialAutoCompleteTextView.getText().toString(),this);
+                if (status.equals("login")) {
+                    genderController.updateGender();
+                } else {
+                    //for SSO account
+                    genderController.updateGenderSSO();
+                }
+            });
 
-                });
-            } else {
-                //SSO can't edit
-                Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
-            }
         });
         //Show Recovery Code
         showRecoveryCode = findViewById(R.id.view_recovery_code);
         showRecoveryCode.setOnClickListener(v -> {
             if (status.equals("login")) {
                 //go to change fullname
+                intent = new Intent(this, ViewRecoveryCode.class);
+                startActivity(intent);
             } else {
                 //SSO can't edit
                 Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
@@ -178,7 +235,8 @@ public class AccountSettings extends AppCompatActivity {
         changePassword = findViewById(R.id.change_password_action);
         changePassword.setOnClickListener(v -> {
             if (status.equals("login")) {
-
+                intent = new Intent(this, ChangePassword.class);
+                startActivity(intent);
             } else {
                 //SSO can't edit
                 Toast.makeText(this, R.string.single_sign_on_can_not_edit, Toast.LENGTH_SHORT).show();
@@ -188,35 +246,25 @@ public class AccountSettings extends AppCompatActivity {
         changeAvatar = findViewById(R.id.change_avatar_action);
         changeAvatar.setOnClickListener(v -> {
             if (status.equals("login")) {
-                //open bottom sheet dialog with 2 option: Photo Library and Camera
-                bottomSheetDialog = new BottomSheetDialog(this);
-                bottomSheetDialog.setContentView(R.layout.choose_avatar);
-                bottomSheetDialog.show();
-                //Photo Library
-                photoLibrary = bottomSheetDialog.findViewById(R.id.openphotolibrary);
-                photoLibrary.setOnClickListener(v1 -> {
-                    //open photo library
-                    intent = new Intent(Intent.ACTION_PICK);
-                    intent.setType("image/*");
-                    mGetContent.launch(intent);
+                //open material dialog to tell user about go gravatar change your avatar
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                builder.setIcon(R.mipmap.ic_launcher);
+                builder.setTitle(R.string.change_avatar_account);
+                String message = getString(R.string.we_recommend_you_to_change_your_avatar_at_gravatar_com) +
+                        getString(R.string.gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address) +
+                        getString(R.string.you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar) +
+                        getString(R.string.sign_up_at_gravatar_com_and_upload_your_avatar);
+                builder.setMessage(message);
+                builder.setPositiveButton(R.string.go_gravatar, (dialog, which) -> {
+                    //Go to gravatar
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("https://gravatar.com"));
+                    startActivity(intent);
                 });
-                //Camera
-                camera = bottomSheetDialog.findViewById(R.id.opencamera);
-                camera.setOnClickListener(v1 -> {
-                    //CameraX is a new camera API from Google
-                    //in future, we will use CameraX to open camera
-                    //but now, we will use old camera API
-                    //open camera
-                    intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        openCamera.launch(intent);
-                    }
-                    else {
-                        Toast.makeText(this, R.string.cannot_open_default_camera, Toast.LENGTH_SHORT).show();
-                    }
-
-
+                builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
                 });
+                builder.show();
 
             } else {
                 //SSO can't edit
@@ -224,44 +272,6 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
     }
-    //This is a photo library launcher
-    ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null) {
-                        Uri uri = data.getData();
-                        if (uri != null) {
-                            //Get image from photo library
-                            File file = new File(uri.getPath());
-                            FileToMultipart fileToMultipart = new FileToMultipart();
-                            String key = getUserLogined.getUsername();
-                            MultipartBody.Part body = fileToMultipart.fileToMultipart(String.valueOf(file), key);
-                            System.out.println(body);
-                            //set image to image view
-                            //Upload image to server
-
-                        }
-                    }
-                }
-            });
-
-    ActivityResultLauncher<Intent> openCamera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null) {
-                        Uri uri = data.getData();
-                        if (uri != null) {
-                            //Get image from camera
-                            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                            //set image to image view
-                            //Upload image to server
-
-                        }
-                    }
-                }
-            });
     //create list gender
     private List<String> genderList() {
         List<String> gender = new ArrayList<>();
@@ -271,24 +281,8 @@ public class AccountSettings extends AppCompatActivity {
         return gender;
     }
 
-    //get default camera package
-    private String getDefaultCameraPackage() {
-        String defaultCameraPackage = null;
-        PackageManager packageManager = getPackageManager();
-        List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
-        for (int n=0;n<list.size();n++) {
-            if((list.get(n).flags & ApplicationInfo.FLAG_SYSTEM)==1)
-            {
-
-                if(list.get(n).loadLabel(packageManager).toString().equalsIgnoreCase("Camera")) {
-                    defaultCameraPackage = list.get(n).packageName;
-                    break;
-                }
-            }
-        }
-        return defaultCameraPackage;
-    }
     private Date getDay(String date) {
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date getDate = null;
         try {

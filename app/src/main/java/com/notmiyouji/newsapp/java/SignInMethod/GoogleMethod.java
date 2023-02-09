@@ -44,7 +44,7 @@ public class GoogleMethod {
 
     private GoogleSignInOptions getGso() {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(activity.getString(R.string.default_web_client_id))
+                .requestIdToken(activity.getString(R.string.default_web_client_id)) //if this line error, ignore it
                 .requestEmail()
                 .build();
         return gso;

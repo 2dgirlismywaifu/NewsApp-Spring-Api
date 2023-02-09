@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.Signed.ViewRecoveryCode"
+    tools:context=".java.Signed.RecoveryAccount"
+    android:background="@drawable/background_login"
     tools:ignore="ScrollViewCount">
 
     <!--    This design is a demo when one user logined-->
@@ -45,16 +46,29 @@
 
             </androidx.drawerlayout.widget.DrawerLayout>
 
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/welcome_back"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/settings_banner_logined" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/avatar_user_logined"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/user_192"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/settings_banner_logined"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -86,52 +100,70 @@
                 app:layout_constraintTop_toBottomOf="@+id/fullname"
                 tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newpass_user"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/your_recovery_code_label"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/poppins"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/username"
                 app:layout_constraintStart_toStartOf="@+id/username"
-                app:layout_constraintTop_toBottomOf="@+id/username" />
+                app:layout_constraintTop_toBottomOf="@+id/username"
+                app:passwordToggleEnabled="true">
 
-            <TextView
-                android:id="@+id/return_recovery_code"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newspass_user_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_your_new_password_hint"
+                    android:inputType="textPassword"
+                    android:textColorHint="#616161"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmpass_user"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:text="Your Code"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:fontFamily="@font/poppins"
-                app:layout_constraintEnd_toEndOf="@+id/textView15"
-                app:layout_constraintStart_toStartOf="@+id/textView15"
-                app:layout_constraintTop_toBottomOf="@+id/textView15"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintEnd_toEndOf="@+id/newpass_user"
+                app:layout_constraintStart_toStartOf="@+id/newpass_user"
+                app:layout_constraintTop_toBottomOf="@+id/newpass_user"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmpass_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirm_new_password_hint"
+                    android:inputType="textPassword"
+                    android:textColorHint="#616161"
+                    android:textStyle="bold"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/request_new_recovery_code"
+                android:id="@+id/ChangeButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:text="@string/request_new_recovery_code_button"
-                android:fontFamily="@font/raleway_bold"
+                android:layout_marginEnd="50dp"
+                android:layout_weight="1"
+                android:text="@string/change_password_button"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:backgroundTint="#0E64D2"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/return_recovery_code"
-                app:layout_constraintStart_toStartOf="@+id/return_recovery_code"
-                app:layout_constraintTop_toBottomOf="@+id/return_recovery_code"/>
-
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/raleway_bold"
+                app:layout_constraintEnd_toEndOf="@+id/confirmpass_user"
+                app:layout_constraintStart_toStartOf="@+id/confirmpass_user"
+                app:layout_constraintTop_toBottomOf="@+id/confirmpass_user" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
