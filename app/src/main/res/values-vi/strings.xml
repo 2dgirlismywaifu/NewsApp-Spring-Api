@@ -185,4 +185,6 @@
     <string name="get_started">BẮT ĐẦU</string>
     <string name="welcome_to">Chào mừng tới \n</string>
     <string name="show_welcome_screen">Hiện cửa sổ chào mừng</string>
+    <string name="source_subscrible">Nguồn đăng ký</string>
+
 </resources>

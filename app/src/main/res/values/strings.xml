@@ -191,5 +191,6 @@
     <string name="get_started">GET STARTED</string>
     <string name="welcome_to">Welcome to \n</string>
     <string name="show_welcome_screen">Show Welcome Screen</string>
+    <string name="source_subscrible">Source Subscrible</string>
 
 </resources>

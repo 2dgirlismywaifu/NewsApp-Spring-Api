@@ -38,6 +38,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <CheckBox
+                android:id="@+id/checkSubscrible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/source_subscrible" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/hint_to_choose"
                 style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
