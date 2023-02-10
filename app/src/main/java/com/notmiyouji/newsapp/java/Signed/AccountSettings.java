@@ -93,6 +93,7 @@ public class AccountSettings extends AppCompatActivity {
                 changePassword.setEnabled(false);
                 showRecoveryCode.setEnabled(false);
                 changeAvatar.setEnabled(false);
+                Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
             }
         });
 
