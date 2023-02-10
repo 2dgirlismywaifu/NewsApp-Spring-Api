@@ -14,38 +14,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveThemeSettings;
 
 import java.util.HashMap;
 
-public class LanguageAdpater extends RecyclerView.Adapter<LanguageAdpater.ViewHolder> {
+public class ThemeAdpater extends RecyclerView.Adapter<ThemeAdpater.ViewHolder> {
 
     AppCompatActivity activity;
 
-    public LanguageAdpater(AppCompatActivity activity) {
+    public ThemeAdpater(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     @NonNull
     @Override
-    public LanguageAdpater.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ThemeAdpater.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.radio_button_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LanguageAdpater.ViewHolder holder, int position) {
-        HashMap<String, String> data = languageList(activity);
+    public void onBindViewHolder(@NonNull ThemeAdpater.ViewHolder holder, int position) {
+        HashMap<String, String> data = themeList(activity);
         holder.radioButton.setText(data.keySet().toArray()[position].toString());
         holder.radioButton.setOnClickListener(v -> {
-            String defLang = data.get(data.keySet().toArray()[position].toString());
-            assert defLang != null;
-            LanguagePrefManager languagePrefManager = new LanguagePrefManager(activity);
-//            if (defLang.equals("system")) {
-//                languagePrefManager.setLocal(Locale.getDefault().getLanguage());
-//            }
-            languagePrefManager.setLocal(defLang);
-            Toast.makeText(activity, R.string.language_change_messeage, Toast.LENGTH_SHORT).show();
+            String defTheme = data.get(data.keySet().toArray()[position].toString());
+            assert defTheme != null;
+            SaveThemeSettings saveThemeSettings = new SaveThemeSettings(activity);
+            saveThemeSettings.saveTheme(defTheme);
+            Toast.makeText(activity, R.string.theme_change_messeage, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity, HomePage.class);
             activity.overridePendingTransition(0, 0);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -59,15 +56,15 @@ public class LanguageAdpater extends RecyclerView.Adapter<LanguageAdpater.ViewHo
 
     @Override
     public int getItemCount() {
-        return languageList(activity).size();
+        return themeList(activity).size();
     }
 
-    public HashMap<String, String> languageList(AppCompatActivity activity) {
+    public HashMap<String, String> themeList(AppCompatActivity activity) {
         HashMap<String, String> data = new HashMap<>();
         Context context = activity.getBaseContext();
-        //data.put(context.getString(R.string.follow_system), "system");
-        data.put(context.getString(R.string.english_language), "en");
-        data.put(context.getString(R.string.vietnam_language), "vi");
+        data.put(context.getString(R.string.follow_system), "system");
+        data.put(context.getString(R.string.light_theme), "light");
+        data.put(context.getString(R.string.dark_theme), "dark");
         return data;
     }
 

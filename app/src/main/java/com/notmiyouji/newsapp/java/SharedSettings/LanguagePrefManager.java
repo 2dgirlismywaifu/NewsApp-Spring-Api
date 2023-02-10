@@ -37,8 +37,6 @@ public class LanguagePrefManager {
     }
 
     public void loadLocal() {
-        SharedPreferences preferences = pref;
-        String language = preferences.getString("lang", "");
-        setLocal(language);
+        setLocal(getLang());
     }
 }

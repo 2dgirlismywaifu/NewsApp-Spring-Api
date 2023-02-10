@@ -22,12 +22,14 @@ import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.UpdateModel.RecoveryCode;
 
 import retrofit2.Call;
 
 public class ViewRecoveryCode extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     GetUserLogined getUserLogined;
     ShapeableImageView avatar;
     TextView fullName, username, recoveryCodeText;
@@ -38,6 +40,8 @@ public class ViewRecoveryCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recovery_code);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -140,5 +144,7 @@ public class ViewRecoveryCode extends AppCompatActivity {
         super.onResume();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

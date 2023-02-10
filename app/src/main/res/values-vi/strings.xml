@@ -156,10 +156,10 @@
     <string name="please_enter_your_new_fullname">Vui lòng nhập tên đầy đủ của bạn</string>
     <string name="enter_your_new_username">Nhập tên tài khoản mới của bạn</string>
     <string name="please_enter_your_new_username">Vui lòng nhập tên tài khoản mới của bạn</string>
-    <string name="sign_up_at_gravatar_com_and_upload_your_avatar">Đăng ký tại Gravatar.com và tải ảnh đại diện lên\n</string>
-    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">"Chúng tôi khuyến khích bạn dùng Gravatar.com để thay đổi ảnh đại diện của bạn.\n"</string>
-    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Gravatar là một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.\n</string>
-    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể thay đổi hình đại diện của mình tại Gravatar.com và nó sẽ tự động được cập nhật trong tất cả các ứng dụng sử dụng Gravatar của bạn.\n</string>
+    <string name="sign_up_at_gravatar_com_and_upload_your_avatar">Đăng ký tại Gravatar.com và tải ảnh đại diện lên</string>
+    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Chúng tôi khuyến khích bạn dùng Gravatar.com để thay đổi ảnh đại diện của bạn.</string>
+    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Gravatar là một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.</string>
+    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể thay đổi hình đại diện của mình tại Gravatar.com và nó sẽ tự động được cập nhật trong tất cả các ứng dụng sử dụng Gravatar của bạn.</string>
     <string name="go_gravatar">Đến Gravatar</string>
     <string name="fullname_updated">Tên đầy đủ đã cập nhật</string>
     <string name="fullname_already_exists">Không thể cập nhật tên đầy đủ</string>
@@ -184,7 +184,10 @@
     <string name="hello_screen_messeage_2">Đừng bỏ lỡ tin tức \nxung quanh thế giới</string>
     <string name="get_started">BẮT ĐẦU</string>
     <string name="welcome_to">Chào mừng tới \n</string>
-    <string name="show_welcome_screen">Hiện cửa sổ chào mừng</string>
+    <string name="show_welcome_screen">Không hiện cửa sổ chào mừng</string>
     <string name="source_subscrible">Nguồn đăng ký</string>
+    <string name="light_theme">Sáng</string>
+    <string name="dark_theme">Tối</string>
+    <string name="theme_change_messeage">Giao diện đã thay đổi</string>
 
 </resources>

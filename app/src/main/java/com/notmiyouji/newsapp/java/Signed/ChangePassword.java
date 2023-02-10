@@ -18,9 +18,11 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 public class ChangePassword extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     TextInputEditText oldPassword, newPassword, confirmPassword;
     TextView fullName, username;
     GetUserLogined getUserLogined;
@@ -31,6 +33,8 @@ public class ChangePassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -104,5 +108,7 @@ public class ChangePassword extends AppCompatActivity {
         super.onResume();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

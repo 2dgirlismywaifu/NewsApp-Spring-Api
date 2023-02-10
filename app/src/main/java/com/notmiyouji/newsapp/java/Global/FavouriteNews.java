@@ -22,6 +22,7 @@ import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
@@ -37,11 +38,15 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     LoadWallpaperShared loadWallpaperShared;
     LoadWallpaperSharedLogined loadWallpaperSharedLogined;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
+    LoadNavigationHeader loadNavigationHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_news);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -49,7 +54,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         //Hooks
         navigationView = findViewById(R.id.nav_pane_favourite_news);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
-        LoadNavigationHeader loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
+        loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
         loadNavigationHeader.loadHeader();
         //From SharedPreference, change background for header navigation pane
         getUserLogined = new GetUserLogined(this);
@@ -118,5 +123,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

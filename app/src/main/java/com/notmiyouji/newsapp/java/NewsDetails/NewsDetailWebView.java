@@ -35,6 +35,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 import java.util.Objects;
 
@@ -47,12 +48,15 @@ public class NewsDetailWebView extends AppCompatActivity {
     TextView titlepreview, sourcepreview, pubdatepreview;
     ProgressBar progressBar;
     LanguagePrefManager languagePrefManager;
+    LoadThemeShared loadThemeShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager = new LanguagePrefManager(this);
         languagePrefManager.setLocal(languagePrefManager.getLang());
         languagePrefManager.loadLocal();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);

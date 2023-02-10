@@ -52,6 +52,7 @@ import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
@@ -93,6 +94,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     List<Country> countryList, codeList;
     SwipeRefreshLayout swipeRefreshLayout;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
     private String countryCodeDefault = "us";
@@ -110,6 +112,8 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_api_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -404,5 +408,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

@@ -15,26 +15,31 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.Signed.SettingsLogined;
 import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.WelcomeScreenShared;
 
 public class SettingsPage extends AppCompatActivity {
 
-    RelativeLayout aboutApp, signIn, selLanguage;
+    RelativeLayout aboutApp, signIn, selLanguage, selTheme;
     Intent intent;
     DrawerLayout drawerLayout;
     SwitchMaterial useChrome, showWelcome;
     SharedPreferences prefs;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //check shared preferences for language
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -81,6 +86,13 @@ public class SettingsPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Selected Theme
+        selTheme = findViewById(R.id.change_theme);
+        selTheme.setOnClickListener(v -> {
+            //go to change theme
+            intent = new Intent(SettingsPage.this, ChangeTheme.class);
+            startActivity(intent);
+        });
         //Switch WebView to Chrome Custom Tabs
         useChrome = findViewById(R.id.switchChrome);
         useChrome.setChecked(new UseChromeShared(this).getEnableChrome());
@@ -119,5 +131,7 @@ public class SettingsPage extends AppCompatActivity {
         }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

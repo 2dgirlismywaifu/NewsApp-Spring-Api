@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.LanguageAdpater;
+import com.notmiyouji.newsapp.java.RecycleViewAdapter.ThemeAdpater;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
-public class ChangeLanguage extends AppCompatActivity {
-
+public class ChangeTheme extends AppCompatActivity {
     RecyclerView recyclerView;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
@@ -29,15 +29,15 @@ public class ChangeLanguage extends AppCompatActivity {
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_language);
+        setContentView(R.layout.activity_change_theme);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
-        recyclerView = findViewById(R.id.lang_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChangeLanguage.this, LinearLayoutManager.VERTICAL, false);
-        LanguageAdpater languageAdpater = new LanguageAdpater(this);
+        recyclerView = findViewById(R.id.theme_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChangeTheme.this, LinearLayoutManager.VERTICAL, false);
+        ThemeAdpater themeAdpater = new ThemeAdpater(ChangeTheme.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(languageAdpater);
-        languageAdpater.notifyDataSetChanged();
+        recyclerView.setAdapter(themeAdpater);
+        themeAdpater.notifyDataSetChanged();
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {

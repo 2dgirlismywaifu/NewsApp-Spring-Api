@@ -49,6 +49,7 @@ import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
@@ -81,6 +82,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     GetUserLogined getUserLogined;
     private String deafultSource = "VNExpress";
     public String getDeafultSource() {
@@ -95,6 +97,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -320,5 +324,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

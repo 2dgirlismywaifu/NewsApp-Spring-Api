@@ -41,6 +41,14 @@ public class HelloScreen extends AppCompatActivity {
         else {
             welcomeText = findViewById(R.id.textView17);
             welcomeText.setText(getString(R.string.welcome_to) + getString(R.string.app_name));
+            //create language shared preferences
+//            LanguagePrefManager languagePrefManager = new LanguagePrefManager(this);
+//            languagePrefManager.setLocal(Locale.getDefault().getDisplayLanguage());
+            //create wallpaper header shared preferences
+            SharedPreferences wallpaperHeader = getSharedPreferences("Wallpaper", MODE_PRIVATE);
+            SharedPreferences.Editor wallpaperHeaderEditor = wallpaperHeader.edit();
+            wallpaperHeaderEditor.putInt("path", R.drawable.anime_landscapes_background__11);
+            wallpaperHeaderEditor.apply();
             //go home page
             goHomePage = findViewById(R.id.GoHomePage);
             goHomePage.setOnClickListener(v -> {

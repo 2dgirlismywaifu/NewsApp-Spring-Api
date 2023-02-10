@@ -20,6 +20,7 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,15 @@ public class SourceNewsDetails extends AppCompatActivity {
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<RSSList> rssLists = new ArrayList<>();
     LanguagePrefManager languagePrefManager;
+    LoadThemeShared loadThemeShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(getBaseContext());
+        languagePrefManager = new LanguagePrefManager(this);
         languagePrefManager.setLocal(languagePrefManager.getLang());
         languagePrefManager.loadLocal();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_details);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);

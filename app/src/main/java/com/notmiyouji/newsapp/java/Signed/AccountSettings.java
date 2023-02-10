@@ -30,6 +30,7 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,6 +45,7 @@ public class AccountSettings extends AppCompatActivity {
     TextView fullnameView,usernameView, birthdayView, genderView;
     RelativeLayout changeFullName, changeUserName, changeBirthDay, changeGender, showRecoveryCode, changePassword, changeAvatar;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     GetUserLogined getUserLogined;
     BottomSheetDialog bottomSheetDialog;
     MaterialAutoCompleteTextView materialAutoCompleteTextView;
@@ -56,6 +58,8 @@ public class AccountSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -250,11 +254,7 @@ public class AccountSettings extends AppCompatActivity {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setTitle(R.string.change_avatar_account);
-                String message = getString(R.string.we_recommend_you_to_change_your_avatar_at_gravatar_com) +
-                        getString(R.string.gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address) +
-                        getString(R.string.you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar) +
-                        getString(R.string.sign_up_at_gravatar_com_and_upload_your_avatar);
-                builder.setMessage(message);
+                builder.setView(R.layout.show_gravatar_text);
                 builder.setPositiveButton(R.string.go_gravatar, (dialog, which) -> {
                     //Go to gravatar
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -303,5 +303,7 @@ public class AccountSettings extends AppCompatActivity {
         super.onResume();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

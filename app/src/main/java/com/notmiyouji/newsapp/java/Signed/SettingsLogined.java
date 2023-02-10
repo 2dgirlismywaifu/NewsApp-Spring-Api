@@ -27,18 +27,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Global.AboutApplication;
 import com.notmiyouji.newsapp.java.Global.ChangeLanguage;
+import com.notmiyouji.newsapp.java.Global.ChangeTheme;
 import com.notmiyouji.newsapp.java.Global.WallpaperHeader;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.SaveUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.WelcomeScreenShared;
 
 public class SettingsLogined extends AppCompatActivity {
     LoadFollowLanguageSystem loadFollowLanguageSystem;
-    RelativeLayout aboutApp, selLanguage, accountSettings;
+    LoadThemeShared loadThemeShared;
+    RelativeLayout aboutApp, selLanguage, selTheme, accountSettings;
     int menu;
     Button signOut;
     TextView fullName, username;
@@ -53,6 +56,8 @@ public class SettingsLogined extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_logined);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -101,6 +106,13 @@ public class SettingsLogined extends AppCompatActivity {
                 intent = new Intent(SettingsLogined.this, ChangeLanguage.class);
                 startActivity(intent);
             }
+        });
+        //Selected Theme
+        selTheme = findViewById(R.id.change_theme);
+        selTheme.setOnClickListener(v -> {
+            //go to change theme
+            intent = new Intent(SettingsLogined.this, ChangeTheme.class);
+            startActivity(intent);
         });
         //Switch WebView to Chrome Custom Tabs
         useChrome = findViewById(R.id.switchChrome);
@@ -197,5 +209,7 @@ public class SettingsLogined extends AppCompatActivity {
         }
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

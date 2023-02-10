@@ -14,6 +14,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 public class AboutApplication extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class AboutApplication extends AppCompatActivity {
     RelativeLayout githubbtn, twitterbtn;
     Intent intent;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class AboutApplication extends AppCompatActivity {
 //        languagePrefManager.loadLocal();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_application);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -74,5 +78,7 @@ public class AboutApplication extends AppCompatActivity {
         super.onResume();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

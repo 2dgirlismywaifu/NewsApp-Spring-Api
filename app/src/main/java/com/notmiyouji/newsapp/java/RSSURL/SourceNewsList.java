@@ -36,6 +36,7 @@ import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
@@ -63,6 +64,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
     List<NewsSource> newsSources = new ArrayList<>();
     LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
     EditText searchSource;
@@ -71,6 +73,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_list);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -222,5 +226,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         navigationPane.CallFromUser();
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
+        loadThemeShared = new LoadThemeShared(this);
+        loadThemeShared.setTheme();
     }
 }

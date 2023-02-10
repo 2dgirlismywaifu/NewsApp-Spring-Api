@@ -33,6 +33,8 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
             loadImageURL.loadImageUser(avatarHeader)
         }
         else {
+            //load default header
+
             navigationView.inflateHeaderView(R.layout.navigation_header)
         }
     }
