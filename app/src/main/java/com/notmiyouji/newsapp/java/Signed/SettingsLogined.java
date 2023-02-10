@@ -134,6 +134,7 @@ public class SettingsLogined extends AppCompatActivity {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
             builder.setIcon(R.mipmap.ic_launcher);
             builder.setTitle(R.string.sign_out);
+            builder.setView(R.layout.show_signout_text);
             builder.setMessage(R.string.sign_out_message);
             builder.setPositiveButton(R.string.sign_out, (dialog, which) -> {
                 //Sign out account

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="68dp"
-            android:fontFamily="@font/raleway"
+            android:fontFamily="@font/poppins"
             android:text="@string/about_application"
             android:textSize="20sp"
             android:textStyle="bold"

@@ -19,7 +19,7 @@
             <androidx.drawerlayout.widget.DrawerLayout
                 android:id="@+id/settings_banner_logined"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -41,6 +41,20 @@
                         tools:ignore="ContentDescription,SpeakableTextPresentCheck">
 
                     </ImageButton>
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="64dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/recovery_code_account"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/BackPressed"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.drawerlayout.widget.DrawerLayout>
@@ -49,7 +63,7 @@
                 android:id="@+id/avatar_user_logined"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="150dp"
                 android:background="@drawable/user_192"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

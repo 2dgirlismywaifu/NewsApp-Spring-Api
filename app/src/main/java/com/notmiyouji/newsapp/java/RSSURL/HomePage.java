@@ -83,11 +83,9 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     GetUserLogined getUserLogined;
     private String deafultSource = "VNExpress";
-
     public String getDeafultSource() {
         return deafultSource;
     }
-
     public void setDeafultSource(String deafultSource) {
         this.deafultSource = deafultSource;
     }
