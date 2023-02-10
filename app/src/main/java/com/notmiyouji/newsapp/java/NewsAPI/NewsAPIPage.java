@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,11 +43,12 @@ import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPIKey;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Country;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.News;
-import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPIInterface;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
@@ -97,6 +99,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     LoadThemeShared loadThemeShared;
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
+    LinearLayout newsapiPage, errorPage;
     private String countryCodeDefault = "us";
 
     public String getCountryCodeDefault() {
@@ -119,6 +122,25 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
+        filterCountry = findViewById(R.id.filterCountry);
+        newsapiPage = findViewById(R.id.newsAPIPage);
+        errorPage = findViewById(R.id.noInternetScreen);
+        //Check internet connection
+        NetworkConnection networkConnection = new NetworkConnection(this);
+        networkConnection.observe(this, isConnected -> {
+            if (isConnected) {
+                newsapiPage.setVisibility(android.view.View.VISIBLE);
+                filterCountry.setVisibility(android.view.View.VISIBLE);
+                errorPage.setVisibility(android.view.View.GONE);
+                //NewsCategory Type List
+                LoadCategoryType(getCountryCodeDefault());
+                LoadNewsAPI(getCountryCodeDefault());
+            } else {
+                newsapiPage.setVisibility(android.view.View.GONE);
+                filterCountry.setVisibility(android.view.View.GONE);
+                errorPage.setVisibility(android.view.View.VISIBLE);
+            }
+        });
         navigationView = findViewById(R.id.nav_pane_newsapi);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         loadNavigationHeader = new LoadNavigationHeader(NewsAPIPage.this, navigationView);
@@ -138,7 +160,6 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        filterCountry = findViewById(R.id.filterCountry);
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
         navigationPane.CallFromUser();
@@ -149,9 +170,6 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        //NewsCategory Type List
-        LoadCategoryType(getCountryCodeDefault());
-        LoadNewsAPI(getCountryCodeDefault());
         //open Country Filter
         openCountryFilter();
         //Hide float button when scroll recyclerview vertical

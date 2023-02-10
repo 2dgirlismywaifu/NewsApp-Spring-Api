@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -28,8 +29,9 @@ import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
-import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
+import com.notmiyouji.newsapp.kotlin.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
@@ -68,6 +70,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
     EditText searchSource;
+    LinearLayout sourceListPage, errorPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,21 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Hooks
+        sourceListPage = findViewById(R.id.sourceListPage);
+        errorPage = findViewById(R.id.noInternetScreen);
+        //Check Internet Connection
+        NetworkConnection networkConnection = new NetworkConnection(this);
+        networkConnection.observe(this, isConnected -> {
+            if (isConnected) {
+                sourceListPage.setVisibility(LinearLayout.VISIBLE);
+                errorPage.setVisibility(LinearLayout.GONE);
+                //Recycle View
+                loadSourceList(this);
+            } else {
+                sourceListPage.setVisibility(LinearLayout.GONE);
+                errorPage.setVisibility(LinearLayout.VISIBLE);
+            }
+        });
         navigationView = findViewById(R.id.nav_pane_sourceList);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
@@ -104,8 +122,6 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        //Recycle View
-        loadSourceList(this);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadSourceList(SourceNewsList.this);
             swipeRefreshLayout.setRefreshing(false);
@@ -209,7 +225,6 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             OpenSettingsPage openSettingsPage = new OpenSettingsPage(SourceNewsList.this);
             openSettingsPage.openSettings();
         }
-
         return true;
     }
 

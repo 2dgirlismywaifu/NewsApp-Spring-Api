@@ -17,6 +17,7 @@ import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.RSSList;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
@@ -52,6 +53,13 @@ public class SourceNewsDetails extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //hooks
+        //Check internet connection
+        NetworkConnection networkConnection = new NetworkConnection(this);
+        networkConnection.observe(this, networkConnection1 -> {
+            if (!networkConnection1) {
+                SourceNewsDetails.this.finish();
+            }
+        });
         imageNews = findViewById(R.id.imgNews);
         sourceName = findViewById(R.id.NewsSourceName);
         urlmain = findViewById(R.id.url_sourcemain);

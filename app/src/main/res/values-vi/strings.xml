@@ -189,5 +189,5 @@
     <string name="light_theme">Sáng</string>
     <string name="dark_theme">Tối</string>
     <string name="theme_change_messeage">Giao diện đã thay đổi</string>
-
+    <string name="InternetError">Không có kết nối Internet. \nKiểm tra kết nối Internet của bạn\n và thử lại lần nữa.</string>
 </resources>

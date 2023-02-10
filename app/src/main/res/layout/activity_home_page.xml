@@ -51,6 +51,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:id="@+id/homepage_screen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -157,10 +158,39 @@
 
                 </LinearLayout>
 
-
             </androidx.core.widget.NestedScrollView>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/noInternetScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/errorImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/no_internet"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
+            <TextView
+                android:id="@+id/ErrorMesseage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/InternetError"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/welcome_title"

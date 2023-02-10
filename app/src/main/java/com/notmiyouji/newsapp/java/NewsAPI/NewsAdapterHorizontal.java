@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.NewsDetails.OpenNewsDetails;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
 import com.notmiyouji.newsapp.kotlin.Utils;

@@ -28,6 +28,7 @@ import com.notmiyouji.newsapp.java.UpdateInformation.GenderController;
 import com.notmiyouji.newsapp.java.UpdateInformation.UserNameController;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
@@ -64,6 +65,36 @@ public class AccountSettings extends AppCompatActivity {
         setContentView(R.layout.activity_account_settings);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
+        //Hooks
+        changeFullName = findViewById(R.id.fullname_line);
+        changeUserName = findViewById(R.id.username_line);
+        changeBirthDay = findViewById(R.id.birthday_line);
+        changeGender = findViewById(R.id.gender_line);
+        changePassword = findViewById(R.id.change_password_action);
+        showRecoveryCode = findViewById(R.id.view_recovery_code);
+        changeAvatar = findViewById(R.id.change_avatar_action);
+        NetworkConnection networkConnection = new NetworkConnection(this);
+        networkConnection.observe(this, isConnected -> {
+            if (isConnected) {
+                //Do something when connected
+                changeFullName.setEnabled(true);
+                changeUserName.setEnabled(true);
+                changeBirthDay.setEnabled(true);
+                changeGender.setEnabled(true);
+                changePassword.setEnabled(true);
+                showRecoveryCode.setEnabled(true);
+                changeAvatar.setEnabled(true);
+            } else {
+                //Do something when not connected
+                changeFullName.setEnabled(false);
+                changeUserName.setEnabled(false);
+                changeBirthDay.setEnabled(false);
+                changeGender.setEnabled(false);
+                changePassword.setEnabled(false);
+                showRecoveryCode.setEnabled(false);
+                changeAvatar.setEnabled(false);
+            }
+        });
 
         //Set textView
         fullName = findViewById(R.id.fullname);
@@ -96,7 +127,6 @@ public class AccountSettings extends AppCompatActivity {
             finish();
         });
         //Change Fullname
-        changeFullName = findViewById(R.id.fullname_line);
         changeFullName.setOnClickListener(v -> {
             //go to change fullname
             if (status.equals("login")) {
@@ -131,7 +161,6 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
         //Change Username
-        changeUserName = findViewById(R.id.username_line);
         changeUserName.setOnClickListener(v -> {
             //go to change username
             if (status.equals("login")) {
@@ -166,7 +195,6 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
         //Change Birthday
-        changeBirthDay = findViewById(R.id.birthday_line);
         changeBirthDay.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(getDay(getUserLogined.getBirthday()));
@@ -193,7 +221,6 @@ public class AccountSettings extends AppCompatActivity {
 
         });
         //Change Gender
-        changeGender = findViewById(R.id.gender_line);
         changeGender.setOnClickListener(v-> {
             //Open BottomSheetDialog
             bottomSheetDialog = new BottomSheetDialog(this);
@@ -223,7 +250,6 @@ public class AccountSettings extends AppCompatActivity {
 
         });
         //Show Recovery Code
-        showRecoveryCode = findViewById(R.id.view_recovery_code);
         showRecoveryCode.setOnClickListener(v -> {
             if (status.equals("login")) {
                 //go to change fullname
@@ -236,7 +262,6 @@ public class AccountSettings extends AppCompatActivity {
 
         });
         //Change Password
-        changePassword = findViewById(R.id.change_password_action);
         changePassword.setOnClickListener(v -> {
             if (status.equals("login")) {
                 intent = new Intent(this, ChangePassword.class);
@@ -247,7 +272,6 @@ public class AccountSettings extends AppCompatActivity {
             }
         });
         //Change Avatar
-        changeAvatar = findViewById(R.id.change_avatar_action);
         changeAvatar.setOnClickListener(v -> {
             if (status.equals("login")) {
                 //open material dialog to tell user about go gravatar change your avatar

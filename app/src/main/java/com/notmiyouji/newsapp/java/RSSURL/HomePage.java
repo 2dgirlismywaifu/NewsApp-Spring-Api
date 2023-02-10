@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +42,9 @@ import com.notmiyouji.newsapp.java.RSS2JSON.FeedMultiRSS;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsTypeAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CallSignInForm;
-import com.notmiyouji.newsapp.kotlin.OpenSettingsPage;
+import com.notmiyouji.newsapp.kotlin.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.CallSignInForm;
+import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.RSSSource.ListObject;
 import com.notmiyouji.newsapp.kotlin.RSSSource.NewsSource;
 import com.notmiyouji.newsapp.kotlin.RetrofitInterface.NewsAPPInterface;
@@ -65,6 +67,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayoutManager linearLayoutManager, newsViewLayoutHorizontal;
+    LinearLayout homepageScreen, errorInternet;
     RecyclerView recyclerView, newsViewHorizontal, newsViewVertical;
     Toolbar toolbar;
     NavigationPane navigationPane;
@@ -105,6 +108,23 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         applicationFlags.setFlag();
         //Hooks
         welcomeText = findViewById(R.id.welcome_title);
+        homepageScreen = findViewById(R.id.homepage_screen);
+        errorInternet = findViewById(R.id.noInternetScreen);
+        filterSource = findViewById(R.id.filterSource);
+        NetworkConnection networkConnection = new NetworkConnection(this);
+        networkConnection.observe(this, isConnected -> {
+            if (isConnected) {
+                homepageScreen.setVisibility(android.view.View.VISIBLE);
+                filterSource.setVisibility(android.view.View.VISIBLE);
+                errorInternet.setVisibility(android.view.View.GONE);
+                //this is global method on this class
+                LoadSourceNews(getDeafultSource());
+            } else {
+                homepageScreen.setVisibility(android.view.View.GONE);
+                filterSource.setVisibility(android.view.View.GONE);
+                errorInternet.setVisibility(android.view.View.VISIBLE);
+            }
+        });
         navigationView = findViewById(R.id.nav_pane_view);
         //From sharedPreference, if user logined saved, call navigation pane with user name header
         loadNavigationHeader = new LoadNavigationHeader(this, navigationView);
@@ -126,7 +146,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         recyclerView = findViewById(R.id.news_type);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
-        filterSource = findViewById(R.id.filterSource);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
@@ -139,8 +158,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        //this is global method on this class
-        LoadSourceNews(getDeafultSource());
+
         //Select source to load (Settings will save to shared preference)
         openSourceChoose();
         //User progress bar

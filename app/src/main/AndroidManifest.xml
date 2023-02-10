@@ -41,9 +41,6 @@
             android:exported="false"
             android:theme="@style/LoginForm" />
         <activity
-            android:name=".java.Global.NoInternetConnection"
-            android:exported="false" />
-        <activity
             android:name=".java.RSSURL.HomePage"
             android:exported="false" />
         <activity

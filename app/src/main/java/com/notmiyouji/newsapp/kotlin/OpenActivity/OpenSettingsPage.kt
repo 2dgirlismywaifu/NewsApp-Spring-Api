@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.OpenActivity
 
 import android.content.Intent
 import android.content.SharedPreferences

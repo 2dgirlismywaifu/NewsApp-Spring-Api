@@ -1,4 +1,4 @@
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.OpenActivity
 
 import android.app.ActivityOptions
 import android.content.Intent
