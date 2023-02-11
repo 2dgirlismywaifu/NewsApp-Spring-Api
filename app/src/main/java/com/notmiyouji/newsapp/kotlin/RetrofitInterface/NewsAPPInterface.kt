@@ -1,5 +1,11 @@
 package com.notmiyouji.newsapp.kotlin.RetrofitInterface
 
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.SourceSubscribe
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.NewsFavouriteShow
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.SourceUnsubscribe
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.NewsFavourite
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.NewsUnfavourite
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.SourceSubscribeCheck
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CheckNickName
 import com.notmiyouji.newsapp.kotlin.LoginedModel.CountSSO
 import com.notmiyouji.newsapp.kotlin.LoginedModel.Recovery
@@ -26,6 +32,10 @@ interface NewsAPPInterface {
     //Guest mode
     @GET("newssource")
     fun getAllSource(): Call<ListObject?>?
+    @GET("account/newssource")
+    fun accountAllSource(): Call<ListObject?>?
+    @GET("sso/newssource")
+    fun ssoAllSource(): Call<ListObject?>?
 
     @GET("guest/newsdetails")
     fun getAllNewsDetails(
@@ -151,4 +161,94 @@ interface NewsAPPInterface {
     fun requestRecovery(
             @Query("code", encoded = true) code: String?
     ): Call<SignIn?>?
+    //////////////////////////////////////////////////////////////////////////////////
+    //Now this is sync part//
+    //first is email method: news_source subscribe and news_favourite
+    @POST("/account/favourite/add")
+    fun accountSourceSubscribe(
+        @Query("userid", encoded = true) userid: String?,
+        @Query("title", encoded = true) title: String?,
+        @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<NewsFavourite?>?
+    //services will use params: userid, url, title, imageurl, sourcename
+    @POST("/account/favourite/news/add")
+    fun accountNewsFavourite(
+        @Query("userid", encoded = true) userid: String?,
+        @Query("url", encoded = true) url: String?,
+        @Query("title", encoded = true) title: String?,
+        @Query("imageurl", encoded = true) imageurl: String?,
+        @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<SourceSubscribe?>?
+    //services will use params: userid, sourceid
+    @POST("/account/favourite/delete")
+    fun accountSourceUnsubscribe(
+        @Query("userid", encoded = true) userid: String?,
+        @Query("sourceid", encoded = true) sourceid: String?,
+    ): Call<NewsUnfavourite?>?
+    //Delete news favourite from user (use params: userid, url, title, imageurl, sourcename)
+    @POST("/account/favourite/news/delete")
+    fun accountNewsUnfavourite(
+        @Query("userid", encoded = true) userid: String?,
+        @Query("url", encoded = true) url: String?,
+        @Query("title", encoded = true) title: String?,
+        @Query("imageurl", encoded = true) imageurl: String?,
+        @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<SourceUnsubscribe?>?
+    //Get all news favourite from user (use params: userid)
+    @GET("/account/favourite/news/show")
+    fun accountNewsFavouriteShow(
+        @Query("userid", encoded = true) userid: String?,
+    ): Call<NewsFavouriteShow?>?
+    //Check Source is subscribed or not (use params: userid, sourceid)
+    @GET("/account/subscribe/check")
+    fun accountSourceSubscribeCheck(
+        @Query("userid", encoded = true) userid: String?,
+        @Query("sourceid", encoded = true) sourceid: String?,
+    ): Call<SourceSubscribeCheck?>?
+    ////////////////////////////////////////////////////////////////////////////
+    //Second is SSO method, not different with email method
+    @POST("/sso/favourite/add")
+    fun ssoSourceSubscribe(
+            @Query("userid", encoded = true) userid: String?,
+            @Query("title", encoded = true) title: String?,
+            @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<NewsFavourite?>?
+    //services will use params: userid, url, title, imageurl, sourcename
+    @POST("/sso/favourite/news/add")
+    fun ssoNewsFavourite(
+            @Query("userid", encoded = true) userid: String?,
+            @Query("url", encoded = true) url: String?,
+            @Query("title", encoded = true) title: String?,
+            @Query("imageurl", encoded = true) imageurl: String?,
+            @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<SourceSubscribe?>?
+    //services will use params: userid, sourceid
+    @POST("/sso/favourite/delete")
+    fun ssoSourceUnsubscribe(
+            @Query("userid", encoded = true) userid: String?,
+            @Query("sourceid", encoded = true) sourceid: String?,
+    ): Call<NewsUnfavourite?>?
+    //Delete news favourite from user (use params: userid, url, title, imageurl, sourcename)
+    @POST("/sso/favourite/news/delete")
+    fun ssoNewsUnfavourite(
+            @Query("userid", encoded = true) userid: String?,
+            @Query("url", encoded = true) url: String?,
+            @Query("title", encoded = true) title: String?,
+            @Query("imageurl", encoded = true) imageurl: String?,
+            @Query("sourcename", encoded = true) sourcename: String?,
+    ): Call<SourceUnsubscribe?>?
+    //Get all news favourite from user (use params: userid)
+    @GET("/sso/favourite/news/show")
+    fun ssoNewsFavouriteShow(
+            @Query("userid", encoded = true) userid: String?,
+    ): Call<NewsFavouriteShow?>?
+    //Check Source is subscribed or not (use params: userid, sourceid)
+    @GET("/sso/subscribe/check")
+    fun ssoSourceSubscribeCheck(
+            @Query("userid", encoded = true) userid: String?,
+            @Query("sourceid", encoded = true) sourceid: String?,
+    ): Call<SourceSubscribeCheck?>?
+
+
+
 }

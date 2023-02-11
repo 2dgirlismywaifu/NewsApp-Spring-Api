@@ -2,8 +2,9 @@ package com.notmiyouji.newsapp.kotlin.RSSSource
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.notmiyouji.newsapp.kotlin.FavouriteModel.NewsFavouriteShow
 
-class ListObject {
+class ListObject() {
     @SerializedName("newsSource")
     @Expose
     var newsSource: List<NewsSource>? = null
@@ -16,5 +17,8 @@ class ListObject {
     @Expose
     var rssList: List<RSSList>? = null
 
-    constructor()
+    @SerializedName("SourceFavourite")
+    @Expose
+    var sourceSubscribeList: List<NewsFavouriteShow>? = null
+
 }
