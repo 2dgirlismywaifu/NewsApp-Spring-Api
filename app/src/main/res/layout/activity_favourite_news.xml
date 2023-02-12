@@ -34,29 +34,17 @@
             app:layout_constraintVertical_bias="0.0"
             app:navigationIcon="@drawable/ic_baseline_menu_40" />
 
-        <ImageButton
-            android:id="@+id/clear_list"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="15dp"
-            android:background="#00FFFFFF"
-            android:src="@drawable/ic_baseline_delete_36"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
+            android:layout_marginEnd="60dp"
             android:fontFamily="@font/raleway_bold"
             android:text="@string/favorites_archive_list"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/clear_list"
-            app:layout_constraintHorizontal_bias="0.436"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nav_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -142,6 +130,36 @@
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noInternetScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/errorImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/no_internet"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
+            <TextView
+                android:id="@+id/ErrorMesseage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/InternetError"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -9,7 +9,7 @@ import com.google.android.material.navigation.NavigationView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.kotlin.LoadImageURL
 
-class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: NavigationView) {
+class LoadNavigationHeader(var activity: AppCompatActivity, private var navigationView: NavigationView) {
     @SuppressLint("SetTextI18n")
     fun loadHeader() {
         val sharedPreferences = activity.getSharedPreferences("UserLogined", Context.MODE_PRIVATE)
@@ -18,24 +18,26 @@ class LoadNavigationHeader(var activity: AppCompatActivity, var navigationView: 
         val username = sharedPreferences.getString("username", "")
         val avatar = sharedPreferences.getString("avatar", "")
         val status = sharedPreferences.getString("status", "")
-        if (status.equals("login") || status.equals("google")) {
-            navigationView.inflateHeaderView(R.layout.navigation_header_logined)
-            val fullnameHeader =
-                navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
-            fullnameHeader.text = fullname
-            val usernameHeader =
-                navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
-            usernameHeader.text = "@$username"
-            val avatarHeader =
-                navigationView.getHeaderView(0).findViewById<ShapeableImageView>(R.id.avatar_user)
-            //Call LoadImageURL.kt
-            val loadImageURL = LoadImageURL(avatar)
-            loadImageURL.loadImageUser(avatarHeader)
-        }
-        else {
-            //load default header
+        when {
+            status.equals("login") || status.equals("google") -> {
+                navigationView.inflateHeaderView(R.layout.navigation_header_logined)
+                val fullnameHeader =
+                    navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
+                fullnameHeader.text = fullname
+                val usernameHeader =
+                    navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
+                usernameHeader.text = "@$username"
+                val avatarHeader =
+                    navigationView.getHeaderView(0).findViewById<ShapeableImageView>(R.id.avatar_user)
+                //Call LoadImageURL.kt
+                val loadImageURL = LoadImageURL(avatar)
+                loadImageURL.loadImageUser(avatarHeader)
+            }
+            else -> {
+                //load default header
 
-            navigationView.inflateHeaderView(R.layout.navigation_header)
+                navigationView.inflateHeaderView(R.layout.navigation_header)
+            }
         }
     }
 }

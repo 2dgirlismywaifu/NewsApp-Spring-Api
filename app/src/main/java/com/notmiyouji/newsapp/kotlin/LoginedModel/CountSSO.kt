@@ -4,10 +4,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class CountSSO {
-    @SerializedName("sync_settings")
-    @Expose
-    var syncSettings: Any? = null
-
     @SerializedName("gender")
     @Expose
     var gender: String? = null

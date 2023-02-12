@@ -191,4 +191,9 @@
     <string name="theme_change_messeage">Giao diện đã thay đổi</string>
     <string name="InternetError">Không có kết nối Internet. \nKiểm tra kết nối Internet của bạn\n và thử lại lần nữa.</string>
     <string name="no_internet_connection">Không có kết nối Internet</string>
+    <string name="please_login_to_use_this_feature">Vui lòng đăng nhập để sử dụng</string>
+    <string name="unsubscribe">Huỷ</string>
+    <string name="unfavourite">Huỷ yêu thích</string>
+    <string name="unsubscribed">Đã huỷ đăng ký</string>
+    <string name="subscribed">Huỷ đăng ký</string>
 </resources>

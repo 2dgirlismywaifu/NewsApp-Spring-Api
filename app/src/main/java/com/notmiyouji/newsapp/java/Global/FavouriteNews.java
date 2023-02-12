@@ -1,5 +1,6 @@
 package com.notmiyouji.newsapp.java.Global;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
+
+import java.util.Objects;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,24 +90,30 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int menuitem = item.getItemId();
-        if (menuitem == R.id.home_menu) {
-            intent = new Intent(FavouriteNews.this, HomePage.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.source_menu) {
-            intent = new Intent(FavouriteNews.this, SourceNewsList.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.newsapi_menu) {
-            intent = new Intent(FavouriteNews.this, NewsAPIPage.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.settings_menu) {
-            OpenSettingsPage openSettingsPage = new OpenSettingsPage(FavouriteNews.this);
-            openSettingsPage.openSettings();
+        switch (menuitem) {
+            case R.id.home_menu:
+                intent = new Intent(FavouriteNews.this, HomePage.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.source_menu:
+                intent = new Intent(FavouriteNews.this, SourceNewsList.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.newsapi_menu:
+                intent = new Intent(FavouriteNews.this, NewsAPIPage.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.settings_menu:
+                OpenSettingsPage openSettingsPage = new OpenSettingsPage(FavouriteNews.this);
+                openSettingsPage.openSettings();
+                break;
         }
         return true;
     }

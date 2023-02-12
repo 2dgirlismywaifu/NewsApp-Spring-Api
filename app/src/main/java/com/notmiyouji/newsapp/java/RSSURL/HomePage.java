@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
@@ -87,6 +89,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
     GetUserLogined getUserLogined;
+    CheckBox syncSubscribe;
+    MaterialAutoCompleteTextView spinner_rss;
     private String deafultSource = "VNExpress";
     public String getDeafultSource() {
         return deafultSource;
@@ -154,7 +158,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //NewsCategory Type List
         LoadCategory(getDeafultSource());
         //open sign in page from navigationview
-        if (getUserLogined.getStatus().equals("")) {
+        if ("".equals(getUserLogined.getStatus())) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
@@ -235,43 +239,44 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(HomePage.this);
             bottomSheetDialog.setContentView(R.layout.choose_feed);
             bottomSheetDialog.show();
-            MaterialAutoCompleteTextView spinner_rss;
             spinner_rss = bottomSheetDialog.findViewById(R.id.spinner_rss);
             chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
             chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
+            syncSubscribe = bottomSheetDialog.findViewById(R.id.checkSubscrible);
             chooseTitle.setText(R.string.choose_rss);
             chooseHint.setHint(R.string.Select_RSS_Feed);
-            Call<ListObject> call = newsAPPInterface.getAllSource();
-            assert call != null;
-            call.enqueue(new retrofit2.Callback<ListObject>() {
-                @Override
-                public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
-                    if (response.isSuccessful()) {
-                        assert response.body() != null;
-                        if (response.body().getNewsSource() != null) {
-                            if (!newsSources.isEmpty()) {
-                                newsSources.clear();
-                            }
-                            newsSources = response.body().getNewsSource();
-                            List<NewsSource> newsSourceList = newsSources;
-                            ArrayList<String> listSource = new ArrayList<>();
-                            for (NewsSource newsSource : newsSourceList) {
-                                listSource.add(newsSource.getSource_name());
-                            }
-                            assert spinner_rss != null;
-                            spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
+            assert spinner_rss != null;
+            assert syncSubscribe != null;
+            //if checkbox is checked, load source from user account
+            syncSubscribe.setOnClickListener(v1 -> {
+                if (syncSubscribe.isChecked()) {
+                    String statusAccount = getUserLogined.getStatus();
+                    if (statusAccount != null) {
+                        switch (statusAccount) {
+                            case "login":
+                                //clear spinner_rss
+                                spinner_rss.setText("");
+                                AccountSourceList(spinner_rss, getUserLogined.getUserID());
+                                break;
+                            case "google":
+                                spinner_rss.setText("");
+                                SSOSourceList(spinner_rss, getUserLogined.getUserID());
+                                break;
+                            default:
+                                syncSubscribe.setChecked(false);
+                                Toast.makeText(HomePage.this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
+                                break;
                         }
                     }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
-                    Logger.getLogger("Error").warning(t.getMessage());
+                } else {
+                    spinner_rss.setText("");
+                    GuestSourceList(spinner_rss);
                 }
             });
+            spinner_rss.setText("");
+            GuestSourceList(spinner_rss);
             Button okbtn = bottomSheetDialog.findViewById(R.id.btnLoad);
             assert okbtn != null;
-            assert spinner_rss != null;
             okbtn.setOnClickListener(v1 -> {
                 String sourceName = spinner_rss.getText().toString();
                 if (sourceName.isEmpty()) {
@@ -286,6 +291,99 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 }
 
             });
+        });
+    }
+
+    private void GuestSourceList(MaterialAutoCompleteTextView spinner_rss) {
+        Call<ListObject> call = newsAPPInterface.getAllSource();
+        assert call != null;
+        call.enqueue(new retrofit2.Callback<ListObject>() {
+            @Override
+            public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().getNewsSource() != null) {
+                        if (!newsSources.isEmpty()) {
+                            newsSources.clear();
+                        }
+                        newsSources = response.body().getNewsSource();
+                        List<NewsSource> newsSourceList = newsSources;
+                        ArrayList<String> listSource = new ArrayList<>();
+                        for (NewsSource newsSource : newsSourceList) {
+                            listSource.add(newsSource.getSource_name());
+                        }
+                        assert spinner_rss != null;
+                        spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
+                Logger.getLogger("Error").warning(t.getMessage());
+            }
+        });
+    }
+
+    private void AccountSourceList(MaterialAutoCompleteTextView spinner_rss, String userid) {
+        Call<ListObject> call = newsAPPInterface.accountAllSource(userid);
+        assert call != null;
+        call.enqueue(new retrofit2.Callback<ListObject>() {
+            @Override
+            public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().getNewsSource() != null) {
+                        if (!newsSources.isEmpty()) {
+                            newsSources.clear();
+                        }
+                        newsSources = response.body().getNewsSource();
+                        List<NewsSource> newsSourceList = newsSources;
+                        ArrayList<String> listSource = new ArrayList<>();
+                        for (NewsSource newsSource : newsSourceList) {
+                            listSource.add(newsSource.getSource_name());
+                        }
+                        assert spinner_rss != null;
+                        spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
+                Logger.getLogger("Error").warning(t.getMessage());
+            }
+        });
+    }
+
+    private void SSOSourceList(MaterialAutoCompleteTextView spinner_rss, String userid) {
+        Call<ListObject> call = newsAPPInterface.ssoAllSource(userid);
+        assert call != null;
+        call.enqueue(new retrofit2.Callback<ListObject>() {
+            @Override
+            public void onResponse(@NonNull Call<ListObject> call, @NonNull retrofit2.Response<ListObject> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().getNewsSource() != null) {
+                        if (!newsSources.isEmpty()) {
+                            newsSources.clear();
+                        }
+                        newsSources = response.body().getNewsSource();
+                        List<NewsSource> newsSourceList = newsSources;
+                        ArrayList<String> listSource = new ArrayList<>();
+                        for (NewsSource newsSource : newsSourceList) {
+                            listSource.add(newsSource.getSource_name());
+                        }
+                        assert spinner_rss != null;
+                        spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListObject> call, @NonNull Throwable t) {
+                Logger.getLogger("Error").warning(t.getMessage());
+            }
         });
     }
 
@@ -307,24 +405,30 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int menuitem = item.getItemId();
-        if (menuitem == R.id.newsapi_menu) {
-            intent = new Intent(HomePage.this, NewsAPIPage.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.source_menu) {
-            intent = new Intent(HomePage.this, SourceNewsList.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.favourite_menu) {
-            intent = new Intent(HomePage.this, FavouriteNews.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.settings_menu) {
-            OpenSettingsPage openSettingsPage = new OpenSettingsPage(HomePage.this);
-            openSettingsPage.openSettings();
+        switch (menuitem) {
+            case R.id.newsapi_menu:
+                intent = new Intent(HomePage.this, NewsAPIPage.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.source_menu:
+                intent = new Intent(HomePage.this, SourceNewsList.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.favourite_menu:
+                intent = new Intent(HomePage.this, FavouriteNews.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.settings_menu:
+                OpenSettingsPage openSettingsPage = new OpenSettingsPage(HomePage.this);
+                openSettingsPage.openSettings();
+                break;
         }
         return true;
     }

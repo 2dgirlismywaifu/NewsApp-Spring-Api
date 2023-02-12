@@ -197,5 +197,10 @@
     <string name="theme_change_messeage">Theme Changed</string>
     <string name="InternetError">No Internet Access. \nCheck your Internet connection\n then try again.</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="please_login_to_use_this_feature">Please login to use this feature</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="unfavourite">Unfavourite</string>
+    <string name="unsubscribed">Unsubscribed</string>
+    <string name="subscribed">Subscribed</string>
 
 </resources>

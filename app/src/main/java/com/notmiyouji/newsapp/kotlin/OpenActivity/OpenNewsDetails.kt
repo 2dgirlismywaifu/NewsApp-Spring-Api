@@ -15,25 +15,28 @@ class OpenNewsDetails(
     private val activity: Activity
 ) {
     fun openNewsDetails() {
-        if (UseChromeShared(activity).enableChrome) {
-            //Open in chrome custom tabs
-            val chromeClient = NewsDetailsChrome(
-                url,
-                title,
-                img,
-                url,
-                pubdate, activity
-            )
-            chromeClient.openNewsDetails()
-        } else {
-            //No chrome installed, open in webview
-            val intent = Intent(activity, NewsDetailWebView::class.java)
-            intent.putExtra("url", url)
-            intent.putExtra("title", title)
-            intent.putExtra("img", img)
-            intent.putExtra("source", source)
-            intent.putExtra("pubdate", pubdate)
-            activity.startActivity(intent)
+        when {
+            UseChromeShared(activity).enableChrome -> {
+                //Open in chrome custom tabs
+                val chromeClient = NewsDetailsChrome(
+                    url,
+                    title,
+                    img,
+                    url,
+                    pubdate, activity
+                )
+                chromeClient.openNewsDetails()
+            }
+            else -> {
+                //No chrome installed, open in webview
+                val intent = Intent(activity, NewsDetailWebView::class.java)
+                intent.putExtra("url", url)
+                intent.putExtra("title", title)
+                intent.putExtra("img", img)
+                intent.putExtra("source", source)
+                intent.putExtra("pubdate", pubdate)
+                activity.startActivity(intent)
+            }
         }
     }
 }

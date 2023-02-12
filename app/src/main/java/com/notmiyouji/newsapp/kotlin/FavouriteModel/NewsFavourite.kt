@@ -19,6 +19,9 @@ class NewsFavourite {
     @SerializedName("image_url")
     @Expose
     var imageUrl: String? = null
+    @SerializedName("pubdate")
+    @Expose
+    var pubdate: String? = null
     @SerializedName("source_name")
     @Expose
     var sourceName: String? = null

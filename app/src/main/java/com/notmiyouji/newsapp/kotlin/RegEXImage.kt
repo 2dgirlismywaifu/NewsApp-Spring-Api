@@ -12,7 +12,8 @@ class RegEXImage(var description: String, var thumbnail: String?) {
                 src = element.attr("src")
             }
             src
-        } else {
+        }
+        else {
             thumbnail
         }
     }

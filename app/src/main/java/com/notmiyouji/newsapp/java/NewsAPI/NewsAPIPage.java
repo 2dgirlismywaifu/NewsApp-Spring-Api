@@ -390,24 +390,30 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int menuitem = item.getItemId();
-        if (menuitem == R.id.home_menu) {
-            intent = new Intent(NewsAPIPage.this, HomePage.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.source_menu) {
-            intent = new Intent(NewsAPIPage.this, SourceNewsList.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.favourite_menu) {
-            intent = new Intent(NewsAPIPage.this, FavouriteNews.class);
-            startActivity(intent);
-            this.finish();
-        } else if (menuitem == R.id.settings_menu) {
-            OpenSettingsPage openSettingsPage = new OpenSettingsPage(NewsAPIPage.this);
-            openSettingsPage.openSettings();
+        switch (menuitem) {
+            case R.id.home_menu:
+                intent = new Intent(NewsAPIPage.this, HomePage.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.source_menu:
+                intent = new Intent(NewsAPIPage.this, SourceNewsList.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.favourite_menu:
+                intent = new Intent(NewsAPIPage.this, FavouriteNews.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.settings_menu:
+                OpenSettingsPage openSettingsPage = new OpenSettingsPage(NewsAPIPage.this);
+                openSettingsPage.openSettings();
+                break;
         }
         return true;
     }

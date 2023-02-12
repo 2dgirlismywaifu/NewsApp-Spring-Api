@@ -64,24 +64,12 @@ public class GoogleMethod {
                         assert user != null;
                         String fullname = user.getDisplayName();
                         String uid = user.getUid();
-                        String getEmail =email;
                         //String username = "Google SSO";
                         //Google Avatar Image default so terrible, this line will fix it
                         String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
                         //User is not registered, save to database
                         //Always save to database with Google SSO Sign In
-                        CheckSSOAccount(fullname, getEmail, uid, fullname, avatar);
-                        //User is already registered, save to shared settings
-                        saveUserLogined.saveUserLogined(uid, fullname, email, uid, fullname, avatar,"google");
-                        Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
-                        //If user login successfully, go to main activity
-                        signInButton.setEnabled(true);
-                        signUpButton.setEnabled(true);
-                        activity.finish();
-                        //restart application
-                        Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        activity.startActivity(intent);
+                        CheckSSOAccount(fullname, email, uid, fullname, avatar);
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
@@ -91,24 +79,35 @@ public class GoogleMethod {
         });
     }
 
-    private void CheckSSOAccount(String displayName, String email, String uid, String username, String url) {
-        Call<CountSSO> callCountSSO = newsAPPInterface.ssoCount(email);
+    private void CheckSSOAccount(String displayName, String email, String uid, String username, String avatar) {
+        Call<CountSSO> callCountSSO = newsAPPInterface.ssoCount(email, username);
         callCountSSO.enqueue(new retrofit2.Callback<CountSSO>() {
             @Override
             public void onResponse(Call<CountSSO> call, Response<CountSSO> response) {
                 if (response.isSuccessful()) {
                     CountSSO countSSO = response.body();
-                    if (countSSO.getStatus().equals("fail")) {
-                        //Save to database
-                        SavedToDatabase(displayName, email, uid, username, url);
-                    }
-                    else {
+                    if (countSSO.getStatus().equals("pass")) {
                         //We need always update information when user use SSO
-                        UpdateSSO(countSSO.getUserId(), displayName, url);
+                        UpdateSSO(countSSO.getUserId(), displayName, avatar);
+                        //User is already registered, save to shared settings
+                        saveUserLogined.saveUserLogined(countSSO.getUserId(), countSSO.getName(), countSSO.getEmail(), uid, countSSO.getNickname(), avatar,"google");
                         //save birthday
                         saveUserLogined.saveBirthday(countSSO.getBirthday());
                         //save Gender
                         saveUserLogined.saveGender(countSSO.getGender());
+                        Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
+                        //If user login successfully, go to main activity
+                        signInButton.setEnabled(true);
+                        signUpButton.setEnabled(true);
+                        activity.finish();
+                        //restart application
+                        Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        activity.startActivity(intent);
+                    }
+                    else {
+                        //Save to database
+                        SavedToDatabase(displayName, email, uid, username, avatar);
 
                     }
                 }
@@ -127,9 +126,45 @@ public class GoogleMethod {
             @Override
             public void onResponse(Call<SSO> call, Response<SSO> response) {
                 //Save successfully,
+                //Now sign in
+                AfterSaveData(email, uid,  username, avatar);
+
             }
             @Override
             public void onFailure(Call<SSO> call, Throwable t) {
+            }
+        });
+    }
+
+    private void AfterSaveData (String email, String uid, String username, String avatar) {
+        Call<CountSSO> signInSSO = newsAPPInterface.ssoCount(email, username);
+        signInSSO.enqueue(new retrofit2.Callback<CountSSO>() {
+            @Override
+            public void onResponse(Call<CountSSO> call, Response<CountSSO> response) {
+                if (response.isSuccessful()) {
+                    CountSSO countSSO = response.body();
+                    if (countSSO.getStatus().equals("pass")) {
+                        //User is already registered, save to shared settings
+                        saveUserLogined.saveUserLogined(countSSO.getUserId(), countSSO.getName(), countSSO.getEmail(), uid, countSSO.getNickname(), avatar,"google");
+                        //save birthday
+                        saveUserLogined.saveBirthday(countSSO.getBirthday());
+                        //save Gender
+                        saveUserLogined.saveGender(countSSO.getGender());
+                        Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
+                        //If user login successfully, go to main activity
+                        signInButton.setEnabled(true);
+                        signUpButton.setEnabled(true);
+                        activity.finish();
+                        //restart application
+                        Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        activity.startActivity(intent);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<CountSSO> call, Throwable t) {
+                //if return 500, it means that account not in database
             }
         });
     }

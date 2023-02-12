@@ -12,12 +12,15 @@ class OpenSettingsPage(var activity: AppCompatActivity) {
     var intent: Intent? = null
     fun openSettings() {
         val getUserLogined = GetUserLogined(activity)
-        if (getUserLogined.status == "login" || getUserLogined.status == "google") {
-            intent = Intent(activity, SettingsLogined::class.java)
-            activity.startActivity(intent)
-        } else {
-            intent = Intent(activity, SettingsPage::class.java)
-            activity.startActivity(intent)
+        when (getUserLogined.status) {
+            "login", "google" -> {
+                intent = Intent(activity, SettingsLogined::class.java)
+                activity.startActivity(intent)
+            }
+            else -> {
+                intent = Intent(activity, SettingsPage::class.java)
+                activity.startActivity(intent)
+            }
         }
     }
 }

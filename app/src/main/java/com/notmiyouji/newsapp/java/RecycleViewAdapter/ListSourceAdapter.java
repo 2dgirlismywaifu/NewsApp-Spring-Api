@@ -48,6 +48,7 @@ public class ListSourceAdapter extends RecyclerView.Adapter<ListSourceAdapter.Li
         //Picasso.get().load(path).into(holder.source_image);
         holder.detailsbtn.setOnClickListener(v -> {
             Intent intent = new Intent(activity, SourceNewsDetails.class);
+            intent.putExtra("source_id", newsSource.getSource_id());
             intent.putExtra("source_name", newsSource.getSource_name());
             intent.putExtra("source_url", newsSource.getSource_url());
             intent.putExtra("source_description", newsSource.getInformation());

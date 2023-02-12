@@ -24,6 +24,7 @@ import com.notmiyouji.newsapp.kotlin.UpdateModel.Password
 import com.notmiyouji.newsapp.kotlin.UpdateModel.RecoveryCode
 import com.notmiyouji.newsapp.kotlin.UpdateModel.UserName
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -33,9 +34,13 @@ interface NewsAPPInterface {
     @GET("newssource")
     fun getAllSource(): Call<ListObject?>?
     @GET("account/newssource")
-    fun accountAllSource(): Call<ListObject?>?
+    fun accountAllSource(
+        @Query("userid", encoded = true) userid: String?
+    ): Call<ListObject?>?
     @GET("sso/newssource")
-    fun ssoAllSource(): Call<ListObject?>?
+    fun ssoAllSource(
+        @Query("userid", encoded = true) userid: String?
+    ): Call<ListObject?>?
 
     @GET("guest/newsdetails")
     fun getAllNewsDetails(
@@ -75,7 +80,8 @@ interface NewsAPPInterface {
     //Check SSO account in database is exist or not
     @GET("/sso/count")
     fun ssoCount(
-        @Query("account", encoded = true) email: String?
+        @Query("email", encoded = true) email: String?,
+        @Query("nickname") nickname: String?
     ): Call<CountSSO?>?
     //Update SSO account
     @POST("/sso/update")
@@ -122,6 +128,7 @@ interface NewsAPPInterface {
         @Query("birthday", encoded = true) birthday: String?,
     ): Call<Birthday?>?
     //Update sso user birthday
+    @POST("/sso/birthday/update")
     fun updateBirthdaySSO(
             @Query("userid", encoded = true) userid: String?,
             @Query("birthday", encoded = true) birthday: String?,
@@ -167,9 +174,8 @@ interface NewsAPPInterface {
     @POST("/account/favourite/add")
     fun accountSourceSubscribe(
         @Query("userid", encoded = true) userid: String?,
-        @Query("title", encoded = true) title: String?,
-        @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<NewsFavourite?>?
+        @Query("sourceid", encoded = true) sourcename: String?,
+    ): Call<SourceSubscribe?>?
     //services will use params: userid, url, title, imageurl, sourcename
     @POST("/account/favourite/news/add")
     fun accountNewsFavourite(
@@ -178,22 +184,22 @@ interface NewsAPPInterface {
         @Query("title", encoded = true) title: String?,
         @Query("imageurl", encoded = true) imageurl: String?,
         @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<SourceSubscribe?>?
+    ): Call<NewsFavourite?>?
     //services will use params: userid, sourceid
-    @POST("/account/favourite/delete")
+    @DELETE("/account/favourite/delete")
     fun accountSourceUnsubscribe(
         @Query("userid", encoded = true) userid: String?,
         @Query("sourceid", encoded = true) sourceid: String?,
-    ): Call<NewsUnfavourite?>?
+    ): Call<SourceUnsubscribe?>?
     //Delete news favourite from user (use params: userid, url, title, imageurl, sourcename)
-    @POST("/account/favourite/news/delete")
+    @DELETE("/account/favourite/news/delete")
     fun accountNewsUnfavourite(
         @Query("userid", encoded = true) userid: String?,
         @Query("url", encoded = true) url: String?,
         @Query("title", encoded = true) title: String?,
         @Query("imageurl", encoded = true) imageurl: String?,
         @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<SourceUnsubscribe?>?
+    ): Call<NewsUnfavourite?>?
     //Get all news favourite from user (use params: userid)
     @GET("/account/favourite/news/show")
     fun accountNewsFavouriteShow(
@@ -210,9 +216,8 @@ interface NewsAPPInterface {
     @POST("/sso/favourite/add")
     fun ssoSourceSubscribe(
             @Query("userid", encoded = true) userid: String?,
-            @Query("title", encoded = true) title: String?,
-            @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<NewsFavourite?>?
+            @Query("sourceid", encoded = true) sourcename: String?
+    ): Call<SourceSubscribe?>?
     //services will use params: userid, url, title, imageurl, sourcename
     @POST("/sso/favourite/news/add")
     fun ssoNewsFavourite(
@@ -221,13 +226,13 @@ interface NewsAPPInterface {
             @Query("title", encoded = true) title: String?,
             @Query("imageurl", encoded = true) imageurl: String?,
             @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<SourceSubscribe?>?
+    ): Call<NewsFavourite?>?
     //services will use params: userid, sourceid
     @POST("/sso/favourite/delete")
     fun ssoSourceUnsubscribe(
             @Query("userid", encoded = true) userid: String?,
             @Query("sourceid", encoded = true) sourceid: String?,
-    ): Call<NewsUnfavourite?>?
+    ): Call<SourceUnsubscribe?>?
     //Delete news favourite from user (use params: userid, url, title, imageurl, sourcename)
     @POST("/sso/favourite/news/delete")
     fun ssoNewsUnfavourite(
@@ -236,7 +241,7 @@ interface NewsAPPInterface {
             @Query("title", encoded = true) title: String?,
             @Query("imageurl", encoded = true) imageurl: String?,
             @Query("sourcename", encoded = true) sourcename: String?,
-    ): Call<SourceUnsubscribe?>?
+    ): Call<NewsUnfavourite?>?
     //Get all news favourite from user (use params: userid)
     @GET("/sso/favourite/news/show")
     fun ssoNewsFavouriteShow(
