@@ -196,4 +196,9 @@
     <string name="unfavourite">Huỷ yêu thích</string>
     <string name="unsubscribed">Đã huỷ đăng ký</string>
     <string name="subscribed">Huỷ đăng ký</string>
+    <string name="add_favourite">Thêm vào yêu thích</string>
+    <string name="remove_favourite">Xoá khỏi yêu thích</string>
+    <string name="copylink">Sao chép liên kết</string>
+    <string name="please_login_to_see_your_favourite_news">Vui lòng đăng nhập để xem tin tức yêu thích của bạn</string>
+    <string name="request_login">Vui lòng đăng nhập để xem \ntin tức yêu thích của bạn</string>
 </resources>

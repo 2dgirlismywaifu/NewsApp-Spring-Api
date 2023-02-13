@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -33,8 +32,10 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
+import com.notmiyouji.newsapp.java.UpdateInformation.FavouriteController;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 import java.util.Objects;
@@ -49,6 +50,8 @@ public class NewsDetailWebView extends AppCompatActivity {
     ProgressBar progressBar;
     LanguagePrefManager languagePrefManager;
     LoadThemeShared loadThemeShared;
+    FavouriteController favouriteController;
+    GetUserLogined getUserLogined;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class NewsDetailWebView extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
+        favouriteController = new FavouriteController(this);
+        getUserLogined = new GetUserLogined(this);
         //Progress Bar Setup
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setMax(100);
@@ -212,12 +217,18 @@ public class NewsDetailWebView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.topbar_webview, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+        switch (getUserLogined.getStatus()) {
+            case "login":
+                favouriteController.checkFavouriteEmail(getUserLogined.getUserID(), mUrl, mTitle, mImg, mSource,
+                        menu.findItem(R.id.setfavourite), menu.findItem(R.id.setunfavourite));
+                break;
+            case "google":
+                favouriteController.checkFavouriteSSO(getUserLogined.getUserID(), mUrl, mTitle, mImg, mSource,
+                        menu.findItem(R.id.setfavourite), menu.findItem(R.id.setunfavourite));
+                break;
+        }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.sharebtn) {
+        menu.findItem(R.id.sharebtn).setOnMenuItemClickListener(item -> {
             //share news
             try {
                 Intent sharenews = new Intent(Intent.ACTION_SEND);
@@ -230,19 +241,61 @@ public class NewsDetailWebView extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(NewsDetailWebView.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
             }
-        } else if (item.getItemId() == R.id.openbrowser) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl));
-            //go to browser
-            this.startActivity(browserIntent);
-        } else if (item.getItemId() == R.id.help) {
+            return true;
+        });
+        menu.findItem(R.id.openbrowser).setOnMenuItemClickListener(item -> {
+            //open in browser
+            try {
+                Intent openinbrowser = new Intent(Intent.ACTION_VIEW);
+                openinbrowser.setData(Uri.parse(mUrl));
+                startActivity(openinbrowser);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(NewsDetailWebView.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        });
+        menu.findItem(R.id.setfavourite).setOnMenuItemClickListener(item -> {
+            //set favouriteController
+            switch (getUserLogined.getStatus()) {
+                case "login":
+                    //set favouriteController
+                    favouriteController.addFavouriteEmail(getUserLogined.getUserID(), mUrl, mTitle, mImg, mPubdate, mSource);
+                    break;
+                case "google":
+                    favouriteController.addFavouriteSSO(getUserLogined.getUserID(), mUrl, mTitle, mImg, mPubdate, mSource);
+                    break;
+            }
+            menu.findItem(R.id.setfavourite).setVisible(false);
+            menu.findItem(R.id.setunfavourite).setVisible(true);
+            return true;
+        });
+        menu.findItem(R.id.setunfavourite).setOnMenuItemClickListener(item -> {
+            //set unfavourite
+            switch (getUserLogined.getStatus()) {
+                case "login":
+                    //set favouriteController
+                    favouriteController.removeFavouriteEmail(getUserLogined.getUserID(), mUrl, mTitle, mImg, mSource);
+                    break;
+                case "google":
+                    favouriteController.removeFavouriteSSO(getUserLogined.getUserID(), mUrl, mTitle, mImg, mSource);
+                    break;
+            }
+            menu.findItem(R.id.setfavourite).setVisible(true);
+            menu.findItem(R.id.setunfavourite).setVisible(false);
+            return true;
+        });
+        menu.findItem(R.id.help).setOnMenuItemClickListener(item -> {
+            //help
             //Error URL, blank page
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog);
             builder.setTitle(R.string.help);
             builder.setMessage(R.string.error_loading_messeage);
             builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
             builder.create().show();
-        }
-        return super.onOptionsItemSelected(item);
+            return true;
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void onBackPressed() {

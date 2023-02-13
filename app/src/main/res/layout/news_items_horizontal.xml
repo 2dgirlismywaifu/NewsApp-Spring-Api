@@ -32,15 +32,16 @@
                 app:shapeAppearanceOverlay="@style/rounded_corner"
                 tools:ignore="ContentDescription" />
 
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/shadow_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:layout_alignBottom="@id/imgNews"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/blurview"
                 app:shapeAppearanceOverlay="@style/rounded_corner"
                 tools:ignore="ContentDescription" />
-
 
             <FrameLayout
                 android:id="@+id/layoutDate"
@@ -49,7 +50,7 @@
                 android:layout_below="@id/imgNews"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="-42dp"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="50dp"
                 android:padding="5dp">
 
                 <ImageView
@@ -72,6 +73,29 @@
                     tools:ignore="HardcodedText" />
 
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/favouriteBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/imgNews"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-42dp"
+                android:layout_marginEnd="20dp"
+                app:srcCompat="@drawable/baseline_favorite_border_24"
+                android:contentDescription="@string/favourite_menu" />
+
+            <ImageView
+                android:id="@+id/unfavouriteBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/imgNews"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-42dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/baseline_favorite_24"
+                android:contentDescription="@string/unfavourite" />
 
             <TextView
                 android:id="@+id/txtTitle"
@@ -100,6 +124,10 @@
                 android:textColor="@color/md_theme_dark_background"
                 android:textSize="15sp"
                 tools:ignore="HardcodedText" />
+
+
+
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

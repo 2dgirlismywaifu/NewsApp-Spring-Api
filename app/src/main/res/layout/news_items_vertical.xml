@@ -48,7 +48,7 @@
                 android:layout_below="@id/imgNews"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="-36dp"
-                android:layout_marginEnd="14dp"
+                android:layout_marginEnd="50dp"
                 android:padding="5dp">
 
                 <ImageView
@@ -71,6 +71,29 @@
                     tools:ignore="HardcodedText" />
 
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/favouriteBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/imgNews"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-36dp"
+                android:layout_marginEnd="20dp"
+                app:srcCompat="@drawable/baseline_favorite_border_24"
+                android:contentDescription="@string/favourite_menu" />
+
+            <ImageView
+                android:id="@+id/unfavouriteBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/imgNews"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-36dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/baseline_favorite_24"
+                android:contentDescription="@string/unfavourite" />
 
             <TextView
                 android:id="@+id/txtTitle"

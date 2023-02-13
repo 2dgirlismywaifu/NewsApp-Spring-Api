@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
@@ -70,6 +71,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
     EditText searchSource;
+    CheckNetworkConnection checkNetworkConnection;
     LinearLayout sourceListPage, errorPage;
 
     @Override
@@ -91,8 +93,6 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             if (isConnected) {
                 sourceListPage.setVisibility(LinearLayout.VISIBLE);
                 errorPage.setVisibility(LinearLayout.GONE);
-                //Recycle View
-                loadSourceList(this);
             } else {
                 sourceListPage.setVisibility(LinearLayout.GONE);
                 errorPage.setVisibility(LinearLayout.VISIBLE);
@@ -121,6 +121,11 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         if (getUserLogined.getStatus().equals("")) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
+        }
+        checkNetworkConnection = new CheckNetworkConnection();
+        if (checkNetworkConnection.CheckConnection(this)) {
+            //Recycle View
+            loadSourceList(this);
         }
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadSourceList(SourceNewsList.this);

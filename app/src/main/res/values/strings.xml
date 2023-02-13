@@ -202,5 +202,10 @@
     <string name="unfavourite">Unfavourite</string>
     <string name="unsubscribed">Unsubscribed</string>
     <string name="subscribed">Subscribed</string>
+    <string name="add_favourite">Added Favourite</string>
+    <string name="remove_favourite">Removed Favourite</string>
+    <string name="copylink">Copy Link</string>
+    <string name="please_login_to_see_your_favourite_news">Please login to see your favourite news</string>
+    <string name="request_login">Please login to see \nyour favourite news</string>
 
 </resources>

@@ -36,26 +36,15 @@ public class NewsDetailsChrome {
         CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
         builder.setStartAnimations(activity, android.R.anim.fade_in, android.R.anim.fade_out);
         builder.setExitAnimations(activity, android.R.anim.fade_in, android.R.anim.fade_out);
-        intent = new Intent(activity, CustomTabsBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        builder.addMenuItem(activity.getString(R.string.favourite_menu), pendingIntent);
+        intent = new Intent(activity, NewsDetailsChrome.class);
+        intent.putExtra("url", url);
+        intent.putExtra("title", title);
+        intent.putExtra("img", img);
+        intent.putExtra("source", source);
+        intent.putExtra("pubdate", pubdate);
         builder.setUrlBarHidingEnabled(false);
         builder.setShowTitle(true);
         CustomTabsIntent customTabsIntent = builder.build();
         customTabsIntent.launchUrl(activity, Uri.parse(url));
     }
-
-    //This is just a demo for favourite menu item
-    public static class CustomTabsBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String url = intent.getDataString();
-
-            Toast.makeText(context, "Copy link pressed. URL = " + url, Toast.LENGTH_SHORT).show();
-
-            //Here you can copy the URL to the clipboard
-        }
-    }
-
 }

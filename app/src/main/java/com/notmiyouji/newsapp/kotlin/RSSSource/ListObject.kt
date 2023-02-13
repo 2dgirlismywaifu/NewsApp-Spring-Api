@@ -17,8 +17,8 @@ class ListObject() {
     @Expose
     var rssList: List<RSSList>? = null
 
-    @SerializedName("SourceFavourite")
+    @SerializedName("NewsFavourite")
     @Expose
-    var sourceSubscribeList: List<NewsFavouriteShow>? = null
+    var newsFavouriteList: List<NewsFavouriteShow>? = null
 
 }

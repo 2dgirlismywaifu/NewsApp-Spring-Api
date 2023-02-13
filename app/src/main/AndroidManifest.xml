@@ -20,6 +20,8 @@
         </intent>
     </queries>
 
+
+
     <application
         android:name=".kotlin.ApplyDynamicColor"
         android:allowBackup="true"

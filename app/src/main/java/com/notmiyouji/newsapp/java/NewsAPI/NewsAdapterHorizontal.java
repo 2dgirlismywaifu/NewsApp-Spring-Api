@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,21 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.UpdateInformation.FavouriteController;
 import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenNewsDetails;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAPIModels.Article;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.Utils;
 
 import java.util.List;
 
 public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHorizontal.MyViewHolder> {
 
-
+    GetUserLogined getUserLogined;
+    FavouriteController favouriteController;
     AppCompatActivity activity;
     List<Article> articles;
 
     public NewsAdapterHorizontal(List<Article> articles, AppCompatActivity activity) {
         this.activity = activity;
+        getUserLogined = new GetUserLogined(activity);
+        favouriteController = new FavouriteController(activity);
         this.articles = articles;
     }
 
@@ -47,6 +54,71 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         holders.title.setText(model.getTitle());
         holders.source.setText(model.getSource().getName());
         holders.time.setText(" \u2022 " + Utils.dateToTimeFormat(model.getPublishedAt()));
+        switch (getUserLogined.getStatus()) {
+            case "login":
+                favouriteController.checkFavouriteEmailRecycleView(getUserLogined.getUserID(),
+                        model.getUrl(),
+                        model.getTitle(),
+                        path, model.getSource().getName(), holders.favouritebtn, holders.unfavouritebtn);
+                break;
+            case "google":
+                favouriteController.checkFavouriteSSORecycleView(getUserLogined.getUserID(),
+                        model.getUrl(),
+                        model.getTitle(),
+                        path, model.getSource().getName(), holders.favouritebtn, holders.unfavouritebtn);
+                break;
+            default:
+                holders.favouritebtn.setVisibility(View.VISIBLE);
+                holders.unfavouritebtn.setVisibility(View.GONE);
+                break;
+        }
+        holders.favouritebtn.setOnClickListener(v -> {
+            switch (getUserLogined.getStatus()) {
+                case "login":
+                    favouriteController.addFavouriteEmail(getUserLogined.getUserID(),
+                            model.getUrl(),
+                            model.getTitle(),
+                            path, model.getPublishedAt(), model.getSource().getName());
+                    holders.favouritebtn.setVisibility(View.GONE);
+                    holders.unfavouritebtn.setVisibility(View.VISIBLE);
+                    break;
+                case "google":
+                    favouriteController.addFavouriteSSO(getUserLogined.getUserID(),
+                            model.getUrl(),
+                            model.getTitle(),
+                            path,model.getPublishedAt(), model.getSource().getName());
+                    holders.favouritebtn.setVisibility(View.GONE);
+                    holders.unfavouritebtn.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    Toast.makeText(activity, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        });
+        holders.unfavouritebtn.setOnClickListener(v -> {
+            switch (getUserLogined.getStatus()) {
+                case "login":
+                    favouriteController.removeFavouriteEmail(getUserLogined.getUserID(),
+                            model.getUrl(),
+                            model.getTitle(),
+                            path, model.getSource().getName());
+                    holders.favouritebtn.setVisibility(View.VISIBLE);
+                    holders.unfavouritebtn.setVisibility(View.GONE);
+                    break;
+                case "google":
+                    favouriteController.removeFavouriteSSO(getUserLogined.getUserID(),
+                            model.getUrl(),
+                            model.getTitle(),
+                            path, model.getSource().getName());
+                    holders.favouritebtn.setVisibility(View.VISIBLE);
+                    holders.unfavouritebtn.setVisibility(View.GONE);
+                    break;
+                default:
+                    Toast.makeText(activity, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
         holders.itemView.setOnClickListener(v -> {
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(model.getUrl(),
                     model.getTitle(),
@@ -68,15 +140,11 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         notifyDataSetChanged();
     }
 
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
-    }
-
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, source, time;
+        ImageView favouritebtn, unfavouritebtn;
         ShapeableImageView imageView;
-        private ItemClickListener itemClickListener;
 
         public MyViewHolder(View itemView) {
 
@@ -85,6 +153,8 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
             source = itemView.findViewById(R.id.txtSource);
             time = itemView.findViewById(R.id.txtPubDate);
             imageView = itemView.findViewById(R.id.imgNews);
+            favouritebtn = itemView.findViewById(R.id.favouriteBtn);
+            unfavouritebtn = itemView.findViewById(R.id.unfavouriteBtn);
         }
     }
 }

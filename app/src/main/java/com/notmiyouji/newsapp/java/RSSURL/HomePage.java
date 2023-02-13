@@ -35,6 +35,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.RssURLCategory;
+import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
@@ -59,7 +60,6 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.SharedPreferenceSettings;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
@@ -91,6 +91,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     GetUserLogined getUserLogined;
     CheckBox syncSubscribe;
     MaterialAutoCompleteTextView spinner_rss;
+    CheckNetworkConnection checkNetworkConnection;
     private String deafultSource = "VNExpress";
     public String getDeafultSource() {
         return deafultSource;
@@ -121,8 +122,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 homepageScreen.setVisibility(android.view.View.VISIBLE);
                 filterSource.setVisibility(android.view.View.VISIBLE);
                 errorInternet.setVisibility(android.view.View.GONE);
-                //this is global method on this class
-                LoadSourceNews(getDeafultSource());
             } else {
                 homepageScreen.setVisibility(android.view.View.GONE);
                 filterSource.setVisibility(android.view.View.GONE);
@@ -162,7 +161,11 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-
+        checkNetworkConnection = new CheckNetworkConnection();
+        if (checkNetworkConnection.CheckConnection(this)) {
+            //Load news from source
+            LoadSourceNews(getDeafultSource());
+        }
         //Select source to load (Settings will save to shared preference)
         openSourceChoose();
         //User progress bar

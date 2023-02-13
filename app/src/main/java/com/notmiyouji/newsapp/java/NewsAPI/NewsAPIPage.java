@@ -34,6 +34,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.NewsAPICategory;
+import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.Global.NavigationPane;
@@ -100,6 +101,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     LoadNavigationHeader loadNavigationHeader;
     GetUserLogined getUserLogined;
     LinearLayout newsapiPage, errorPage;
+    CheckNetworkConnection checkNetworkConnection;
     private String countryCodeDefault = "us";
 
     public String getCountryCodeDefault() {
@@ -132,9 +134,6 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
                 newsapiPage.setVisibility(android.view.View.VISIBLE);
                 filterCountry.setVisibility(android.view.View.VISIBLE);
                 errorPage.setVisibility(android.view.View.GONE);
-                //NewsCategory Type List
-                LoadCategoryType(getCountryCodeDefault());
-                LoadNewsAPI(getCountryCodeDefault());
             } else {
                 newsapiPage.setVisibility(android.view.View.GONE);
                 filterCountry.setVisibility(android.view.View.GONE);
@@ -170,6 +169,13 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
+        checkNetworkConnection = new CheckNetworkConnection();
+        if (checkNetworkConnection.CheckConnection(this)) {
+            //NewsCategory Type List
+            LoadCategoryType(getCountryCodeDefault());
+            LoadNewsAPI(getCountryCodeDefault());
+        }
+
         //open Country Filter
         openCountryFilter();
         //Hide float button when scroll recyclerview vertical
