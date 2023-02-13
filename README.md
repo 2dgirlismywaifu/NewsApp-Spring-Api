@@ -1,4 +1,5 @@
 <a name="readme-top"></a>
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -6,11 +7,11 @@
     <img src="images/logo.png" alt="Logo" width="100" height="100">
   </a>
 
-<h2 align="center">NewsApp Reader</h2>
-<h3 align="center">Powered by NewsAPI and Microsft Azure Services</h3>
-  <p align="center">
+<h2 align="center", style="font-size:40px">NewsApp Reader</h2>
+<p1 align="center", style="font-size:20px">Powered by NewsAPI and Microsft Azure Services</p1><br />
+  <p2 align="center", style="font-size:20px">
     A News Reader App from multiple sources
-  </p>
+  </p2>
 </div>
  <hr>
 
@@ -24,7 +25,7 @@
 
   <div align="center">
     <p align="center">
-    <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure", style="font-size:20px"><strong>Explore the docs »</strong></a>
     <br />
     <a href="#demo">View Demo</a>
     ·
