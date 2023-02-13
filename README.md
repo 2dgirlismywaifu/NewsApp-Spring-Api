@@ -1,14 +1,4 @@
 <a name="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![APACHE License][license-shield]][license-url]
-
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -20,20 +10,29 @@
 <h3 align="center">Powered by NewsAPI and Microsft Azure Services</h3>
   <p align="center">
     A News Reader App from multiple sources
-    <br />
+    <hr>
+  </p>
+</div>
+
+  ![Contributors][contributors-shield]
+  [![Forks][forks-shield]][forks-url]
+  [![Stargazers][stars-shield]][stars-url]
+  ![Reposize][size-shield]
+  ![Lastcommit][commit-shield]
+  [![Issues][issues-shield]][issues-url]
+  [![APACHE License][license-shield]][license-url]
+
+  <div align="center">
+    <p align="center">
     <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="#demo">View Demo</a>
     ·
     <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues">Report Bug</a>
     ·
     <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues">Request Feature</a>
-  </p>
-</div>
-
-
-
+    </p>
+  </div>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -171,14 +170,16 @@ Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](htt
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [contributors-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [forks-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/network/members
-[stars-shield]: https://img.shields.io/github/stars/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
+[size-shield]: https://img.shields.io/github/repo-size/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
+[commit-shield]: https://img.shields.io/github/last-commit/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [stars-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/stargazers
-[issues-shield]: https://img.shields.io/github/issues/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [issues-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues
-[license-shield]: https://img.shields.io/github/license/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [license-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/blob/master/LICENSE
 [product-screenshot]: images/screenshot.png
