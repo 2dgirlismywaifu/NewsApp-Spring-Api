@@ -20,6 +20,7 @@
   ![Reposize][size-shield]
   ![Lastcommit][commit-shield]
   [![Issues][issues-shield]][issues-url]
+  ![Linecount][linecount-shield]
   [![APACHE License][license-shield]][license-url]
 
 </div>
@@ -183,9 +184,8 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- CONTACT -->
 ## Contact
-
-Ngo Thanh Long - [@MyWaifuis2DGirl](https://twitter.com/MyWaifuis2DGirl) - longnt2911workspace@gmail.com
-
+[![twitter-shield]][twitter-url] <br >
+My Gmail Workspace: longntworkspace2911@gmail.com <br>
 Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -198,10 +198,13 @@ Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](htt
 [forks-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/network/members
 [stars-shield]: https://img.shields.io/github/stars/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [size-shield]: https://img.shields.io/github/repo-size/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
+[linecount-shield]: https://img.shields.io/tokei/lines/github/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [commit-shield]: https://img.shields.io/github/last-commit/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [stars-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/stargazers
 [issues-shield]: https://img.shields.io/github/issues/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [issues-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues
 [license-shield]: https://img.shields.io/github/license/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
-[license-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/blob/master/LICENSE
+[license-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/blob/main/LICENSE
+[twitter-shield]: https://img.shields.io/twitter/follow/MyWaifuis2DGirl?color=C9CBFF&label=%40MyWaifuis2DGirl&logo=TWITTER&logoColor=C9CBFF&style=for-the-badge
+[twitter-url]: https://twitter.com/MyWaifuis2DGirl
 [product-screenshot]: images/screenshot.png
