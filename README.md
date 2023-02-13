@@ -10,9 +10,9 @@
 <h3 align="center">Powered by NewsAPI and Microsft Azure Services</h3>
   <p align="center">
     A News Reader App from multiple sources
-    <hr>
   </p>
 </div>
+ <hr>
 
   ![Contributors][contributors-shield]
   [![Forks][forks-shield]][forks-url]
