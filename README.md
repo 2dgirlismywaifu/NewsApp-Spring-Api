@@ -12,10 +12,9 @@
   <p2 align="center", style="font-size:20px">
     A News Reader App from multiple sources
   </p2>
-</div>
- <hr>
+<hr>
 
-  ![Contributors][contributors-shield]
+ ![Contributors][contributors-shield]
   [![Forks][forks-shield]][forks-url]
   [![Stargazers][stars-shield]][stars-url]
   ![Reposize][size-shield]
@@ -23,6 +22,7 @@
   [![Issues][issues-shield]][issues-url]
   [![APACHE License][license-shield]][license-url]
 
+</div>
   <div align="center">
     <p align="center">
     <a href="https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure", style="font-size:20px"><strong>Explore the docs »</strong></a>
