@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class HelloScreen extends AppCompatActivity {
     SharedPreferences prefs;
     TextView welcomeText;
     Button goHomePage;
+    CheckBox showWelcomeScreen;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -66,13 +68,16 @@ public class HelloScreen extends AppCompatActivity {
             SharedPreferences.Editor wallpaperHeaderEditor = wallpaperHeader.edit();
             wallpaperHeaderEditor.putInt("path", R.drawable.anime_landscapes_background__11);
             wallpaperHeaderEditor.apply();
+            showWelcomeScreen = findViewById(R.id.checkShowed);
+            showWelcomeScreen.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                prefs = getSharedPreferences("welcomeScreen", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("showWelcomeScreen", isChecked);
+                editor.apply();
+            });
             //go home page
             goHomePage = findViewById(R.id.GoHomePage);
             goHomePage.setOnClickListener(v -> {
-                prefs = getSharedPreferences("welcomeScreen", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("showWelcomeScreen", true);
-                editor.apply();
                 Intent intent = new Intent(HelloScreen.this, HomePage.class);
                 ActivityOptions.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out);
                 startActivity(intent);
