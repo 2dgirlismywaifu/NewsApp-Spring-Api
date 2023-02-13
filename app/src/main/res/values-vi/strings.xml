@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright By @2dgirlismywaifu (2023) .
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
 <resources>
     <string name="app_name">Trình Đọc Tin Tức</string>
     <string name="lastest_news">Tin tức mới nhất</string>
@@ -201,4 +218,6 @@
     <string name="copylink">Sao chép liên kết</string>
     <string name="please_login_to_see_your_favourite_news">Vui lòng đăng nhập để xem tin tức yêu thích của bạn</string>
     <string name="request_login">Vui lòng đăng nhập để xem \ntin tức yêu thích của bạn</string>
+    <string name="request_new_recovery_code">Yêu cầu mã phục hồi mới</string>
+    <string name="are_you_sure_you_want_to_request_a_new_recovery_code">Bạn chắc chắn muốn yêu cầu mã phục hồi mới?</string>
 </resources>
