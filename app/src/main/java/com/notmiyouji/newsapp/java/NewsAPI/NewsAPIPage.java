@@ -270,7 +270,7 @@ public class NewsAPIPage extends AppCompatActivity implements NavigationView.OnN
     private void openCountryFilter() {
         filterCountry.setOnClickListener(v -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(NewsAPIPage.this);
-            bottomSheetDialog.setContentView(R.layout.choose_feed);
+            bottomSheetDialog.setContentView(R.layout.choose_feed_newsapi);
             bottomSheetDialog.show();
             MaterialAutoCompleteTextView spinner_rss;
             spinner_rss = bottomSheetDialog.findViewById(R.id.spinner_rss);
