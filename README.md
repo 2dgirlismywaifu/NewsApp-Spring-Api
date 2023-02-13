@@ -198,7 +198,7 @@ Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](htt
 [forks-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/network/members
 [stars-shield]: https://img.shields.io/github/stars/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [size-shield]: https://img.shields.io/github/repo-size/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
-[linecount-shield]: https://img.shields.io/tokei/lines/github/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
+[linecount-shield]: https://img.shields.io/tokei/lines/github/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure?color=C9CBFF&labelColor=302D41&style=for-the-badge
 [commit-shield]: https://img.shields.io/github/last-commit/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
 [stars-url]: https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/stargazers
 [issues-shield]: https://img.shields.io/github/issues/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.svg?style=for-the-badge&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41
