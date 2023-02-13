@@ -129,6 +129,7 @@ public class SignUpForm extends AppCompatActivity {
                         dialog.dismiss();
                         signupbtn.setEnabled(true);
                     });
+                    builder.show();
                 }
             }
         });

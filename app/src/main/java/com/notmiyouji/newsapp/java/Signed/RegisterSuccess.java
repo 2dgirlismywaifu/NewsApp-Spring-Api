@@ -66,47 +66,10 @@ public class RegisterSuccess extends AppCompatActivity {
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
-        //Sign In now
-        signinbtn = findViewById(R.id.SignInNow);
-        signinbtn.setOnClickListener(v -> {
-            SignInMethod(email, password);
-        });
         //Show recovery code
         ShowRecoveryCode(email);
     }
 
-    //Sign In now
-    private void SignInMethod(String account, String password) {
-        //Retrofit call signin request
-        Call<SignIn> call = newsAPPInterface.signIn(account, password);
-        call.enqueue(new retrofit2.Callback<SignIn>() {
-            @Override
-            public void onResponse(Call<SignIn> call, retrofit2.Response<SignIn> response) {
-                if (response.isSuccessful()) {
-                    SignIn signIn = response.body();
-                    if (signIn.getStatus().equals("pass")) {
-                        //Check Account Verify or not, if not go to verify page to continue
-                        if (signIn.getVerify().equals("true")) {
-                            //Save user data to Shared Preferences
-                            SaveUserLogined saveUserLogined = new SaveUserLogined(RegisterSuccess.this);
-                            saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getName(), signIn.getEmail(), password, signIn.getNickname(), signIn.getAvatar(),"login");
-                            //If account verify, go to main page
-                            Toast.makeText(RegisterSuccess.this, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
-                            RegisterSuccess.this.finish();
-                            //restart application
-                            Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SignIn> call, Throwable t) {
-            }
-        });
-    }
 
     private void ShowRecoveryCode(String email) {
         Call<Recovery> call = newsAPPInterface.recoveryCode(email);
