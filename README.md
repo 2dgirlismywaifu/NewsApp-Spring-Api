@@ -88,7 +88,7 @@ Follow all instruction to run project in your local devices.
 
 Before use this project, you need have:
 * Android Studio
-* Android Native Development Kit
+* Android Native Development Kit (version in build.gradle)
 * Sign up Free Account Microsoft Azure Portal if you do not have any account
 * Create free Azure SQL Database S0: [Free Azure SQL Database](https://learn.microsoft.com/en-us/azure/azure-sql/database/free-sql-db-free-account-how-to-deploy?view=azuresql)
 * Create App Services B1 Plan (Recomended: 13$/month): [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
