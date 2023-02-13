@@ -25,13 +25,12 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.NewsAPI.NewsAPIPage;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
-import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListSourceAdapter;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsFavouriteAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.kotlin.FavouriteModel.NewsFavouriteShow;
-import com.notmiyouji.newsapp.kotlin.LoginedModel.SignIn;
 import com.notmiyouji.newsapp.kotlin.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.OpenActivity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.OpenActivity.OpenSettingsPage;
@@ -46,7 +45,6 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
@@ -142,7 +140,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         }
         //Sign in button
         signInButton.setOnClickListener(v -> {
-            intent = new Intent(this, SignIn.class);
+            intent = new Intent(this, SignInForm.class);
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             startActivity(intent);
         });
