@@ -100,7 +100,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
    ```sh
    git clone https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.git
    ```
-2. Follow instruction form my App Services: [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
+2. Follow instruction from my App Services: [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
 3. Get a free NewsAPI Key at [https://newsapi.org/](https://newsapi.org/)
 4. Get a free RSS2JSON API Key at [https://rss2json.com/](https://rss2json.com/)
 5. Get a secret access token to Azure Blob Storage follow this link [Create SAS Token Azure Blob Containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers)
