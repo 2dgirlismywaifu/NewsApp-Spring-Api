@@ -107,8 +107,13 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 5. Get a secret access token to Azure Blob Storage follow this link [Create SAS Token Azure Blob Containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers)
 6. Open this project in Android Studio
 7. Now connect this project to Firebase Authentication\
-  The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details
-  
+  The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details\
+  System Demo Information:
+    - 💻 Device: MSI GF63 Thin10SC
+    - 🐧 Operating System: Archcraft (Based on Arch Linux)
+    - 💪 CPU: Intel Core i5-10500H
+    - 🖼️ GPU: Intel UHD Graphics / NVIDIA GTX 1650 With Max-Q Design
+    - 🗃️ RAM: 16GB
 
   https://user-images.githubusercontent.com/59259855/219111700-1917bc4a-f300-4074-bb46-ce74434ecfed.mp4
 
@@ -186,8 +191,13 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 
 # **Demo**
 
-This is a video demo project
-
+This is a video demo project\
+System Demo Information:
+  - 📱 Device: Xiaomi Redmi Note 7 Global
+  - 🐧 Operating System: Android 13 Tiramisu (Project Elixir)
+  - 💪 CPU: Qualcomm Snapdragon 660
+  - 🖼️ GPU: Adreno 512
+  - 🗃️ RAM: 4GB
 https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-bbd5-a07b749f4f35.mp4
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
