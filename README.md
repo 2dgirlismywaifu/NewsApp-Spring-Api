@@ -108,7 +108,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 6. Open this project in Android Studio
 7. Now connect this project to Firebase Authentication\
   The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details
-8. Add SHA-1 and SHA-256 in Firebase Project\
+8. Add SHA-1 and SHA-256 in Firebase Project
  - In root project folder, open Terminal and run this command
 
     ```sh
@@ -131,7 +131,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
     - In Sign-in method part, add two providers: Email/Password and Google
     - In Settings part, choose `User account linking` , select `Create multiple accounts for each identity provider`. Then select `Save` to complete configuration Firebase Authentication
 10. Encode all your API key to Base64 (Azure Blob SAS need encode 2 times)
-11. Create 'keys.c' file in this path bellow
+11. Create `keys.c` file in this path bellow
 
     ```
     app\src\main\jni\keys.c
