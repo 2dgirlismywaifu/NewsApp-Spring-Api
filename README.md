@@ -108,6 +108,11 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 6. Open this project in Android Studio
 7. Now connect this project to Firebase Authentication\
   The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details
+  
+
+  https://user-images.githubusercontent.com/59259855/219111700-1917bc4a-f300-4074-bb46-ce74434ecfed.mp4
+
+\
 8. Add SHA-1 and SHA-256 in Firebase Project
  - In root project folder, open Terminal and run this command
 
