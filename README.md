@@ -113,7 +113,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
     - 🐧 Operating System: Archcraft (Based on Arch Linux)
     - 💪 CPU: Intel Core i5-10500H
     - 🖼️ GPU: Intel UHD Graphics / NVIDIA GTX 1650 With Max-Q Design
-    - 🗃️ RAM: 16GB
+    - 🗃️ RAM: 16GB\
 
   https://user-images.githubusercontent.com/59259855/219111700-1917bc4a-f300-4074-bb46-ce74434ecfed.mp4
 
@@ -198,6 +198,7 @@ System Demo Information:
   - 💪 CPU: Qualcomm Snapdragon 660
   - 🖼️ GPU: Adreno 512
   - 🗃️ RAM: 4GB
+ 
 https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-bbd5-a07b749f4f35.mp4
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
