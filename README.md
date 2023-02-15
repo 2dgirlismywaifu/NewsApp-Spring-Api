@@ -37,8 +37,8 @@
   </div>
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
-  <ol>
+  <summary style="font-size:20px" ><b>Table of Contents</b></summary>
+  <ol >
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
@@ -60,11 +60,11 @@
 
   </ol>
 </details>
-
+<br />
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# **About The Project**
 
 News application or newspaper reading application is a popular application with the role of providing quick news to users. In this project, the application uses: NewsAPI with 53 countries supported, RSS2JSON converts RSS to JSON and Microsoft Azure services: SQL Server, App Services and Blob Storages.
 
@@ -72,20 +72,21 @@ News application or newspaper reading application is a popular application with 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Include with project
+## **Include with project**
 * SQL file without include user information
 * Figma design file
 * Image use in Azure Blob Storage
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## Getting Started
+# **Getting Started**
 
-This project only use for research and purpose. It is NOT available for retail. \
-Follow all instruction to run project in your local devices.
+- This project only use for research and purpose. It is NOT available for retail.
+- Follow all instruction to run project in your local devices.
+- At this time, the application is only developed on the Android platform. Once I have a Mac device, I will develop this project run on Apple mobile device
 
 
-### Prerequisites
+## **Prerequisites**
 
 Before use this project, you need have:
 * Android Studio
@@ -95,7 +96,7 @@ Before use this project, you need have:
 * Create App Services B1 Plan (Recomended: 13$/month): [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
 * Java Development Kit 17\
 Notes: You can use Azure App Services with F1 Plan (Free Forever), but performance is very slow.
-### Installation
+## **Installation**
 1. Clone the repo
    ```sh
    git clone https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure.git
@@ -105,16 +106,80 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 4. Get a free RSS2JSON API Key at [https://rss2json.com/](https://rss2json.com/)
 5. Get a secret access token to Azure Blob Storage follow this link [Create SAS Token Azure Blob Containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers)
 6. Open this project in Android Studio
-7. Encode all your API key to Base64 (Azure Blob SAS need encode 2 times)
-8. Page your encode API key at
+7. Now connect this project to Firebase Authentication\
+  The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details
+8. Add SHA-1 and SHA-256 in Firebase Project\
+ - In root project folder, open Terminal and run this command
+
+    ```sh
+    ./gradlew signingReport
+    ```
+  - Wait for this command run and you will get SHA-1 and SHA-256 code return like bellow
+
+    ```
+    Variant: debug
+    Config: debug
+    Store: C:\Users\pc\.android\debug.keystore
+    Alias: AndroidDebugKey
+    MD5: <code return>
+    SHA1: <code return>
+    SHA-256: <code return>
+    Valid until: Sunday, December 1, 2052
+    ```
+  - Open your project firebase connect with this project, scroll down to your app part. In SHA certificate fingerprints, add SHA-1 and SHA-256 code project have taken above.\
+9. Now open Firebase Authentication in your Firebase Project\
+    - In Sign-in method part, add two providers: Email/Password and Google
+    - In Settings part, choose `User account linking` , select `Create multiple accounts for each identity provider`. Then select `Save` to complete configuration Firebase Authentication
+10. Encode all your API key to Base64 (Azure Blob SAS need encode 2 times)
+11. Create 'keys.c' file in this path bellow
+
     ```
     app\src\main\jni\keys.c
     ```
+  - Page this content to 'keys.c' like bellow
 
+    ```objectivec
+    #include <jni.h>
+
+    JNIEXPORT jstring JNICALL
+    Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPIKey_getNewsAPIKey(JNIEnv *env, jobject thiz) {
+        // TODO: implement getNewsAPIKey()
+        //your NewsAPI key
+        return (*env)->NewStringUTF(env, "<input your encode key here>");
+    }
+
+    JNIEXPORT jstring JNICALL
+    Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPPAPI_getNewsAPPKey(JNIEnv *env, jobject thiz) {
+        // TODO: implement geNewsAPPHeader()
+        //your API key Spring Boot Services
+        return (*env)->NewStringUTF(env, "<input your encode key here>");
+    }
+
+    JNIEXPORT jstring JNICALL
+    Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPPAPI_geNewsAPPHeader(JNIEnv *env, jclass clazz) {
+        // TODO: implement geNewsAPPHeader()
+        //your API Header Spring Boot Services
+        return (*env)->NewStringUTF(env, "<input your encode key here>");
+    }
+
+    JNIEXPORT jstring JNICALL
+    Java_com_notmiyouji_newsapp_java_RSS2JSON_FeedMultiRSS_getRSS2JSONAPIKey(JNIEnv *env, jobject thiz) {
+        //Your RSS2JSON Key
+        return (*env)->NewStringUTF(env, "<input your encode key here>");
+    }
+
+    JNIEXPORT jstring JNICALL
+    Java_com_notmiyouji_newsapp_java_RecycleViewAdapter_ListRSSAdapter_getSecretKey(JNIEnv *env,jobject thiz) {
+        //Your secret key to access image save from Azure Blob Storage
+        //You need encode this key two times
+        return (*env)->NewStringUTF(env, "<input your encode key here>");
+    }
+    ```
+12. Now project is ready to build and install in your physical device and Google Android emulator 💕💕💕💕💕💕💕 .
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Demo
+# **Demo**
 
 This is a video demo project
 
@@ -122,12 +187,12 @@ https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Known Issues
+# **Known Issues**
 
 1. RecycleView Search only work with RecycleView Horizontal (expect: NewsSourceList, Favourite News).
 2. Set favourite an un favourite in recycleview adapter not update view. Need Swipe To Refresh action from user to update view.\
 3. ~~Duplicate result login~~
-4. Tell me :)\
+4. Tell me 💕\
 See the [open issues](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -135,7 +200,7 @@ See the [open issues](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azu
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+# **Contributing**
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -162,7 +227,8 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- LICENSE -->
-## License
+# **License**
+- **Do NOT delete my header copyright if you fork or clone this project for personal use**
 ```
             Copyright By @2dgirlismywaifu (2023)
 
@@ -183,7 +249,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- CONTACT -->
-## Contact
+# **Contact**
 [![twitter-shield]][twitter-url] <br >
 My Gmail Workspace: longntworkspace2911@gmail.com <br>
 Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure)
