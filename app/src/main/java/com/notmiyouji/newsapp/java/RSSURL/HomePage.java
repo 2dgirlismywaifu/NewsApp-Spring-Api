@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.RSSURL;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.Category.RssURLCategory;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.java.Global.FavouriteNews;
 import com.notmiyouji.newsapp.java.Global.MaterialAltertLoading;
@@ -109,6 +111,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     CheckBox syncSubscribe;
     MaterialAutoCompleteTextView spinner_rss;
     CheckNetworkConnection checkNetworkConnection;
+
     private String deafultSource = "VNExpress";
     public String getDeafultSource() {
         return deafultSource;
@@ -116,12 +119,15 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     public void setDeafultSource(String deafultSource) {
         this.deafultSource = deafultSource;
     }
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
@@ -464,8 +470,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         }
         navigationPane = new NavigationPane(drawerLayout, this, toolbar, navigationView, R.id.home_menu);
         navigationPane.CallFromUser();
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
     }

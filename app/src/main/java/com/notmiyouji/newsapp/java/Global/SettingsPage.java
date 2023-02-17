@@ -18,6 +18,7 @@
 package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
@@ -48,12 +50,13 @@ public class SettingsPage extends AppCompatActivity {
     SharedPreferences prefs;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //check shared preferences for language
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
@@ -145,8 +148,6 @@ public class SettingsPage extends AppCompatActivity {
         if (loadBackground() != drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations()) {
             drawerLayout.setBackground(ResourcesCompat.getDrawable(getResources(), loadBackground(), null));
         }
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
     }

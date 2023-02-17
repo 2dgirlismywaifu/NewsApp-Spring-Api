@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.RecycleViewAdapter.ThemeAdpater;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
@@ -36,12 +38,14 @@ public class ChangeTheme extends AppCompatActivity {
     RecyclerView recyclerView;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);

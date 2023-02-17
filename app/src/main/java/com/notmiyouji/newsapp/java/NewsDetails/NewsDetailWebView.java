@@ -48,11 +48,12 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.java.UpdateInformation.FavouriteController;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadThemeShared;
 
 import java.util.Objects;
@@ -65,16 +66,17 @@ public class NewsDetailWebView extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     TextView titlepreview, sourcepreview, pubdatepreview;
     ProgressBar progressBar;
-    LanguagePrefManager languagePrefManager;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
     FavouriteController favouriteController;
     GetUserLogined getUserLogined;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(this);
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
@@ -120,8 +122,6 @@ public class NewsDetailWebView extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        languagePrefManager.setLocal(languagePrefManager.getLang());
-        languagePrefManager.loadLocal();
     }
 
     @SuppressLint("SetJavaScriptEnabled")

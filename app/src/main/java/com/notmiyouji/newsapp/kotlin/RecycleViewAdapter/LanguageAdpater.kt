@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.RSSURL.HomePage
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LanguagePrefManager
 
 class LanguageAdpater(var activity: AppCompatActivity) :
     RecyclerView.Adapter<LanguageAdpater.ViewHolder>() {

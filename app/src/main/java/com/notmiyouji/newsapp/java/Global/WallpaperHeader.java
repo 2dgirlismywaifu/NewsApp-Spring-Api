@@ -18,6 +18,7 @@
 package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.RecycleViewAdapter.WallpaperHeaderAdpater;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
@@ -34,11 +36,13 @@ public class WallpaperHeader extends AppCompatActivity {
     WallpaperHeaderAdpater wallpaperHeaderAdpater;
     RecyclerView recyclerView;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallpaper_header);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
@@ -73,7 +77,5 @@ public class WallpaperHeader extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
     }
 }

@@ -17,21 +17,22 @@
 
 package com.notmiyouji.newsapp.kotlin.SharedSettings
 
-import androidx.appcompat.app.AppCompatActivity
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager
+import android.content.Context
 import java.util.Locale
 
-class LoadFollowLanguageSystem(private val activity: AppCompatActivity) {
-    var languagePrefManager: LanguagePrefManager? = null
+class LoadFollowLanguageSystem(activity: Context) {
+    var languagePrefManager: LanguagePrefManager = LanguagePrefManager(activity)
     fun loadLanguage() {
-        languagePrefManager = LanguagePrefManager(activity)
-        if( languagePrefManager!!.lang == "") {
+        if( languagePrefManager.lang == "") {
             val default_local = Locale.getDefault().language.toString()
-            languagePrefManager!!.setLocal(default_local)
+            languagePrefManager.setLocal(default_local)
         }
         else {
-            languagePrefManager!!.setLocal(languagePrefManager!!.lang)
+            languagePrefManager.setLocal(languagePrefManager.lang)
         }
-        languagePrefManager!!.loadLocal()
+        languagePrefManager.loadLocal()
+    }
+    fun getLanguage(): String? {
+        return languagePrefManager.lang
     }
 }

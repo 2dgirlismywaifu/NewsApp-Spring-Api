@@ -14,46 +14,32 @@
  * limitations under the License.
  *
  */
+package com.notmiyouji.newsapp.kotlin.SharedSettings
 
-package com.notmiyouji.newsapp.java.SharedSettings;
+import android.content.Context
+import android.content.SharedPreferences
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-
-import java.util.Locale;
-
-public class LanguagePrefManager {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    Context _context;
+class LanguagePrefManager(var context: Context) {
+    var pref: SharedPreferences
+    var editor: SharedPreferences.Editor
 
     // Shared preferences file name
-    public LanguagePrefManager(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences("LangCode", MODE_PRIVATE);
-        editor = pref.edit();
+    init {
+        pref = context.getSharedPreferences("LangCode", Context.MODE_PRIVATE)
+        editor = pref.edit()
     }
 
-    public void setLocal(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration configuration = new Configuration();
-        configuration.setLocale(locale);
-        _context.getResources().updateConfiguration(configuration, _context.getResources().getDisplayMetrics());
+    fun setLocal(lang: String?) {
         //Save config by shared preferences
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("lang", lang);
-        editor.apply();
+        val editor = pref.edit()
+        editor.putString("lang", lang)
+        editor.apply()
     }
 
-    public String getLang() {
-        return pref.getString("lang", "");
-    }
+    val lang: String?
+        get() = pref.getString("lang", "")
 
-    public void loadLocal() {
-        setLocal(getLang());
+    fun loadLocal() {
+        setLocal(lang)
     }
 }

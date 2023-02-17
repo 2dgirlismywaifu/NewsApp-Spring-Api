@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -44,6 +45,7 @@ import com.notmiyouji.newsapp.java.RSSURL.HomePage;
 import com.notmiyouji.newsapp.java.RSSURL.SourceNewsList;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.NewsFavouriteAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.java.Signed.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
@@ -89,11 +91,13 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     LinearLayout errorPage, favouritePage, requestLogin;
     Button signInButton;
     CheckNetworkConnection checkNetworkConnection;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
@@ -305,8 +309,6 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         }
         navigationPane = new NavigationPane(drawerFavourtie, this, toolbar, navigationView, R.id.favourite_menu);
         navigationPane.CallFromUser();
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
     }

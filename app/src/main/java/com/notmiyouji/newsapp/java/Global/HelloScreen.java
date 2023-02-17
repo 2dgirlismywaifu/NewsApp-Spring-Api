@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.Global;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RSSURL.HomePage;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.WelcomeScreenShared;
@@ -40,12 +42,14 @@ public class HelloScreen extends AppCompatActivity {
     TextView welcomeText;
     Button goHomePage;
     CheckBox showWelcomeScreen;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello_screen);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);

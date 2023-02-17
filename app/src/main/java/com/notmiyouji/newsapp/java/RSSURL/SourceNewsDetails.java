@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.RecycleViewAdapter.ListRSSAdapter;
 import com.notmiyouji.newsapp.java.Retrofit.NewsAPPAPI;
-import com.notmiyouji.newsapp.java.SharedSettings.LanguagePrefManager;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.FavouriteModel.SourceSubscribe;
 import com.notmiyouji.newsapp.kotlin.FavouriteModel.SourceSubscribeCheck;

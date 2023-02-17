@@ -18,6 +18,7 @@
 package com.notmiyouji.newsapp.java.Global;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.kotlin.SharedSettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadFollowLanguageSystem;
@@ -40,19 +42,13 @@ public class AboutApplication extends AppCompatActivity {
     Intent intent;
     LoadFollowLanguageSystem loadFollowLanguageSystem;
     LoadThemeShared loadThemeShared;
-
+    protected void attachBaseContext(Context newBase) {
+        //get language from shared preference
+        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        super.attachBaseContext(AppContextWrapper.wrap(newBase,loadFollowLanguageSystem.getLanguage()));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        languagePrefManager = new LanguagePrefManager(getBaseContext());
-//        if (languagePrefManager.getLang().equals("follow_system")) {
-//            String default_local = Resources.getSystem().getConfiguration().getLocales().get(0).getLanguage();
-//            languagePrefManager.setLocal(default_local);
-//        } else {
-//            languagePrefManager.setLocal(languagePrefManager.getLang());
-//        }
-//        languagePrefManager.loadLocal();
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
@@ -93,8 +89,6 @@ public class AboutApplication extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
-        loadFollowLanguageSystem.loadLanguage();
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
     }
