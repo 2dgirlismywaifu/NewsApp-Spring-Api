@@ -40,7 +40,7 @@ class ThemeAdpater(var activity: AppCompatActivity) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = themeList(activity)
         holder.radioButton.text = data.keys.toTypedArray()[position]
-        holder.radioButton.setOnClickListener { v: View? ->
+        holder.radioButton.setOnClickListener {
             val defTheme = data[data.keys.toTypedArray()[position]]!!
             val saveThemeSettings = SaveThemeSettings(activity)
             saveThemeSettings.saveTheme(defTheme)

@@ -46,7 +46,7 @@ class WallpaperHeaderAdpater(var activity: AppCompatActivity) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val path = data[position]
         holder.wallpaperHeader.setImageResource(path)
-        holder.changeBtn.setOnClickListener { v: View? ->
+        holder.changeBtn.setOnClickListener {
             //Send Image Resource to SharedPreference
             sharedPreferenceSettings.getSharedWallpaperHeader(path)
             Toast.makeText(activity, R.string.change_wall_messeage, Toast.LENGTH_SHORT).show()
