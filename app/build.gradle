@@ -53,13 +53,13 @@ android {
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-    implementation 'com.google.android.gms:play-services-base:18.1.0'
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
@@ -85,7 +85,7 @@ dependencies {
     //Gooogle Sign In Button
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     //This is Android Chrome Custom Tab will replace for Android WebView
-    implementation 'androidx.browser:browser:1.5.0-rc01'
+    implementation 'androidx.browser:browser:1.5.0'
     //Jsoup
     implementation 'org.jsoup:jsoup:1.15.3'
 
