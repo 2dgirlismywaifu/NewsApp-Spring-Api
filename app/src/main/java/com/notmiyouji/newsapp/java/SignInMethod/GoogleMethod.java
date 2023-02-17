@@ -18,6 +18,7 @@
 package com.notmiyouji.newsapp.java.SignInMethod;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -72,32 +73,42 @@ public class GoogleMethod {
         return googleSignInClient;
     }
 
-    public void firebaseAuthWithGoogle(String idToken, String email) {
+    public void firebaseAuthWithGoogle(String idToken, String email,
+                                       String displayName, Uri avatarURL) {
         mAuth = FirebaseAuth.getInstance();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
-                    if (task.isSuccessful()) {
-                        user = mAuth.getCurrentUser();
-                        assert user != null;
-                        String fullname = user.getDisplayName();
-                        String uid = user.getUid();
-                        //String username = "Google SSO";
-                        //Google Avatar Image default so terrible, this line will fix it
-                        String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
-                        //User is not registered, save to database
-                        //Always save to database with Google SSO Sign In
-                        CheckSSOAccount(fullname, email, uid, fullname, avatar);
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
-                        signInButton.setEnabled(true);
-                        signUpButton.setEnabled(true);
-                    }
+            if (task.isSuccessful()) {
+                //Issue: Firebase not update information Google SSO if user changed information
+                mAuth.getCurrentUser().updateProfile(new com.google.firebase.auth.UserProfileChangeRequest.Builder().
+                                setDisplayName(displayName).
+                        setPhotoUri(avatarURL)
+                                .build())
+                        .addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                user = mAuth.getCurrentUser();
+                                assert user != null;
+                                String fullname = user.getDisplayName();
+                                String uid = user.getUid();
+                                //String username = "Google SSO";
+                                //Google Avatar Image default so terrible, this line will fix it
+                                String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
+                                //User is not registered, save to database
+                                //Always save to database with Google SSO Sign In
+                                CheckSSOAccount(fullname, email, uid, fullname, avatar);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
+                                signInButton.setEnabled(true);
+                                signUpButton.setEnabled(true);
+                            }
+                        });
+                 }
         });
     }
 
     private void CheckSSOAccount(String displayName, String email, String uid, String username, String avatar) {
-        Call<CountSSO> callCountSSO = newsAPPInterface.ssoCount(email, username);
+        Call<CountSSO> callCountSSO = newsAPPInterface.ssoCount(email);
         callCountSSO.enqueue(new retrofit2.Callback<CountSSO>() {
             @Override
             public void onResponse(Call<CountSSO> call, Response<CountSSO> response) {
@@ -107,7 +118,7 @@ public class GoogleMethod {
                         //We need always update information when user use SSO
                         UpdateSSO(countSSO.getUserId(), displayName, avatar);
                         //User is already registered, save to shared settings
-                        saveUserLogined.saveUserLogined(countSSO.getUserId(), countSSO.getName(), countSSO.getEmail(), uid, countSSO.getNickname(), avatar,"google");
+                        saveUserLogined.saveUserLogined(countSSO.getUserId(), displayName, countSSO.getEmail(), uid, displayName, avatar,"google");
                         //save birthday
                         saveUserLogined.saveBirthday(countSSO.getBirthday());
                         //save Gender
@@ -144,7 +155,7 @@ public class GoogleMethod {
             public void onResponse(Call<SSO> call, Response<SSO> response) {
                 //Save successfully,
                 //Now sign in
-                AfterSaveData(email, uid,  username, avatar);
+                AfterSaveData(email, uid, avatar);
 
             }
             @Override
@@ -153,8 +164,8 @@ public class GoogleMethod {
         });
     }
 
-    private void AfterSaveData (String email, String uid, String username, String avatar) {
-        Call<CountSSO> signInSSO = newsAPPInterface.ssoCount(email, username);
+    private void AfterSaveData (String email, String uid, String avatar) {
+        Call<CountSSO> signInSSO = newsAPPInterface.ssoCount(email);
         signInSSO.enqueue(new retrofit2.Callback<CountSSO>() {
             @Override
             public void onResponse(Call<CountSSO> call, Response<CountSSO> response) {

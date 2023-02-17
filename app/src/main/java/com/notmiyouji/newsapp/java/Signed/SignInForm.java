@@ -117,7 +117,8 @@ public class SignInForm extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                googleMethod.firebaseAuthWithGoogle(account.getIdToken(), account.getEmail());
+                googleMethod.firebaseAuthWithGoogle(account.getIdToken(), account.getEmail(),
+                        account.getDisplayName(), account.getPhotoUrl());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Toast.makeText(this, "Google Sign In failed", Toast.LENGTH_SHORT).show();

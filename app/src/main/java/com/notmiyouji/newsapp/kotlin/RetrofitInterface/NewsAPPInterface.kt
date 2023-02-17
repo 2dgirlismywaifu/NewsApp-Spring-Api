@@ -98,8 +98,7 @@ interface NewsAPPInterface {
     //Check SSO account in database is exist or not
     @GET("/sso/count")
     fun ssoCount(
-        @Query("email", encoded = true) email: String?,
-        @Query("nickname") nickname: String?
+        @Query("email", encoded = true) email: String?
     ): Call<CountSSO?>?
     //Update SSO account
     @POST("/sso/update")
