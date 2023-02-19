@@ -369,6 +369,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                         for (NewsSource newsSource : newsSourceList) {
                             listSource.add(newsSource.getSource_name());
                         }
+                        //toast messeage if listSource is empty
+                        if (listSource.isEmpty()) {
+                            Toast.makeText(HomePage.this, R.string.no_source, Toast.LENGTH_SHORT).show();
+                        }
                         assert spinner_rss != null;
                         spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
                     }
@@ -399,6 +403,10 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                         ArrayList<String> listSource = new ArrayList<>();
                         for (NewsSource newsSource : newsSourceList) {
                             listSource.add(newsSource.getSource_name());
+                        }
+                        //toast messeage if listSource is empty
+                        if (listSource.isEmpty()) {
+                            Toast.makeText(HomePage.this, R.string.no_source, Toast.LENGTH_SHORT).show();
                         }
                         assert spinner_rss != null;
                         spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));

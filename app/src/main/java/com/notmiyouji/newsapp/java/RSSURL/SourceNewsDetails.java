@@ -141,7 +141,7 @@ public class SourceNewsDetails extends AppCompatActivity {
                     subscribeSSO(sourceID, getUserLogined.getUserID());
                     break;
                 default:
-                    Toast.makeText(this, "Please login to subscribe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
                     break;
             }
         });
@@ -250,7 +250,7 @@ public class SourceNewsDetails extends AppCompatActivity {
                     if (response.body().getStatus().equals("success")) {
                         subscribebtn.setVisibility(View.GONE);
                         unsubscribebtn.setVisibility(View.VISIBLE);
-                        Toast.makeText(SourceNewsDetails.this, "Subscribed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SourceNewsDetails.this, R.string.subscribed, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(SourceNewsDetails.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
@@ -275,7 +275,7 @@ public class SourceNewsDetails extends AppCompatActivity {
                     if (response.body().getStatus().equals("success")) {
                         subscribebtn.setVisibility(View.VISIBLE);
                         unsubscribebtn.setVisibility(View.GONE);
-                        Toast.makeText(SourceNewsDetails.this, "Unsubscribed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SourceNewsDetails.this, R.string.unsubscribed, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(SourceNewsDetails.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();

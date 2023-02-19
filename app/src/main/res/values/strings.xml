@@ -226,5 +226,6 @@
     <string name="request_login">Please login to see \nyour favourite news</string>
     <string name="request_new_recovery_code">Request new recovery code</string>
     <string name="are_you_sure_you_want_to_request_a_new_recovery_code">Are you sure you want to request a new recovery code?</string>
+    <string name="no_source">You need subscrible at least one source</string>
 
 </resources>

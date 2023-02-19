@@ -212,7 +212,7 @@
     <string name="unsubscribe">Huỷ</string>
     <string name="unfavourite">Huỷ yêu thích</string>
     <string name="unsubscribed">Đã huỷ đăng ký</string>
-    <string name="subscribed">Huỷ đăng ký</string>
+    <string name="subscribed">Đã đăng ký</string>
     <string name="add_favourite">Thêm vào yêu thích</string>
     <string name="remove_favourite">Xoá khỏi yêu thích</string>
     <string name="copylink">Sao chép liên kết</string>
@@ -220,4 +220,5 @@
     <string name="request_login">Vui lòng đăng nhập để xem \ntin tức yêu thích của bạn</string>
     <string name="request_new_recovery_code">Yêu cầu mã phục hồi mới</string>
     <string name="are_you_sure_you_want_to_request_a_new_recovery_code">Bạn chắc chắn muốn yêu cầu mã phục hồi mới?</string>
+    <string name="no_source">Bạn cần đăng ký ít nhất một nguồn tin tức</string>
 </resources>
