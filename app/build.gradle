@@ -15,6 +15,15 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 android {
+    signingConfigs {
+        release {
+
+        storeFile file('src/main/keyStore/signedKey.jks')
+            storePassword 'Long@141165'
+            keyAlias 'NewsAppReader-2dgirlismywaifu'
+            keyPassword 'Long@14116560'
+        }
+    }
     namespace 'com.notmiyouji.newsapp'
     compileSdk 33
 
@@ -30,6 +39,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     ndkVersion '25.1.8937393'
