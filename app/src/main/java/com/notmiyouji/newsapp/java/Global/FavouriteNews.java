@@ -22,8 +22,11 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -64,33 +67,13 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.LoadWallpaperSharedLogined;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
 
 public class FavouriteNews extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //Initialization variable
-    DrawerLayout drawerFavourtie;
-    NavigationView navigationView;
-    Toolbar toolbar;
-    NavigationPane navigationPane;
-    GetUserLogined getUserLogined;
-    Intent intent;
-    LoadWallpaperShared loadWallpaperShared;
-    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    LoadThemeShared loadThemeShared;
-    LoadNavigationHeader loadNavigationHeader;
-    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
-    List<NewsFavouriteShow> newsFavourite = new ArrayList<>();
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView recyclerView;
-    NewsFavouriteAdapter newsFavouriteAdapter;
-    SwipeRefreshLayout swipeRefreshLayout;
-    LinearLayout errorPage, favouritePage, requestLogin;
-    Button signInButton;
-    CheckNetworkConnection checkNetworkConnection;
     protected void attachBaseContext(Context newBase) {
         //get language from shared preference
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
@@ -181,6 +164,35 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
             }
             swipeRefreshLayout.setRefreshing(false);
         });
+        //Search Source
+        searchNews = findViewById(R.id.search_news);
+        searchNews.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+    }
+    //filter news
+    public void filter(String s) {
+        List<NewsFavouriteShow> newsFavouritesList = new ArrayList<>();
+        for (NewsFavouriteShow newsFavourite : newsFavourite) {
+            if (Objects.requireNonNull(
+                    newsFavourite.getTitle()).toLowerCase().contains(s.toLowerCase())) {
+                newsFavouritesList.add(newsFavourite);
+            }
+        }
+        newsFavouriteAdapter.filterList(newsFavouritesList);
     }
 
     private void loadFavouriteEmail(AppCompatActivity activity) {
@@ -312,4 +324,28 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
     }
+
+
+    //Initialization variable
+    DrawerLayout drawerFavourtie;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    NavigationPane navigationPane;
+    GetUserLogined getUserLogined;
+    Intent intent;
+    LoadWallpaperShared loadWallpaperShared;
+    LoadWallpaperSharedLogined loadWallpaperSharedLogined;
+    LoadFollowLanguageSystem loadFollowLanguageSystem;
+    LoadThemeShared loadThemeShared;
+    LoadNavigationHeader loadNavigationHeader;
+    NewsAPPInterface newsAPPInterface = NewsAPPAPI.getAPIClient().create(NewsAPPInterface.class);
+    List<NewsFavouriteShow> newsFavourite = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
+    RecyclerView recyclerView;
+    NewsFavouriteAdapter newsFavouriteAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    LinearLayout errorPage, favouritePage, requestLogin;
+    Button signInButton;
+    CheckNetworkConnection checkNetworkConnection;
+    EditText searchNews;
 }

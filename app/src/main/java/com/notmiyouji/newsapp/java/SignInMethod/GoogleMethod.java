@@ -79,7 +79,7 @@ public class GoogleMethod {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
             if (task.isSuccessful()) {
-                //Issue: Firebase not update information Google SSO if user changed information
+                //Issue Fixed: Firebase not update information Google SSO if user changed information
                 mAuth.getCurrentUser().updateProfile(new com.google.firebase.auth.UserProfileChangeRequest.Builder().
                                 setDisplayName(displayName).
                         setPhotoUri(avatarURL)
