@@ -208,9 +208,16 @@ System Demo Information:
   - 🖼️ GPU: Adreno 512
   - 🗃️ RAM: 4GB
 
-https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-bbd5-a07b749f4f35.mp4
+
+https://user-images.githubusercontent.com/59259855/220180424-13d271b6-6471-4805-aa95-694d44cd5231.mp4
+
+<hr>
+
+https://user-images.githubusercontent.com/59259855/220180436-1b58a874-a902-4e53-a208-22da501d15df.mp4 
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 # **Known Issues**
 
