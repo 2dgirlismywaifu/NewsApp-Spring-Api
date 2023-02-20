@@ -73,7 +73,7 @@ News application or newspaper reading application is a popular application with 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## **Include with project**
-* SQL file without include user information
+* SQL file without user information
 * Figma design file
 * Image use in Azure Blob Storage
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -135,9 +135,18 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
     SHA1: <code return>
     SHA-256: <code return>
     Valid until: Sunday, December 1, 2052
+    ----------
+    Variant: release
+    Config: release
+    Store: D:\GitHub\newsapp_AzureDatbase\app\src\main\keyStore\signedKey.jks
+    Alias: NewsAppReader-2dgirlismywaifu
+    MD5: <code return>
+    SHA1: <code return>
+    SHA-256: <code return>
+    Valid until: Wednesday, February 16, 2033
     ```
-  - Open your project firebase connect with this project, scroll down to your app part. In SHA certificate fingerprints, add SHA-1 and SHA-256 code project have taken above.\
-9. Now open Firebase Authentication in your Firebase Project\
+  - Open your project firebase connect with this project, scroll down to your app part. In SHA certificate fingerprints, add SHA-1 and SHA-256 code project have taken above.
+9. Now open Firebase Authentication in your Firebase Project
     - In Sign-in method part, add two providers: Email/Password and Google
     - In Settings part, choose `User account linking` , select `Create multiple accounts for each identity provider`. Then select `Save` to complete configuration Firebase Authentication
 10. Encode all your API key to Base64 (Azure Blob SAS need encode 2 times)
@@ -198,7 +207,7 @@ System Demo Information:
   - 💪 CPU: Qualcomm Snapdragon 660
   - 🖼️ GPU: Adreno 512
   - 🗃️ RAM: 4GB
- 
+
 https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-bbd5-a07b749f4f35.mp4
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -206,7 +215,7 @@ https://user-images.githubusercontent.com/59259855/218577883-4b81b73f-4e08-4efa-
 # **Known Issues**
 
 1. RecycleView Search only work with RecycleView Horizontal (expect: NewsSourceList, Favourite News).
-2. Set favourite an un favourite in recycleview adapter not update view. Need Swipe To Refresh action from user to update view.\
+2. Set favourite an un favourite in recycleview adapter not update view. Need Swipe To Refresh action from user to update view.
 3. ~~Duplicate result login~~
 4. Tell me 💕\
 See the [open issues](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues) for a full list of proposed features (and known issues).
