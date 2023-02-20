@@ -278,14 +278,12 @@ Don't forget to give the project a star! Thanks again!
 [![twitter-shield]][twitter-url] <br >
 My Gmail Workspace: longntworkspace2911@gmail.com <br>
 Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure)
-
+\
+Scan QR code bellow to follow my Github account 💕💕💕
 <div align="center">
-  <p1 align="center", style="font-size:40px">Follow my account</p1>
   <br />
   <a href='https://github.com/2dgirlismywaifu' border='0' style='cursor:pointer;display:block'>
     <img src='https://cdn.me-qr.com/qr/49033888.png?v=1676917850' alt='2dgirlismywaifu'>
-  </a>
-  <a href='https://github.com/2dgirlismywaifu' border='0' style='cursor:default;display:none'>2dgirlismywaifu
   </a>
 </div>
 
