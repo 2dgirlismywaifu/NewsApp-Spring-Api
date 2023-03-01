@@ -38,6 +38,7 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertical.MyViewHolder> {
 
@@ -64,12 +65,13 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
     public void onBindViewHolder(@NonNull NewsAdapterVertical.MyViewHolder holders, int position) {
         ArticleCategory model = articleCategory.get(position);
         String path = model.getUrlToImage();
+        System.out.println(path);
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holders.imageView, holders);
         holders.title.setText(model.getTitle());
         holders.source.setText(model.getSource().getName());
         holders.time.setText(" \u2022 " + Utils.dateToTimeFormat(model.getPublishedAt()));
-        switch (getUserLogined.getStatus()) {
+        switch (Objects.requireNonNull(getUserLogined.getStatus())) {
             case "login":
                 favouriteController.checkFavouriteEmailRecycleView(getUserLogined.getUserID(),
                         model.getUrl(),
@@ -139,7 +141,7 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
                     model.getTitle(),
                     model.getUrlToImage(),
                     model.getUrl(),
-                    model.getPublishedAt(), activity);
+                   model.getPublishedAt(), activity);
             openNewsDetails.openNewsDetails();
         });
     }

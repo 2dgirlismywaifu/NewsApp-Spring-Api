@@ -39,6 +39,7 @@ import com.notmiyouji.newsapp.kotlin.SharedSettings.GetUserLogined;
 import com.notmiyouji.newsapp.kotlin.Utils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHorizontal.MyViewHolder> {
 
@@ -71,7 +72,7 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
         holders.title.setText(model.getTitle());
         holders.source.setText(model.getSource().getName());
         holders.time.setText(" \u2022 " + Utils.dateToTimeFormat(model.getPublishedAt()));
-        switch (getUserLogined.getStatus()) {
+        switch (Objects.requireNonNull(getUserLogined.getStatus())) {
             case "login":
                 favouriteController.checkFavouriteEmailRecycleView(getUserLogined.getUserID(),
                         model.getUrl(),
@@ -137,6 +138,7 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
             }
         });
         holders.itemView.setOnClickListener(v -> {
+
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(model.getUrl(),
                     model.getTitle(),
                     model.getUrlToImage(),

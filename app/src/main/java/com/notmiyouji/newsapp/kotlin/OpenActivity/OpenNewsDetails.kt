@@ -24,13 +24,21 @@ import com.notmiyouji.newsapp.java.NewsDetails.NewsDetailsChrome
 import com.notmiyouji.newsapp.kotlin.SharedSettings.UseChromeShared
 
 class OpenNewsDetails(
-    private val url: String,
-    private val title: String,
-    private val img: String,
-    private val source: String,
-    private val pubdate: String,
+    private val url: String?,
+    private val title: String?,
+    private val img: String?,
+    private val source: String?,
+    private val pubdate: String?,
     private val activity: Activity
 ) {
+    //function check img is null or not
+    fun checkImg(): String {
+        return if (img == null) {
+            "https://i.imgur.com/1Z1Z1Z1.png"
+        } else {
+            img
+        }
+    }
     fun openNewsDetails() {
         when {
             UseChromeShared(activity).enableChrome -> {
@@ -38,7 +46,7 @@ class OpenNewsDetails(
                 val chromeClient = NewsDetailsChrome(
                     url,
                     title,
-                    img,
+                    checkImg(),
                     url,
                     pubdate, activity
                 )
@@ -49,7 +57,7 @@ class OpenNewsDetails(
                 val intent = Intent(activity, NewsDetailWebView::class.java)
                 intent.putExtra("url", url)
                 intent.putExtra("title", title)
-                intent.putExtra("img", img)
+                intent.putExtra("img", checkImg())
                 intent.putExtra("source", source)
                 intent.putExtra("pubdate", pubdate)
                 activity.startActivity(intent)

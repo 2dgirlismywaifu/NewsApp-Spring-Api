@@ -44,6 +44,9 @@ public class FavouriteController {
     }
 
     public void addFavouriteEmail(String userid, String url, String title, String imageurl, String pubdate, String sourcename) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavourite> addFavouriteEmail = newsAPPInterface.accountNewsFavourite(userid, url, title, imageurl, pubdate, sourcename);
         addFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavourite>() {
             @Override
@@ -63,6 +66,9 @@ public class FavouriteController {
     }
 
     public void removeFavouriteEmail(String userid, String url, String title, String imageurl, String sourcename) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsUnfavourite> removeFavouriteEmail = newsAPPInterface.accountNewsUnfavourite(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsUnfavourite>() {
             @Override
@@ -84,6 +90,9 @@ public class FavouriteController {
 
     public void checkFavouriteEmail(String userid, String url, String title, String imageurl, String sourcename,
             MenuItem favourite, MenuItem unfavourite) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavouriteCheck> removeFavouriteEmail = newsAPPInterface.accountNewsfavouriteCheck(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavouriteCheck>() {
             @Override
@@ -110,6 +119,9 @@ public class FavouriteController {
 
     public void checkFavouriteEmailRecycleView(String userid, String url, String title, String imageurl, String sourcename,
                                              ImageView favourite, ImageView unfavourite) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavouriteCheck> removeFavouriteEmail = newsAPPInterface.accountNewsfavouriteCheck(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavouriteCheck>() {
             @Override
@@ -135,6 +147,9 @@ public class FavouriteController {
     }
 
     public void addFavouriteSSO(String userid, String url, String title, String imageurl, String pubdate, String sourcename) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavourite> addFavouriteEmail = newsAPPInterface.ssoNewsFavourite(userid, url, title, imageurl, pubdate, sourcename);
         addFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavourite>() {
             @Override
@@ -154,6 +169,9 @@ public class FavouriteController {
     }
 
     public void removeFavouriteSSO(String userid, String url, String title, String imageurl, String sourcename) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsUnfavourite> removeFavouriteEmail = newsAPPInterface.ssoNewsUnfavourite(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsUnfavourite>() {
             @Override
@@ -175,6 +193,9 @@ public class FavouriteController {
 
     public void checkFavouriteSSO(String userid, String url, String title, String imageurl, String sourcename,
                                   MenuItem favourite, MenuItem unfavourite) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavouriteCheck> removeFavouriteEmail = newsAPPInterface.ssoNewsfavouriteCheck(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavouriteCheck>() {
             @Override
@@ -200,6 +221,9 @@ public class FavouriteController {
     }
     public void checkFavouriteSSORecycleView(String userid, String url, String title, String imageurl, String sourcename,
                                              ImageView favourite, ImageView unfavourite) {
+        if (imageurl == null) {
+            imageurl = "not_found";
+        }
         Call<NewsFavouriteCheck> removeFavouriteEmail = newsAPPInterface.ssoNewsfavouriteCheck(userid, url, title, imageurl, sourcename);
         removeFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavouriteCheck>() {
             @Override
