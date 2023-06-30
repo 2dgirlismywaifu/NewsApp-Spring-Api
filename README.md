@@ -83,7 +83,7 @@ News application or newspaper reading application is a popular application with 
 
 - This project only use for research and purpose. It is NOT available for retail.
 - Follow all instruction to run project in your local devices.
-- At this time, the application is only developed on the Android platform. Once I have a Mac device, I will develop this project run on Apple mobile device
+- At this time, the application is only developed on the Android platform.
 
 
 ## **Prerequisites**
@@ -93,9 +93,9 @@ Before use this project, you need have:
 * Android Native Development Kit (version in build.gradle)
 * Sign up Free Account Microsoft Azure Portal if you do not have any account
 * Create free Azure SQL Database S0: [Free Azure SQL Database](https://learn.microsoft.com/en-us/azure/azure-sql/database/free-sql-db-free-account-how-to-deploy?view=azuresql)
-* Create App Services B1 Plan (Recomended: 13$/month): [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
+* Create App Services B1 Plan (13$/month): [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
 * Java Development Kit 17\
-Notes: You can use Azure App Services with F1 Plan (Free Forever), but performance is very slow.
+Note: You can use Azure App Services with F1 Plan (Free Forever), but performance is very slow.
 ## **Installation**
 1. Clone the repo
    ```sh
@@ -107,13 +107,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 5. Get a secret access token to Azure Blob Storage follow this link [Create SAS Token Azure Blob Containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers)
 6. Open this project in Android Studio
 7. Now connect this project to Firebase Authentication\
-  The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details\
-  System Demo Information:
-    - 💻 Device: MSI GF63 Thin10SC
-    - 🐧 Operating System: Archcraft (Based on Arch Linux)
-    - 💪 CPU: Intel Core i5-10500H
-    - 🖼️ GPU: Intel UHD Graphics / NVIDIA GTX 1650 With Max-Q Design
-    - 🗃️ RAM: 16GB
+  The easy way: In Menu at top your screen, choose Tools -> Firebase -> Authentication. Follow this video bellow to see details
 
   https://user-images.githubusercontent.com/59259855/219111700-1917bc4a-f300-4074-bb46-ce74434ecfed.mp4
 
@@ -160,6 +154,8 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
     ```objectivec
     #include <jni.h>
 
+    //use base64 to encode
+    
     JNIEXPORT jstring JNICALL
     Java_com_notmiyouji_newsapp_java_Retrofit_NewsAPIKey_getNewsAPIKey(JNIEnv *env, jobject thiz) {
         // TODO: implement getNewsAPIKey()
@@ -194,7 +190,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
         return (*env)->NewStringUTF(env, "<input your encode key here>");
     }
     ```
-12. Now project is ready to build and install in your physical device and Google Android emulator 💕💕💕💕💕💕💕 .
+12. Now project is ready to build and install in your physical device and Google Android emulator.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -203,11 +199,7 @@ Notes: You can use Azure App Services with F1 Plan (Free Forever), but performan
 This is a video demo project\
 System Demo Information:
   - 📱 Device: Xiaomi Redmi Note 7 Global
-  - 🐧 Operating System: Android 13 Tiramisu (Project Elixir)
-  - 💪 CPU: Qualcomm Snapdragon 660
-  - 🖼️ GPU: Adreno 512
-  - 🗃️ RAM: 4GB
-
+  - 🐧 Operating System: Android 13 Tiramisu 
 
 https://user-images.githubusercontent.com/59259855/220180424-13d271b6-6471-4805-aa95-694d44cd5231.mp4
 
@@ -224,7 +216,8 @@ https://user-images.githubusercontent.com/59259855/220180436-1b58a874-a902-4e53-
 1. RecycleView Search only work with RecycleView Horizontal (expect: NewsSourceList, Favourite News).
 2. Set favourite an un favourite in recycleview adapter not update view. Need Swipe To Refresh action from user to update view.
 3. ~~Duplicate result login~~
-4. Tell me 💕\
+4. News personalization has not been developed.
+5. Tell me.\
 See the [open issues](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -285,14 +278,6 @@ Don't forget to give the project a star! Thanks again!
 [![twitter-shield]][twitter-url] <br >
 My Gmail Workspace: longntworkspace2911@gmail.com <br>
 Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure)
-\
-Scan QR code bellow to follow my Github account 💕💕💕
-<div align="center">
-  <br />
-  <a href='https://github.com/2dgirlismywaifu' border='0' style='cursor:pointer;display:block'>
-    <img src='https://cdn.me-qr.com/qr/49033888.png?v=1676917850' alt='2dgirlismywaifu'>
-  </a>
-</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
