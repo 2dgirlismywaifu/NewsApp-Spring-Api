@@ -93,7 +93,7 @@ Before use this project, you need have:
 * Android Native Development Kit (version in build.gradle)
 * Sign up Free Account Microsoft Azure Portal if you do not have any account
 * Create free Azure SQL Database S0: [Free Azure SQL Database](https://learn.microsoft.com/en-us/azure/azure-sql/database/free-sql-db-free-account-how-to-deploy?view=azuresql)
-* Create App Services B1 Plan (13$/month): [NewsApp Android RESTServices](https://github.com/2dgirlismywaifu/NewsApp_Android_RESTServices)
+* Create App Services B1 Plan (13$/month): [NewsApp-RESTServices](https://github.com/2dgirlismywaifu/NewsApp-RESTServices)
 * Java Development Kit 17\
 Note: You can use Azure App Services with F1 Plan (Free Forever), but performance is very slow.
 ## **Installation**
@@ -277,7 +277,7 @@ Don't forget to give the project a star! Thanks again!
 # **Contact**
 [![twitter-shield]][twitter-url] <br >
 My Gmail Workspace: longntworkspace2911@gmail.com <br>
-Project Link: [https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure](https://github.com/2dgirlismywaifu/NewsAPP_RSS_NewsAPI_Azure)
+Project Link: [https://github.com/2dgirlismywaifu/NewsAPP-RSS-NewsAPI](https://github.com/2dgirlismywaifu/NewsAPP-RSS-NewsAPI)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
