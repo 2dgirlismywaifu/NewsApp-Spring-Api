@@ -7,7 +7,7 @@
     <img src="images/logo.png" alt="Logo" width="200" height="200">
   </a>
 
-<h3 align="center", style="font-size:40px">NewsApp Reader</h3>
+<h3 align="center", style="font-size:25px">NewsApp Reader (Curently working update API URI)</h3>
 <p1 align="center", style="font-size:20px">Powered by NewsAPI and Microsft Azure Services</p1><br />
   <p2 align="center", style="font-size:20px">
     A News Reader App from multiple sources
