@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.Signed.ViewRecoveryCode"
+    tools:context=".java.userlogin.ViewRecoveryCode"
     tools:ignore="ScrollViewCount">
 
     <!--    This design is a demo when one user logined-->
@@ -58,6 +57,7 @@
                         tools:ignore="ContentDescription,SpeakableTextPresentCheck">
 
                     </ImageButton>
+
                     <TextView
                         android:id="@+id/textView16"
                         android:layout_width="wrap_content"
@@ -122,10 +122,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
                 android:text="@string/your_recovery_code_label"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/poppins"
                 app:layout_constraintEnd_toEndOf="@+id/username"
                 app:layout_constraintStart_toStartOf="@+id/username"
                 app:layout_constraintTop_toBottomOf="@+id/username" />
@@ -134,15 +134,15 @@
                 android:id="@+id/return_recovery_code"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
                 android:text="Your Code"
+                android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:fontFamily="@font/poppins"
                 app:layout_constraintEnd_toEndOf="@+id/textView15"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@+id/textView15"
@@ -152,16 +152,16 @@
                 android:id="@+id/request_new_recovery_code"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="40dp"
-                android:text="@string/request_new_recovery_code_button"
-                android:fontFamily="@font/raleway_bold"
                 android:backgroundTint="#0E64D2"
+                android:fontFamily="@font/raleway_bold"
+                android:text="@string/request_new_recovery_code_button"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/return_recovery_code"
                 app:layout_constraintStart_toStartOf="@+id/return_recovery_code"
-                app:layout_constraintTop_toBottomOf="@+id/return_recovery_code"/>
+                app:layout_constraintTop_toBottomOf="@+id/return_recovery_code" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +27,7 @@
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatar_user"
         android:layout_width="100dp"
-            android:layout_height="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/user_192"
         app:shapeAppearanceOverlay="@style/roundedImageViewRounded">
 

@@ -15,12 +15,10 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.Retrofit;
+package com.notmiyouji.newsapp.java.retrofit;
 
 import android.annotation.SuppressLint;
 import android.util.Base64;
-
-import java.security.cert.CertificateException;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -32,17 +30,17 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewsAPPAPI {
+public class NewsAppApi {
+
     static {
         System.loadLibrary("keys");
     }
+    public static native String getNewsAppHeader();
 
-    public static native String geNewsAPPHeader();
-
-    public static native String getNewsAPPKey();
-    public static final String BASE_URL = "https://newsandroidrest.azurewebsites.net/";
-    private static final String NEWS_APP_HEADER = new String(Base64.decode(geNewsAPPHeader(), Base64.DEFAULT));
-    private static final String NEWS_APP_KEY = new String(Base64.decode(getNewsAPPKey(), Base64.DEFAULT));
+    public static native String getNewsAppKey();
+    public static final String BASE_URL = "https://notelysiaserver.ddns.net:3000/";
+    private static final String NEWS_APP_HEADER = new String(Base64.decode(getNewsAppHeader(), Base64.DEFAULT));
+    private static final String NEWS_APP_KEY = new String(Base64.decode(getNewsAppKey(), Base64.DEFAULT));
     public static Retrofit retrofit;
 
     public static Retrofit getAPIClient() {
@@ -55,7 +53,6 @@ public class NewsAPPAPI {
         return retrofit;
     }
 
-
     public static OkHttpClient.Builder getHttpClient() {
         //HTTPS Client
         try {
@@ -64,12 +61,12 @@ public class NewsAPPAPI {
                     new X509TrustManager() {
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override
@@ -86,7 +83,6 @@ public class NewsAPPAPI {
             // Create an ssl socket factory with our all-trusting manager
             final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
             //Create Header Authenticator
-
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);

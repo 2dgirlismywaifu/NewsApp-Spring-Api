@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.Signed.AccountSettings"
+    tools:context=".java.userlogin.AccountSettings"
     tools:ignore="ScrollViewCount">
 
     <!--    This design is a demo when one user logined-->
@@ -122,8 +121,8 @@
                 android:id="@+id/fullname_line"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/username"
@@ -166,8 +165,8 @@
                 android:id="@+id/username_line"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/fullname_line"
@@ -210,8 +209,8 @@
                 android:id="@+id/birthday_line"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/username_line"
@@ -254,8 +253,8 @@
                 android:id="@+id/gender_line"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="?attr/selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="@+id/birthday_line"

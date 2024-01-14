@@ -21,8 +21,9 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.lifecycle.LiveData
 
-class NetworkConnection(val context: Context) : LiveData<Boolean>(){
-    private var connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+class NetworkConnection(val context: Context) : LiveData<Boolean>() {
+    private var connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
     override fun onActive() {

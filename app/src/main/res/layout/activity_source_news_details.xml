@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.RSSURL.SourceNewsDetails">
+    tools:context=".java.rssurl.SourceNewsDetails">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -100,7 +99,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/raleway"
                     android:text="TextView"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/cardholderimage"
                     app:layout_constraintTop_toTopOf="parent"
@@ -113,7 +112,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/raleway"
                     android:text="TextView"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/NewsSourceName"
                     app:layout_constraintTop_toBottomOf="@+id/NewsSourceName"
@@ -123,10 +122,10 @@
                     android:id="@+id/SubscribleBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
                     android:text="@string/subscribe_button"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -135,24 +134,24 @@
                     android:id="@+id/UnSubscribleBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
                     android:text="@string/unsubscribe"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/source_information"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/raleway"
                     android:text="TextView"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.501"
@@ -161,18 +160,18 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                android:id="@+id/textView13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/raleway"
-                android:text="@string/list_rss_url_of_this_source"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/source_information"
-                app:layout_constraintHorizontal_bias="0.459"
-                app:layout_constraintStart_toStartOf="@+id/source_information"
-                app:layout_constraintTop_toBottomOf="@+id/source_information" />
+                    android:id="@+id/textView13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/raleway"
+                    android:text="@string/list_rss_url_of_this_source"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/source_information"
+                    app:layout_constraintHorizontal_bias="0.459"
+                    app:layout_constraintStart_toStartOf="@+id/source_information"
+                    app:layout_constraintTop_toBottomOf="@+id/source_information" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rss_list"

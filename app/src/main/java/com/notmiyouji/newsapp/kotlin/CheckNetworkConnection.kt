@@ -22,7 +22,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 class CheckNetworkConnection {
-    fun CheckConnection(context: Context?): Boolean {
+    fun checkConnection(context: Context?): Boolean {
         if (context == null) {
             return false
         }

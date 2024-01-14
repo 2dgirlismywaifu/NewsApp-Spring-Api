@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +23,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".java.RSSURL.SourceNewsList">
+    tools:context=".java.rssurl.SourceNewsList">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_pane_sourceList"
@@ -148,12 +147,13 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/noInternetScreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -167,12 +167,13 @@
                 android:layout_height="150dp"
                 android:src="@drawable/no_internet"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
+
             <TextView
                 android:id="@+id/ErrorMesseage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:text="@string/InternetError"
                 android:textSize="20sp" />
 
