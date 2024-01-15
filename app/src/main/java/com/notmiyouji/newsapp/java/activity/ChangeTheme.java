@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.recycleview.ThemeAdpater;
+import com.notmiyouji.newsapp.kotlin.recycleview.ThemeAdapter;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -38,31 +38,28 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 import java.util.Objects;
 
 public class ChangeTheme extends AppCompatActivity {
-    RecyclerView recyclerView;
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    LoadThemeShared loadThemeShared;
 
     protected void attachBaseContext(Context newBase) {
         //get language from shared preference
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        LoadFollowLanguageSystem loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
         super.attachBaseContext(AppContextWrapper.wrap(newBase, Objects.requireNonNull(loadFollowLanguageSystem.getLanguage())));
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        loadThemeShared = new LoadThemeShared(this);
+        LoadThemeShared loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_theme);
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
-        recyclerView = findViewById(R.id.theme_list);
+        RecyclerView recyclerView = findViewById(R.id.theme_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        ThemeAdpater themeAdpater = new ThemeAdpater(this);
+        ThemeAdapter themeAdapter = new ThemeAdapter(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(themeAdpater);
-        themeAdpater.notifyDataSetChanged();
+        recyclerView.setAdapter(themeAdapter);
+        themeAdapter.notifyDataSetChanged();
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
