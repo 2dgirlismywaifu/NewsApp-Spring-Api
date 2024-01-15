@@ -29,7 +29,7 @@ class SignIn {
     @Expose
     var email: String? = null
 
-    @SerializedName("nickName")
+    @SerializedName("nickname")
     @Expose
     var nickName: String? = null
 

@@ -164,13 +164,13 @@ public class SettingsUserLogin extends AppCompatActivity {
                             build()).signOut();
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogined("", "", "", "", "", "", "");
+                    saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
                     saveUserLogined.saveBirthday("");
                     saveUserLogined.saveGender("");
                 } else if (getUserLogin.getStatus().equals("login")) {
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogined("", "", "", "", "", "", "");
+                    saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
                     saveUserLogined.saveBirthday("");
                     saveUserLogined.saveGender("");
                 }

@@ -46,12 +46,4 @@
         android:text="@string/you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar"
         android:textSize="18sp"
         tools:ignore="UnusedAttribute" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/sign_up_at_gravatar_com_and_upload_your_avatar"
-        android:textSize="18sp" />
 </LinearLayout>

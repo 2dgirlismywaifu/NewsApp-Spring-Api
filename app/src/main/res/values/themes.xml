@@ -18,7 +18,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DynamicColors.Light">
-        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/md_theme_light_background</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">
+            @color/md_theme_light_background
+        </item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowTranslucentStatus">false</item>
@@ -78,6 +80,7 @@
         </item>
 
     </style>
+
     <style name="Theme.SearchBar" parent="Widget.Material3.CardView.Filled">
         <item name="materialCardViewFilledStyle">@color/searchbar</item>
     </style>

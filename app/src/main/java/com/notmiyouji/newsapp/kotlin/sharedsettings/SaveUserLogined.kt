@@ -21,17 +21,17 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SaveUserLogined(context: Context) {
-    var sharedPreferences: SharedPreferences
+    private var sharedPreferences: SharedPreferences
     var editor: SharedPreferences.Editor
 
     init {
-        sharedPreferences = context.getSharedPreferences("UserLogined", Context.MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
     }
 
-    fun saveUserLogined(
+    fun saveUserLogin(
         userID: String?,
-        fullname: String?,
+        fullName: String?,
         email: String?,
         password: String?,
         username: String?,
@@ -39,7 +39,7 @@ class SaveUserLogined(context: Context) {
         status: String?
     ) {
         editor.putString("userID", userID)
-        editor.putString("fullname", fullname)
+        editor.putString("fullName", fullName)
         editor.putString("email", email)
         editor.putString("password", password)
         editor.putString("username", username)

@@ -31,11 +31,7 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.SharedPreferenceSettings
 class WallpaperHeaderAdpater(var activity: AppCompatActivity) :
     RecyclerView.Adapter<WallpaperHeaderAdpater.ViewHolder>() {
     var data = wallpaperList()
-    var sharedPreferenceSettings: SharedPreferenceSettings
-
-    init {
-        sharedPreferenceSettings = SharedPreferenceSettings(activity)
-    }
+    private var sharedPreferenceSettings: SharedPreferenceSettings = SharedPreferenceSettings(activity)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -57,7 +53,7 @@ class WallpaperHeaderAdpater(var activity: AppCompatActivity) :
         return data.size
     }
 
-    fun wallpaperList(): ArrayList<Int> {
+    private fun wallpaperList(): ArrayList<Int> {
         val data = ArrayList<Int>()
         data.add(R.drawable.anime_landscapes_background__1)
         data.add(R.drawable.anime_landscapes_background__2)

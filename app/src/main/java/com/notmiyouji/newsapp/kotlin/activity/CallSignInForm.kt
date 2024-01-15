@@ -25,11 +25,12 @@ import com.google.android.material.navigation.NavigationView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.userlogin.SignInForm
 
-class CallSignInForm(var navigationView: NavigationView, var activity: AppCompatActivity) {
+class CallSignInForm(private var navigationView: NavigationView, var activity: AppCompatActivity) {
 
     fun callSignInForm() {
         val headerView = navigationView.getHeaderView(0)
         val loginButton: Button = headerView.findViewById(R.id.SignInHeader)
+        //check if login button is not null
         loginButton.setOnClickListener {
             val intent = Intent(activity, SignInForm::class.java)
             activity.startActivity(
@@ -37,5 +38,6 @@ class CallSignInForm(var navigationView: NavigationView, var activity: AppCompat
                 ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
             )
         }
+
     }
 }

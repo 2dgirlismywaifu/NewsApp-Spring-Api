@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "com.notmiyouji.newsapp"
-        minSdk 24
+        minSdk 26
         targetSdk 34
         versionCode 2
         versionName '2.1.0'
@@ -41,6 +41,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            debuggable false
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     //Use latest NDK version
@@ -90,5 +94,7 @@ dependencies {
     implementation 'androidx.browser:browser:1.7.0'
     //Jsoup
     implementation 'org.jsoup:jsoup:1.17.2'
+    implementation 'com.vanniktech:android-image-cropper:4.5.0'
+
 
 }

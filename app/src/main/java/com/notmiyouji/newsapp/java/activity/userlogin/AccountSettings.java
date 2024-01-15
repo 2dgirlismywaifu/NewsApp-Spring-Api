@@ -31,18 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.canhub.cropper.CropImageActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
@@ -60,7 +57,6 @@ import java.util.List;
 
 public class AccountSettings extends AppCompatActivity {
     private TextView fullName, username, chooseTitle;
-    private ShapeableImageView avatar;
     private TextView usernameView;
     private TextView birthdayView;
     private TextView genderView;
@@ -141,7 +137,7 @@ public class AccountSettings extends AppCompatActivity {
         //////////////////////////////////////////////////////////////
         updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
         //Load avatar
-        avatar = findViewById(R.id.avatar_user_logined);
+        ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
         LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
         loadImageURL.loadImageUser(avatar);
         //back button
@@ -213,17 +209,24 @@ public class AccountSettings extends AppCompatActivity {
         //Change Birthday
         changeBirthDay.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(getDay(getUserLogin.getBirthday()));
+            String userBirthday = getUserLogin.getBirthday();
+            if (userBirthday != null && userBirthday.equals("not_input")) {
+                calendar.setTime(new Date());
+            } else {
+                calendar.setTime(getDay(userBirthday));
+            }
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
                 //Set Birthday
                 //Open Android DatePicker
-                @SuppressLint("DefaultLocale") String dateString = String.format("%d-%02d-%02d", year, (month + 1), dayOfMonth);
+                @SuppressLint("DefaultLocale")
+                String dateString = String.format("%d-%02d-%02d", year, (month + 1), dayOfMonth);
                 if (status.equals("login")) {
                     updateInformation.updateBirthday(dateString);
                 }
                 //Update Birthday
                 birthdayView.setText(dateString);
                 //Update Birthday to database
+
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             //Date Picker Dialog show date like textView
             datePickerDialog.show();
@@ -280,47 +283,16 @@ public class AccountSettings extends AppCompatActivity {
                     intent.setData(Uri.parse("https://gravatar.com"));
                     startActivity(intent);
                 });
-                builder.setNeutralButton(R.string.cancel, (dialog, which) -> {
-                    //Open file manager to choose image
-                    mGetContent.launch(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*").
-                            addCategory(Intent.CATEGORY_OPENABLE));
-
+                builder.setNeutralButton(R.string.picture_library, (dialog, which) -> {
+                    Intent cropIntent = new Intent(this, CropImageActivity.class);
+                    cropIntent.putExtra("avatarDisplay", R.id.avatar_user_logined);
+                    startActivity(cropIntent);
                 });
                 builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
                 builder.show();
             }
         });
     }
-
-    private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult
-            (new ActivityResultContracts.StartActivityForResult(), result -> {
-        //open file manager to choose image
-        if (result.getResultCode() == RESULT_OK) {
-            Intent data = result.getData();
-            assert data != null;
-            Uri uri = data.getData();
-            assert uri != null;
-            String path = uri.getPath();
-            assert path != null;
-            //Upload image to firebase storage
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            StorageReference riversRef = storageRef.child("images/" + getUserLogin.getUserID() + ".jpg");
-            riversRef.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-                // Get a URL to the uploaded content
-                riversRef.getDownloadUrl().addOnSuccessListener(uri1 -> {
-                    //Update avatar
-                    updateInformation.updateAvatar(uri1.toString());
-                    //Load avatar
-                    LoadImageURL loadImageURL = new LoadImageURL(uri1.toString());
-                    loadImageURL.loadImageUser(avatar);
-                });
-            }).addOnFailureListener(exception -> {
-                // Handle unsuccessful uploads
-                // ...
-            });
-        }
-    });
 
     //create list gender
     private List<String> genderList() {

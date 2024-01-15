@@ -79,7 +79,7 @@ public class EmailMethod {
                                 RequestImage requestImage = new RequestImage(signIn.getEmail());
                                 String avatar = requestImage.getGravatarURL();
                                 SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
-                                saveUserLogined.saveUserLogined(signIn.getUserId(), signIn.getFullName(), signIn.getEmail(), encodeData(password), signIn.getNickName(), avatar, "login");
+                                saveUserLogined.saveUserLogin(signIn.getUserId(), signIn.getFullName(), signIn.getEmail(), encodeData(password), signIn.getNickName(), avatar, "login");
                                 saveUserLogined.saveBirthday(signIn.getBirthday());
                                 saveUserLogined.saveGender(signIn.getGender());
                                 //If account verify, go to main page

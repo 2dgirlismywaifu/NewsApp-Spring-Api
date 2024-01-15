@@ -52,7 +52,7 @@ public class VerifyAccountForm extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private Button resendBtn;
     private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
-    private String userID, fullName, email, password, username;
+    private String userID, fullName, email, userToken, password, username;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -64,33 +64,34 @@ public class VerifyAccountForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
         //Get string send from Sign Up form
-        userID = getIntent().getStringExtra("user_id");
-        fullName = getIntent().getStringExtra("fullname");
+        userID = getIntent().getStringExtra("userId");
+        fullName = getIntent().getStringExtra("fullName");
         email = getIntent().getStringExtra("email");
+        userToken = getIntent().getStringExtra("userToken");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
-        TextView emailtext = findViewById(R.id.email_send);
-        emailtext.setText(email);
+        TextView emailText = findViewById(R.id.email_send);
+        emailText.setText(email);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //check if user is verified or not
         Button verifyBtn = findViewById(R.id.VerifiedButton);
         verifyBtn.setOnClickListener(v -> {
             //re-sign in user
-            FirebaseAuth authVerifed = FirebaseAuth.getInstance();
-            authVerifed.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            FirebaseAuth authVerified = FirebaseAuth.getInstance();
+            authVerified.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    FirebaseUser userVerifed = authVerifed.getCurrentUser();
-                    assert userVerifed != null;
-                    if (userVerifed.isEmailVerified()) {
+                    FirebaseUser userVerified = authVerified.getCurrentUser();
+                    assert userVerified != null;
+                    if (userVerified.isEmailVerified()) {
                         //if user is verified, change verified status to true
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(userID, fullName, email, password, username, "not_available", "true");
+                        saveUserLogined.saveUserLogin(userID, fullName, email, userToken, username, "not_available", "true");
                         //go to Register Success form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);
-                        intent.putExtra("password", password);
+                        intent.putExtra("password", userToken);
                         startActivity(intent);
                         finish();
                     } else {

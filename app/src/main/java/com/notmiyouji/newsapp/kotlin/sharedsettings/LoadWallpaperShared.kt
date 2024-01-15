@@ -29,20 +29,19 @@ class LoadWallpaperShared(//This class will load the wallpaper from shared prefe
     navigationView: NavigationView, var activity: AppCompatActivity
 ) {
     private var headerNavigation: View = navigationView.getHeaderView(0)
-    private var header_guest: LinearLayout =
+    private var headerGuest: LinearLayout =
         headerNavigation.findViewById<View>(R.id.header_guest) as LinearLayout
-    val prefs = activity.getSharedPreferences("Wallpaper", Context.MODE_PRIVATE)
+    private val prefs = activity.getSharedPreferences("Wallpaper", Context.MODE_PRIVATE)
 
     private fun requestBackground(): Int {
-        val backgroundcode = prefs.getInt(
-            "path", header_guest.background.current.constantState!!.changingConfigurations
+        return prefs.getInt(
+            "path", headerGuest.background.current.constantState!!.changingConfigurations
         )
-        return backgroundcode
     }
 
     fun loadWallpaper() {
-        if (requestBackground() != header_guest.background.current.constantState!!.changingConfigurations) {
-            header_guest.background =
+        if (requestBackground() != headerGuest.background.current.constantState!!.changingConfigurations) {
+            headerGuest.background =
                 ResourcesCompat.getDrawable(activity.resources, requestBackground(), null)
         }
     }

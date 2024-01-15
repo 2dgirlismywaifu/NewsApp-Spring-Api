@@ -40,7 +40,6 @@ class LanguageAdpater(var activity: AppCompatActivity) :
         return ViewHolder(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = languageList(activity)
         holder.radioButton.text = data.keys.toTypedArray()[position]
@@ -53,12 +52,23 @@ class LanguageAdpater(var activity: AppCompatActivity) :
             languagePrefManager.setLocal(defLang)
             Toast.makeText(activity, R.string.language_change_messeage, Toast.LENGTH_SHORT).show()
             val intent = Intent(activity, HomePage::class.java)
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,0, 0)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            activity.finish()
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,0, 0)
-            activity.startActivity(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,0, 0)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                activity.finish()
+                activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,0, 0)
+                activity.startActivity(intent)
+            } else {
+                @Suppress("DEPRECATION")
+                activity.overridePendingTransition(0, 0)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                activity.finish()
+                @Suppress("DEPRECATION")
+                activity.overridePendingTransition(0, 0)
+                activity.startActivity(intent)
+            }
         }
     }
 
@@ -66,7 +76,7 @@ class LanguageAdpater(var activity: AppCompatActivity) :
         return languageList(activity).size
     }
 
-    fun languageList(activity: AppCompatActivity): HashMap<String, String> {
+    private fun languageList(activity: AppCompatActivity): HashMap<String, String> {
         val data = HashMap<String, String>()
         val context = activity.baseContext
         //data.put(context.getString(R.string.follow_system), "system");

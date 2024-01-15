@@ -87,13 +87,13 @@ public class GoogleMethod {
                                 user = mAuth.getCurrentUser();
                                 assert user != null;
                                 String fullName = user.getDisplayName();
-                                String uid = user.getUid();
+                                String userToken = user.getUid();
                                 //String username = "Google SSO";
                                 //Google Avatar Image default so terrible, this line will fix it
                                 String avatar = new FixBlurryGoogleImage(user.getPhotoUrl()).fixURL();
                                 //User is not registered, save to database
                                 //Always save to database with Google SSO Sign In
-                                SavedToDatabase(fullName, email, uid, fullName, avatar);
+                                SavedToDatabase(fullName, email, userToken, fullName, avatar);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
@@ -105,9 +105,14 @@ public class GoogleMethod {
         });
     }
 
-    private void SavedToDatabase(String fullName, String email, String uid, String userName, String avatar) {
+    private void SavedToDatabase(String fullName, String email, String userToken, String userName, String avatar) {
         //First, save it to database
-        Call<SignIn> callSSO = newsAPPInterface.signInWithGoogle(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email) , Utils.encodeToBase64(userName), Utils.encodeToBase64(avatar));
+        Call<SignIn> callSSO = newsAPPInterface.signInWithGoogle(
+                Utils.encodeToBase64(fullName),
+                Utils.encodeToBase64(email),
+                Utils.encodeToBase64(userToken),
+                Utils.encodeToBase64(userName),
+                Utils.encodeToBase64(avatar));
         assert callSSO != null;
         callSSO.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -116,11 +121,13 @@ public class GoogleMethod {
                 //Now sign in
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        saveUserLogined.saveUserLogined(response.body().getUserId(),
-                                response.body().getFullName(), response.body().getEmail(), uid,
+                        saveUserLogined.saveUserLogin(response.body().getUserId(),
+                                response.body().getFullName(), response.body().getEmail(), userToken,
                                 response.body().getNickName(), response.body().getAvatar(), "login");
                         //save birthday
-                        saveUserLogined.saveBirthday(response.body().getBirthday());
+                        if (response.body().getBirthday() != null) {
+                            saveUserLogined.saveBirthday(response.body().getBirthday());
+                        }
                         //save Gender
                         saveUserLogined.saveGender(response.body().getGender());
                         Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();

@@ -149,7 +149,7 @@
     <string name="gender_settings_account">Giới tính:</string>
     <string name="recovery_code_account">Mã phục hồi</string>
     <string name="change_password_account">Thay đổi mật khẩu</string>
-    <string name="change_avatar_account">Đổi ảnh đại diện (Gravatar)</string>
+    <string name="change_avatar_account">Đổi ảnh đại diện</string>
     <string name="sync_settings_account">Đồng bộ</string>
     <string name="your_recovery_code_label">Mã phục hồi của bạn</string>
     <string name="request_new_recovery_code_button">Yêu cầu mã mới</string>
@@ -172,10 +172,9 @@
     <string name="please_enter_your_new_fullname">Vui lòng nhập tên đầy đủ của bạn</string>
     <string name="enter_your_new_username">Nhập tên tài khoản mới của bạn</string>
     <string name="please_enter_your_new_username">Vui lòng nhập tên tài khoản mới của bạn</string>
-    <string name="sign_up_at_gravatar_com_and_upload_your_avatar">Đăng ký tại Gravatar.com và tải ảnh đại diện lên</string>
-    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Chúng tôi khuyến khích bạn dùng Gravatar.com để thay đổi ảnh đại diện của bạn.</string>
-    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Gravatar là một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.</string>
-    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể thay đổi hình đại diện của mình tại Gravatar.com và nó sẽ tự động được cập nhật trong tất cả các ứng dụng sử dụng Gravatar của bạn.</string>
+    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Thay đổi ảnh đại diện của bạn qua Gravatar</string>
+    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Đăng ký tại Gravatar.com và tải ảnh đại diện lên một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.</string>
+    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể chọn ảnh trong thư viện của bạn để làm ảnh đại diện.</string>
     <string name="go_gravatar">Đến Gravatar</string>
     <string name="fullname_updated">Tên đầy đủ đã cập nhật</string>
     <string name="fullname_already_exists">Không thể cập nhật tên đầy đủ</string>
@@ -222,4 +221,5 @@
     <string name="no_source">Bạn cần đăng ký ít nhất một nguồn tin tức</string>
     <string name="add_favourite_failed">Thêm yêu thích thất bại</string>
     <string name="update_avatar_image_success">Cập nhật Avatar thành công</string>
+    <string name="picture_library">Thư viện ảnh</string>
 </resources>

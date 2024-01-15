@@ -32,23 +32,20 @@ class LoadNavigationHeader(
 ) {
     @SuppressLint("SetTextI18n")
     fun loadHeader() {
-        val sharedPreferences = activity.getSharedPreferences("UserLogined", Context.MODE_PRIVATE)
+        val sharedPreferences = activity.getSharedPreferences("UserLogin", Context.MODE_PRIVATE)
         //Get String from sharedPreference
-        val fullname = sharedPreferences.getString("fullname", "")
+        val fullName = sharedPreferences.getString("fullName", "")
         val username = sharedPreferences.getString("username", "")
         val avatar = sharedPreferences.getString("avatar", "")
         val status = sharedPreferences.getString("status", "")
         when {
             status.equals("login") || status.equals("google") -> {
                 navigationView.inflateHeaderView(R.layout.navigation_header_logined)
-                val fullnameHeader =
-                    navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
-                fullnameHeader.text = fullname
-                val usernameHeader =
-                    navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
+                val fullNameHeader = navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
+                fullNameHeader.text = fullName
+                val usernameHeader = navigationView.getHeaderView(0).findViewById<TextView>(R.id.user_name)
                 usernameHeader.text = "@$username"
-                val avatarHeader =
-                    navigationView.getHeaderView(0)
+                val avatarHeader = navigationView.getHeaderView(0)
                         .findViewById<ShapeableImageView>(R.id.avatar_user)
                 //Call LoadImageURL.kt
                 val loadImageURL = LoadImageURL(avatar)

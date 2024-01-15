@@ -26,7 +26,7 @@ class GetUserLogin(var activity: AppCompatActivity) {
     val userID: String?
         get() = sharedPreferences.getString("userID", "")
     val fullName: String?
-        get() = sharedPreferences.getString("fullname", "")
+        get() = sharedPreferences.getString("fullName", "")
     val email: String?
         get() = sharedPreferences.getString("email", "")
     val password: String?

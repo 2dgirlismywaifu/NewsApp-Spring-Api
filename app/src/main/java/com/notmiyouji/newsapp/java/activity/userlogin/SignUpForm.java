@@ -109,7 +109,7 @@ public class SignUpForm extends AppCompatActivity {
                     Toast.makeText(this, R.string.email_is_not_valid, Toast.LENGTH_SHORT).show();
                     signUpBtn.setEnabled(true);
                 }
-                //if password not containt al least 6 character, show error
+                //if password not contain al least 6 character, show error
                 else if (String.valueOf(password.getText()).length() < 6) {
                     password.setError(getString(R.string.password_must_be_at_least_6_character));
                     Toast.makeText(this, R.string.password_must_be_at_least_6_character, Toast.LENGTH_SHORT).show();
@@ -231,7 +231,8 @@ public class SignUpForm extends AppCompatActivity {
                         //Create notification
                         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(SignUpForm.this);
                         notificationManager.notify(1, builder.build());
-                        gotoVerifyEmail(fullName, email, password, username);
+                        String userToken = firebaseUser.getUid();
+                        gotoVerifyEmail(fullName, email, userToken, password, username);
                     } else {
                         Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -240,9 +241,9 @@ public class SignUpForm extends AppCompatActivity {
         });
     }
 
-    private void gotoVerifyEmail(String fullName, String email, String password, String username) {
+    private void gotoVerifyEmail(String fullName, String email, String userToken, String password, String username) {
         //First, save it to database
-        Call<SignUp> call = newsAPPInterface.signUpAnAccount(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email), Utils.encodeToBase64(password), Utils.encodeToBase64(username));
+        Call<SignUp> call = newsAPPInterface.signUpAnAccount(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email), Utils.encodeToBase64(userToken), Utils.encodeToBase64(username));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -256,6 +257,7 @@ public class SignUpForm extends AppCompatActivity {
                         intent.putExtra("userId", signUp.getUserId());
                         intent.putExtra("fullName", fullName);
                         intent.putExtra("email", email);
+                        intent.putExtra("userToken", userToken);
                         intent.putExtra("password", password);
                         intent.putExtra("username", username);
                         ActivityOptions.makeSceneTransitionAnimation(SignUpForm.this).toBundle();

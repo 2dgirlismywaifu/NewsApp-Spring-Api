@@ -278,14 +278,16 @@ interface NewsAppInterface {
      * Sign in with google account
      * @param fullName: Full name of user
      * @param email: Email of user
+     * @param userToken: User token of user
      * @param nickName: Nick name of user
      * @param avatar: Avatar of user
      * @return SignIn
      */
-    @GET("news-app/user/sign-in")
+    @GET("news-app/user/sign-in-by-google")
     fun signInWithGoogle(
         @Query("fullName", encoded = true) fullName: String?,
         @Query("email", encoded = true) email: String?,
+        @Query("userToken", encoded = true) userToken: String?,
         @Query("nickName", encoded = true) nickName: String?,
         @Query("avatar", encoded = true) avatar: String?
     ): Call<SignIn?>?
@@ -370,7 +372,7 @@ interface NewsAppInterface {
      */
     @POST("news-app/user/update")
     fun updateUserInformation(
-        @Query("userId", encoded = true) userId: String?,
+        @Query("userid", encoded = true) userId: String?,
         @Query("userName", encoded = true) userName: String?,
         @Query("fullName", encoded = true) fullName: String?,
         @Query("birthday", encoded = true) birthday: String?,

@@ -125,7 +125,7 @@
                 android:layout_marginTop="380dp"
                 android:fontFamily="@font/poppins"
                 android:text="@string/settings"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -158,10 +158,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="18dp"
                     android:layout_toEndOf="@+id/signin_icon"
                     android:text="@string/account_settings"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -224,7 +224,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/selected_lang_icon"
                     android:text="@string/select_language"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -286,7 +286,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/changetheme_icon"
                     android:text="@string/change_theme"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -347,7 +347,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/chromeicon"
                     android:text="@string/use_chrome_custom_tabs"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -408,7 +408,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/welcomeIcon"
                     android:text="@string/show_welcome_screen"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -468,7 +468,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@+id/about_icon"
                     android:text="@string/about_application"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap" />
 
@@ -507,6 +507,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="40dp"
                 android:fontFamily="@font/raleway"
@@ -518,7 +519,8 @@
                 app:iconSize="24dp"
                 app:layout_constraintEnd_toEndOf="@+id/space_6"
                 app:layout_constraintStart_toStartOf="@+id/space_6"
-                app:layout_constraintTop_toBottomOf="@+id/space_6">
+                app:layout_constraintTop_toBottomOf="@+id/space_6"
+                app:layout_constraintBottom_toBottomOf="parent">
 
             </Button>
 

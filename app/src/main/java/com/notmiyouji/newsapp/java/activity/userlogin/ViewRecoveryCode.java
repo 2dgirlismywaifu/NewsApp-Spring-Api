@@ -39,6 +39,7 @@ import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.RecoveryCode;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -128,7 +129,7 @@ public class ViewRecoveryCode extends AppCompatActivity {
     }
 
     private void ShowRecoveryCode(String email) {
-        Call<RecoveryCode> call = newsAPPInterface.getRecoveryCode(email);
+        Call<RecoveryCode> call = newsAPPInterface.getRecoveryCode(Utils.encodeToBase64(email));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override

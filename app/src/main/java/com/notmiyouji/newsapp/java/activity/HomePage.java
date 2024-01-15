@@ -161,6 +161,12 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             loadWallpaperShared = new LoadWallpaperShared(navigationView, this);
             loadWallpaperShared.loadWallpaper();
         }
+
+        //open sign in page from navigation view
+        if (Objects.equals(getUserLogin.getStatus(), "")) {
+            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
+            callSignInForm.callSignInForm();
+        }
         drawerLayout = findViewById(R.id.home_page);
         toolbar = findViewById(R.id.nav_button);
         recyclerView = findViewById(R.id.news_type);
@@ -173,11 +179,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         reloadData();
         //NewsCategory Type List
         loadCategory();
-        //open sign in page from navigation view
-        if ("".equals(getUserLogin.getStatus())) {
-            CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
-            callSignInForm.callSignInForm();
-        }
         CheckNetworkConnection checkNetworkConnection = new CheckNetworkConnection();
         if (checkNetworkConnection.checkConnection(this)) {
             //Load news from source
