@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.general;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -36,13 +36,12 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import java.util.Objects;
 
 public class WallpaperHeader extends AppCompatActivity {
-    WallpaperHeaderAdpater wallpaperHeaderAdpater;
-    RecyclerView recyclerView;
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private WallpaperHeaderAdpater wallpaperHeaderAdpater;
+    private RecyclerView recyclerView;
 
     protected void attachBaseContext(Context newBase) {
         //get language from shared preference
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
+        LoadFollowLanguageSystem loadFollowLanguageSystem = new LoadFollowLanguageSystem(newBase);
         super.attachBaseContext(AppContextWrapper.wrap(newBase, Objects.requireNonNull(loadFollowLanguageSystem.getLanguage())));
     }
 

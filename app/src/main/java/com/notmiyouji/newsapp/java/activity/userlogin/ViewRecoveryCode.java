@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,7 +47,7 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 import retrofit2.Call;
 
 public class ViewRecoveryCode extends AppCompatActivity {
-    NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private LoadThemeShared loadThemeShared;
     private GetUserLogin getUserLogin;
@@ -86,7 +87,7 @@ public class ViewRecoveryCode extends AppCompatActivity {
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
@@ -108,7 +109,7 @@ public class ViewRecoveryCode extends AppCompatActivity {
         //Retrofit call update recovery code request
         Call<RecoveryCode> call = newsAPPInterface.createNewRecoveryCode(userid);
         assert call != null;
-        call.enqueue(new retrofit2.Callback<RecoveryCode>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<RecoveryCode> call, @NonNull retrofit2.Response<RecoveryCode> response) {
                 if (response.isSuccessful()) {
@@ -129,7 +130,7 @@ public class ViewRecoveryCode extends AppCompatActivity {
     private void ShowRecoveryCode(String email) {
         Call<RecoveryCode> call = newsAPPInterface.getRecoveryCode(email);
         assert call != null;
-        call.enqueue(new retrofit2.Callback<RecoveryCode>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<RecoveryCode> call, @NonNull retrofit2.Response<RecoveryCode> response) {
                 if (response.isSuccessful()) {
@@ -145,12 +146,16 @@ public class ViewRecoveryCode extends AppCompatActivity {
             }
         });
     }
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            ActivityOptions.makeSceneTransitionAnimation(ViewRecoveryCode.this).toBundle();
+            finish();
+        }
+    };
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        finish();
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
     @Override

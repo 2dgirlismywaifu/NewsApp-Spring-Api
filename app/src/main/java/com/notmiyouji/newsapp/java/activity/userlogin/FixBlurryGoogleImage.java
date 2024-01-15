@@ -15,12 +15,12 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.net.Uri;
 
 public class FixBlurryGoogleImage {
-    public Uri url;
+    private final Uri url;
 
     public FixBlurryGoogleImage(Uri url) {
         this.url = url;

@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.app.ActivityOptions;
 import android.widget.Button;
@@ -36,13 +36,11 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import retrofit2.Call;
 
 public class RegisterSuccess extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    TextView recoveryCode;
-    Button goBackLoginScreen;
-    NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private TextView recoveryCode;
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
-        loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
+        LoadFollowLanguageSystem loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_success);
@@ -57,7 +55,7 @@ public class RegisterSuccess extends AppCompatActivity {
             finish();
         });
         //Go back to login screen
-        goBackLoginScreen = findViewById(R.id.GoBackLoginScreen);
+        Button goBackLoginScreen = findViewById(R.id.GoBackLoginScreen);
         goBackLoginScreen.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();

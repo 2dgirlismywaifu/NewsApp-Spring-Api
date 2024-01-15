@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.rssurl;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.app.ActivityOptions;
 import android.os.Bundle;
@@ -58,22 +58,19 @@ public class SourceNewsDetails extends AppCompatActivity {
 
     public String sourceID, imagePath, newSourceName, urlMainSource, newSourceDescription;
     public ImageView imageNews;
-    public TextView sourceName, sourceDescription, newsTitle, urlmain;
+    public TextView sourceName, sourceDescription, newsTitle, urlMain;
     public RecyclerView rssRecycler;
-    public Button subscribebtn, unsubscribebtn;
-    GetUserLogin getUserLogin;
-    LoadImageURL loadImageURL;
-    NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
-    List<RSSList> rssLists = new ArrayList<>();
-    LanguagePrefManager languagePrefManager;
-    LoadThemeShared loadThemeShared;
+    public Button subscribeBtn, unsubscribeBtn;
+    private GetUserLogin getUserLogin;
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private List<RSSList> rssLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        languagePrefManager = new LanguagePrefManager(this);
+        LanguagePrefManager languagePrefManager = new LanguagePrefManager(this);
         languagePrefManager.setLocal(languagePrefManager.getLang());
         languagePrefManager.loadLocal();
-        loadThemeShared = new LoadThemeShared(this);
+        LoadThemeShared loadThemeShared = new LoadThemeShared(this);
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_news_details);
@@ -90,13 +87,13 @@ public class SourceNewsDetails extends AppCompatActivity {
         });
         imageNews = findViewById(R.id.imgNews);
         sourceName = findViewById(R.id.NewsSourceName);
-        urlmain = findViewById(R.id.url_sourcemain);
+        urlMain = findViewById(R.id.url_sourcemain);
         sourceDescription = findViewById(R.id.source_information);
         newsTitle = findViewById(R.id.SourceNewsDetailsTitle);
         rssRecycler = findViewById(R.id.rss_list);
         //Subscribe button and Unsubscribe button
-        subscribebtn = findViewById(R.id.SubscribleBtn);
-        unsubscribebtn = findViewById(R.id.UnSubscribleBtn);
+        subscribeBtn = findViewById(R.id.SubscribleBtn);
+        unsubscribeBtn = findViewById(R.id.UnSubscribleBtn);
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -110,11 +107,11 @@ public class SourceNewsDetails extends AppCompatActivity {
         urlMainSource = getIntent().getStringExtra("source_url");
         newSourceDescription = getIntent().getStringExtra("source_description");
         //load image news source
-        loadImageURL = new LoadImageURL(imagePath);
+        LoadImageURL loadImageURL = new LoadImageURL(imagePath);
         loadImageURL.loadImageforNewsDetails(imageNews);
         //set source name title, description
         sourceName.setText(newSourceName);
-        urlmain.setText(urlMainSource);
+        urlMain.setText(urlMainSource);
         sourceDescription.setText(newSourceDescription);
         newsTitle.setText(newSourceName);
         //Load RSS List follow sourceName
@@ -123,18 +120,18 @@ public class SourceNewsDetails extends AppCompatActivity {
         if (Objects.equals(getUserLogin.getStatus(), "login")) {
             checkSubscribedSource(sourceID, getUserLogin.getUserID());
         } else {
-            subscribebtn.setVisibility(View.VISIBLE);
-            unsubscribebtn.setVisibility(View.GONE);
+            subscribeBtn.setVisibility(View.VISIBLE);
+            unsubscribeBtn.setVisibility(View.GONE);
         }
         //Now subscribe and unsubscribe acction
-        subscribebtn.setOnClickListener(v -> {
+        subscribeBtn.setOnClickListener(v -> {
             if (Objects.equals(getUserLogin.getStatus(), "login")) {
                 subscribeNewsSource(sourceID, getUserLogin.getUserID());
             } else {
                 Toast.makeText(this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
             }
         });
-        unsubscribebtn.setOnClickListener(v -> {
+        unsubscribeBtn.setOnClickListener(v -> {
             if (Objects.equals(getUserLogin.getStatus(), "login")) {
                 unsubscribeNewsSource(sourceID, getUserLogin.getUserID());
             } else {
@@ -185,11 +182,11 @@ public class SourceNewsDetails extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (Objects.equals(response.body().getStatus(), "success")) {
-                        subscribebtn.setVisibility(View.GONE);
-                        unsubscribebtn.setVisibility(View.VISIBLE);
+                        subscribeBtn.setVisibility(View.GONE);
+                        unsubscribeBtn.setVisibility(View.VISIBLE);
                     } else {
-                        subscribebtn.setVisibility(View.VISIBLE);
-                        unsubscribebtn.setVisibility(View.GONE);
+                        subscribeBtn.setVisibility(View.VISIBLE);
+                        unsubscribeBtn.setVisibility(View.GONE);
                         Toast.makeText(SourceNewsDetails.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -212,8 +209,8 @@ public class SourceNewsDetails extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (Objects.equals(response.body().getStatus(), "success")) {
-                        subscribebtn.setVisibility(View.GONE);
-                        unsubscribebtn.setVisibility(View.VISIBLE);
+                        subscribeBtn.setVisibility(View.GONE);
+                        unsubscribeBtn.setVisibility(View.VISIBLE);
                         Toast.makeText(SourceNewsDetails.this, R.string.subscribed, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SourceNewsDetails.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
@@ -238,8 +235,8 @@ public class SourceNewsDetails extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (Objects.equals(response.body().getStatus(), "deleted")) {
-                        subscribebtn.setVisibility(View.VISIBLE);
-                        unsubscribebtn.setVisibility(View.GONE);
+                        subscribeBtn.setVisibility(View.VISIBLE);
+                        unsubscribeBtn.setVisibility(View.GONE);
                         Toast.makeText(SourceNewsDetails.this, R.string.unsubscribed, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SourceNewsDetails.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();

@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -49,10 +49,10 @@ import java.util.Timer;
 import retrofit2.Call;
 
 public class VerifyAccountForm extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    Button verifybtn, resendbtn;
-    NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
-    String userID, fullname, email, password, username;
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private Button resendBtn;
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private String userID, fullName, email, password, username;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -65,7 +65,7 @@ public class VerifyAccountForm extends AppCompatActivity {
         applicationFlags.setFlag();
         //Get string send from Sign Up form
         userID = getIntent().getStringExtra("user_id");
-        fullname = getIntent().getStringExtra("fullname");
+        fullName = getIntent().getStringExtra("fullname");
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
         username = getIntent().getStringExtra("username");
@@ -73,8 +73,8 @@ public class VerifyAccountForm extends AppCompatActivity {
         emailtext.setText(email);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //check if user is verified or not
-        verifybtn = findViewById(R.id.VerifiedButton);
-        verifybtn.setOnClickListener(v -> {
+        Button verifyBtn = findViewById(R.id.VerifiedButton);
+        verifyBtn.setOnClickListener(v -> {
             //re-sign in user
             FirebaseAuth authVerifed = FirebaseAuth.getInstance();
             authVerifed.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
@@ -86,8 +86,8 @@ public class VerifyAccountForm extends AppCompatActivity {
                         updateStatus(email);
                         //After that, save user account to shared preferences
                         SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogined(userID, fullname, email, password, username, "not_available", "true");
-                        //go to RegisteoSuccesful form
+                        saveUserLogined.saveUserLogined(userID, fullName, email, password, username, "not_available", "true");
+                        //go to Register Success form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);
                         intent.putExtra("password", password);
@@ -108,7 +108,7 @@ public class VerifyAccountForm extends AppCompatActivity {
             builder.setTitle(R.string.verify_account);
             builder.setMessage(R.string.your_account_is_not_verified_yet_are_you_sure_to_go_back);
             builder.setPositiveButton(R.string.yes, (dialog, which) -> {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
                 ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
                 finish();
             });
@@ -116,9 +116,9 @@ public class VerifyAccountForm extends AppCompatActivity {
             builder.show();
         });
         //resend verification email
-        resendbtn = findViewById(R.id.ResendCodeBtn);
-        resendbtn.setOnClickListener(v -> {
-            resendbtn.setEnabled(false);
+        resendBtn = findViewById(R.id.ResendCodeBtn);
+        resendBtn.setOnClickListener(v -> {
+            resendBtn.setEnabled(false);
             //send verification email and wait 60 second to send again
             assert user != null;
             user.sendEmailVerification().addOnCompleteListener(task -> {
@@ -135,12 +135,12 @@ public class VerifyAccountForm extends AppCompatActivity {
                     timer.schedule(new java.util.TimerTask() {
                         @Override
                         public void run() {
-                            runOnUiThread(() -> resendbtn.setEnabled(true));
+                            runOnUiThread(() -> resendBtn.setEnabled(true));
                         }
                     }, 300);
                 } else {
                     Toast.makeText(this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
-                    resendbtn.setEnabled(true);
+                    resendBtn.setEnabled(true);
                 }
             });
 

@@ -32,8 +32,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.activity.userlogin.FixBlurryGoogleImage;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.java.userlogin.FixBlurryGoogleImage;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.SignIn;
@@ -109,7 +109,7 @@ public class GoogleMethod {
         //First, save it to database
         Call<SignIn> callSSO = newsAPPInterface.signInWithGoogle(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email) , Utils.encodeToBase64(userName), Utils.encodeToBase64(avatar));
         assert callSSO != null;
-        callSSO.enqueue(new retrofit2.Callback<SignIn>() {
+        callSSO.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<SignIn> call, @NonNull Response<SignIn> response) {
                 //Save successfully,

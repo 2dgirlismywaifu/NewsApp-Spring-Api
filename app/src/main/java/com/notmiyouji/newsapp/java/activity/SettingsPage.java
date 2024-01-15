@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.general;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -33,7 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.SignInForm;
+import com.notmiyouji.newsapp.java.activity.userlogin.SignInForm;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -97,7 +97,7 @@ public class SettingsPage extends AppCompatActivity {
             intent = new Intent(this, WallpaperHeader.class);
             startActivity(intent);
         });
-        //Selected Langauge
+        //Selected Language
         RelativeLayout selLanguage = findViewById(R.id.selected_language);
         selLanguage.setOnClickListener(v -> {
             intent = new Intent(this, ChangeLanguage.class);

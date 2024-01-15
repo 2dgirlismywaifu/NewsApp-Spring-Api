@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
 
@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,10 +41,9 @@ import java.util.Objects;
 import retrofit2.Call;
 
 public class ForgotPasswordForm extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    TextInputEditText recoveryCodeInput;
-    Button verifyButton;
-    NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private TextInputEditText recoveryCodeInput;
+    private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,12 @@ public class ForgotPasswordForm extends AppCompatActivity {
         recoveryCodeInput = findViewById(R.id.recovey_code);
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
         //Verify button recovery code
-        verifyButton = findViewById(R.id.VerifiedButton);
+        Button verifyButton = findViewById(R.id.VerifiedButton);
         verifyButton.setOnClickListener(v -> {
             String recoveryCode = String.valueOf(recoveryCodeInput.getText());
             if (recoveryCode.isEmpty()) {
@@ -105,11 +105,16 @@ public class ForgotPasswordForm extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        finish();
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            ActivityOptions.makeSceneTransitionAnimation(ForgotPasswordForm.this).toBundle();
+            finish();
+        }
+    };
+
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
     public void onResume() {

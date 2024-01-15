@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.general;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -30,7 +30,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.rssurl.HomePage;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;

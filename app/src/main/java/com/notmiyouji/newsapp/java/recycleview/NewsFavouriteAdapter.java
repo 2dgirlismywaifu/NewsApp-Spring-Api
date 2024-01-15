@@ -31,7 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.NewsFavouriteByUser;
+import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
@@ -92,13 +92,9 @@ public class NewsFavouriteAdapter extends RecyclerView.Adapter<NewsFavouriteAdap
         });
         holder.itemView.setOnClickListener(v -> {
             String getpath;
-            if (path != null) {
-                getpath = path;
-            } else {
-                getpath = "https://techvccloud.mediacdn.vn/2018/3/29/notavailableen-1522298007107364895792-21-0-470-800-crop-152229801290023105615.png";
-            }
-            //Webview is cool but it's not the best way to show the news, so I'm going to use a Chrome Custom Tab
-            //If your browser not installed, it will open in the webview
+            getpath = Objects.requireNonNullElse(path, "https://techvccloud.mediacdn.vn/2018/3/29/notavailableen-1522298007107364895792-21-0-470-800-crop-152229801290023105615.png");
+            //Web view is cool but it's not the best way to show the news, so I'm going to use a Chrome Custom Tab
+            //If your browser not installed, it will open in the web-view
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(
                     items.get(position).getUrl(),
                     items.get(position).getTitle(),

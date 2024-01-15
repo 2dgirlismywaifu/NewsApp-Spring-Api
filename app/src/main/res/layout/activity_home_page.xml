@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".java.rssurl.HomePage">
+    tools:context=".java.activity.HomePage">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_pane_view"

@@ -35,60 +35,60 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".java.general.ChangeTheme"
+            android:name=".java.activity.ChangeTheme"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.RecoveryAccount"
+            android:name=".java.activity.userlogin.RecoveryAccount"
             android:exported="false" />
         <activity
-            android:name=".java.rssurl.HomePage"
+            android:name=".java.activity.HomePage"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.ViewRecoveryCode"
+            android:name=".java.activity.userlogin.ViewRecoveryCode"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.ChangePassword"
+            android:name=".java.activity.userlogin.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.AccountSettings"
+            android:name=".java.activity.userlogin.AccountSettings"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.RegisterSuccess"
+            android:name=".java.activity.userlogin.RegisterSuccess"
             android:exported="false" />
         <activity
-            android:name=".java.general.ChangeLanguage"
+            android:name=".java.activity.ChangeLanguage"
             android:exported="false" />
         <activity
-            android:name=".java.rssurl.SourceNewsDetails"
+            android:name=".java.activity.SourceNewsDetails"
             android:exported="false" />
         <activity
-            android:name=".java.general.WallpaperHeader"
+            android:name=".java.activity.WallpaperHeader"
             android:exported="false" />
         <activity
-            android:name=".java.general.AboutApplication"
+            android:name=".java.activity.AboutApplication"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.SettingsLogined"
+            android:name=".java.activity.userlogin.SettingsUserLogin"
             android:exported="false" />
         <activity
-            android:name=".java.general.SettingsPage"
+            android:name=".java.activity.SettingsPage"
             android:exported="false" />
         <activity
-            android:name=".java.userlogin.ForgotPasswordForm"
+            android:name=".java.activity.userlogin.ForgotPasswordForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.userlogin.VerifyAccountForm"
+            android:name=".java.activity.userlogin.VerifyAccountForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.userlogin.SignUpForm"
+            android:name=".java.activity.userlogin.SignUpForm"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"> <!-- or "adjustPan" -->
             <meta-data
@@ -96,28 +96,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.userlogin.SignInForm"
+            android:name=".java.activity.userlogin.SignInForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.newsdetails.NewsDetailWebView"
+            android:name=".java.activity.newsdetail.NewsDetailByWebView"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.rssurl.SourceNewsList"
+            android:name=".java.activity.SourceNewsList"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.general.FavouriteNews"
+            android:name=".java.activity.FavouriteNews"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -131,7 +131,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.general.HelloScreen"
+            android:name=".java.activity.HelloScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

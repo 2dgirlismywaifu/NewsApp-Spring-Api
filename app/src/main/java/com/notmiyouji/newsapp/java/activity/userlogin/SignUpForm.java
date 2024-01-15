@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -51,10 +51,10 @@ import retrofit2.Response;
 
 public class SignUpForm extends AppCompatActivity {
 
-    Button signupbtn, signinbtn;
-    TextInputEditText fullname, email, password, confirmpassword, username;
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private Button signUpBtn;
+    private TextInputEditText fullName, email, password, confirmPassword, username;
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +65,12 @@ public class SignUpForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
 
-        fullname = findViewById(R.id.fullname_input);
+        fullName = findViewById(R.id.fullname_input);
         email = findViewById(R.id.email_input);
         password = findViewById(R.id.password_input);
-        confirmpassword = findViewById(R.id.Repassword_input);
+        confirmPassword = findViewById(R.id.Repassword_input);
         username = findViewById(R.id.recovey_code);
-        signinbtn = findViewById(R.id.ResendCodeBtn);
+        Button signInBtn = findViewById(R.id.ResendCodeBtn);
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
@@ -78,48 +78,48 @@ public class SignUpForm extends AppCompatActivity {
             finish();
         });
         //Sign Up form only access from Sign In form
-        signinbtn.setOnClickListener(v -> {
+        signInBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
         //sign up button
-        signupbtn = findViewById(R.id.VerifiedButton);
-        signupbtn.setOnClickListener(v -> {
+        signUpBtn = findViewById(R.id.VerifiedButton);
+        signUpBtn.setOnClickListener(v -> {
             //disable button
-            signupbtn.setEnabled(false);
+            signUpBtn.setEnabled(false);
             //check input
             checkInput();
             //if all input is not null, sign up
-            if (!fullname.getText().toString().isEmpty()
-                    && !email.getText().toString().isEmpty()
-                    && !password.getText().toString().isEmpty()
-                    && !confirmpassword.getText().toString().isEmpty()
-                    && !username.getText().toString().isEmpty()) {
+            if (!String.valueOf(fullName.getText()).isEmpty()
+                    && !String.valueOf(email.getText()).isEmpty()
+                    && !String.valueOf(password.getText()).isEmpty()
+                    && !String.valueOf(confirmPassword.getText()).isEmpty()
+                    && !String.valueOf(username.getText()).isEmpty()) {
                 //if password and confirm password is not same, show error
-                if (!password.getText().toString().equals(confirmpassword.getText().toString())) {
+                if (!String.valueOf(password.getText()).equals(String.valueOf(confirmPassword.getText()))) {
                     password.setError(getString(R.string.password_is_not_same));
-                    confirmpassword.setError(getString(R.string.password_is_not_same));
+                    confirmPassword.setError(getString(R.string.password_is_not_same));
                     Toast.makeText(this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
+                    signUpBtn.setEnabled(true);
                 }
                 //regex email
-                else if (!email.getText().toString().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                else if (!String.valueOf(email.getText()).matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
                     email.setError(getString(R.string.email_is_not_valid));
                     Toast.makeText(this, R.string.email_is_not_valid, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
+                    signUpBtn.setEnabled(true);
                 }
                 //if password not containt al least 6 character, show error
-                else if (password.getText().toString().length() < 6) {
+                else if (String.valueOf(password.getText()).length() < 6) {
                     password.setError(getString(R.string.password_must_be_at_least_6_character));
                     Toast.makeText(this, R.string.password_must_be_at_least_6_character, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
+                    signUpBtn.setEnabled(true);
                 }
                 //password must contain at least 1 number, 1 uppercase, 1 special character
-                else if (!password.getText().toString().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$")) {
+                else if (!String.valueOf(password.getText()).matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$")) {
                     password.setError(getString(R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character));
                     Toast.makeText(this, R.string.password_must_contain_at_least_1_number_1_uppercase_1_special_character, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
+                    signUpBtn.setEnabled(true);
                 } else {
                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                     builder.setIcon(R.mipmap.ic_launcher);
@@ -132,7 +132,7 @@ public class SignUpForm extends AppCompatActivity {
                     });
                     builder.setNegativeButton(R.string.no, (dialog, which) -> {
                         dialog.dismiss();
-                        signupbtn.setEnabled(true);
+                        signUpBtn.setEnabled(true);
                     });
                     builder.show();
                 }
@@ -158,26 +158,26 @@ public class SignUpForm extends AppCompatActivity {
     }
 
     private void checkInput() {
-        //if all input is null, textinputlayout will show error
-        if (fullname.getText().toString().isEmpty()) {
-            fullname.setError("Full name is required");
-            signupbtn.setEnabled(true);
+        //if all input is null, text input layout will show error
+        if (String.valueOf(fullName.getText()).isEmpty()) {
+            fullName.setError("Full name is required");
+            signUpBtn.setEnabled(true);
         }
-        if (email.getText().toString().isEmpty()) {
+        if (String.valueOf(email.getText()).isEmpty()) {
             email.setError("Email is required");
-            signupbtn.setEnabled(true);
+            signUpBtn.setEnabled(true);
         }
-        if (password.getText().toString().isEmpty()) {
+        if (String.valueOf(password.getText()).isEmpty()) {
             password.setError("Password is required");
-            signupbtn.setEnabled(true);
+            signUpBtn.setEnabled(true);
         }
-        if (confirmpassword.getText().toString().isEmpty()) {
-            confirmpassword.setError("Confirm password is required");
-            signupbtn.setEnabled(true);
+        if (String.valueOf(confirmPassword.getText()).isEmpty()) {
+            confirmPassword.setError("Confirm password is required");
+            signUpBtn.setEnabled(true);
         }
-        if (username.getText().toString().isEmpty()) {
+        if (String.valueOf(username.getText()).isEmpty()) {
             username.setError("Username is required");
-            signupbtn.setEnabled(true);
+            signUpBtn.setEnabled(true);
         }
     }
 
@@ -191,18 +191,18 @@ public class SignUpForm extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (Objects.equals(response.body().getStatus(), "success")) {
-                        RegisterAccount(String.valueOf(fullname.getText()),
+                        RegisterAccount(String.valueOf(fullName.getText()),
                                 String.valueOf(email.getText()).toLowerCase(),
                                 String.valueOf(password.getText()),
                                 String.valueOf(username.getText()));
                     } else {
                         username.setError(getString(R.string.nickname_is_already_used));
                         email.setError(getString(R.string.email_is_already_used));
-                        signupbtn.setEnabled(true);
+                        signUpBtn.setEnabled(true);
                     }
                 } else  {
                     Toast.makeText(SignUpForm.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
-                    signupbtn.setEnabled(true);
+                    signUpBtn.setEnabled(true);
                 }
             }
 
@@ -213,7 +213,7 @@ public class SignUpForm extends AppCompatActivity {
     }
 
     @SuppressLint("MissingPermission")
-    private void RegisterAccount(String fullname, String email, String password, String username) {
+    private void RegisterAccount(String fullName, String email, String password, String username) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
@@ -231,7 +231,7 @@ public class SignUpForm extends AppCompatActivity {
                         //Create notification
                         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(SignUpForm.this);
                         notificationManager.notify(1, builder.build());
-                        gotoVerifyEmail(fullname, email, password, username);
+                        gotoVerifyEmail(fullName, email, password, username);
                     } else {
                         Toast.makeText(SignUpForm.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -240,9 +240,9 @@ public class SignUpForm extends AppCompatActivity {
         });
     }
 
-    private void gotoVerifyEmail(String fullname, String email, String password, String username) {
+    private void gotoVerifyEmail(String fullName, String email, String password, String username) {
         //First, save it to database
-        Call<SignUp> call = newsAPPInterface.signUpAnAccount(Utils.encodeToBase64(fullname), Utils.encodeToBase64(email), Utils.encodeToBase64(password), Utils.encodeToBase64(username));
+        Call<SignUp> call = newsAPPInterface.signUpAnAccount(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email), Utils.encodeToBase64(password), Utils.encodeToBase64(username));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -253,8 +253,8 @@ public class SignUpForm extends AppCompatActivity {
                     if (signUp != null) {
                         //go to verify account activity
                         Intent intent = new Intent(SignUpForm.this, VerifyAccountForm.class);
-                        intent.putExtra("user_id", signUp.getUserId());
-                        intent.putExtra("fullname", fullname);
+                        intent.putExtra("userId", signUp.getUserId());
+                        intent.putExtra("fullName", fullName);
                         intent.putExtra("email", email);
                         intent.putExtra("password", password);
                         intent.putExtra("username", username);

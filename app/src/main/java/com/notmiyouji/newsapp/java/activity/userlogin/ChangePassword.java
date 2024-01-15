@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -39,13 +39,10 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 
 public class ChangePassword extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    LoadThemeShared loadThemeShared;
-    TextInputEditText oldPassword, newPassword, confirmPassword;
-    TextView fullName, username;
-    GetUserLogin getUserLogin;
-    Button changePassword;
-    ShapeableImageView avatar;
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private LoadThemeShared loadThemeShared;
+    private TextInputEditText oldPassword, newPassword, confirmPassword;
+    private GetUserLogin getUserLogin;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -60,8 +57,8 @@ public class ChangePassword extends AppCompatActivity {
         applicationFlags.setFlag();
 
         getUserLogin = new GetUserLogin(this);
-        fullName = findViewById(R.id.fullname);
-        username = findViewById(R.id.username);
+        TextView fullName = findViewById(R.id.fullname);
+        TextView username = findViewById(R.id.username);
         fullName.setText(getUserLogin.getFullName());
         username.setText("@" + getUserLogin.getUsername());
         //Password Input
@@ -69,7 +66,7 @@ public class ChangePassword extends AppCompatActivity {
         newPassword = findViewById(R.id.newspass_user_input);
         confirmPassword = findViewById(R.id.confirmpass_input);
         //Load avatar
-        avatar = findViewById(R.id.avatar_user_logined);
+        ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
         LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
         loadImageURL.loadImageUser(avatar);
         //back button
@@ -80,7 +77,7 @@ public class ChangePassword extends AppCompatActivity {
             finish();
         });
         //Change Password Button
-        changePassword = findViewById(R.id.ChangeButton);
+        Button changePassword = findViewById(R.id.ChangeButton);
         changePassword.setOnClickListener(v -> {
             String oldPasswordString = String.valueOf(oldPassword.getText());
             String newPasswordString = String.valueOf(newPassword.getText());
@@ -102,7 +99,7 @@ public class ChangePassword extends AppCompatActivity {
                 materialAlertDialogBuilder.setPositiveButton(R.string.yes, (dialog, which) -> {
                     //Update Password Controller
                     UpdateInformation updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
-                    updateInformation.updatePassword(getUserLogin.getEmail(), oldPasswordString, newPasswordString, "");
+                    updateInformation.updatePassword(getUserLogin.getEmail(), newPasswordString);
                 });
                 materialAlertDialogBuilder.show();
 

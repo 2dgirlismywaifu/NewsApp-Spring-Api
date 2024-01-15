@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".java.general.FavouriteNews">
+    tools:context=".java.activity.FavouriteNews">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_pane_favourite_news"

@@ -29,7 +29,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
-import com.notmiyouji.newsapp.java.rssurl.HomePage
+import com.notmiyouji.newsapp.java.activity.HomePage
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LanguagePrefManager
 
 class LanguageAdpater(var activity: AppCompatActivity) :

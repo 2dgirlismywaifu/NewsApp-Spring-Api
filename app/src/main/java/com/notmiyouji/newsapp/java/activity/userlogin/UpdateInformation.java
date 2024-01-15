@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
 
@@ -51,7 +51,7 @@ public class UpdateInformation {
         Call<UserInformation> call = newsAPPInterface.updateUserInformation
                 (userId, "", "", "", "", avatar);
         assert call != null;
-        call.enqueue(new retrofit2.Callback<UserInformation>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
@@ -74,7 +74,7 @@ public class UpdateInformation {
         Call<UserInformation> call = newsAPPInterface.updateUserInformation
                 (userId, "", "", birthday, "", "");
         assert call != null;
-        call.enqueue(new retrofit2.Callback<UserInformation>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
@@ -97,9 +97,9 @@ public class UpdateInformation {
         Call<UserInformation> call = newsAPPInterface.updateUserInformation
                 (userId, "", fullName, "", "", "");
         assert call != null;
-        call.enqueue(new retrofit2.Callback<UserInformation>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<UserInformation> call, retrofit2.Response<UserInformation> response) {
+            public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
@@ -121,7 +121,7 @@ public class UpdateInformation {
         Call<UserInformation> call = newsAPPInterface.updateUserInformation
                 (userId, "", "", "", gender, "");
         assert call != null;
-        call.enqueue(new retrofit2.Callback<UserInformation>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
@@ -143,7 +143,7 @@ public class UpdateInformation {
     public void checkUserName(String userName, String email) {
         Call<VerifyNickName> call = newsAPPInterface.verifyNickName(userName, email);
         assert call != null;
-        call.enqueue(new retrofit2.Callback<VerifyNickName>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<VerifyNickName> call, @NonNull Response<VerifyNickName> response) {
                 if (response.isSuccessful()) {
@@ -168,7 +168,7 @@ public class UpdateInformation {
         Call<UserInformation> call = newsAPPInterface.updateUserInformation
                 (userId, userName, "", "", "", "");
         assert call != null;
-        call.enqueue(new retrofit2.Callback<UserInformation>() {
+        call.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
@@ -188,11 +188,11 @@ public class UpdateInformation {
     }
 
 
-    public void updatePassword(String email, String oldPass, String newsPass, String code) {
+    public void updatePassword(String email, String newsPass) {
         //Retrofit call update password request
-        Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserPassword(userId, email, oldPass, newsPass, code);
+        Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserToken(userId, email, newsPass);
         assert updatePasswordNow != null;
-        updatePasswordNow.enqueue(new retrofit2.Callback<UserInformation>() {
+        updatePasswordNow.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {

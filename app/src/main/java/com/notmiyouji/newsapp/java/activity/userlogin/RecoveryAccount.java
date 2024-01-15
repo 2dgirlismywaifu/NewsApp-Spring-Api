@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
 
@@ -47,13 +47,11 @@ import retrofit2.Call;
 
 
 public class RecoveryAccount extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    TextInputEditText newPassword, confirmPassword;
-    TextView fullName, username;
-    String email, usernameIntent, fullname, userid, code;
-    Button changePassword;
-    ShapeableImageView avatar;
-    NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private TextInputEditText newPassword, confirmPassword;
+    private String email;
+    private String userid;
+    private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -66,12 +64,11 @@ public class RecoveryAccount extends AppCompatActivity {
         applicationFlags.setFlag();
 
         email = getIntent().getStringExtra("email");
-        usernameIntent = getIntent().getStringExtra("username");
-        fullname = getIntent().getStringExtra("fullname");
+        String usernameIntent = getIntent().getStringExtra("username");
+        String fullname = getIntent().getStringExtra("fullname");
         userid = getIntent().getStringExtra("userid");
-        code = getIntent().getStringExtra("code");
-        fullName = findViewById(R.id.fullname);
-        username = findViewById(R.id.username);
+        TextView fullName = findViewById(R.id.fullname);
+        TextView username = findViewById(R.id.username);
         fullName.setText(fullname);
         username.setText("@" + usernameIntent);
         //Password Input
@@ -79,7 +76,7 @@ public class RecoveryAccount extends AppCompatActivity {
         newPassword = findViewById(R.id.newspass_user_input);
         confirmPassword = findViewById(R.id.confirmpass_input);
         //Load avatar
-        avatar = findViewById(R.id.avatar_user_logined);
+        ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
         String avatarURL = new RequestImage(email).getGravatarURL();
         LoadImageURL loadImageURL = new LoadImageURL(avatarURL);
         loadImageURL.loadImageUser(avatar);
@@ -91,7 +88,7 @@ public class RecoveryAccount extends AppCompatActivity {
             finish();
         });
         //Change Password Button
-        changePassword = findViewById(R.id.ChangeButton);
+        Button changePassword = findViewById(R.id.ChangeButton);
         changePassword.setOnClickListener(v -> {
             String newPasswordString = String.valueOf(newPassword.getText());
             String confirmPasswordString = String.valueOf(confirmPassword.getText());
@@ -100,14 +97,14 @@ public class RecoveryAccount extends AppCompatActivity {
             } else if (!newPasswordString.equals(confirmPasswordString)) {
                 Toast.makeText(RecoveryAccount.this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
             } else {
-                UpdatePassword(userid, email, newPasswordString, code);
+                UpdatePassword(userid, email, newPasswordString);
             }
         });
     }
 
-    private void UpdatePassword(String userid, String email, String newPass, String code) {
+    private void UpdatePassword(String userid, String email, String newPass) {
         //Retrofit call update password request
-        Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserPassword(userid, email, "", newPass, code);
+        Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserToken(userid, email, newPass);
         assert updatePasswordNow != null;
         updatePasswordNow.enqueue(new retrofit2.Callback<>() {
             @Override

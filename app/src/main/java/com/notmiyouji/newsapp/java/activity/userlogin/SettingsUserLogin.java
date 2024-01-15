@@ -15,20 +15,20 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -42,10 +42,10 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.general.AboutApplication;
-import com.notmiyouji.newsapp.java.general.ChangeLanguage;
-import com.notmiyouji.newsapp.java.general.ChangeTheme;
-import com.notmiyouji.newsapp.java.general.WallpaperHeader;
+import com.notmiyouji.newsapp.java.activity.AboutApplication;
+import com.notmiyouji.newsapp.java.activity.ChangeLanguage;
+import com.notmiyouji.newsapp.java.activity.ChangeTheme;
+import com.notmiyouji.newsapp.java.activity.WallpaperHeader;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
@@ -55,18 +55,14 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.UseChromeShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.WelcomeScreenShared;
 
-public class SettingsLogined extends AppCompatActivity {
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    LoadThemeShared loadThemeShared;
-    RelativeLayout aboutApp, selLanguage, selTheme, accountSettings;
-    int menu;
-    Button signOut;
-    TextView fullName, username;
-    DrawerLayout drawerLayout;
-    SwitchMaterial useChrome, showWelcome;
-    Intent intent;
-    SharedPreferences prefs;
-    GetUserLogin getUserLogin;
+public class SettingsUserLogin extends AppCompatActivity {
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private LoadThemeShared loadThemeShared;
+    private TextView fullName, username;
+    private DrawerLayout drawerLayout;
+    private Intent intent;
+    private SharedPreferences prefs;
+    private GetUserLogin getUserLogin;
 
     @SuppressLint({"SetTextI18n", "MissingPermission"})
     @Override
@@ -91,10 +87,10 @@ public class SettingsLogined extends AppCompatActivity {
             drawerLayout.setBackground(ResourcesCompat.getDrawable(getResources(), loadBackground(), null));
         }
         //About Application
-        aboutApp = findViewById(R.id.about_application);
+        RelativeLayout aboutApp = findViewById(R.id.about_application);
         aboutApp.setOnClickListener(v -> {
             //go to about application
-            intent = new Intent(SettingsLogined.this, AboutApplication.class);
+            intent = new Intent(SettingsUserLogin.this, AboutApplication.class);
             startActivity(intent);
         });
         //Load avatar
@@ -104,7 +100,7 @@ public class SettingsLogined extends AppCompatActivity {
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
@@ -112,27 +108,24 @@ public class SettingsLogined extends AppCompatActivity {
         Button changeWallpaper = findViewById(R.id.changeWallpaper2);
         changeWallpaper.setOnClickListener(v -> {
             //go to change wallpaper
-            intent = new Intent(SettingsLogined.this, WallpaperHeader.class);
+            intent = new Intent(SettingsUserLogin.this, WallpaperHeader.class);
             startActivity(intent);
         });
         //Selected Langauge
-        selLanguage = findViewById(R.id.selected_language);
-        selLanguage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(SettingsLogined.this, ChangeLanguage.class);
-                startActivity(intent);
-            }
+        RelativeLayout selLanguage = findViewById(R.id.selected_language);
+        selLanguage.setOnClickListener(v -> {
+            intent = new Intent(SettingsUserLogin.this, ChangeLanguage.class);
+            startActivity(intent);
         });
         //Selected Theme
-        selTheme = findViewById(R.id.change_theme);
+        RelativeLayout selTheme = findViewById(R.id.change_theme);
         selTheme.setOnClickListener(v -> {
             //go to change theme
-            intent = new Intent(SettingsLogined.this, ChangeTheme.class);
+            intent = new Intent(SettingsUserLogin.this, ChangeTheme.class);
             startActivity(intent);
         });
         //Switch WebView to Chrome Custom Tabs
-        useChrome = findViewById(R.id.switchChrome);
+        SwitchMaterial useChrome = findViewById(R.id.switchChrome);
         useChrome.setChecked(new UseChromeShared(this).getEnableChrome());
         useChrome.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs = getSharedPreferences("useChrome", MODE_PRIVATE);
@@ -141,7 +134,7 @@ public class SettingsLogined extends AppCompatActivity {
             editor.apply();
         });
         //Switch Show Welcome
-        showWelcome = findViewById(R.id.turnoffWelcome);
+        SwitchMaterial showWelcome = findViewById(R.id.turnoffWelcome);
         showWelcome.setChecked(new WelcomeScreenShared(this).getEnableWelcome());
         showWelcome.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs = getSharedPreferences("welcomeScreen", MODE_PRIVATE);
@@ -150,14 +143,14 @@ public class SettingsLogined extends AppCompatActivity {
             editor.apply();
         });
         //Account Settings
-        accountSettings = findViewById(R.id.account_settings);
+        RelativeLayout accountSettings = findViewById(R.id.account_settings);
         accountSettings.setOnClickListener(v -> {
             //go to account settings
-            intent = new Intent(SettingsLogined.this, AccountSettings.class);
+            intent = new Intent(SettingsUserLogin.this, AccountSettings.class);
             startActivity(intent);
         });
         //Sign Out account
-        signOut = findViewById(R.id.sign_out);
+        Button signOut = findViewById(R.id.sign_out);
         signOut.setOnClickListener(v -> {
             //Show alert dialog
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
@@ -209,13 +202,19 @@ public class SettingsLogined extends AppCompatActivity {
         return prefs.getInt("path", drawerLayout.getBackground().getCurrent().getConstantState().getChangingConfigurations());
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        finish();
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            ActivityOptions.makeSceneTransitionAnimation(SettingsUserLogin.this).toBundle();
+            finish();
+        }
+    };
+
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onResume() {
         super.onResume();

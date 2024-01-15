@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.VerifyAccountForm;
+import com.notmiyouji.newsapp.java.activity.userlogin.VerifyAccountForm;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.gravatar.RequestImage;

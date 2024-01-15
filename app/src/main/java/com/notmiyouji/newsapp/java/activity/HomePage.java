@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.rssurl;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -50,9 +50,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.general.FavouriteNews;
-import com.notmiyouji.newsapp.java.general.MaterialAltertLoading;
-import com.notmiyouji.newsapp.java.general.NavigationPane;
 import com.notmiyouji.newsapp.java.newsapi.NewsApiPage;
 import com.notmiyouji.newsapp.java.recycleview.NewsTypeAdapter;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
@@ -175,7 +172,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         //From SharedPreference, call back source name
         reloadData();
         //NewsCategory Type List
-        loadCategory(getDefaultType());
+        loadCategory();
         //open sign in page from navigation view
         if ("".equals(getUserLogin.getStatus())) {
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
@@ -209,7 +206,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void loadCategory(String type) {
+    private void loadCategory() {
         NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, getUserLogin.getUserID());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -219,7 +216,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
 
     private void LoadSourceNews(String type) {
         MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
-        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDialog();
         AlertDialog alertDialog = mDialog.create();
         alertDialog.show();
         //Load Latest News Horizontal
@@ -290,7 +287,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                     sharedPreferenceSettings.getSharedSource(sourceName);
                     setDefaultType(sourceName);
                     bottomSheetDialog.dismiss();
-                    loadCategory(sourceName);
+                    loadCategory();
                     LoadSourceNews(sourceName);
                 }
 

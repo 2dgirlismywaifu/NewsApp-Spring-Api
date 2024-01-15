@@ -30,8 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.activity.MaterialAltertLoading;
 import com.notmiyouji.newsapp.java.category.NewsApiCategory;
-import com.notmiyouji.newsapp.java.general.MaterialAltertLoading;
 
 import java.util.HashMap;
 
@@ -58,7 +58,7 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
         holder.news_type.setText(data.keySet().toArray()[position].toString());
         holder.news_type.setOnClickListener(v -> {
             //load Dialog
-            MaterialAlertDialogBuilder mDialog = new MaterialAltertLoading(activity).getDiaglog();
+            MaterialAlertDialogBuilder mDialog = new MaterialAltertLoading(activity).getDialog();
             AlertDialog dialog = mDialog.create();
             dialog.show();
             //fetch follow category
@@ -90,8 +90,7 @@ public class NewsAPITypeAdapter extends RecyclerView.Adapter<NewsAPITypeAdapter.
     }
 
     public static class NewsTypeHolder extends RecyclerView.ViewHolder {
-        Button news_type;
-        private ItemClickListener itemClickListener;
+        private final Button news_type;
 
         public NewsTypeHolder(@NonNull View itemView) {
 

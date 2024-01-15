@@ -28,7 +28,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
-import com.notmiyouji.newsapp.java.rssurl.HomePage
+import com.notmiyouji.newsapp.java.activity.HomePage
 import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveThemeSettings
 
 class ThemeAdpater(var activity: AppCompatActivity) :
@@ -49,14 +49,14 @@ class ThemeAdpater(var activity: AppCompatActivity) :
             saveThemeSettings.saveTheme(defTheme)
             Toast.makeText(activity, R.string.theme_change_messeage, Toast.LENGTH_SHORT).show()
             val intent = Intent(activity, HomePage::class.java)
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,0, 0)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 activity.finish()
                 activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,0, 0)
                 activity.startActivity(intent)
-            } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            } else {
                 activity.overridePendingTransition(0, 0)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

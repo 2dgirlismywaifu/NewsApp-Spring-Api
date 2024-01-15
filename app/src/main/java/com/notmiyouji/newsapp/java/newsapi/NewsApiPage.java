@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,14 +49,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.activity.FavouriteNews;
+import com.notmiyouji.newsapp.java.activity.HomePage;
+import com.notmiyouji.newsapp.java.activity.MaterialAltertLoading;
+import com.notmiyouji.newsapp.java.activity.NavigationPane;
+import com.notmiyouji.newsapp.java.activity.SourceNewsList;
 import com.notmiyouji.newsapp.java.category.NewsApiCategory;
-import com.notmiyouji.newsapp.java.general.FavouriteNews;
-import com.notmiyouji.newsapp.java.general.MaterialAltertLoading;
-import com.notmiyouji.newsapp.java.general.NavigationPane;
 import com.notmiyouji.newsapp.java.recycleview.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.java.rssurl.HomePage;
-import com.notmiyouji.newsapp.java.rssurl.SourceNewsList;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.kotlin.NetworkConnection;
@@ -221,7 +222,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
     private void loadNewsApi(String countryCodeDefault) {
         //Loading Message
         MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
-        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDiaglog();
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDialog();
         AlertDialog alertDialog = mDialog.create();
         alertDialog.show();
         //Load JSONData and apply to RecycleView Horizontal Latest NewsCategory
@@ -355,16 +356,20 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
             setCountryCodeDefault(sharedPreferences.getString("code", getCountryCodeDefault()));
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        if (drawerNewsAPI.isDrawerOpen(GravityCompat.START)) {
-            drawerNewsAPI.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-            finish();
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (drawerNewsAPI.isDrawerOpen(GravityCompat.START)) {
+                drawerNewsAPI.closeDrawer(GravityCompat.START);
+            } else {
+                ActivityOptions.makeSceneTransitionAnimation(NewsApiPage.this).toBundle();
+                finish();
+            }
         }
+    };
+
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -373,25 +378,25 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
         Intent intent;
         int menuItem = item.getItemId();
         switch (menuItem) {
-            case R.id.home_menu:
+            case R.id.home_menu -> {
                 intent = new Intent(NewsApiPage.this, HomePage.class);
                 startActivity(intent);
                 this.finish();
-                break;
-            case R.id.source_menu:
+            }
+            case R.id.source_menu -> {
                 intent = new Intent(NewsApiPage.this, SourceNewsList.class);
                 startActivity(intent);
                 this.finish();
-                break;
-            case R.id.favourite_menu:
+            }
+            case R.id.favourite_menu -> {
                 intent = new Intent(NewsApiPage.this, FavouriteNews.class);
                 startActivity(intent);
                 this.finish();
-                break;
-            case R.id.settings_menu:
+            }
+            case R.id.settings_menu -> {
                 OpenSettingsPage openSettingsPage = new OpenSettingsPage(NewsApiPage.this);
                 openSettingsPage.openSettings();
-                break;
+            }
         }
         return true;
     }

@@ -20,7 +20,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.userlogin.SettingsLogined"
+    tools:context=".java.activity.userlogin.SettingsUserLogin"
     tools:ignore="ScrollViewCount">
 
     <!--    This design is a demo when one user logined-->

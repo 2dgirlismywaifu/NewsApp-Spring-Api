@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,7 +61,9 @@ import java.util.List;
 public class AccountSettings extends AppCompatActivity {
     private TextView fullName, username, chooseTitle;
     private ShapeableImageView avatar;
-    private TextView fullNameView, usernameView, birthdayView, genderView;
+    private TextView usernameView;
+    private TextView birthdayView;
+    private TextView genderView;
     private RelativeLayout changeFullName, changeUserName, changeBirthDay, changeGender, showRecoveryCode, changePassword, changeAvatar;
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private LoadThemeShared loadThemeShared;
@@ -121,7 +124,7 @@ public class AccountSettings extends AppCompatActivity {
         fullName = findViewById(R.id.fullname);
         username = findViewById(R.id.username);
         //View to edit
-        fullNameView = findViewById(R.id.fullname_view);
+        TextView fullNameView = findViewById(R.id.fullname_view);
         usernameView = findViewById(R.id.username_view);
         birthdayView = findViewById(R.id.birth_view);
         genderView = findViewById(R.id.gender_view);
@@ -144,7 +147,7 @@ public class AccountSettings extends AppCompatActivity {
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
@@ -164,8 +167,8 @@ public class AccountSettings extends AppCompatActivity {
                 okBtn = bottomSheetDialog.findViewById(R.id.btnLoad);
                 assert okBtn != null;
                 okBtn.setOnClickListener(v1 -> {
-                    //Update fullname
-                    String fullname = fullNameInput.getText().toString();
+                    //Update full name
+                    String fullname = String.valueOf(fullNameInput.getText());
                     if (fullname.isEmpty()) {
                         Toast.makeText(this, R.string.please_enter_your_new_fullname, Toast.LENGTH_SHORT).show();
                     } else {
@@ -194,13 +197,14 @@ public class AccountSettings extends AppCompatActivity {
                 assert okBtn != null;
                 okBtn.setOnClickListener(v1 -> {
                     //Update username
-                    String username = userNameInput.getText().toString();
-                    if (username.isEmpty()) {
+                    String userName = String.valueOf(userNameInput.getText());
+                    String email = getUserLogin.getEmail();
+                    if (userName.isEmpty()) {
                         Toast.makeText(this, R.string.please_enter_your_new_username, Toast.LENGTH_SHORT).show();
                     } else {
-                        //Update fullname
+                        //Update full name
                         usernameView.setText("@" + username);
-                        updateInformation.updateUserName(username);
+                        updateInformation.checkUserName(userName, email);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -282,9 +286,7 @@ public class AccountSettings extends AppCompatActivity {
                             addCategory(Intent.CATEGORY_OPENABLE));
 
                 });
-                builder.setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    dialog.dismiss();
-                });
+                builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
                 builder.show();
             }
         });
@@ -340,13 +342,17 @@ public class AccountSettings extends AppCompatActivity {
         return getDate;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        finish();
-    }
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            ActivityOptions.makeSceneTransitionAnimation(AccountSettings.this).toBundle();
+            finish();
+        }
+    };
 
+    public OnBackPressedCallback getCallback() {
+        return callback;
+    }
     @Override
     public void onResume() {
         super.onResume();

@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.general;
+package com.notmiyouji.newsapp.java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +30,7 @@ public class MaterialAltertLoading {
         this.activity = activity;
     }
 
-    public MaterialAlertDialogBuilder getDiaglog() {
+    public MaterialAlertDialogBuilder getDialog() {
         if (builder == null) {
             builder = new MaterialAlertDialogBuilder(activity);
             builder.setIcon(R.mipmap.ic_launcher);

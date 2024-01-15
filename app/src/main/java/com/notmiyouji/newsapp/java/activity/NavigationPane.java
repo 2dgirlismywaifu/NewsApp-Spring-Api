@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.general;
+package com.notmiyouji.newsapp.java.activity;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;

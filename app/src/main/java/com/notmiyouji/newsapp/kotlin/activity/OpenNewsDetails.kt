@@ -19,8 +19,8 @@ package com.notmiyouji.newsapp.kotlin.activity
 
 import android.app.Activity
 import android.content.Intent
-import com.notmiyouji.newsapp.java.newsdetails.NewsDetailWebView
-import com.notmiyouji.newsapp.java.newsdetails.NewsDetailsChrome
+import com.notmiyouji.newsapp.java.activity.newsdetail.NewsDetailByChrome
+import com.notmiyouji.newsapp.java.activity.newsdetail.NewsDetailByWebView
 import com.notmiyouji.newsapp.kotlin.sharedsettings.UseChromeShared
 
 class OpenNewsDetails(
@@ -44,19 +44,20 @@ class OpenNewsDetails(
         when {
             UseChromeShared(activity).enableChrome -> {
                 //Open in chrome custom tabs
-                val chromeClient = NewsDetailsChrome(
-                    url,
-                    title,
-                    checkImg(),
-                    url,
-                    pubdate, activity
-                )
+                val chromeClient =
+                    NewsDetailByChrome(
+                        url,
+                        title,
+                        checkImg(),
+                        url,
+                        pubdate, activity
+                    )
                 chromeClient.openNewsDetails()
             }
 
             else -> {
                 //No chrome installed, open in webview
-                val intent = Intent(activity, NewsDetailWebView::class.java)
+                val intent = Intent(activity, NewsDetailByWebView::class.java)
                 intent.putExtra("url", url)
                 intent.putExtra("title", title)
                 intent.putExtra("img", checkImg())

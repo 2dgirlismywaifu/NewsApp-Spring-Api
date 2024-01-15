@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,17 +40,15 @@ import com.notmiyouji.newsapp.java.loginmethod.EmailMethod;
 import com.notmiyouji.newsapp.java.loginmethod.GoogleMethod;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
-import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
 
 public class SignInForm extends AppCompatActivity {
 
-    Button SignInBtn, SignUpBtn, forgotpassbtn;
-    LinearLayout GoogleSSO;
-    Intent intent;
-    TextInputEditText account, password;
-    LoadFollowLanguageSystem loadFollowLanguageSystem;
-    SaveUserLogined saveUserLogined;
-    GoogleMethod googleMethod;
+    private Button SignInBtn;
+    private Button SignUpBtn;
+    private Intent intent;
+    private TextInputEditText account, password;
+    private LoadFollowLanguageSystem loadFollowLanguageSystem;
+    private GoogleMethod googleMethod;
     ActivityResultLauncher<Intent> googleSSO = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
             Intent data = result.getData();
@@ -75,7 +74,6 @@ public class SignInForm extends AppCompatActivity {
         ApplicationFlags applicationFlags = new ApplicationFlags(this);
         applicationFlags.setFlag();
 
-        saveUserLogined = new SaveUserLogined(SignInForm.this);
         account = findViewById(R.id.username_code);
         password = findViewById(R.id.password_input);
         SignUpBtn = findViewById(R.id.SignUpBtn);
@@ -84,15 +82,15 @@ public class SignInForm extends AppCompatActivity {
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
         //Forgot Password form only access from Sign In form
-        forgotpassbtn = findViewById(R.id.ForgotPasswordBtn);
-        forgotpassbtn.setOnClickListener(v -> {
+        Button forgotPassBtn = findViewById(R.id.ForgotPasswordBtn);
+        forgotPassBtn.setOnClickListener(v -> {
             intent = new Intent(this, ForgotPasswordForm.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
             ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
             finish();
         });
@@ -100,21 +98,19 @@ public class SignInForm extends AppCompatActivity {
         SignInBtn = findViewById(R.id.SignInBtn);
         SignInBtn.setOnClickListener(v -> {
             SignInBtn.setEnabled(false);
-            SignUpBtn.setEnabled(false);
-            if (account.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+            if (String.valueOf(account.getText()).isEmpty() || String.valueOf(password.getText()).isEmpty()) {
                 account.setError("Please enter your account");
                 password.setError("Please enter your password");
                 SignInBtn.setEnabled(true);
-                SignUpBtn.setEnabled(true);
             } else {
                 EmailMethod emailMethod = new EmailMethod(this, SignInBtn, SignUpBtn);
-                emailMethod.SignInMethod(account.getText().toString(), password.getText().toString());
+                emailMethod.SignInMethod(String.valueOf(account.getText()), String.valueOf(password.getText()));
             }
         });
         //Google SSO
-        GoogleSSO = findViewById(R.id.Google_signin);
+        LinearLayout googleSSO1 = findViewById(R.id.Google_signin);
         //Sign in with Google use Firebase
-        GoogleSSO.setOnClickListener(v -> {
+        googleSSO1.setOnClickListener(v -> {
             SignInBtn.setEnabled(false);
             SignUpBtn.setEnabled(false);
             // Start activity
@@ -125,11 +121,16 @@ public class SignInForm extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        finish();
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            ActivityOptions.makeSceneTransitionAnimation(SignInForm.this).toBundle();
+            finish();
+        }
+    };
+
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
     public void onResume() {

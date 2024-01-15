@@ -263,15 +263,15 @@ interface NewsAppInterface {
     // <editor-fold default-state="collapsed" desc="This is a part of NewsApp-User-Controller">//GEN-BEGIN:initComponents
 
     /**
-     * Sign in with email and password
-     * @param account: Can be the email or nickname
-     * @param password: Password of user (it will be verified by server)
+     * Sign in with email and userToken
+     * @param email: Can be the email or nickname
+     * @param userToken: userToken Login (it will be verified by server)
      * @return SignIn
      */
     @GET("news-app/user/sign-in")
     fun signIn(
-        @Query("account", encoded = true) account: String?,
-        @Query("password", encoded = true) password: String?
+        @Query("email", encoded = true) email: String?,
+        @Query("userToken", encoded = true) userToken: String?
     ): Call<SignIn?>?
 
     /**
@@ -382,18 +382,14 @@ interface NewsAppInterface {
      * Change user password
      * @param userId: User Id
      * @param email: Email
-     * @param oldPass: Old Password
-     * @param newPass: New Password
-     * @param code: Code
+     * @param newToken: New Password
      * @return UserInformation
      */
-    @POST("news-app/user/change-password")
-    fun changeUserPassword(
+    @POST("news-app/user/change-user-token")
+    fun changeUserToken(
         @Query("userId", encoded = true) userId: String?,
         @Query("email", encoded = true) email: String?,
-        @Query("oldPass", encoded = true) oldPass: String?,
-        @Query("newPass", encoded = true) newPass: String?,
-        @Query("code", encoded = true) code: String?
+        @Query("newToken", encoded = true) newToken: String?,
     ): Call<UserInformation?>?
 
     // </editor-fold>//GEN-END:initComponents

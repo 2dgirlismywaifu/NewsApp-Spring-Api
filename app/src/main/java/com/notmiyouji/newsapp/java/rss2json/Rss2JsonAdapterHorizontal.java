@@ -31,7 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.NewsFavouriteByUser;
+import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.RegEXImage;
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails;
@@ -114,16 +114,12 @@ public class Rss2JsonAdapterHorizontal extends RecyclerView.Adapter<Rss2JsonAdap
             }
         });
         holder.itemView.setOnClickListener(v -> {
-            String getpath;
-            if (path != null) {
-                getpath = path;
-            } else {
-                getpath = "https://techvccloud.mediacdn.vn/2018/3/29/notavailableen-1522298007107364895792-21-0-470-800-crop-152229801290023105615.png";
-            }
+            String getPath;
+            getPath = Objects.requireNonNullElse(path, "https://techvccloud.mediacdn.vn/2018/3/29/notavailableen-1522298007107364895792-21-0-470-800-crop-152229801290023105615.png");
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(
                     items.get(position).getLink(),
                     items.get(position).getTitle(),
-                    getpath,
+                    getPath,
                     name,
                     items.get(position).getPubDate(), activity);
             openNewsDetails.openNewsDetails();

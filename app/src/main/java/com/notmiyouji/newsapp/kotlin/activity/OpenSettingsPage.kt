@@ -20,8 +20,8 @@ package com.notmiyouji.newsapp.kotlin.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
-import com.notmiyouji.newsapp.java.general.SettingsPage
-import com.notmiyouji.newsapp.java.userlogin.SettingsLogined
+import com.notmiyouji.newsapp.java.activity.SettingsPage
+import com.notmiyouji.newsapp.java.activity.userlogin.SettingsUserLogin
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin
 
 class OpenSettingsPage(var activity: AppCompatActivity) {
@@ -31,7 +31,7 @@ class OpenSettingsPage(var activity: AppCompatActivity) {
         val getUserLogin = GetUserLogin(activity)
         when (getUserLogin.status) {
             "login", "google" -> {
-                intent = Intent(activity, SettingsLogined::class.java)
+                intent = Intent(activity, SettingsUserLogin::class.java)
                 activity.startActivity(intent)
             }
 

@@ -31,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.NewsFavouriteByUser;
+import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails;
@@ -118,12 +118,6 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
     @Override
     public int getItemCount() {
         return articles.size();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void filterList(List<Article> articles) {
-        this.articles = articles;
-        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

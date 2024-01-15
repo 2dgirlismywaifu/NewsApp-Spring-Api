@@ -21,7 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
-    tools:context=".java.userlogin.RegisterSuccess"
+    tools:context=".java.activity.userlogin.RegisterSuccess"
     tools:ignore="ScrollViewCount">
 
     <androidx.core.widget.NestedScrollView

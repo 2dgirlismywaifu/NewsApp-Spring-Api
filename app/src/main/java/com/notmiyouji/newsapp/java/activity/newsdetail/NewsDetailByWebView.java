@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.newsdetails;
+package com.notmiyouji.newsapp.java.activity.newsdetail;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -40,6 +40,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -48,7 +49,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.userlogin.NewsFavouriteByUser;
+import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
@@ -58,7 +59,7 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 
 import java.util.Objects;
 
-public class NewsDetailWebView extends AppCompatActivity {
+public class NewsDetailByWebView extends AppCompatActivity {
 
     public WebView webView;
     public ImageView imgHeader;
@@ -197,7 +198,7 @@ public class NewsDetailWebView extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        getOnBackPressedDispatcher().onBackPressed();
         return true;
     }
 
@@ -294,15 +295,20 @@ public class NewsDetailWebView extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
-
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-            ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-            finish();
+    OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (webView.canGoBack()) {
+                webView.goBack();
+            } else {
+                ActivityOptions.makeSceneTransitionAnimation(NewsDetailByWebView.this).toBundle();
+                finish();
+            }
         }
+    };
+
+    public OnBackPressedCallback getCallback() {
+        return callback;
     }
 
     private static class MyWebChromeClient extends WebChromeClient {

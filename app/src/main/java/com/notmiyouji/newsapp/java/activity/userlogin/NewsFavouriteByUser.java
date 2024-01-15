@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.userlogin;
+package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
 
@@ -119,7 +119,7 @@ public class NewsFavouriteByUser {
         Call<NewsFavourite> checkFavouriteEmail = newsAPPInterface.accountCheckNewsFavourite(
                 Utils.encodeToBase64(userId), Utils.encodeToBase64(title));
         assert checkFavouriteEmail != null;
-        checkFavouriteEmail.enqueue(new retrofit2.Callback<NewsFavourite>() {
+        checkFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(@NonNull Call<NewsFavourite> call, @NonNull Response<NewsFavourite> response) {
                 if (response.isSuccessful()) {
