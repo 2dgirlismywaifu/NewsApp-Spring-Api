@@ -65,6 +65,6 @@ object Utils {
     //Encode to base64
     @JvmStatic
     fun encodeToBase64(data: String): String {
-        return String(android.util.Base64.encode(data.toByteArray(), android.util.Base64.DEFAULT))
+        return String(java.util.Base64.getEncoder().encode(data.toByteArray()))
     }
 }

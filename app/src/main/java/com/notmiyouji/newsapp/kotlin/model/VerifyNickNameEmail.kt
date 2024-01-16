@@ -20,10 +20,14 @@ package com.notmiyouji.newsapp.kotlin.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class VerifyNickName {
+class VerifyNickNameEmail {
     @SerializedName("nickname")
     @Expose
     var nickname: String? = null
+
+    @SerializedName("email")
+    @Expose
+    var email: String? = null
 
     @SerializedName("status")
     @Expose

@@ -31,7 +31,7 @@ class NewsAppResult {
     @Expose
     var newsDetails: List<NewsDetails>? = null
 
-    @SerializedName("NewsFavourite")
+    @SerializedName("newsFavourite")
     @Expose
     var newsFavouriteList: List<NewsFavourite>? = null
 

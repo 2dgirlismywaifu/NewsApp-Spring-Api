@@ -27,7 +27,7 @@ import com.notmiyouji.newsapp.kotlin.model.SignUp
 import com.notmiyouji.newsapp.kotlin.model.SourceSubscribe
 import com.notmiyouji.newsapp.kotlin.model.UserInformation
 import com.notmiyouji.newsapp.kotlin.model.VerifyEmail
-import com.notmiyouji.newsapp.kotlin.model.VerifyNickName
+import com.notmiyouji.newsapp.kotlin.model.VerifyNickNameEmail
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -126,7 +126,7 @@ interface NewsAppInterface {
      */
     @GET("news-app/account/show-news-favourite")
     fun showNewsFavouriteByUserId(
-        @Query("userId", encoded = true) userId: String?
+        @Query("userId") userId: String?
     ): Call<NewsAppResult?>?
 
     /**
@@ -136,17 +136,15 @@ interface NewsAppInterface {
      * @param title: News Title
      * @param imageUrl: News Image Url
      * @param pubDate: News Publish Date
-     * @param sourceName: News Source Name
      * @return NewsFavourite
      */
     @POST("news-app/account/save-news-favourite")
     fun saveNewsFavouriteByUser(
-        @Query("userId", encoded = true) userId: String?,
-        @Query("url", encoded = true) url: String?,
+        @Query("userId") userId: String?,
+        @Query("url") url: String?,
         @Query("title", encoded = true) title: String?,
-        @Query("imageUrl", encoded = true) imageUrl: String?,
-        @Query("pubDate", encoded = true) pubDate: String?,
-        @Query("sourceName", encoded = true) sourceName: String?
+        @Query("imageUrl") imageUrl: String?,
+        @Query("pubDate") pubDate: String?
     ): Call<NewsFavourite?>?
 
     /**
@@ -239,23 +237,27 @@ interface NewsAppInterface {
      * Convert Rss Url to Json
      * @param userId: User Id (not required, can be empty if user is guest)
      * @param type: News Type
+     * @param size: limit size each source
      * @return NewsAppResult
      */
     @GET("news-app/rss-to-json")
     fun convertRssUrl2Json(
         @Query("userId", encoded = true) userId: String?,
-        @Query("type", encoded = true) type: String?
+        @Query("type", encoded = true) type: String?,
+        @Query("size", encoded = true) size: String?
     ): Call<NewsAppResult?>?
 
     /**
      * Search news from Rss with key word
      * @param userId: User Id (not required, can be empty if user is guest)
      * @param keyWord: News Type
+     * @param size: limit size each source
      * @return NewsAppResult
      */
     fun searchNewsFromRss(
         @Query("userId", encoded = true) userId: String?,
-        @Query("keyWord", encoded = true) keyWord: String?
+        @Query("keyWord", encoded = true) keyWord: String?,
+        @Query("size", encoded = true) size: String?
     ): Call<NewsAppResult?>?
 
     // </editor-fold>//GEN-END:initComponents
@@ -314,11 +316,11 @@ interface NewsAppInterface {
      * @param email: Email of user
      * @return VerifyNickName
      */
-    @GET("news-app/user/verify-nickname")
-    fun verifyNickName(
+    @GET("news-app/user/verify-nickname-email")
+    fun verifyNickNameAndEmail(
         @Query("nickname", encoded = true) nickname: String?,
         @Query("email", encoded = true) email: String?
-    ): Call<VerifyNickName?>?
+    ): Call<VerifyNickNameEmail?>?
 
     /**
      * Verify email (make sure email is unique)

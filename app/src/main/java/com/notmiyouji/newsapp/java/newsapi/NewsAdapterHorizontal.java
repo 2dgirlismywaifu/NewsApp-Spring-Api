@@ -46,7 +46,7 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
     private final GetUserLogin getUserLogin;
     private final NewsFavouriteByUser newsFavouriteByUser;
     private final AppCompatActivity activity;
-    private List<Article> articles;
+    private final List<Article> articles;
 
     public NewsAdapterHorizontal(List<Article> articles, AppCompatActivity activity) {
         this.activity = activity;
@@ -109,7 +109,6 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(model.getUrl(),
                     model.getTitle(),
                     model.getUrlToImage(),
-                    model.getUrl(),
                     model.getPublishedAt(), activity);
             openNewsDetails.openNewsDetails();
         });

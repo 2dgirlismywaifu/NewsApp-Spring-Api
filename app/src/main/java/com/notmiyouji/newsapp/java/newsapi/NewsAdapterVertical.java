@@ -104,7 +104,6 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
             OpenNewsDetails openNewsDetails = new OpenNewsDetails(model.getUrl(),
                     model.getTitle(),
                     model.getUrlToImage(),
-                    model.getUrl(),
                     model.getPublishedAt(), activity);
             openNewsDetails.openNewsDetails();
         });

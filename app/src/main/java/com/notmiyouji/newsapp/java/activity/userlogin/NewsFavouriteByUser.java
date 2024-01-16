@@ -51,7 +51,7 @@ public class NewsFavouriteByUser {
         Call<NewsFavourite> addFavouriteEmail = newsAPPInterface.saveNewsFavouriteByUser(
                 Utils.encodeToBase64(userId), Utils.encodeToBase64(url),
                 Utils.encodeToBase64(title), Utils.encodeToBase64(imageUrl),
-                Utils.encodeToBase64(pubDate), Utils.encodeToBase64(sourceName));
+                Utils.encodeToBase64(pubDate));
         assert addFavouriteEmail != null;
         addFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override

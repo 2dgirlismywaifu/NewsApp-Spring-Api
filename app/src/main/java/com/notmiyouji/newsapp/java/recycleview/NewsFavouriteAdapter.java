@@ -66,7 +66,6 @@ public class NewsFavouriteAdapter extends RecyclerView.Adapter<NewsFavouriteAdap
     public void onBindViewHolder(FeedViewVerticalHolder holder, int position) {
         holder.txtTitle.setText(items.get(position).getTitle());
         holder.txtPubDate.setText(items.get(position).getPubDate());
-        holder.txtsource.setText(items.get(position).getSourceName());
         String path = items.get(position).getImageUrl();
         LoadImageURL loadImageURL = new LoadImageURL(path);
         loadImageURL.getImageFromURL(holder.imageView, holder);
@@ -99,7 +98,6 @@ public class NewsFavouriteAdapter extends RecyclerView.Adapter<NewsFavouriteAdap
                     items.get(position).getUrl(),
                     items.get(position).getTitle(),
                     getpath,
-                    items.get(position).getSourceName(),
                     items.get(position).getPubDate(), activity);
             openNewsDetails.openNewsDetails();
         });

@@ -41,7 +41,7 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.SignUp;
-import com.notmiyouji.newsapp.kotlin.model.VerifyNickName;
+import com.notmiyouji.newsapp.kotlin.model.VerifyNickNameEmail;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import java.util.Objects;
@@ -128,7 +128,7 @@ public class SignUpForm extends AppCompatActivity {
                     builder.setCancelable(false);
                     builder.setPositiveButton(R.string.yes, (dialog, which) -> {
                         //check nickname
-                        checkNickname(String.valueOf(username.getText()), String.valueOf(email.getText()));
+                        checkNicknameAndEmail(String.valueOf(username.getText()), String.valueOf(email.getText()));
                     });
                     builder.setNegativeButton(R.string.no, (dialog, which) -> {
                         dialog.dismiss();
@@ -181,24 +181,30 @@ public class SignUpForm extends AppCompatActivity {
         }
     }
 
-    private void checkNickname(String userNameInput, String emailInput) {
+    private void checkNicknameAndEmail(String userNameInput, String emailInput) {
         //Use Retrofit to check nickname
-        Call<VerifyNickName> call = newsAPPInterface.verifyNickName(Utils.encodeToBase64(userNameInput), Utils.encodeToBase64(emailInput));
+        Call<VerifyNickNameEmail> call = newsAPPInterface.verifyNickNameAndEmail(Utils.encodeToBase64(userNameInput), Utils.encodeToBase64(emailInput));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<VerifyNickName> call, @NonNull Response<VerifyNickName> response) {
+            public void onResponse(@NonNull Call<VerifyNickNameEmail> call, @NonNull Response<VerifyNickNameEmail> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    if (Objects.equals(response.body().getStatus(), "success")) {
+                    if (Objects.equals(response.body().getEmail(), emailInput)
+                            && Objects.equals(response.body().getStatus(), "used")) {
+                        email.setError(getString(R.string.email_is_already_used));
+                        signUpBtn.setEnabled(true);
+                    }
+                    if (Objects.equals(response.body().getNickname(), userNameInput)
+                            && Objects.equals(response.body().getStatus(), "used")) {
+                        username.setError(getString(R.string.nickname_is_already_used));
+                        signUpBtn.setEnabled(true);
+                    }
+                    if (Objects.equals(response.body().getStatus(), "empty")) {
                         RegisterAccount(String.valueOf(fullName.getText()),
                                 String.valueOf(email.getText()).toLowerCase(),
                                 String.valueOf(password.getText()),
                                 String.valueOf(username.getText()));
-                    } else {
-                        username.setError(getString(R.string.nickname_is_already_used));
-                        email.setError(getString(R.string.email_is_already_used));
-                        signUpBtn.setEnabled(true);
                     }
                 } else  {
                     Toast.makeText(SignUpForm.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
@@ -207,7 +213,7 @@ public class SignUpForm extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<VerifyNickName> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<VerifyNickNameEmail> call, @NonNull Throwable t) {
             }
         });
     }

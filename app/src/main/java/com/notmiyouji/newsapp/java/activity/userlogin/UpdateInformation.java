@@ -30,7 +30,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.UserInformation;
-import com.notmiyouji.newsapp.kotlin.model.VerifyNickName;
+import com.notmiyouji.newsapp.kotlin.model.VerifyNickNameEmail;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
 
 import java.util.Base64;
@@ -143,11 +143,11 @@ public class UpdateInformation {
     }
 
     public void checkUserName(String userName, String email) {
-        Call<VerifyNickName> call = newsAPPInterface.verifyNickName(Utils.encodeToBase64(userName), Utils.encodeToBase64(email));
+        Call<VerifyNickNameEmail> call = newsAPPInterface.verifyNickNameAndEmail(Utils.encodeToBase64(userName), Utils.encodeToBase64(email));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<VerifyNickName> call, @NonNull Response<VerifyNickName> response) {
+            public void onResponse(@NonNull Call<VerifyNickNameEmail> call, @NonNull Response<VerifyNickNameEmail> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         if (Objects.equals(response.body().getNickname(), userName)) {
@@ -160,7 +160,7 @@ public class UpdateInformation {
             }
 
             @Override
-            public void onFailure(@NonNull Call<VerifyNickName> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<VerifyNickNameEmail> call, @NonNull Throwable t) {
             }
         });
     }

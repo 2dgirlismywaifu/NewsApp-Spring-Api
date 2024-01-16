@@ -46,10 +46,6 @@ class NewsFavourite {
     @Expose
     var pubDate: String? = null
 
-    @SerializedName("sourceName")
-    @Expose
-    var sourceName: String? = null
-
     @SerializedName("isDeleted")
     @Expose
     var isDeleted: String? = null

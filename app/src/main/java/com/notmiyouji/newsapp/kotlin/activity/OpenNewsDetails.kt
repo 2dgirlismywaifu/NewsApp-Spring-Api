@@ -27,7 +27,6 @@ class OpenNewsDetails(
     private val url: String?,
     private val title: String?,
     private val img: String?,
-    private val source: String?,
     private val pubdate: String?,
     private val activity: Activity
 ) {
@@ -61,7 +60,6 @@ class OpenNewsDetails(
                 intent.putExtra("url", url)
                 intent.putExtra("title", title)
                 intent.putExtra("img", checkImg())
-                intent.putExtra("source", source)
                 intent.putExtra("pubdate", pubdate)
                 activity.startActivity(intent)
             }

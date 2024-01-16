@@ -66,62 +66,7 @@ public class EmailMethod {
             if (task.isSuccessful()) {
                 //Retrofit call sign in request
                 String userToken = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                Call<SignIn> call = newsAPPInterface.signIn(Utils.encodeToBase64(account), Utils.encodeToBase64(userToken));
-                assert call != null;
-                call.enqueue(new retrofit2.Callback<>() {
-                    @Override
-                    public void onResponse(@NonNull Call<SignIn> call, @NonNull retrofit2.Response<SignIn> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                SignIn signIn = response.body();
-                                if (Objects.equals(signIn.getStatus(), "success")) {
-                                    //Check Account Verify or not, if not go to verify page to continue
-                                    if (Objects.equals(signIn.getVerify(), "true")) {
-                                        //Save user data to Shared Preferences
-                                        RequestImage requestImage = new RequestImage(signIn.getEmail());
-                                        String avatar = requestImage.getGravatarURL();
-                                        SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
-                                        saveUserLogined.saveUserLogin(signIn.getUserId(), signIn.getFullName(), signIn.getEmail(), encodeData(password), signIn.getNickName(), avatar, "login");
-                                        saveUserLogined.saveBirthday(signIn.getBirthday());
-                                        saveUserLogined.saveGender(signIn.getGender());
-                                        //If account verify, go to main page
-                                        Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
-                                        signInButton.setEnabled(true);
-                                        signUpButton.setEnabled(true);
-                                        activity.finish();
-                                        //restart application
-                                        intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
-                                        assert intent != null;
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        activity.startActivity(intent);
-                                    } else {
-                                        Intent intent = new Intent(activity, VerifyAccountForm.class);
-                                        intent.putExtra("email", signIn.getEmail());
-                                        intent.putExtra("password", password);
-                                        intent.putExtra("username", signIn.getNickName());
-                                        activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-                                        signInButton.setEnabled(true);
-                                        signUpButton.setEnabled(true);
-                                    }
-                                } else if (Objects.equals(signIn.getStatus(), "fail")) {
-                                    Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
-                                    signInButton.setEnabled(true);
-                                    signUpButton.setEnabled(true);
-                                }
-                            }
-                        } else {
-                            Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
-                            signInButton.setEnabled(true);
-                            signUpButton.setEnabled(true);
-                        }
-                    }
-                    @Override
-                    public void onFailure(@NonNull Call<SignIn> call, @NonNull Throwable t) {
-                        Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
-                        signInButton.setEnabled(true);
-                        signUpButton.setEnabled(true);
-                    }
-                });
+                verifyWithDatabase(account, password, userToken);
             } else {
                 // If sign in fails, display a message to the user.
                 Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
@@ -131,5 +76,64 @@ public class EmailMethod {
         });
 
 
+    }
+
+    private void verifyWithDatabase(String account, String password, String userToken) {
+        Call<SignIn> call = newsAPPInterface.signIn(Utils.encodeToBase64(account), Utils.encodeToBase64(userToken));
+        assert call != null;
+        call.enqueue(new retrofit2.Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<SignIn> call, @NonNull retrofit2.Response<SignIn> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        SignIn signIn = response.body();
+                        if (Objects.equals(signIn.getStatus(), "success")) {
+                            //Check Account Verify or not, if not go to verify page to continue
+                            if (Objects.equals(signIn.getVerify(), "true")) {
+                                //Save user data to Shared Preferences
+                                RequestImage requestImage = new RequestImage(signIn.getEmail());
+                                String avatar = requestImage.getGravatarURL();
+                                SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
+                                saveUserLogined.saveUserLogin(signIn.getUserId(), signIn.getFullName(), signIn.getEmail(), encodeData(password), signIn.getNickName(), avatar, "login");
+                                saveUserLogined.saveBirthday(signIn.getBirthday());
+                                saveUserLogined.saveGender(signIn.getGender());
+                                //If account verify, go to main page
+                                Toast.makeText(activity, R.string.sign_in_success, Toast.LENGTH_SHORT).show();
+                                signInButton.setEnabled(true);
+                                signUpButton.setEnabled(true);
+                                activity.finish();
+                                //restart application
+                                intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(activity.getBaseContext().getPackageName());
+                                assert intent != null;
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                activity.startActivity(intent);
+                            } else {
+                                Intent verifyForm = new Intent(activity, VerifyAccountForm.class);
+                                verifyForm.putExtra("email", signIn.getEmail());
+                                verifyForm.putExtra("password", password);
+                                verifyForm.putExtra("username", signIn.getNickName());
+                                activity.startActivity(verifyForm, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                                signInButton.setEnabled(true);
+                                signUpButton.setEnabled(true);
+                            }
+                        } else if (Objects.equals(signIn.getStatus(), "fail")) {
+                            Toast.makeText(activity, R.string.Error_login, Toast.LENGTH_SHORT).show();
+                            signInButton.setEnabled(true);
+                            signUpButton.setEnabled(true);
+                        }
+                    }
+                } else {
+                    Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                    signInButton.setEnabled(true);
+                    signUpButton.setEnabled(true);
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<SignIn> call, @NonNull Throwable t) {
+                Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                signInButton.setEnabled(true);
+                signUpButton.setEnabled(true);
+            }
+        });
     }
 }

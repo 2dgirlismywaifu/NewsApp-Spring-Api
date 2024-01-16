@@ -35,8 +35,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -54,6 +52,8 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.UseChromeShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.WelcomeScreenShared;
+
+import java.util.Objects;
 
 public class SettingsUserLogin extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
@@ -159,15 +159,7 @@ public class SettingsUserLogin extends AppCompatActivity {
             builder.setView(R.layout.show_signout_text);
             builder.setPositiveButton(R.string.sign_out, (dialog, which) -> {
                 //Sign out account
-                if (getUserLogin.getStatus().equals("google")) {
-                    GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                            build()).signOut();
-                    FirebaseAuth.getInstance().signOut();
-                    SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
-                    saveUserLogined.saveBirthday("");
-                    saveUserLogined.saveGender("");
-                } else if (getUserLogin.getStatus().equals("login")) {
+               if (Objects.equals(getUserLogin.getStatus(), "login")) {
                     FirebaseAuth.getInstance().signOut();
                     SaveUserLogined saveUserLogined = new SaveUserLogined(this);
                     saveUserLogined.saveUserLogin("", "", "", "", "", "", "");

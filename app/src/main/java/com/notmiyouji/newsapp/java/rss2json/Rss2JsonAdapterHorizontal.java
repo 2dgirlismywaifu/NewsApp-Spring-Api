@@ -120,7 +120,6 @@ public class Rss2JsonAdapterHorizontal extends RecyclerView.Adapter<Rss2JsonAdap
                     items.get(position).getLink(),
                     items.get(position).getTitle(),
                     getPath,
-                    name,
                     items.get(position).getPubDate(), activity);
             openNewsDetails.openNewsDetails();
         });

@@ -47,7 +47,6 @@ import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.kotlin.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
@@ -180,7 +179,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
         Thread loadSource = new Thread(() -> {
             Call<NewsAppResult> call;
             if (getUserLogin.getUserID() != null  && !getUserLogin.getUserID().isEmpty()) {
-                call = newsAPPInterface.accountAllSource(Utils.encodeToBase64(Objects.requireNonNull(getUserLogin.getUserID())));
+                call = newsAPPInterface.accountAllSource(Objects.requireNonNull(getUserLogin.getUserID()));
             } else {
                 call = newsAPPInterface.guestAllSource();
             }

@@ -56,7 +56,7 @@ public class Rss2JsonMultiFeed {
     }
 
     public void rss2JsonVertical(String userId, String type, AlertDialog alertDialog) {
-        call = newsAppInterface.convertRssUrl2Json(Utils.encodeToBase64(userId), Utils.encodeToBase64(type));
+        call = newsAppInterface.convertRssUrl2Json(userId, Utils.encodeToBase64(type), "10");
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -99,7 +99,7 @@ public class Rss2JsonMultiFeed {
 
 
     public void rss2JsonHorizontal(String userId, String type, AlertDialog alertDialog) {
-        call = newsAppInterface.convertRssUrl2Json(Utils.encodeToBase64(userId), Utils.encodeToBase64(type));
+        call = newsAppInterface.convertRssUrl2Json(userId, Utils.encodeToBase64(type), "5");
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @SuppressLint("NotifyDataSetChanged")
