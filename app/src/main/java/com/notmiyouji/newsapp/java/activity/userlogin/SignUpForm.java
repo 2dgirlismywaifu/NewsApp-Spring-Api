@@ -128,7 +128,7 @@ public class SignUpForm extends AppCompatActivity {
                     builder.setCancelable(false);
                     builder.setPositiveButton(R.string.yes, (dialog, which) -> {
                         //check nickname
-                        checkNickname();
+                        checkNickname(String.valueOf(username.getText()), String.valueOf(email.getText()));
                     });
                     builder.setNegativeButton(R.string.no, (dialog, which) -> {
                         dialog.dismiss();
@@ -181,9 +181,9 @@ public class SignUpForm extends AppCompatActivity {
         }
     }
 
-    private void checkNickname() {
+    private void checkNickname(String userNameInput, String emailInput) {
         //Use Retrofit to check nickname
-        Call<VerifyNickName> call = newsAPPInterface.verifyNickName(String.valueOf(username.getText()), String.valueOf(email.getText()));
+        Call<VerifyNickName> call = newsAPPInterface.verifyNickName(Utils.encodeToBase64(userNameInput), Utils.encodeToBase64(emailInput));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override

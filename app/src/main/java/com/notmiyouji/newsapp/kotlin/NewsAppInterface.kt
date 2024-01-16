@@ -296,7 +296,7 @@ interface NewsAppInterface {
      * Sign up an account
      * @param fullName: Full name of user
      * @param email: Email of user
-     * @param password: Password of user
+     * @param userToken: User token of user
      * @param nickName: Nick name of user
      * @return SignIn
      */
@@ -304,8 +304,8 @@ interface NewsAppInterface {
     fun signUpAnAccount(
         @Query("fullName", encoded = true) fullName: String?,
         @Query("email", encoded = true) email: String?,
-        @Query("password", encoded = true) password: String?,
-        @Query("nickName", encoded = true) nickName: String?
+        @Query("userToken", encoded = true) userToken: String?,
+        @Query("nickname", encoded = true) nickName: String?
     ): Call<SignUp?>?
 
     /**

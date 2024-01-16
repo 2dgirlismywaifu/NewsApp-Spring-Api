@@ -39,6 +39,7 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.VerifyEmail;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
@@ -169,7 +170,7 @@ public class VerifyAccountForm extends AppCompatActivity {
     }
 
     private void updateStatus(String email) {
-        Call<VerifyEmail> call = newsAPPInterface.verifyEmail(email);
+        Call<VerifyEmail> call = newsAPPInterface.verifyEmail(Utils.encodeToBase64(email));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
