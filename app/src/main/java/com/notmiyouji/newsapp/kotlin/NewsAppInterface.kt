@@ -208,25 +208,29 @@ interface NewsAppInterface {
      * @param keyWord: Key word to search (not required)
      * @param country: Country code
      * @param category: Category of news (not required)
+     * @param size: Size of news
      * @return NewsAppResult
      */
     @GET("news-api/top-headlines")
     fun getNewsTopHeadlinesFromNewsApi(
         @Query("keyWord", encoded = true) keyWord: String?,
         @Query("country") country: String?,
-        @Query("category", encoded = true) category: String?
+        @Query("category", encoded = true) category: String?,
+        @Query("size", encoded = true) size: String?
     ): Call<NewsAppResult>?
 
     /**
      * Get every things news by KeyWord to find from NewsApi
      * @param keyWord: Key word to search
      * @param sortBy: Sort by relevancy, popularity, publishedAt (not required)
+     * @param size: Size of news
      * @return NewsAppResult
      */
     @GET("news-api/everything")
     fun getEveryThingsNewsFromNewsApi(
         @Query("keyWord", encoded = true) keyWord: String?,
         @Query("sortBy", encoded = true) sortBy: String?,
+        @Query("size", encoded = true) size: String?,
     ): Call<NewsAppResult>?
 
     // </editor-fold>//GEN-END:initComponents
@@ -254,6 +258,7 @@ interface NewsAppInterface {
      * @param size: limit size each source
      * @return NewsAppResult
      */
+    @GET("news-app/search-news")
     fun searchNewsFromRss(
         @Query("userId", encoded = true) userId: String?,
         @Query("keyWord", encoded = true) keyWord: String?,

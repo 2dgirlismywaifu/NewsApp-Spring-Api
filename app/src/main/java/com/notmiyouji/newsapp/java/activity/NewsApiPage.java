@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.java.newsapi;
+package com.notmiyouji.newsapp.java.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,12 +50,8 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.activity.FavouriteNews;
-import com.notmiyouji.newsapp.java.activity.HomePage;
-import com.notmiyouji.newsapp.java.activity.MaterialAltertLoading;
-import com.notmiyouji.newsapp.java.activity.NavigationPane;
-import com.notmiyouji.newsapp.java.activity.SourceNewsList;
 import com.notmiyouji.newsapp.java.category.NewsApiCategory;
+import com.notmiyouji.newsapp.java.newsapi.NewsAdapterHorizontal;
 import com.notmiyouji.newsapp.java.recycleview.NewsAPITypeAdapter;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
@@ -110,6 +107,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
     private GetUserLogin getUserLogin;
     private LinearLayout newsApiPage, errorPage;
     private String countryCodeDefault = "us";
+    private EditText searchNews;
 
     public String getCountryCodeDefault() {
         return countryCodeDefault;
@@ -172,6 +170,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        searchNews = findViewById(R.id.search_input);
         //create navigation drawer
         navigationPane = new NavigationPane(drawerNewsAPI, this, toolbar, navigationView, R.id.newsapi_menu);
         navigationPane.CallFromUser();
@@ -197,8 +196,30 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
             loadNewsApi(getCountryCodeDefault());
             swipeRefreshLayout.setRefreshing(false);
         });
+        //Search news
+        searchNews.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == 6) {
+                //Loading Message
+                MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
+                MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDialog();
+                AlertDialog alertDialog = mDialog.create();
+                alertDialog.show();
+                String keyWord = searchNews.getText().toString();
+                newsTypeView.setVisibility(android.view.View.GONE);
+                newsViewHorizontal.setVisibility(android.view.View.GONE);
+                newsAPICategory.searchEveryThingByKeyWord(this, alertDialog, newsViewVertical, keyWord);
+            }
+            if (searchNews.getText().toString().equals("")) {
+                newsTypeView.setVisibility(android.view.View.VISIBLE);
+                newsViewHorizontal.setVisibility(android.view.View.VISIBLE);
+                loadNewsApi(getCountryCodeDefault());
+            }
+            return false;
+        });
     }
+    private void searchNewsByKeyWord() {
 
+    }
     @SuppressLint("NotifyDataSetChanged")
     private void loadCategoryType(String countryCodeDefault) {
         NewsAPITypeAdapter newsAPITypeAdapter = new NewsAPITypeAdapter(this, countryCodeDefault);
@@ -315,7 +336,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
 
     public void loadJsonLatestNews(AppCompatActivity activity, AlertDialog mDialog,String keyWord, String country, String category) {
         Thread loadSourceAPI = new Thread(() -> {
-            call = newsAppInterface.getNewsTopHeadlinesFromNewsApi(Utils.encodeToBase64(keyWord), country, category);
+            call = newsAppInterface.getNewsTopHeadlinesFromNewsApi(Utils.encodeToBase64(keyWord), country, category, "20");
             assert call != null;
             call.enqueue(new Callback<>() {
                 @SuppressLint("NotifyDataSetChanged")

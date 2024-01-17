@@ -51,8 +51,8 @@
     <string name="not_received_yet">Chưa nhận được?</string>
     <string name="resend_code">Gửi lại email</string>
     <string name="verify_account">Xác thực tài khoản</string>
-    <string name="enter_verification_code">Nhập mã phục hồi</string>
-    <string name="forgotpass_note_info">Bạn đã yêu cầu quên mật khẩu.\nVui lòng nhập email để nhận mã</string>
+    <string name="enter_verification_code">Mã phục hồi hoặc email của bạn</string>
+    <string name="forgotpass_note_info">Bạn đã yêu cầu quên mật khẩu.\nVui lòng nhập mã phục hồi để xác nhận.\nBạn có thể dùng email của bạn\nđể yêu cầu phục hồi</string>
     <string name="verify">Xác thực</string>
     <string name="send_verify_code">Gửi</string>
     <string name="Some_things_went_wrong">Có gì đó đã xảy ra lỗi! Vui lòng thử lại sau.</string>
@@ -222,4 +222,6 @@
     <string name="add_favourite_failed">Thêm yêu thích thất bại</string>
     <string name="update_avatar_image_success">Cập nhật Avatar thành công</string>
     <string name="picture_library">Thư viện ảnh</string>
+    <string name="send_email_firebase">Gửi yêu cầu</string>
+    <string name="email_reset_password">Một email đã được gửi tới bạn.\nVui lòng kiểm tra hòm thư để đặt lại mật khẩu.</string>
 </resources>

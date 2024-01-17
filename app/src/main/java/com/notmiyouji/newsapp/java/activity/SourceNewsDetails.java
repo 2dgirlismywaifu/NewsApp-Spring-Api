@@ -181,7 +181,7 @@ public class SourceNewsDetails extends AppCompatActivity {
             public void onResponse(@NonNull Call<SourceSubscribe> call, @NonNull retrofit2.Response<SourceSubscribe> response) {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    if (Objects.equals(response.body().getStatus(), "success")) {
+                    if (Objects.equals(response.body().getStatus(), "found")) {
                         subscribeBtn.setVisibility(View.GONE);
                         unsubscribeBtn.setVisibility(View.VISIBLE);
                     } else {
@@ -200,8 +200,7 @@ public class SourceNewsDetails extends AppCompatActivity {
     }
 
     private void subscribeNewsSource(String sourceId, String userId) {
-        Call<SourceSubscribe> subscribe = newsAPPInterface.accountSubscribeNewsSource(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(sourceId));
+        Call<SourceSubscribe> subscribe = newsAPPInterface.accountSubscribeNewsSource(userId, sourceId);
         assert subscribe != null;
         subscribe.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -226,8 +225,7 @@ public class SourceNewsDetails extends AppCompatActivity {
     }
 
     private void unsubscribeNewsSource(String sourceId, String userId) {
-        Call<SourceSubscribe> unSubscribe = newsAPPInterface.unSubscribeNewsSource(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(sourceId));
+        Call<SourceSubscribe> unSubscribe = newsAPPInterface.unSubscribeNewsSource( userId, sourceId);
         assert unSubscribe != null;
         unSubscribe.enqueue(new retrofit2.Callback<>() {
             @Override

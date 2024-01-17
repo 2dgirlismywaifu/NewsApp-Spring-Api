@@ -90,8 +90,43 @@ public class Rss2JsonMultiFeed {
         });
     }
 
+    public void rss2JsonVerticalByKeyWord(String userId, String keyword, AlertDialog alertDialog) {
+        call = newsAppInterface.searchNewsFromRss(userId, Utils.encodeToBase64(keyword), "5");
+        assert call != null;
+        call.enqueue(new retrofit2.Callback<>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull Response<NewsAppResult> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().getResult() != null) {
+                        if (!items.isEmpty()) {
+                            items.clear();
+                        }
+                        items = response.body().getResult();
+                        adapterVertical = new Rss2JsonAdapterVertical(items, activity);
+                        recyclerView.removeAllViews();
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(adapterVertical);
+                        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                            if (adapterVertical.getItemCount() > 0) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        adapterVertical.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
+                System.out.println("Failure");
+            }
+        });
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    public void clearAdapterVertical(String name) {
+    public void clearAdapterVertical() {
         adapterVertical = new Rss2JsonAdapterVertical(items, activity);
         adapterVertical.clear();
         adapterVertical.notifyDataSetChanged();

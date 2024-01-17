@@ -268,20 +268,26 @@ public class NewsDetailByWebView extends AppCompatActivity {
         menu.findItem(R.id.setfavourite).setOnMenuItemClickListener(item -> {
             //set favouriteController
             if (Objects.equals(getUserLogin.getStatus(), "login")) {//set favouriteController
-                newsFavouriteByUser.addFavouriteByUser(getUserLogin.getUserID(),mUrl, mTitle, mImg, mPubDate, mSource);
+                newsFavouriteByUser.addFavouriteByUser(getUserLogin.getUserID(),mUrl, mTitle, mImg, mPubDate);
+                menu.findItem(R.id.setfavourite).setVisible(false);
+                menu.findItem(R.id.setunfavourite).setVisible(true);
+                return true;
+            } else {
+                Toast.makeText(this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
+                return false;
             }
-            menu.findItem(R.id.setfavourite).setVisible(false);
-            menu.findItem(R.id.setunfavourite).setVisible(true);
-            return true;
         });
         menu.findItem(R.id.setunfavourite).setOnMenuItemClickListener(item -> {
             //set un-favourite
             if (Objects.equals(getUserLogin.getStatus(), "login")) {//set favouriteController
                 newsFavouriteByUser.removeFavouriteByUser(getUserLogin.getUserID(),"", mTitle);
+                menu.findItem(R.id.setfavourite).setVisible(true);
+                menu.findItem(R.id.setunfavourite).setVisible(false);
+                return true;
+            } else {
+                Toast.makeText(this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
+                return false;
             }
-            menu.findItem(R.id.setfavourite).setVisible(true);
-            menu.findItem(R.id.setunfavourite).setVisible(false);
-            return true;
         });
         menu.findItem(R.id.help).setOnMenuItemClickListener(item -> {
             //help

@@ -40,7 +40,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.newsapi.NewsApiPage;
 import com.notmiyouji.newsapp.java.recycleview.ListSourceAdapter;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;

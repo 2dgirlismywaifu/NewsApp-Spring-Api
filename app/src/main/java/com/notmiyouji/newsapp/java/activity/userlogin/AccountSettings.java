@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.canhub.cropper.CropImageActivity;
@@ -41,6 +43,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
+import com.notmiyouji.newsapp.java.activity.CropImageToFireBase;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.NetworkConnection;
@@ -283,16 +286,23 @@ public class AccountSettings extends AppCompatActivity {
                     intent.setData(Uri.parse("https://gravatar.com"));
                     startActivity(intent);
                 });
-                builder.setNeutralButton(R.string.picture_library, (dialog, which) -> {
-                    Intent cropIntent = new Intent(this, CropImageActivity.class);
-                    cropIntent.putExtra("avatarDisplay", R.id.avatar_user_logined);
-                    startActivity(cropIntent);
-                });
+                builder.setNeutralButton(R.string.picture_library, (dialog, which) -> mGetContent.launch("image/*"));
                 builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
                 builder.show();
             }
         });
     }
+
+    //Open Image chooser
+    private final ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+        if (uri != null) {
+            //Crop Image
+            Intent cropIntent = new Intent(this, CropImageToFireBase.class);
+            cropIntent.putExtra("avatarDisplay", R.id.avatar_user_logined);
+            cropIntent.putExtra("imageUri", uri.toString());
+            startActivity(cropIntent);
+        }
+    });
 
     //create list gender
     private List<String> genderList() {

@@ -20,8 +20,9 @@ import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Objects;
 
-public class CropImageActivity extends AppCompatActivity {
+public class CropImageToFireBase extends AppCompatActivity {
     private CropImageView cropImageView;
     private GetUserLogin getUserLogin;
     private UpdateInformation updateInformation;
@@ -37,7 +38,6 @@ public class CropImageActivity extends AppCompatActivity {
         //Get the image uri from CropImageActivity
         Uri imageUri = Uri.parse(getIntent().getStringExtra("imageUri"));
         cropImageView.setImageUriAsync(imageUri);
-        ShapeableImageView shapeableImageView = findViewById(getIntent().getIntExtra("avatarDisplay", 0));
         Button cropButton = findViewById(R.id.cropButton);
         cropButton.setOnClickListener(v -> {
             Bitmap cropped = cropImageView.getCroppedImage();
@@ -53,9 +53,8 @@ public class CropImageActivity extends AppCompatActivity {
             UploadTask uploadTask = riversRef.putBytes(data);
             uploadTask.addOnSuccessListener(taskSnapshot -> riversRef.getDownloadUrl().addOnSuccessListener(uri1 -> {
                 updateInformation.updateAvatar(uri1.toString());
-                //Set back the avatar to AccountSettingActivity
-                LoadImageURL loadImageURL = new LoadImageURL(uri1.toString());
-                loadImageURL.loadImageUser(shapeableImageView);
+                //End the activity
+                finish();
             })).addOnFailureListener(exception -> {
                 // Handle unsuccessful uploads
                 // Log the error message

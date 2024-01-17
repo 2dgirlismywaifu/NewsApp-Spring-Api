@@ -94,7 +94,7 @@ public class Rss2JsonAdapterVertical extends RecyclerView.Adapter<Rss2JsonAdapte
                 newsFavouriteByUser.addFavouriteByUser(getUserLogin.getUserID(),
                         items.get(position).getLink(),
                         items.get(position).getTitle(),
-                        path, items.get(position).getPubDate(), name);
+                        path, items.get(position).getPubDate());
                 holder.favouritebtn.setVisibility(View.GONE);
                 holder.unfavouritebtn.setVisibility(View.VISIBLE);
             } else {

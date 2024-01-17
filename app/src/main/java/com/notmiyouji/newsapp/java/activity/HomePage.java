@@ -24,12 +24,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -37,32 +34,21 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
-import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.newsapi.NewsApiPage;
 import com.notmiyouji.newsapp.java.recycleview.NewsTypeAdapter;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.java.rss2json.Rss2JsonMultiFeed;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
 import com.notmiyouji.newsapp.kotlin.NetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
-import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.model.NewsSource;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -70,37 +56,26 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadNavigationHeader;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadWallpaperShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadWallpaperSharedLogin;
-import com.notmiyouji.newsapp.kotlin.sharedsettings.SharedPreferenceSettings;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import retrofit2.Call;
-
 public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
     //Initialization variable
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private LinearLayoutManager newsViewLayoutVertical, newsViewLayoutHorizontal;
     private LinearLayout homepageScreen, errorInternet;
-    private RecyclerView recyclerView, newsViewHorizontal, newsViewVertical;
+    private RecyclerView newsTypeRecyclerView, newsViewHorizontal, newsViewVertical;
     private Toolbar toolbar;
     private NavigationPane navigationPane;
     private LoadWallpaperShared loadWallpaperShared;
     private LoadWallpaperSharedLogin loadWallpaperSharedLogin;
-    private ExtendedFloatingActionButton filterSource;
-    private TextView chooseTitle;
-    private TextInputLayout chooseHint;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private List<NewsSource> newsSources = new ArrayList<>();
     private LoadThemeShared loadThemeShared;
     private GetUserLogin getUserLogin;
-    private CheckBox syncSubscribe;
-    private MaterialAutoCompleteTextView spinnerRss;
     private Rss2JsonMultiFeed feedMultiRSS;
+    private EditText searchTextInput;
 
     private String defaultType = "BreakingNews";
 
@@ -132,16 +107,13 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         TextView welcomeText = findViewById(R.id.welcome_title);
         homepageScreen = findViewById(R.id.homepage_screen);
         errorInternet = findViewById(R.id.noInternetScreen);
-        filterSource = findViewById(R.id.filterSource);
         NetworkConnection networkConnection = new NetworkConnection(this);
         networkConnection.observe(this, isConnected -> {
             if (isConnected) {
                 homepageScreen.setVisibility(android.view.View.VISIBLE);
-                filterSource.setVisibility(android.view.View.VISIBLE);
                 errorInternet.setVisibility(android.view.View.GONE);
             } else {
                 homepageScreen.setVisibility(android.view.View.GONE);
-                filterSource.setVisibility(android.view.View.GONE);
                 errorInternet.setVisibility(android.view.View.VISIBLE);
             }
         });
@@ -169,7 +141,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         }
         drawerLayout = findViewById(R.id.home_page);
         toolbar = findViewById(R.id.nav_button);
-        recyclerView = findViewById(R.id.news_type);
+        newsTypeRecyclerView = findViewById(R.id.news_type);
+        searchTextInput = findViewById(R.id.search_input);
         newsViewHorizontal = findViewById(R.id.cardnews_view_horizontal);
         newsViewVertical = findViewById(R.id.cardnews_view_vertical);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
@@ -184,34 +157,57 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             //Load news from source
             LoadSourceNews(getDefaultType());
         }
-        //User progress bar
-        //Hide float button when scroll recyclerview vertical
-        hideWhenScroll();
+        //Refresh news
         swipeRefreshLayout.setOnRefreshListener(() -> {
             LoadSourceNews(getDefaultType());
             swipeRefreshLayout.setRefreshing(false);
         });
+        //Search the news by keyword after click search button
+        searchTextInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == 6) {
+                //Hide newsViewHorizontal and Category List
+                newsTypeRecyclerView.setVisibility(android.view.View.GONE);
+                newsViewHorizontal.setVisibility(android.view.View.GONE);
+                searchNewsByKeyWord(getUserLogin.getUserID(), searchTextInput.getText().toString());
+            }
+            //if the edit text is empty, enable back newsViewHorizontal load news from source
+            if (searchTextInput.getText().toString().equals("")) {
+                newsTypeRecyclerView.setVisibility(android.view.View.VISIBLE);
+                newsViewHorizontal.setVisibility(android.view.View.VISIBLE);
+                LoadSourceNews(getDefaultType());
+            }
+            return false;
+        });
     }
 
-
-    //Collapse float button
-    private void hideWhenScroll() {
-        NestedScrollView homepageScroll = findViewById(R.id.homepageScroll);
-        homepageScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            if (homepageScroll.getScrollY() > 0) {
-                filterSource.shrink();
-            } else {
-                filterSource.extend();
-            }
+    private void searchNewsByKeyWord(String userId, String keyWord) {
+        MaterialAltertLoading materialAltertLoading = new MaterialAltertLoading(this);
+        MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDialog();
+        AlertDialog alertDialog = mDialog.create();
+        alertDialog.show();
+        //Load the news found in vertical RecyclerView
+        Thread loadViewVertical = new Thread(() -> {
+            newsViewLayoutVertical = new LinearLayoutManager(HomePage.this, LinearLayoutManager.VERTICAL, false);
+            feedMultiRSS = new Rss2JsonMultiFeed(HomePage.this, newsViewVertical, newsViewLayoutVertical);
+            feedMultiRSS.clearAdapterVertical();
+            feedMultiRSS.clearAdapterHorizontal();
+            feedMultiRSS.rss2JsonVerticalByKeyWord(userId, keyWord, alertDialog);
         });
+        loadViewVertical.start();
+        //After load news, close the dialog if two thread is done
+        try {
+            loadViewVertical.join();
+        } catch (InterruptedException e) {
+            Logger.getLogger("Error").warning(e.getMessage());
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadCategory() {
         NewsTypeAdapter newsTypeAdapter = new NewsTypeAdapter(this, getUserLogin.getUserID());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(newsTypeAdapter);
+        newsTypeRecyclerView.setLayoutManager(linearLayoutManager);
+        newsTypeRecyclerView.setAdapter(newsTypeAdapter);
         newsTypeAdapter.notifyDataSetChanged();
     }
 
@@ -241,125 +237,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         } catch (InterruptedException e) {
             Logger.getLogger("Error").warning(e.getMessage());
         }
-    }
-
-    @Deprecated //This function is not used anymore
-    private void openSourceChoose() {
-        filterSource.setOnClickListener(v -> {
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(HomePage.this);
-            bottomSheetDialog.setContentView(R.layout.choose_feed);
-            bottomSheetDialog.show();
-            spinnerRss = bottomSheetDialog.findViewById(R.id.spinner_rss);
-            chooseTitle = bottomSheetDialog.findViewById(R.id.choose_title);
-            chooseHint = bottomSheetDialog.findViewById(R.id.hint_to_choose);
-            syncSubscribe = bottomSheetDialog.findViewById(R.id.checkSubscrible);
-            chooseTitle.setText(R.string.choose_rss);
-            chooseHint.setHint(R.string.Select_RSS_Feed);
-            assert spinnerRss != null;
-            assert syncSubscribe != null;
-            //if checkbox is checked, load source from user account
-            syncSubscribe.setOnClickListener(v1 -> {
-                if (syncSubscribe.isChecked()) {
-                    String statusAccount = getUserLogin.getStatus();
-                    if (statusAccount != null) {
-                        if (statusAccount.equals("login")) {
-                            spinnerRss.setText("");
-                            AccountSourceList(spinnerRss, getUserLogin.getUserID());
-                        } else {
-                            syncSubscribe.setChecked(false);
-                            Toast.makeText(HomePage.this, R.string.please_login_to_use_this_feature, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else {
-                    spinnerRss.setText("");
-                    GuestSourceList(spinnerRss);
-                }
-            });
-            spinnerRss.setText("");
-            GuestSourceList(spinnerRss);
-            Button okBtn = bottomSheetDialog.findViewById(R.id.btnLoad);
-            assert okBtn != null;
-            okBtn.setOnClickListener(v1 -> {
-                String sourceName = spinnerRss.getText().toString();
-                if (sourceName.isEmpty()) {
-                    Toast.makeText(HomePage.this, R.string.source_not_choose, Toast.LENGTH_SHORT).show();
-                } else {
-                    SharedPreferenceSettings sharedPreferenceSettings = new SharedPreferenceSettings(HomePage.this);
-                    sharedPreferenceSettings.getSharedSource(sourceName);
-                    setDefaultType(sourceName);
-                    bottomSheetDialog.dismiss();
-                    loadCategory();
-                    LoadSourceNews(sourceName);
-                }
-
-            });
-        });
-    }
-    @Deprecated
-    private void GuestSourceList(MaterialAutoCompleteTextView spinner_rss) {
-        Call<NewsAppResult> call = newsAPPInterface.guestAllSource();
-        assert call != null;
-        call.enqueue(new retrofit2.Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull retrofit2.Response<NewsAppResult> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (response.body().getNewsSource() != null) {
-                        if (!newsSources.isEmpty()) {
-                            newsSources.clear();
-                        }
-                        newsSources = response.body().getNewsSource();
-                        List<NewsSource> newsSourceList = newsSources;
-                        ArrayList<String> listSource = new ArrayList<>();
-                        for (NewsSource newsSource : newsSourceList) {
-                            listSource.add(newsSource.getSourceName());
-                        }
-                        assert spinner_rss != null;
-                        spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
-                Logger.getLogger("Error").warning(t.getMessage());
-            }
-        });
-    }
-    @Deprecated
-    private void AccountSourceList(MaterialAutoCompleteTextView spinner_rss, String userid) {
-        Call<NewsAppResult> call = newsAPPInterface.accountAllSource(Utils.encodeToBase64(userid));
-        assert call != null;
-        call.enqueue(new retrofit2.Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull retrofit2.Response<NewsAppResult> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (response.body().getNewsSource() != null) {
-                        if (!newsSources.isEmpty()) {
-                            newsSources.clear();
-                        }
-                        newsSources = response.body().getNewsSource();
-                        List<NewsSource> newsSourceList = newsSources;
-                        ArrayList<String> listSource = new ArrayList<>();
-                        for (NewsSource newsSource : newsSourceList) {
-                            listSource.add(newsSource.getSourceName());
-                        }
-                        //toast message if listSource is empty
-                        if (listSource.isEmpty()) {
-                            Toast.makeText(HomePage.this, R.string.no_source, Toast.LENGTH_SHORT).show();
-                        }
-                        assert spinner_rss != null;
-                        spinner_rss.setAdapter(new ArrayAdapter<>(HomePage.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listSource));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
-                Logger.getLogger("Error").warning(t.getMessage());
-            }
-        });
     }
 
     private void reloadData() {

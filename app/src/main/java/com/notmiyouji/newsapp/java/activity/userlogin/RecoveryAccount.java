@@ -33,6 +33,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
@@ -48,7 +51,6 @@ import retrofit2.Call;
 
 public class RecoveryAccount extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
-    private TextInputEditText newPassword, confirmPassword;
     private String email;
     private String userid;
     private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
@@ -71,10 +73,9 @@ public class RecoveryAccount extends AppCompatActivity {
         TextView username = findViewById(R.id.username);
         fullName.setText(fullname);
         username.setText("@" + usernameIntent);
-        //Password Input
-
-        newPassword = findViewById(R.id.newspass_user_input);
-        confirmPassword = findViewById(R.id.confirmpass_input);
+        //Found email
+        TextView foundEmail = findViewById(R.id.found_email);
+        foundEmail.setText(email);
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
         String avatarURL = new RequestImage(email).getGravatarURL();
@@ -90,40 +91,38 @@ public class RecoveryAccount extends AppCompatActivity {
         //Change Password Button
         Button changePassword = findViewById(R.id.ChangeButton);
         changePassword.setOnClickListener(v -> {
-            String newPasswordString = String.valueOf(newPassword.getText());
-            String confirmPasswordString = String.valueOf(confirmPassword.getText());
-            if (newPasswordString.isEmpty() || confirmPasswordString.isEmpty()) {
-                Toast.makeText(RecoveryAccount.this, R.string.password_empty, Toast.LENGTH_SHORT).show();
-            } else if (!newPasswordString.equals(confirmPasswordString)) {
-                Toast.makeText(RecoveryAccount.this, R.string.password_is_not_same, Toast.LENGTH_SHORT).show();
-            } else {
-                UpdatePassword(userid, email, newPasswordString);
-            }
+            UpdatePassword(userid, email);
         });
     }
 
-    private void UpdatePassword(String userid, String email, String newPass) {
-        //Retrofit call update password request
-        Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserToken(userid, email, newPass);
-        assert updatePasswordNow != null;
-        updatePasswordNow.enqueue(new retrofit2.Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (Objects.equals(response.body().getStatus(), "success")) {
-                        Toast.makeText(RecoveryAccount.this, R.string.password_updated, Toast.LENGTH_SHORT).show();
-                        ActivityOptions.makeSceneTransitionAnimation(RecoveryAccount.this).toBundle();
-                        finish();
-                    } else {
+    private void UpdatePassword(String userid, String email) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                //Retrofit call update password request
+                Call<UserInformation> updatePasswordNow = newsAPPInterface.changeUserToken(userid, email, firebaseAuth.getUid());
+                assert updatePasswordNow != null;
+                updatePasswordNow.enqueue(new retrofit2.Callback<>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
+                        if (response.isSuccessful()) {
+                            assert response.body() != null;
+                            if (Objects.equals(response.body().getStatus(), "success")) {
+                                Toast.makeText(RecoveryAccount.this, R.string.password_updated, Toast.LENGTH_SHORT).show();
+                                ActivityOptions.makeSceneTransitionAnimation(RecoveryAccount.this).toBundle();
+                                finish();
+                            } else {
+                                Toast.makeText(RecoveryAccount.this, R.string.password_updated_failed, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call<UserInformation> call, @NonNull Throwable t) {
                         Toast.makeText(RecoveryAccount.this, R.string.password_updated_failed, Toast.LENGTH_SHORT).show();
                     }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<UserInformation> call, @NonNull Throwable t) {
-                Toast.makeText(RecoveryAccount.this, R.string.password_updated_failed, Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                Toast.makeText(RecoveryAccount.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
             }
         });
     }

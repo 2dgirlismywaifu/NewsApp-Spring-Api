@@ -31,9 +31,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import java.util.Objects;
@@ -67,14 +70,26 @@ public class ForgotPasswordForm extends AppCompatActivity {
             if (recoveryCode.isEmpty()) {
                 recoveryCodeInput.setError(getString(R.string.recovery_code_is_required));
                 Toast.makeText(this, R.string.recovery_code_is_required, Toast.LENGTH_SHORT).show();
+            } else if (recoveryCode.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+                    //Use firebase to send email to reset password
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                auth.sendPasswordResetEmail(recoveryCode).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, R.string.email_reset_password, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else {
                 verifyRecoveryCode(recoveryCode);
             }
+
+
         });
     }
 
     private void verifyRecoveryCode(String recoveryCode) {
-        Call<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> signInCall = newsAPPInterface.recoveryAccountByRecoveryCode(recoveryCode);
+        Call<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> signInCall = newsAPPInterface.recoveryAccountByRecoveryCode(Utils.encodeToBase64(recoveryCode));
         assert signInCall != null;
         signInCall.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -83,7 +98,7 @@ public class ForgotPasswordForm extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     com.notmiyouji.newsapp.kotlin.model.RecoveryAccount recoveryAccount = response.body();
                     assert recoveryAccount != null;
-                    if (Objects.equals(recoveryAccount.getStatus(), "pass")) {
+                    if (Objects.equals(recoveryAccount.getStatus(), "success")) {
                         Intent intent = new Intent(ForgotPasswordForm.this, RecoveryAccount.class);
                         intent.putExtra("userid", recoveryAccount.getUserId());
                         intent.putExtra("email", recoveryAccount.getEmail());

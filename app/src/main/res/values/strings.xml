@@ -53,8 +53,8 @@
     <string name="not_received_yet">Not received yet ?</string>
     <string name="resend_code">Resend Email</string>
     <string name="verify_account">Verify Account</string>
-    <string name="enter_verification_code">Enter Recovery Code</string>
-    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your recovery code to continue</string>
+    <string name="enter_verification_code">Recovery code ory your email</string>
+    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your recovery code to continue.\nYou can recovery by using your email</string>
     <string name="verify">Verify Now</string>
     <string name="send_verify_code">Send</string>
     <string name="Some_things_went_wrong">Some things went wrong! Please try again.</string>
@@ -230,5 +230,7 @@
     <string name="default_web_client_id">669548731431-glrpu5qs3vmah35i16vv4m8nughp8ecj.apps.googleusercontent.com</string>
     <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Sign up at Gravatar.com and upload your avatar.</string>
     <string name="picture_library">Picture Library</string>
+    <string name="email_reset_password">One email has send to reset your account.\nPlease check your email to excute reset task.</string>
+    <string name="send_email_firebase">Send Email</string>
 
 </resources>

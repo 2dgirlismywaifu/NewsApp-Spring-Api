@@ -85,8 +85,7 @@ public class NewsAdapterHorizontal extends RecyclerView.Adapter<NewsAdapterHoriz
                 newsFavouriteByUser.addFavouriteByUser(getUserLogin.getUserID(),model.getUrl(),
                         model.getTitle(),
                         path,
-                        model.getPublishedAt(),
-                        model.getSource().getName());
+                        model.getPublishedAt());
                 holders.favouriteBtn.setVisibility(View.GONE);
                 holders.unFavouriteBtn.setVisibility(View.VISIBLE);
             } else {

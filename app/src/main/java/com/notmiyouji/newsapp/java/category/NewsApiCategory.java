@@ -47,9 +47,44 @@ public class NewsApiCategory {
     private NewsAdapterVertical newsAdapterVertical;
     private Call<NewsAppResult> callCategory;
 
+    public void searchEveryThingByKeyWord(AppCompatActivity activity, AlertDialog mDialog, RecyclerView newsViewVertical, String keyWord) {
+        Thread findEveryThing = new Thread(() -> {
+            callCategory = newsAppInterface.getEveryThingsNewsFromNewsApi(keyWord, "popularity" ,"5");
+            assert callCategory != null;
+            callCategory.enqueue(new Callback<>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onResponse(@NonNull Call<NewsAppResult> callCategory, @NonNull Response<NewsAppResult> response2) {
+                    if (response2.isSuccessful()) {
+                        assert response2.body() != null;
+                        if (response2.body().getArticle() != null) {
+                            if (!articles.isEmpty()) {
+                                articles.clear();
+                            }
+                            articles = response2.body().getArticle();
+                            LinearLayoutManager newsAPIVerticalLayout = new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
+                            newsViewVertical.setLayoutManager(newsAPIVerticalLayout);
+                            newsAdapterVertical = new NewsAdapterVertical(articles, activity);
+                            newsViewVertical.setAdapter(newsAdapterVertical);
+                            newsAdapterVertical.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
+                    Toast.makeText(activity, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            activity.runOnUiThread(() ->
+                    newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
+        });
+        findEveryThing.start();
+    }
     public void LoadJSONCategory(AppCompatActivity activity, AlertDialog mDialog, String categoryName, RecyclerView newsViewVertical, String country, String keyWord) {
         Thread loadSourceGeneral = new Thread(() -> {
-            callCategory = newsAppInterface.getNewsTopHeadlinesFromNewsApi(keyWord, country, categoryName);
+            callCategory = newsAppInterface.getNewsTopHeadlinesFromNewsApi(keyWord, country, categoryName, "20");
             assert callCategory != null;
             callCategory.enqueue(new Callback<>() {
                 @SuppressLint("NotifyDataSetChanged")
@@ -81,16 +116,5 @@ public class NewsApiCategory {
                     newsViewVertical.getViewTreeObserver().addOnGlobalLayoutListener(mDialog::dismiss));
         });
         loadSourceGeneral.start();
-    }
-
-    //Doesn't work if choose another category :(
-    public void filterVertical(String text) {
-        List<Article> listVertical = new ArrayList<>();
-        for (Article item : articles) {
-            if (Objects.requireNonNull(item.getTitle()).toLowerCase().contains(text.toLowerCase())) {
-                listVertical.add(item);
-            }
-        }
-        newsAdapterVertical.filterList(listVertical);
     }
 }

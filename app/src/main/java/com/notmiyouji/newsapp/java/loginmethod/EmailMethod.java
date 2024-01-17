@@ -91,8 +91,18 @@ public class EmailMethod {
                             //Check Account Verify or not, if not go to verify page to continue
                             if (Objects.equals(signIn.getVerify(), "true")) {
                                 //Save user data to Shared Preferences
-                                RequestImage requestImage = new RequestImage(signIn.getEmail());
-                                String avatar = requestImage.getGravatarURL();
+                                String avatar;
+                                if (signIn.getAvatar() != null) {
+                                    if (signIn.getAvatar().isEmpty()) {
+                                        RequestImage requestImage = new RequestImage(Objects.requireNonNull(signIn.getEmail()));
+                                        avatar = requestImage.getGravatarURL();
+                                    } else {
+                                        avatar = signIn.getAvatar();
+                                    }
+                                } else {
+                                    RequestImage requestImage = new RequestImage(Objects.requireNonNull(signIn.getEmail()));
+                                    avatar = requestImage.getGravatarURL();
+                                }
                                 SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
                                 saveUserLogined.saveUserLogin(signIn.getUserId(), signIn.getFullName(), signIn.getEmail(), encodeData(password), signIn.getNickName(), avatar, "login");
                                 saveUserLogined.saveBirthday(signIn.getBirthday());

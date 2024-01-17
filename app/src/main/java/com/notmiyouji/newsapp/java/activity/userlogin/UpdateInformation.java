@@ -200,11 +200,9 @@ public class UpdateInformation {
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        Toast.makeText(activity, R.string.password_updated, Toast.LENGTH_SHORT).show();
-                        //Update password in firebase
-                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(userToken);
-                        //Sign out
                         FirebaseAuth.getInstance().signOut();
+                        activity.finish();
+                        Toast.makeText(activity, R.string.password_updated, Toast.LENGTH_SHORT).show();
                         SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
                         saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
                         saveUserLogined.saveBirthday("");

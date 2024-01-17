@@ -20,6 +20,7 @@ package com.notmiyouji.newsapp.java.activity.userlogin;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,15 +57,16 @@ public class SignUpForm extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
         loadFollowLanguageSystem.loadLanguage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_form);
-        ApplicationFlags applicationFlags = new ApplicationFlags(this);
-        applicationFlags.setFlag();
-
+        //Lock the screen orientation without ApplicationFlags Class
+        //Not recommend to do this, but the Android still got problem with Tablet Design
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fullName = findViewById(R.id.fullname_input);
         email = findViewById(R.id.email_input);
         password = findViewById(R.id.password_input);

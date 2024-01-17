@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,6 +32,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
@@ -38,13 +44,15 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 
+import java.util.Objects;
+
 public class ChangePassword extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private LoadThemeShared loadThemeShared;
     private TextInputEditText oldPassword, newPassword, confirmPassword;
     private GetUserLogin getUserLogin;
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
@@ -53,9 +61,9 @@ public class ChangePassword extends AppCompatActivity {
         loadThemeShared.setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        ApplicationFlags applicationFlags = new ApplicationFlags(this);
-        applicationFlags.setFlag();
-
+        //Lock the screen orientation without ApplicationFlags Class
+        //Not recommend to do this, but the Android still got problem with Tablet Design
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getUserLogin = new GetUserLogin(this);
         TextView fullName = findViewById(R.id.fullname);
         TextView username = findViewById(R.id.username);
@@ -97,9 +105,27 @@ public class ChangePassword extends AppCompatActivity {
                 });
                 materialAlertDialogBuilder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
                 materialAlertDialogBuilder.setPositiveButton(R.string.yes, (dialog, which) -> {
-                    //Update Password Controller
-                    UpdateInformation updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
-                    updateInformation.updatePassword(getUserLogin.getEmail(), newPasswordString);
+                    //Execute change password account to firebase auth
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        AuthCredential credential = EmailAuthProvider.getCredential(Objects.requireNonNull(getUserLogin.getEmail()), oldPasswordString);
+                        user.reauthenticate(credential).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                user.updatePassword(newPasswordString).addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        //Update UserToken
+                                        UpdateInformation updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
+                                        updateInformation.updatePassword(getUserLogin.getEmail(), user.getUid());
+                                    } else {
+                                        Toast.makeText(ChangePassword.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(ChangePassword.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
                 });
                 materialAlertDialogBuilder.show();
 

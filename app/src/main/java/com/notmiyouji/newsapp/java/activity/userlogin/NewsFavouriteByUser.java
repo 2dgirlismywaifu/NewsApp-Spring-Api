@@ -44,7 +44,7 @@ public class NewsFavouriteByUser {
         this.activity = activity;
     }
 
-    public void addFavouriteByUser(String userId, String url, String title, String imageUrl, String pubDate, String sourceName) {
+    public void addFavouriteByUser(String userId, String url, String title, String imageUrl, String pubDate) {
         if (imageUrl == null) {
             imageUrl = "not_found";
         }

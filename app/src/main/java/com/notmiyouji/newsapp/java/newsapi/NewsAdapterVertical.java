@@ -83,7 +83,7 @@ public class NewsAdapterVertical extends RecyclerView.Adapter<NewsAdapterVertica
         holders.favouriteBtn.setOnClickListener(v -> {
             if (getUserLogin.getStatus().equals("login")) {
                 newsFavouriteByUser.addFavouriteByUser(getUserLogin.getUserID(),model.getUrl(), model.getTitle(),
-                        path, model.getPublishedAt(), model.getSource().getName());
+                        path, model.getPublishedAt());
                 holders.favouriteBtn.setVisibility(View.GONE);
                 holders.unFavouriteBtn.setVisibility(View.VISIBLE);
             } else {
