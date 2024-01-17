@@ -232,5 +232,7 @@
     <string name="picture_library">Picture Library</string>
     <string name="email_reset_password">One email has send to reset your account.\nPlease check your email to excute reset task.</string>
     <string name="send_email_firebase">Send Email</string>
+    <string name="save_image_firebase">Save Image</string>
+    <string name="change_password_message">Change password account will logout your account. Are you sure?</string>
 
 </resources>

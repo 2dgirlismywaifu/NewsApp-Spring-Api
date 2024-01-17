@@ -19,6 +19,7 @@ package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
@@ -32,13 +33,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -98,11 +97,7 @@ public class ChangePassword extends AppCompatActivity {
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(ChangePassword.this);
                 materialAlertDialogBuilder.setIcon(R.mipmap.ic_launcher);
                 materialAlertDialogBuilder.setTitle(R.string.change_password_account);
-                materialAlertDialogBuilder.setMessage("Change password account will logout your account. Are you sure?");
-                materialAlertDialogBuilder.setPositiveButton(R.string.yes, (dialog, which) -> {
-                    Toast.makeText(ChangePassword.this, R.string.change_password_account, Toast.LENGTH_SHORT).show();
-                    finish();
-                });
+                materialAlertDialogBuilder.setMessage(R.string.change_password_message);
                 materialAlertDialogBuilder.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
                 materialAlertDialogBuilder.setPositiveButton(R.string.yes, (dialog, which) -> {
                     //Execute change password account to firebase auth
@@ -116,6 +111,16 @@ public class ChangePassword extends AppCompatActivity {
                                         //Update UserToken
                                         UpdateInformation updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
                                         updateInformation.updatePassword(getUserLogin.getEmail(), user.getUid());
+                                        FirebaseAuth.getInstance().signOut();
+                                        finish();
+                                        //Restart application
+                                        Toast.makeText(this, R.string.sign_out_success, Toast.LENGTH_SHORT).show();
+                                        Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(
+                                                getBaseContext().getPackageName());
+                                        if (intent != null) {
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        }
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(ChangePassword.this, R.string.Some_things_went_wrong, Toast.LENGTH_SHORT).show();
                                     }

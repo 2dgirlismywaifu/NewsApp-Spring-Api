@@ -19,13 +19,11 @@ package com.notmiyouji.newsapp.java.activity.userlogin;
 
 import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
 
-import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
@@ -200,21 +198,11 @@ public class UpdateInformation {
             public void onResponse(@NonNull Call<UserInformation> call, @NonNull retrofit2.Response<UserInformation> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        FirebaseAuth.getInstance().signOut();
-                        activity.finish();
                         Toast.makeText(activity, R.string.password_updated, Toast.LENGTH_SHORT).show();
                         SaveUserLogined saveUserLogined = new SaveUserLogined(activity);
                         saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
                         saveUserLogined.saveBirthday("");
                         saveUserLogined.saveGender("");
-                        //Restart application
-                        Toast.makeText(activity, R.string.sign_out_success, Toast.LENGTH_SHORT).show();
-                        Intent intent = activity.getBaseContext().getPackageManager().getLaunchIntentForPackage(
-                                activity.getBaseContext().getPackageName());
-                        if (intent != null) {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        }
-                        activity.startActivity(intent);
                     } else {
                         Toast.makeText(activity, R.string.password_updated_failed, Toast.LENGTH_SHORT).show();
                     }

@@ -35,7 +35,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.canhub.cropper.CropImageActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -298,7 +297,6 @@ public class AccountSettings extends AppCompatActivity {
         if (uri != null) {
             //Crop Image
             Intent cropIntent = new Intent(this, CropImageToFireBase.class);
-            cropIntent.putExtra("avatarDisplay", R.id.avatar_user_logined);
             cropIntent.putExtra("imageUri", uri.toString());
             startActivity(cropIntent);
         }

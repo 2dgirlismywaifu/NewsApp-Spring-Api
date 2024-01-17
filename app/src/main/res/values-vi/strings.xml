@@ -224,4 +224,6 @@
     <string name="picture_library">Thư viện ảnh</string>
     <string name="send_email_firebase">Gửi yêu cầu</string>
     <string name="email_reset_password">Một email đã được gửi tới bạn.\nVui lòng kiểm tra hòm thư để đặt lại mật khẩu.</string>
+    <string name="save_image_firebase">Lưu ảnh</string>
+    <string name="change_password_message">Thay đổi mật khẩu sẽ đăng xuất ngay lập tức. Bạn chắc chắn chứ?</string>
 </resources>

@@ -26,9 +26,9 @@
         android:id="@+id/cropButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:text="Text"
+        android:text="@string/save_image_firebase"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cropImageViewer"
         app:layout_constraintStart_toStartOf="@+id/cropImageViewer" />

@@ -1,6 +1,7 @@
 package com.notmiyouji.newsapp.java.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,17 +11,14 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.canhub.cropper.CropImageView;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.activity.userlogin.UpdateInformation;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Objects;
 
 public class CropImageToFireBase extends AppCompatActivity {
     private CropImageView cropImageView;
@@ -54,12 +52,12 @@ public class CropImageToFireBase extends AppCompatActivity {
             uploadTask.addOnSuccessListener(taskSnapshot -> riversRef.getDownloadUrl().addOnSuccessListener(uri1 -> {
                 updateInformation.updateAvatar(uri1.toString());
                 //End the activity
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
                 finish();
             })).addOnFailureListener(exception -> {
                 // Handle unsuccessful uploads
                 // Log the error message
                 Log.e("Firebase Storage", "Upload failed: " + exception.getMessage());
-                // ...
             });
         });
     }
