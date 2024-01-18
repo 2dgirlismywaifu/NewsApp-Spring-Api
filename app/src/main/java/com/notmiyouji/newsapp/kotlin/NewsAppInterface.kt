@@ -262,6 +262,7 @@ interface NewsAppInterface {
     fun searchNewsFromRss(
         @Query("userId", encoded = true) userId: String?,
         @Query("keyWord", encoded = true) keyWord: String?,
+        @Query("type", encoded = true) type: String?,
         @Query("size", encoded = true) size: String?
     ): Call<NewsAppResult?>?
 

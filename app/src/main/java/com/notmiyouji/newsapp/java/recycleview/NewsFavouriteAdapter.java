@@ -34,6 +34,8 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser;
 import com.notmiyouji.newsapp.kotlin.LoadImageURL;
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails;
+import com.notmiyouji.newsapp.kotlin.model.NewsFavourite;
+import com.notmiyouji.newsapp.kotlin.model.NewsSource;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 
 import java.util.List;
@@ -41,7 +43,7 @@ import java.util.Objects;
 
 public class NewsFavouriteAdapter extends RecyclerView.Adapter<NewsFavouriteAdapter.FeedViewVerticalHolder> {
     private final LayoutInflater inflater;
-    private final List<com.notmiyouji.newsapp.kotlin.model.NewsFavourite> items;
+    private List<NewsFavourite> items;
     private final AppCompatActivity activity;
     private final GetUserLogin getUserLogin;
     NewsFavouriteByUser newsFavouriteByUser;
@@ -117,6 +119,12 @@ public class NewsFavouriteAdapter extends RecyclerView.Adapter<NewsFavouriteAdap
         int size = items.size();
         items.clear();
         notifyItemRangeRemoved(0, size);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterList(List<NewsFavourite> newsFavouriteList) {
+        this.items = newsFavouriteList;
+        notifyDataSetChanged();
     }
 
     public static class FeedViewVerticalHolder extends RecyclerView.ViewHolder {

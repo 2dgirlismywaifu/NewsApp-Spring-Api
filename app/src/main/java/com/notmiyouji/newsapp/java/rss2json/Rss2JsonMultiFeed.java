@@ -90,8 +90,8 @@ public class Rss2JsonMultiFeed {
         });
     }
 
-    public void rss2JsonVerticalByKeyWord(String userId, String keyword, AlertDialog alertDialog) {
-        call = newsAppInterface.searchNewsFromRss(userId, Utils.encodeToBase64(keyword), "5");
+    public void rss2JsonVerticalByKeyWord(String userId, String keyword, String type, AlertDialog alertDialog) {
+        call = newsAppInterface.searchNewsFromRss(userId, Utils.encodeToBase64(keyword), Utils.encodeToBase64(type), "5");
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @SuppressLint("NotifyDataSetChanged")

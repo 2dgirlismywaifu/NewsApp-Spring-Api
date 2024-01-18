@@ -191,7 +191,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
             feedMultiRSS = new Rss2JsonMultiFeed(HomePage.this, newsViewVertical, newsViewLayoutVertical);
             feedMultiRSS.clearAdapterVertical();
             feedMultiRSS.clearAdapterHorizontal();
-            feedMultiRSS.rss2JsonVerticalByKeyWord(userId, keyWord, alertDialog);
+            feedMultiRSS.rss2JsonVerticalByKeyWord(userId, keyWord, getDefaultType(), alertDialog);
         });
         loadViewVertical.start();
         //After load news, close the dialog if two thread is done
