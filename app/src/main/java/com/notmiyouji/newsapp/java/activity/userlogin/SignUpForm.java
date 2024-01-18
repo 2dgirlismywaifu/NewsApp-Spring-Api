@@ -38,7 +38,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.SignUp;
@@ -251,7 +250,7 @@ public class SignUpForm extends AppCompatActivity {
 
     private void gotoVerifyEmail(String fullName, String email, String userToken, String password, String username) {
         //First, save it to database
-        Call<SignUp> call = newsAPPInterface.signUpAnAccount(Utils.encodeToBase64(fullName), Utils.encodeToBase64(email), Utils.encodeToBase64(userToken), Utils.encodeToBase64(username));
+        Call<SignUp> call = newsAPPInterface.signUpAnAccount(fullName, email, userToken, username);
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override

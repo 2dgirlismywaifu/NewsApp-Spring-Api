@@ -307,7 +307,7 @@ interface NewsAppInterface {
      * @param nickName: Nick name of user
      * @return SignIn
      */
-    @GET("news-app/user/register")
+    @POST("news-app/user/register")
     fun signUpAnAccount(
         @Query("fullName", encoded = true) fullName: String?,
         @Query("email", encoded = true) email: String?,
@@ -332,7 +332,7 @@ interface NewsAppInterface {
      * @param email: Email of user
      * @return VerifyEmail
      */
-    @GET("news-app/user/verify-email")
+    @POST("news-app/user/verify-email")
     fun verifyEmail(
         @Query("email", encoded = true) email: String?
     ): Call<VerifyEmail?>?

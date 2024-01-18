@@ -30,7 +30,6 @@ import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
 import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
 import com.notmiyouji.newsapp.kotlin.model.RecoveryCode;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
@@ -68,7 +67,7 @@ public class RegisterSuccess extends AppCompatActivity {
 
 
     private void ShowRecoveryCode(String email) {
-        Call<RecoveryCode> call = newsAPPInterface.getRecoveryCode(Utils.encodeToBase64(email));
+        Call<RecoveryCode> call = newsAPPInterface.getRecoveryCode(email);
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override
