@@ -21,7 +21,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class WelcomeScreenShared(var context: Context) {
-    var pref: SharedPreferences = context.getSharedPreferences(WELCOME_SCREEN, Context.MODE_PRIVATE)
+    private var pref: SharedPreferences = context.getSharedPreferences(WELCOME_SCREEN, Context.MODE_PRIVATE)
     var editor: SharedPreferences.Editor = pref.edit()
 
     var enableWelcome: Boolean

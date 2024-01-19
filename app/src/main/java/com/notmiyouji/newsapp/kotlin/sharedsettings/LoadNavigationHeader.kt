@@ -39,7 +39,7 @@ class LoadNavigationHeader(
         val avatar = sharedPreferences.getString("avatar", "")
         val status = sharedPreferences.getString("status", "")
         when {
-            status.equals("login") || status.equals("google") -> {
+            status.equals("login") -> {
                 navigationView.inflateHeaderView(R.layout.navigation_header_logined)
                 val fullNameHeader = navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
                 fullNameHeader.text = fullName
@@ -51,10 +51,8 @@ class LoadNavigationHeader(
                 val loadUrlImage = LoadUrlImage(avatar)
                 loadUrlImage.loadImageUser(avatarHeader)
             }
-
             else -> {
                 //load default header
-
                 navigationView.inflateHeaderView(R.layout.navigation_header)
             }
         }

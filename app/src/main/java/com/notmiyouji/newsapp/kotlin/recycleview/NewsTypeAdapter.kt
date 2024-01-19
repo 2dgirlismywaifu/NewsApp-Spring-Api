@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.MaterialAltertLoading
-import com.notmiyouji.newsapp.java.category.RssUrlCategory
+import com.notmiyouji.newsapp.kotlin.recycleviewholder.category.RssUrlCategory
 
 class NewsTypeAdapter(private val activity: AppCompatActivity, private val userId: String) :
     RecyclerView.Adapter<NewsTypeAdapter.NewsTypeHolder>() {
@@ -42,12 +42,13 @@ class NewsTypeAdapter(private val activity: AppCompatActivity, private val userI
             val alertDialog = mDialog.create()
             alertDialog.show()
             val category = data[data.keys.toTypedArray()[position]]
-            val rssURLCategory = RssUrlCategory(
-                activity,
-                activity.findViewById(R.id.cardnews_view_vertical),
-                alertDialog,
-                userId
-            )
+            val rssURLCategory =
+                RssUrlCategory(
+                    activity,
+                    activity.findViewById(R.id.cardnews_view_vertical),
+                    alertDialog,
+                    userId
+                )
             rssURLCategory.startLoad(category)
         }
     }

@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
-import com.notmiyouji.newsapp.kotlin.model.rss.RSSList
+import com.notmiyouji.newsapp.kotlin.model.rss2json.RSSList
 
 class ListRssAdapter(var activity: AppCompatActivity, private var rssSourceList: List<RSSList>) :
     RecyclerView.Adapter<ListRssAdapter.ListSourceHolder>() {

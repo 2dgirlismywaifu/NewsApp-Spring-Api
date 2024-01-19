@@ -20,14 +20,8 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class LanguagePrefManager(var context: Context) {
-    var pref: SharedPreferences
-    var editor: SharedPreferences.Editor
-
-    // Shared preferences file name
-    init {
-        pref = context.getSharedPreferences("LangCode", Context.MODE_PRIVATE)
-        editor = pref.edit()
-    }
+    private var pref: SharedPreferences = context.getSharedPreferences("LangCode", Context.MODE_PRIVATE)
+    var editor: SharedPreferences.Editor = pref.edit()
 
     fun setLocal(lang: String?) {
         //Save config by shared preferences

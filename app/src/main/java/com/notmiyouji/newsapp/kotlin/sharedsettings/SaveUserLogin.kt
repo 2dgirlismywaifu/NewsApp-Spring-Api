@@ -20,7 +20,7 @@ package com.notmiyouji.newsapp.kotlin.sharedsettings
 import android.content.Context
 import android.content.SharedPreferences
 
-class SaveUserLogined(context: Context) {
+class SaveUserLogin(context: Context) {
     private var sharedPreferences: SharedPreferences
     var editor: SharedPreferences.Editor
 

@@ -21,11 +21,11 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.notmiyouji.newsapp.kotlin.model.newsapi.Article
 import com.notmiyouji.newsapp.kotlin.model.newsapi.Country
-import com.notmiyouji.newsapp.kotlin.model.rss.NewsDetails
-import com.notmiyouji.newsapp.kotlin.model.rss.NewsFavourite
-import com.notmiyouji.newsapp.kotlin.model.rss.NewsSource
-import com.notmiyouji.newsapp.kotlin.model.rss.RSSList
-import com.notmiyouji.newsapp.kotlin.model.rss.Result
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsDetails
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsFavourite
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsSource
+import com.notmiyouji.newsapp.kotlin.model.rss2json.RSSList
+import com.notmiyouji.newsapp.kotlin.model.rss2json.Result
 
 class NewsAppResult {
     @SerializedName("newsSource")

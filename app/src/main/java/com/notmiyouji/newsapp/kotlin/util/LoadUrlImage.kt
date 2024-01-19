@@ -60,7 +60,7 @@ class LoadUrlImage(
         }
     }
 
-    fun loadImageforNewsDetails(imageView: ImageView) {
+    fun loadImageForNewsDetails(imageView: ImageView) {
         imageView.load(url) {
             crossfade(true)
             error(R.drawable.not_available)

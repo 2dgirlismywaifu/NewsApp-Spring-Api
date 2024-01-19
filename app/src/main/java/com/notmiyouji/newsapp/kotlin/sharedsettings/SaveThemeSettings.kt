@@ -20,14 +20,9 @@ package com.notmiyouji.newsapp.kotlin.sharedsettings
 import android.content.Context
 import android.content.SharedPreferences
 
-class SaveThemeSettings(var _context: Context) {
-    var pref: SharedPreferences
-    var editor: SharedPreferences.Editor
-
-    init {
-        pref = _context.getSharedPreferences("Theme", Context.MODE_PRIVATE)
-        editor = pref.edit()
-    }
+class SaveThemeSettings(private var _context: Context) {
+    private var pref: SharedPreferences = _context.getSharedPreferences("Theme", Context.MODE_PRIVATE)
+    var editor: SharedPreferences.Editor = pref.edit()
 
     fun saveTheme(theme: String?) {
         editor.putString("theme", theme)

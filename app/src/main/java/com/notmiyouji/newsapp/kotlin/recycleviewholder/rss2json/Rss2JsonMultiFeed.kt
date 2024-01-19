@@ -1,4 +1,18 @@
-package com.notmiyouji.newsapp.java.rss2json;
+package com.notmiyouji.newsapp.kotlin.recycleviewholder.rss2json
+
+import android.annotation.SuppressLint
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.notmiyouji.newsapp.kotlin.model.NewsAppResult
+import com.notmiyouji.newsapp.kotlin.model.rss2json.Result
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi.apiClient
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface
+import com.notmiyouji.newsapp.kotlin.util.AppUtils.encodeToBase64
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /*
  * Copyright By @2dgirlismywaifu (2023) .
@@ -16,162 +30,141 @@ package com.notmiyouji.newsapp.java.rss2json;
  * limitations under the License.
  *
  */
-
-import android.annotation.SuppressLint;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
-import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.model.Result;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
-
-
-public class Rss2JsonMultiFeed {
-
-    AppCompatActivity activity;
-    LinearLayoutManager linearLayoutManager;
-    NewsAppInterface newsAppInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
-    Call<NewsAppResult> call;
-    List<Result> items = new ArrayList<>();
-    RecyclerView recyclerView;
-    Rss2JsonAdapterHorizontal adapterHorizontal;
-    Rss2JsonAdapterVertical adapterVertical;
-
-    public Rss2JsonMultiFeed(AppCompatActivity activity, RecyclerView recyclerView, LinearLayoutManager linearLayoutManager) {
-        this.activity = activity;
-        this.recyclerView = recyclerView;
-        this.linearLayoutManager = linearLayoutManager;
-    }
-
-    public void rss2JsonVertical(String userId, String type, AlertDialog alertDialog) {
-        call = newsAppInterface.convertRssUrl2Json(userId, Utils.encodeToBase64(type), "10");
-        assert call != null;
-        call.enqueue(new retrofit2.Callback<>() {
+class Rss2JsonMultiFeed(
+    var activity: AppCompatActivity,
+    var recyclerView: RecyclerView,
+    var linearLayoutManager: LinearLayoutManager
+) {
+    private var newsAppInterface: NewsAppInterface = apiClient!!.create(NewsAppInterface::class.java)
+    var call: Call<NewsAppResult?>? = null
+    var items: MutableList<Result> = ArrayList()
+    var adapterHorizontal: Rss2JsonAdapterHorizontal? = null
+    var adapterVertical: Rss2JsonAdapterVertical? = null
+    fun rss2JsonVertical(userId: String?, type: String?, alertDialog: AlertDialog) {
+        call = newsAppInterface.convertRssUrl2Json(userId, encodeToBase64(type!!), "10")
+        assert(call != null)
+        call!!.enqueue(object : Callback<NewsAppResult?> {
             @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull Response<NewsAppResult> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (response.body().getResult() != null) {
-                        if (!items.isEmpty()) {
-                            items.clear();
+            override fun onResponse(
+                call: Call<NewsAppResult?>,
+                response: Response<NewsAppResult?>
+            ) {
+                if (response.isSuccessful) {
+                    assert(response.body() != null)
+                    if (response.body()!!.result != null) {
+                        if (items.isNotEmpty()) {
+                            //Clear the list
+                            items.clear()
                         }
-                        items = response.body().getResult();
-                        adapterVertical = new Rss2JsonAdapterVertical(items, activity);
-                        recyclerView.removeAllViews();
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setAdapter(adapterVertical);
-                        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                            if (adapterVertical.getItemCount() > 0) {
-                                alertDialog.dismiss();
+                        items = response.body()!!.result as MutableList<Result>
+                        adapterVertical = Rss2JsonAdapterVertical(items, activity)
+                        recyclerView.removeAllViews()
+                        recyclerView.layoutManager = linearLayoutManager
+                        recyclerView.adapter = adapterVertical
+                        recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+                            if (adapterVertical!!.itemCount > 0) {
+                                alertDialog.dismiss()
                             }
-                        });
-                        adapterVertical.notifyDataSetChanged();
+                        }
+                        adapterVertical!!.notifyDataSetChanged()
                     }
                 }
             }
 
-            @Override
-            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
-                System.out.println("Failure");
+            override fun onFailure(call: Call<NewsAppResult?>, t: Throwable) {
+                println("Failure")
             }
-        });
+        })
     }
 
-    public void rss2JsonVerticalByKeyWord(String userId, String keyword, String type, AlertDialog alertDialog) {
-        call = newsAppInterface.searchNewsFromRss(userId, keyword, Utils.encodeToBase64(type), "5");
-        assert call != null;
-        call.enqueue(new retrofit2.Callback<>() {
+    fun rss2JsonVerticalByKeyWord(
+        userId: String?,
+        keyword: String?,
+        type: String?,
+        alertDialog: AlertDialog
+    ) {
+        call = newsAppInterface.searchNewsFromRss(userId, keyword, encodeToBase64(type!!), "5")
+        assert(call != null)
+        call!!.enqueue(object : Callback<NewsAppResult?> {
             @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull Response<NewsAppResult> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (response.body().getResult() != null) {
-                        if (!items.isEmpty()) {
-                            items.clear();
+            override fun onResponse(
+                call: Call<NewsAppResult?>,
+                response: Response<NewsAppResult?>
+            ) {
+                if (response.isSuccessful) {
+                    assert(response.body() != null)
+                    if (response.body()!!.result != null) {
+                        if (items.isNotEmpty()) {
+                            items.clear()
                         }
-                        items = response.body().getResult();
-                        adapterVertical = new Rss2JsonAdapterVertical(items, activity);
-                        recyclerView.removeAllViews();
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setAdapter(adapterVertical);
-                        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                            if (adapterVertical.getItemCount() > 0) {
-                                alertDialog.dismiss();
+                        items = response.body()!!.result as MutableList<Result>
+                        adapterVertical = Rss2JsonAdapterVertical(items, activity)
+                        recyclerView.removeAllViews()
+                        recyclerView.layoutManager = linearLayoutManager
+                        recyclerView.adapter = adapterVertical
+                        recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+                            if (adapterVertical!!.itemCount > 0) {
+                                alertDialog.dismiss()
                             }
-                        });
-                        adapterVertical.notifyDataSetChanged();
+                        }
+                        adapterVertical!!.notifyDataSetChanged()
                     }
                 }
             }
 
-            @Override
-            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
-                System.out.println("Failure");
+            override fun onFailure(call: Call<NewsAppResult?>, t: Throwable) {
+                println("Failure")
             }
-        });
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void clearAdapterVertical() {
-        adapterVertical = new Rss2JsonAdapterVertical(items, activity);
-        adapterVertical.clear();
-        adapterVertical.notifyDataSetChanged();
+    fun clearAdapterVertical() {
+        adapterVertical = Rss2JsonAdapterVertical(items, activity)
+        adapterVertical!!.clear()
+        adapterVertical!!.notifyDataSetChanged()
     }
 
-
-    public void rss2JsonHorizontal(String userId, String type, AlertDialog alertDialog) {
-        call = newsAppInterface.convertRssUrl2Json(userId, Utils.encodeToBase64(type), "5");
-        assert call != null;
-        call.enqueue(new retrofit2.Callback<>() {
+    fun rss2JsonHorizontal(userId: String?, type: String?, alertDialog: AlertDialog) {
+        call = newsAppInterface.convertRssUrl2Json(userId, encodeToBase64(type!!), "5")
+        assert(call != null)
+        call!!.enqueue(object : Callback<NewsAppResult?> {
             @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onResponse(@NonNull Call<NewsAppResult> call, @NonNull Response<NewsAppResult> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    if (response.body().getResult() != null) {
-                        if (!items.isEmpty()) {
-                            items.clear();
+            override fun onResponse(
+                call: Call<NewsAppResult?>,
+                response: Response<NewsAppResult?>
+            ) {
+                if (response.isSuccessful) {
+                    assert(response.body() != null)
+                    if (response.body()!!.result != null) {
+                        if (items.isNotEmpty()) {
+                            items.clear()
                         }
-                        items = response.body().getResult();
-                        adapterHorizontal = new Rss2JsonAdapterHorizontal(items, activity);
-                        recyclerView.removeAllViews();
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setAdapter(adapterHorizontal);
-                        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-                            if (adapterHorizontal.getItemCount() > 0) {
-                                alertDialog.dismiss();
+                        items = response.body()!!.result as MutableList<Result>
+                        adapterHorizontal = Rss2JsonAdapterHorizontal(items, activity)
+                        recyclerView.removeAllViews()
+                        recyclerView.layoutManager = linearLayoutManager
+                        recyclerView.adapter = adapterHorizontal
+                        recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
+                            if (adapterHorizontal!!.itemCount > 0) {
+                                alertDialog.dismiss()
                             }
-                        });
-                        adapterHorizontal.notifyDataSetChanged();
+                        }
+                        adapterHorizontal!!.notifyDataSetChanged()
                     }
                 }
             }
 
-            @Override
-            public void onFailure(@NonNull Call<NewsAppResult> call, @NonNull Throwable t) {
-                System.out.println("Failure");
+            override fun onFailure(call: Call<NewsAppResult?>, t: Throwable) {
+                println("Failure")
             }
-        });
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void clearAdapterHorizontal() {
-        adapterHorizontal = new Rss2JsonAdapterHorizontal(items, activity);
-        adapterHorizontal.clear();
-        adapterHorizontal.notifyDataSetChanged();
+    fun clearAdapterHorizontal() {
+        adapterHorizontal = Rss2JsonAdapterHorizontal(items, activity)
+        adapterHorizontal!!.clear()
+        adapterHorizontal!!.notifyDataSetChanged()
     }
 }

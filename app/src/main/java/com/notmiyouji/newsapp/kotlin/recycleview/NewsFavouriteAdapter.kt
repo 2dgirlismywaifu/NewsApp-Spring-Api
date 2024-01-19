@@ -28,9 +28,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser
-import com.notmiyouji.newsapp.kotlin.LoadImageURL
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails
-import com.notmiyouji.newsapp.kotlin.model.rss.NewsFavourite
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsFavourite
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin
 import java.util.Objects
 
@@ -52,8 +52,8 @@ class NewsFavouriteAdapter(
         holder.txtTitle.text = items[position].title
         holder.txtPubDate.text = items[position].pubDate
         val path = items[position].imageUrl
-        val loadImageURL = LoadImageURL(path)
-        loadImageURL.getImageFromURL(holder.imageView, holder)
+        val loadUrlImage = LoadUrlImage(path)
+        loadUrlImage.getImageFromURL(holder.imageView, holder)
         if (getUserLogin.status == "login") {
             newsFavouriteByUser.checkFavouriteNewsInRecycleViewByUser(
                 getUserLogin.userID,

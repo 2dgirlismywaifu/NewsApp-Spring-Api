@@ -36,11 +36,11 @@ class AppContextWrapper(base: Context?) : ContextWrapper(base) {
             return AppContextWrapper(context)
         }
 
-        fun getSystemLocale(config: Configuration): Locale {
+        private fun getSystemLocale(config: Configuration): Locale {
             return config.locales[0]
         }
 
-        fun setSystemLocale(config: Configuration, locale: Locale?) {
+        private fun setSystemLocale(config: Configuration, locale: Locale?) {
             config.setLocale(locale)
         }
     }

@@ -24,11 +24,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.MaterialAltertLoading
-import com.notmiyouji.newsapp.java.category.NewsApiCategory
+import com.notmiyouji.newsapp.kotlin.recycleviewholder.category.NewsApiCategory
 
 class NewsAPITypeAdapter(private val activity: AppCompatActivity, private val country: String) :
     RecyclerView.Adapter<NewsAPITypeAdapter.NewsTypeHolder>() {
-    private val newsAPICategory = NewsApiCategory()
+    private val newsAPICategory =
+        NewsApiCategory()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsTypeHolder {
         val view = LayoutInflater.from(activity).inflate(R.layout.news_type, parent, false)
         return NewsTypeHolder(view)
@@ -44,7 +45,7 @@ class NewsAPITypeAdapter(private val activity: AppCompatActivity, private val co
             dialog.show()
             //fetch follow category
             val category = data[data.keys.toTypedArray()[position]]
-            newsAPICategory.LoadJSONCategory(activity, dialog, category,
+            newsAPICategory.loadJsonCategory(activity, dialog, category,
                 activity.findViewById(R.id.cardnews_view_vertical), country, "")
         }
     }

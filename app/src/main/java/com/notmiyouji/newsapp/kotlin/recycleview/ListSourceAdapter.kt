@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.SourceNewsDetails
 import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
-import com.notmiyouji.newsapp.kotlin.model.rss.NewsSource
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsSource
 
 class ListSourceAdapter(var activity: AppCompatActivity, private var newsSourceList: List<NewsSource>) :
     RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>() {
