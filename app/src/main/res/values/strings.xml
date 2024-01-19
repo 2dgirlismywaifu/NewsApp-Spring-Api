@@ -233,5 +233,6 @@
     <string name="send_email_firebase">Send Email</string>
     <string name="save_image_firebase">Save Image</string>
     <string name="change_password_message">Change password account will logout your account. Are you sure?</string>
+    <string name="uploading_image_to_firebase">Uploading image to firebase.\nPlease wait!</string>
 
 </resources>
