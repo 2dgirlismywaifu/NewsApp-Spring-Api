@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -216,6 +217,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         MaterialAlertDialogBuilder mDialog = materialAltertLoading.getDialog();
         AlertDialog alertDialog = mDialog.create();
         alertDialog.show();
+        newsViewHorizontal.setVisibility(View.VISIBLE);
+        newsViewVertical.setVisibility(View.VISIBLE);
         //Load Latest News Horizontal
         Thread loadViewHorizontal = new Thread(() -> {
             newsViewLayoutHorizontal = new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false);
