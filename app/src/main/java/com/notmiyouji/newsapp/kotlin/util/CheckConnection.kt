@@ -15,13 +15,13 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.util
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
-class CheckNetworkConnection {
+class CheckConnection {
     fun checkConnection(context: Context?): Boolean {
         if (context == null) {
             return false

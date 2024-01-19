@@ -15,14 +15,15 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.util
 
+import android.annotation.SuppressLint
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-object Utils {
+object AppUtils {
     @JvmStatic
     fun dateToTimeFormat(oldStringDate: String?): String? {
         val p = PrettyTime(Locale(country))
@@ -40,16 +41,17 @@ object Utils {
         return isTime
     }
 
+    @SuppressLint("SimpleDateFormat")
     @Deprecated("Use DateToTimeFormat instead", ReplaceWith("DateToTimeFormat(oldstringDate)"))
-    fun dateFormat(oldstringDate: String?): String? {
+    fun dateFormat(oldStringDate: String?): String? {
         val newDate: String?
         val dateFormat = SimpleDateFormat("E, d MMM yyyy", Locale(country))
         newDate = try {
-            val date = oldstringDate?.let { SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(it) }
+            val date = oldStringDate?.let { SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(it) }
             date?.let { dateFormat.format(it) }
         } catch (e: ParseException) {
             e.printStackTrace()
-            oldstringDate
+            oldStringDate
         }
         return newDate
     }

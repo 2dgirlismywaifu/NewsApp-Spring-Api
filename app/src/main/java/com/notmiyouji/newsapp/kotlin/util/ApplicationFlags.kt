@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.util
 
 import android.annotation.SuppressLint
 import android.view.WindowManager

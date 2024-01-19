@@ -15,19 +15,19 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.retrofit
 
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult
-import com.notmiyouji.newsapp.kotlin.model.NewsDetails
-import com.notmiyouji.newsapp.kotlin.model.NewsFavourite
-import com.notmiyouji.newsapp.kotlin.model.RecoveryAccount
-import com.notmiyouji.newsapp.kotlin.model.RecoveryCode
-import com.notmiyouji.newsapp.kotlin.model.SignIn
-import com.notmiyouji.newsapp.kotlin.model.SignUp
-import com.notmiyouji.newsapp.kotlin.model.SourceSubscribe
-import com.notmiyouji.newsapp.kotlin.model.UserInformation
-import com.notmiyouji.newsapp.kotlin.model.VerifyEmail
-import com.notmiyouji.newsapp.kotlin.model.VerifyNickNameEmail
+import com.notmiyouji.newsapp.kotlin.model.rss.NewsDetails
+import com.notmiyouji.newsapp.kotlin.model.rss.NewsFavourite
+import com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount
+import com.notmiyouji.newsapp.kotlin.model.user.RecoveryCode
+import com.notmiyouji.newsapp.kotlin.model.user.SignIn
+import com.notmiyouji.newsapp.kotlin.model.user.SignUp
+import com.notmiyouji.newsapp.kotlin.model.rss.SourceSubscribe
+import com.notmiyouji.newsapp.kotlin.model.user.UserInformation
+import com.notmiyouji.newsapp.kotlin.model.user.VerifyEmail
+import com.notmiyouji.newsapp.kotlin.model.user.VerifyNickNameEmail
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET

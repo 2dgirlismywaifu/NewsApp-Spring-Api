@@ -15,11 +15,11 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.util
 
 import org.jsoup.Jsoup
 
-class RegEXImage(private var description: String) {
+class RegExImageFromDescription(private var description: String) {
     fun regEXImage(): String? {
         val doc = Jsoup.parse(description)
         val elements = doc.select("img")

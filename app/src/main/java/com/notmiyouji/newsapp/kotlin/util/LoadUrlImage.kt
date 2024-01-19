@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin
+package com.notmiyouji.newsapp.kotlin.util
 
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,7 @@ import coil.load
 import com.google.android.material.imageview.ShapeableImageView
 import com.notmiyouji.newsapp.R
 
-class LoadImageURL(
+class LoadUrlImage(
     private var url: String?,
 
     ) {

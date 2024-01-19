@@ -15,14 +15,16 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.gravatar
+package com.notmiyouji.newsapp.kotlin.util
 
+import android.util.Log
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-object MD5Utils {
-    fun hex(array: ByteArray): String {
+class GravatarImage(var email: String) {
+
+    private fun hex(array: ByteArray): String {
         val sb = StringBuffer()
         for (i in array.indices) {
             sb.append(
@@ -36,14 +38,22 @@ object MD5Utils {
         return sb.toString()
     }
 
-    @JvmStatic
-    fun md5Hex(message: String): String? {
+
+    private fun md5Hex(message: String): String? {
         try {
             val md = MessageDigest.getInstance("MD5")
             return hex(md.digest(message.toByteArray(charset("CP1252"))))
         } catch (e: NoSuchAlgorithmException) {
+            Log.e("MD5Utils", "md5Hex: ", e)
         } catch (e: UnsupportedEncodingException) {
+            Log.e("MD5Utils", "md5Hex: ", e)
         }
         return null
     }
+
+    val gravatarURL: String
+        get() {
+            val hash = md5Hex(email)
+            return "https://www.gravatar.com/avatar/$hash?s=400&d=404"
+        }
 }

@@ -15,14 +15,14 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.gravatar
+package com.notmiyouji.newsapp.kotlin.util
 
-import com.notmiyouji.newsapp.kotlin.gravatar.MD5Utils.md5Hex
+import android.app.Application
+import com.google.android.material.color.DynamicColors
 
-class RequestImage(var email: String) {
-    val gravatarURL: String
-        get() {
-            val hash = md5Hex(email)
-            return "https://www.gravatar.com/avatar/$hash?s=400&d=404"
-        }
+class ApplyDynamicColor : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        DynamicColors.applyToActivitiesIfAvailable(this)
+    }
 }

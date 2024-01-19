@@ -28,8 +28,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.SourceNewsDetails
-import com.notmiyouji.newsapp.kotlin.LoadImageURL
-import com.notmiyouji.newsapp.kotlin.model.NewsSource
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
+import com.notmiyouji.newsapp.kotlin.model.rss.NewsSource
 
 class ListSourceAdapter(var activity: AppCompatActivity, private var newsSourceList: List<NewsSource>) :
     RecyclerView.Adapter<ListSourceAdapter.ListSourceHolder>() {
@@ -43,8 +43,8 @@ class ListSourceAdapter(var activity: AppCompatActivity, private var newsSourceL
         holder.sourceName.text = newsSource.sourceName
         holder.sourceDescription.text = newsSource.sourceUrl
         val path = newsSource.image
-        val loadImageURL = LoadImageURL(path)
-        loadImageURL.getImageFromURL(holder.sourceImage, holder)
+        val loadUrlImage = LoadUrlImage(path)
+        loadUrlImage.getImageFromURL(holder.sourceImage, holder)
         holder.detailsBtn.setOnClickListener {
             val intent = Intent(activity, SourceNewsDetails::class.java)
             intent.putExtra("sourceId", newsSource.sourceId)

@@ -24,8 +24,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.notmiyouji.newsapp.R
-import com.notmiyouji.newsapp.kotlin.LoadImageURL
-import com.notmiyouji.newsapp.kotlin.model.RSSList
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
+import com.notmiyouji.newsapp.kotlin.model.rss.RSSList
 
 class ListRssAdapter(var activity: AppCompatActivity, private var rssSourceList: List<RSSList>) :
     RecyclerView.Adapter<ListRssAdapter.ListSourceHolder>() {
@@ -42,8 +42,8 @@ class ListRssAdapter(var activity: AppCompatActivity, private var rssSourceList:
         val url = activity.getString(R.string.rss_url) + rssList.url
         holder.rssUrl.text = url
         val path = rssList.urlImage
-        val loadImageURL = LoadImageURL(path)
-        loadImageURL.getImageFromURL(holder.sourceImage, holder)
+        val loadUrlImage = LoadUrlImage(path)
+        loadUrlImage.getImageFromURL(holder.sourceImage, holder)
         //Picasso.get().load(path).into(holder.sourceImage);
     }
 
