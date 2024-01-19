@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
-    tools:context=".java.Signed.RegisterSuccess"
+    tools:context=".java.activity.userlogin.RegisterSuccess"
     tools:ignore="ScrollViewCount">
 
     <androidx.core.widget.NestedScrollView
@@ -52,11 +51,11 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="110dp"
+                android:background="@mipmap/ic_launcher"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                android:background="@mipmap/ic_launcher"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
             <TextView
@@ -105,9 +104,9 @@
                 android:id="@+id/recovery_code_label"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:gravity="center"
                 android:text="code here"
@@ -123,9 +122,9 @@
                 android:id="@+id/GoBackLoginScreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
                 android:backgroundTint="#0E64D2"
                 android:fontFamily="@font/raleway_bold"
                 android:text="@string/go_back_login_screen"

@@ -53,8 +53,8 @@
     <string name="not_received_yet">Not received yet ?</string>
     <string name="resend_code">Resend Email</string>
     <string name="verify_account">Verify Account</string>
-    <string name="enter_verification_code">Enter Recovery Code</string>
-    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your recovery code to continue</string>
+    <string name="enter_verification_code">Recovery code ory your email</string>
+    <string name="forgotpass_note_info">You have requested to forget password.\nPlease enter your recovery code to continue.\nYou can recovery by using your email</string>
     <string name="verify">Verify Now</string>
     <string name="send_verify_code">Send</string>
     <string name="Some_things_went_wrong">Some things went wrong! Please try again.</string>
@@ -69,7 +69,7 @@
     <string name="twitter_product_owner" translatable="false">\@MyWaifuis2DGirl/Twitter</string>
     <string name="developer_product_owner">Developer/Product Owner</string>
     <string name="powered_by">Powered by</string>
-    <string name="version">Version 2.0.0 (Developer Version)</string>
+    <string name="version">Version 2.1.0 (Developer Version)</string>
     <string name="note_application">For research and study only, \nthis application is not available for commercial use</string>
     <string name="microsoft_azure_portal" translatable="false">Microsoft Azure Portal</string>
     <string name="change_wallpaper">Wall</string>
@@ -119,7 +119,7 @@
     <string name="list_rss_url_of_this_source">List RSS URL of this source</string>
     <string name="list_rss_type_title">Type: </string>
     <string name="rss_url" translatable="false">URL: </string>
-    <string name="rss2_json_plan">Free plan RSS2JSON limited to 25 RSS</string>
+    <string name="rss2_json_plan">Goodbye RSS2JSON API</string>
     <string name="language_change_messeage">Language Changed</string>
     <string name="follow_system">Follow System</string>
     <string name="english_language">English</string>
@@ -137,7 +137,7 @@
     <string name="password_must_contain_at_least_1_number_1_uppercase_1_special_character">Password must contain at least 1 Number, 1 Uppercase, 1 Special character</string>
     <string name="nickname_is_already_used">Nickname is already used</string>
     <string name="email_is_already_used">Email is already used</string>
-    <string name="enter_your_fullname">Enter Your Fullname</string>
+    <string name="enter_your_fullName">Enter Your Full Name</string>
     <string name="sign_out_success">Sign out success</string>
     <string name="sign_out_message">Are you sure want to log out?</string>
     <string name="cancel">Cancel</string>
@@ -156,7 +156,7 @@
     <string name="gender_settings_account">Gender:</string>
     <string name="recovery_code_account">Recovery Code</string>
     <string name="change_password_account">Change Password</string>
-    <string name="change_avatar_account">Change Avatar (Gravatar)</string>
+    <string name="change_avatar_account">Change Avatar</string>
     <string name="sync_settings_account">Sync Settings</string>
     <string name="your_recovery_code_label">Your Recovery Code</string>
     <string name="request_new_recovery_code_button">Request New Recovery Code</string>
@@ -179,10 +179,8 @@
     <string name="please_enter_your_new_fullname">Please enter your new fullname</string>
     <string name="enter_your_new_username">Enter your new username</string>
     <string name="please_enter_your_new_username">Please enter your new username</string>
-    <string name="sign_up_at_gravatar_com_and_upload_your_avatar">Sign up at Gravatar.com and upload your avatar.</string>
-    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">We recommend you to change your avatar at Gravatar.com.</string>
-    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Gravatar is a free service for providing globally unique avatars for your email address.</string>
-    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">You can change your avatar at Gravatar.com and it will be automatically updated in all of your applications that use Gravatar.</string>
+    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Change your avatar by using Gravatar</string>
+    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">You can choose the image in your library and use it as your avatar</string>
     <string name="go_gravatar">Go Gravatar</string>
     <string name="fullname_updated">Fullname updated</string>
     <string name="fullname_already_exists">Fullname Updated Failed</string>
@@ -227,5 +225,13 @@
     <string name="request_new_recovery_code">Request new recovery code</string>
     <string name="are_you_sure_you_want_to_request_a_new_recovery_code">Are you sure you want to request a new recovery code?</string>
     <string name="no_source">You need subscrible at least one source</string>
+    <string name="add_favourite_failed">Added Favourite Failed</string>
+    <string name="update_avatar_image_success">Update Avatar Image Success</string>
+    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Sign up at Gravatar.com and upload your avatar.</string>
+    <string name="picture_library">Picture Library</string>
+    <string name="email_reset_password">One email has send to reset your account.\nPlease check your email to excute reset task.</string>
+    <string name="send_email_firebase">Send Email</string>
+    <string name="save_image_firebase">Save Image</string>
+    <string name="change_password_message">Change password account will logout your account. Are you sure?</string>
 
 </resources>

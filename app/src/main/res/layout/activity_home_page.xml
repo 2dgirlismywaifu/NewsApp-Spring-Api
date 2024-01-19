@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".java.RSSURL.HomePage">
+    tools:context=".java.activity.HomePage">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_pane_view"
@@ -183,8 +183,8 @@
             android:id="@+id/noInternetScreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -198,12 +198,13 @@
                 android:layout_height="150dp"
                 android:src="@drawable/no_internet"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
+
             <TextView
                 android:id="@+id/ErrorMesseage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:text="@string/InternetError"
                 android:textSize="20sp" />
 
@@ -214,8 +215,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="10dp"
             android:text="@string/Guest_welcome"
             android:textAlignment="center"
@@ -224,22 +225,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nav_button"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/filterSource"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/choose_rss"
-            app:fabCustomSize="70dp"
-            app:icon="@drawable/baseline_filter_list_36"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

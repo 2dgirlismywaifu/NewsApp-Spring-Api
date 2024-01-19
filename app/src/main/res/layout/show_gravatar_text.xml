@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,26 +29,21 @@
         android:layout_marginTop="15dp"
         android:text="@string/we_recommend_you_to_change_your_avatar_at_gravatar_com"
         android:textSize="18sp" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textSize="18sp"
-        android:text="@string/gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address" />
+        android:text="@string/gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textSize="18sp"
         android:text="@string/you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar"
-        tools:ignore="UnusedAttribute" />
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:textSize="18sp"
-        android:text="@string/sign_up_at_gravatar_com_and_upload_your_avatar" />
+        tools:ignore="UnusedAttribute" />
 </LinearLayout>

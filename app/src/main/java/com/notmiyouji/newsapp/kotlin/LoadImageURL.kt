@@ -45,18 +45,21 @@ class LoadImageURL(
             error(R.drawable.user_192)
         }
     }
+
     fun loadImageUser(imageView: ShapeableImageView) {
         imageView.load(url) {
             crossfade(true)
             error(R.drawable.user_192)
         }
     }
+
     fun loadImageWelcome(imageView: ShapeableImageView) {
         imageView.load(url) {
             crossfade(true)
             error(R.drawable.anime_landscapes_background__11)
         }
     }
+
     fun loadImageforNewsDetails(imageView: ImageView) {
         imageView.load(url) {
             crossfade(true)

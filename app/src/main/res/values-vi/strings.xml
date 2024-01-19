@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright By @2dgirlismywaifu (2023) .
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,8 +51,8 @@
     <string name="not_received_yet">Chưa nhận được?</string>
     <string name="resend_code">Gửi lại email</string>
     <string name="verify_account">Xác thực tài khoản</string>
-    <string name="enter_verification_code">Nhập mã phục hồi</string>
-    <string name="forgotpass_note_info">Bạn đã yêu cầu quên mật khẩu.\nVui lòng nhập email để nhận mã</string>
+    <string name="enter_verification_code">Mã phục hồi hoặc email của bạn</string>
+    <string name="forgotpass_note_info">Bạn đã yêu cầu quên mật khẩu.\nVui lòng nhập mã phục hồi để xác nhận.\nBạn có thể dùng email của bạn\nđể yêu cầu phục hồi</string>
     <string name="verify">Xác thực</string>
     <string name="send_verify_code">Gửi</string>
     <string name="Some_things_went_wrong">Có gì đó đã xảy ra lỗi! Vui lòng thử lại sau.</string>
@@ -66,7 +65,7 @@
     <string name="sign_out">Đăng xuất</string>
     <string name="developer_product_owner">Nhà phát triển/Người sở hữu</string>
     <string name="powered_by">Dựa trên</string>
-    <string name="version">Phiên bản 2.0.0 (Bản phát triển)</string>
+    <string name="version">Phiên bản 2.1.0 (Bản phát triển)</string>
     <string name="note_application">Chỉ dành cho nghiên cứu và học tập, \nứng dụng này không có sẵn cho mục đích thương mại</string>
     <string name="change_wallpaper">Hình nền</string>
     <string name="select_one_wallpaper_to_use">Chọn một hình nền để sử dụng</string>
@@ -111,7 +110,7 @@
     <string name="unsubscribe_button">Huỷ đăng ký</string>
     <string name="list_rss_url_of_this_source">Danh sách RSS URL của nguồn này</string>
     <string name="list_rss_type_title">"Loại: "</string>
-    <string name="rss2_json_plan">Gói miễn phí RSS2JSON giới hạn 25 RSS</string>
+    <string name="rss2_json_plan">Tạm biệt RSS2JSON API</string>
     <string name="language_change_messeage">Đã thay đổi ngôn ngữ</string>
     <string name="english_language">English</string>
     <string name="vietnam_language">Tiếng Việt</string>
@@ -129,7 +128,7 @@
     <string name="password_must_contain_at_least_1_number_1_uppercase_1_special_character">Mật khẩu phải chứa ít nhất 1 chữ số, 1 chữ in hoa và 1 ký tự đặc biệt</string>
     <string name="nickname_is_already_used">Nickname đã tồn tại</string>
     <string name="email_is_already_used">Email đã được sử dụng</string>
-    <string name="enter_your_fullname">Nhập tên đầy đủ</string>
+    <string name="enter_your_fullName">Nhập tên đầy đủ</string>
     <string name="sign_out_success">Đăng xuất thành công</string>
     <string name="sign_out_message">Bạn chắc chắn muốn đăng xuất</string>
     <string name="cancel">Huỷ bỏ</string>
@@ -150,7 +149,7 @@
     <string name="gender_settings_account">Giới tính:</string>
     <string name="recovery_code_account">Mã phục hồi</string>
     <string name="change_password_account">Thay đổi mật khẩu</string>
-    <string name="change_avatar_account">Đổi ảnh đại diện (Gravatar)</string>
+    <string name="change_avatar_account">Đổi ảnh đại diện</string>
     <string name="sync_settings_account">Đồng bộ</string>
     <string name="your_recovery_code_label">Mã phục hồi của bạn</string>
     <string name="request_new_recovery_code_button">Yêu cầu mã mới</string>
@@ -173,10 +172,9 @@
     <string name="please_enter_your_new_fullname">Vui lòng nhập tên đầy đủ của bạn</string>
     <string name="enter_your_new_username">Nhập tên tài khoản mới của bạn</string>
     <string name="please_enter_your_new_username">Vui lòng nhập tên tài khoản mới của bạn</string>
-    <string name="sign_up_at_gravatar_com_and_upload_your_avatar">Đăng ký tại Gravatar.com và tải ảnh đại diện lên</string>
-    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Chúng tôi khuyến khích bạn dùng Gravatar.com để thay đổi ảnh đại diện của bạn.</string>
-    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Gravatar là một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.</string>
-    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể thay đổi hình đại diện của mình tại Gravatar.com và nó sẽ tự động được cập nhật trong tất cả các ứng dụng sử dụng Gravatar của bạn.</string>
+    <string name="we_recommend_you_to_change_your_avatar_at_gravatar_com">Thay đổi ảnh đại diện của bạn qua Gravatar</string>
+    <string name="gravatar_is_a_free_service_for_providing_globally_unique_avatars_for_your_email_address">Đăng ký tại Gravatar.com và tải ảnh đại diện lên một dịch vụ miễn phí để cung cấp các hình đại diện duy nhất trên toàn cầu cho địa chỉ email của bạn.</string>
+    <string name="you_can_change_your_avatar_at_gravatar_com_and_it_will_be_automatically_updated_in_all_of_your_applications_that_use_gravatar">Bạn có thể chọn ảnh trong thư viện của bạn để làm ảnh đại diện.</string>
     <string name="go_gravatar">Đến Gravatar</string>
     <string name="fullname_updated">Tên đầy đủ đã cập nhật</string>
     <string name="fullname_already_exists">Không thể cập nhật tên đầy đủ</string>
@@ -221,4 +219,11 @@
     <string name="request_new_recovery_code">Yêu cầu mã phục hồi mới</string>
     <string name="are_you_sure_you_want_to_request_a_new_recovery_code">Bạn chắc chắn muốn yêu cầu mã phục hồi mới?</string>
     <string name="no_source">Bạn cần đăng ký ít nhất một nguồn tin tức</string>
+    <string name="add_favourite_failed">Thêm yêu thích thất bại</string>
+    <string name="update_avatar_image_success">Cập nhật Avatar thành công</string>
+    <string name="picture_library">Thư viện ảnh</string>
+    <string name="send_email_firebase">Gửi yêu cầu</string>
+    <string name="email_reset_password">Một email đã được gửi tới bạn.\nVui lòng kiểm tra hòm thư để đặt lại mật khẩu.</string>
+    <string name="save_image_firebase">Lưu ảnh</string>
+    <string name="change_password_message">Thay đổi mật khẩu sẽ đăng xuất ngay lập tức. Bạn chắc chắn chứ?</string>
 </resources>

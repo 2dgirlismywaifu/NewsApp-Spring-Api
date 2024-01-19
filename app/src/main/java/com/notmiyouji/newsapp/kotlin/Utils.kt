@@ -24,7 +24,7 @@ import java.util.Locale
 
 object Utils {
     @JvmStatic
-    fun dateToTimeFormat(oldstringDate: String?): String? {
+    fun dateToTimeFormat(oldStringDate: String?): String? {
         val p = PrettyTime(Locale(country))
         var isTime: String? = null
         try {
@@ -32,7 +32,7 @@ object Utils {
                 "yyyy-MM-dd'T'HH:mm:ss'Z'",
                 Locale.getDefault()
             )
-            val date = oldstringDate?.let { sdf.parse(it) }
+            val date = oldStringDate?.let { sdf.parse(it) }
             isTime = p.format(date)
         } catch (e: ParseException) {
             e.printStackTrace()
@@ -61,4 +61,10 @@ object Utils {
                 "US" //default use United States by default country because I'm from VietNam
             return country.lowercase(Locale.getDefault())
         }
+
+    //Encode to base64
+    @JvmStatic
+    fun encodeToBase64(data: String): String {
+        return String(java.util.Base64.getEncoder().encode(data.toByteArray()))
+    }
 }

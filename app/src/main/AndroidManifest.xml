@@ -20,8 +20,6 @@
         </intent>
     </queries>
 
-
-
     <application
         android:name=".kotlin.ApplyDynamicColor"
         android:allowBackup="true"
@@ -32,116 +30,119 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="sensorPortrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Newsapp"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".java.Global.ChangeTheme"
+            android:name=".java.activity.CropImageToFireBase"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.RecoveryAccount"
-            android:exported="false"
-            android:theme="@style/LoginForm" />
-        <activity
-            android:name=".java.RSSURL.HomePage"
+            android:name=".java.activity.ChangeTheme"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.ViewRecoveryCode"
+            android:name=".java.activity.userlogin.RecoveryAccount"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.ChangePassword"
+            android:name=".java.activity.HomePage"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.AccountSettings"
+            android:name=".java.activity.userlogin.ViewRecoveryCode"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.RegisterSuccess"
+            android:name=".java.activity.userlogin.ChangePassword"
+            android:theme="@style/LoginForm"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".java.Global.ChangeLanguage"
+            android:name=".java.activity.userlogin.AccountSettings"
             android:exported="false" />
         <activity
-            android:name=".java.RSSURL.SourceNewsDetails"
+            android:name=".java.activity.userlogin.RegisterSuccess"
             android:exported="false" />
         <activity
-            android:name=".java.Global.WallpaperHeader"
+            android:name=".java.activity.ChangeLanguage"
             android:exported="false" />
         <activity
-            android:name=".java.Global.AboutApplication"
+            android:name=".java.activity.SourceNewsDetails"
             android:exported="false" />
         <activity
-            android:name=".java.Signed.SettingsLogined"
-            android:exported="false"
-            android:theme="@style/SettingsForm" />
+            android:name=".java.activity.WallpaperHeader"
+            android:exported="false" />
         <activity
-            android:name=".java.Global.SettingsPage"
-            android:exported="false"
-            android:theme="@style/SettingsForm" />
+            android:name=".java.activity.AboutApplication"
+            android:exported="false" />
         <activity
-            android:name=".java.Signed.ForgotPasswordForm"
-            android:exported="false"
-            android:theme="@style/LoginForm">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".java.activity.userlogin.SettingsUserLogin"
+            android:exported="false" />
         <activity
-            android:name=".java.Signed.VerifyAccountForm"
-            android:exported="false"
-            android:theme="@style/LoginForm">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:name=".java.activity.SettingsPage"
+            android:exported="false" />
         <activity
-            android:name=".java.Signed.SignUpForm"
-            android:exported="false"
-            android:theme="@style/LoginForm">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".java.Signed.SignInForm"
-            android:exported="false"
-            android:theme="@style/LoginForm">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".java.NewsDetails.NewsDetailWebView"
-            android:exported="false"
-            android:theme="@style/NewsDetails.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".java.RSSURL.SourceNewsList"
+            android:name=".java.activity.userlogin.ForgotPasswordForm"
+            android:theme="@style/LoginForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.Global.FavouriteNews"
+            android:name=".java.activity.userlogin.VerifyAccountForm"
+            android:theme="@style/LoginForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.NewsAPI.NewsAPIPage"
+            android:name=".java.activity.userlogin.SignUpForm"
+            android:theme="@style/LoginForm"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"> <!-- or "adjustPan" -->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".java.activity.userlogin.SignInForm"
+            android:theme="@style/LoginForm"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".java.Global.HelloScreen"
-            android:exported="true"
-            android:theme="@style/LoginForm">
+            android:name=".java.activity.newsdetail.NewsDetailByWebView"
+            android:theme="@style/NewsDetails.NoActionBar"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".java.activity.SourceNewsList"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".java.activity.FavouriteNews"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".java.activity.NewsApiPage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".java.activity.HelloScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
