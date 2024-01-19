@@ -38,7 +38,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -74,8 +74,8 @@ public class ChangePassword extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirmpass_input);
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
-        LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
-        loadImageURL.loadImageUser(avatar);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(getUserLogin.getAvatar());
+        loadUrlImage.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {

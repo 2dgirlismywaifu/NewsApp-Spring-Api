@@ -43,11 +43,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.recycleview.NewsTypeAdapter;
-import com.notmiyouji.newsapp.java.rss2json.Rss2JsonMultiFeed;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.recycleview.NewsTypeAdapter;
+import com.notmiyouji.newsapp.kotlin.recycleviewholder.rss2json.Rss2JsonMultiFeed;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.CheckConnection;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
@@ -153,8 +153,8 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         reloadData();
         //NewsCategory Type List
         loadCategory();
-        CheckNetworkConnection checkNetworkConnection = new CheckNetworkConnection();
-        if (checkNetworkConnection.checkConnection(this)) {
+        CheckConnection checkConnection = new CheckConnection();
+        if (checkConnection.checkConnection(this)) {
             //Load news from source
             LoadSourceNews(getDefaultType());
         }

@@ -17,7 +17,7 @@
 
 package com.notmiyouji.newsapp.java.activity.userlogin;
 
-import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
+import static com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi.getApiClient;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
@@ -34,11 +34,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.gravatar.RequestImage;
-import com.notmiyouji.newsapp.kotlin.model.UserInformation;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.GravatarImage;
+import com.notmiyouji.newsapp.kotlin.model.user.UserInformation;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import java.util.Objects;
@@ -50,7 +50,7 @@ public class RecoveryAccount extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private String email;
     private String userid;
-    private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = getApiClient().create(NewsAppInterface.class);
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -75,9 +75,9 @@ public class RecoveryAccount extends AppCompatActivity {
         foundEmail.setText(email);
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
-        String avatarURL = new RequestImage(email).getGravatarURL();
-        LoadImageURL loadImageURL = new LoadImageURL(avatarURL);
-        loadImageURL.loadImageUser(avatar);
+        String avatarURL = new GravatarImage(email).getGravatarURL();
+        LoadUrlImage loadUrlImage = new LoadUrlImage(avatarURL);
+        loadUrlImage.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {

@@ -37,11 +37,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
-import com.notmiyouji.newsapp.kotlin.model.SignUp;
-import com.notmiyouji.newsapp.kotlin.model.VerifyNickNameEmail;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
+import com.notmiyouji.newsapp.kotlin.model.user.SignUp;
+import com.notmiyouji.newsapp.kotlin.model.user.VerifyNickNameEmail;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import java.util.Objects;
@@ -54,7 +54,7 @@ public class SignUpForm extends AppCompatActivity {
     private Button signUpBtn;
     private TextInputEditText fullName, email, password, confirmPassword, username;
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -184,7 +184,7 @@ public class SignUpForm extends AppCompatActivity {
 
     private void checkNicknameAndEmail(String userNameInput, String emailInput) {
         //Use Retrofit to check nickname
-        Call<VerifyNickNameEmail> call = newsAPPInterface.verifyNickNameAndEmail(Utils.encodeToBase64(userNameInput), Utils.encodeToBase64(emailInput));
+        Call<VerifyNickNameEmail> call = newsAPPInterface.verifyNickNameAndEmail(AppUtils.encodeToBase64(userNameInput), AppUtils.encodeToBase64(emailInput));
         assert call != null;
         call.enqueue(new retrofit2.Callback<>() {
             @Override

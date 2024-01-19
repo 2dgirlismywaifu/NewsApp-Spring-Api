@@ -17,7 +17,7 @@
 
 package com.notmiyouji.newsapp.java.activity.userlogin;
 
-import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
+import static com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi.getApiClient;
 
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -27,9 +27,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
-import com.notmiyouji.newsapp.kotlin.model.NewsFavourite;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsFavourite;
 
 import java.util.Objects;
 
@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class NewsFavouriteByUser {
     private final AppCompatActivity activity;
-    private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = getApiClient().create(NewsAppInterface.class);
 
     public NewsFavouriteByUser(AppCompatActivity activity) {
         this.activity = activity;
@@ -49,9 +49,9 @@ public class NewsFavouriteByUser {
             imageUrl = "not_found";
         }
         Call<NewsFavourite> addFavouriteEmail = newsAPPInterface.saveNewsFavouriteByUser(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(url),
-                Utils.encodeToBase64(title), Utils.encodeToBase64(imageUrl),
-                Utils.encodeToBase64(pubDate));
+                AppUtils.encodeToBase64(userId), AppUtils.encodeToBase64(url),
+                AppUtils.encodeToBase64(title), AppUtils.encodeToBase64(imageUrl),
+                AppUtils.encodeToBase64(pubDate));
         assert addFavouriteEmail != null;
         addFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -70,7 +70,7 @@ public class NewsFavouriteByUser {
 
     public void removeFavouriteByUser(String userId, String favouriteId, String title) {
         Call<NewsFavourite> removeFavouriteEmail = newsAPPInterface.deleteNewsFavouriteByUser(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(favouriteId), Utils.encodeToBase64(title));
+                AppUtils.encodeToBase64(userId), AppUtils.encodeToBase64(favouriteId), AppUtils.encodeToBase64(title));
         assert removeFavouriteEmail != null;
         removeFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -90,7 +90,7 @@ public class NewsFavouriteByUser {
 
     public void checkFavouriteNewsByUser(String userId, String title, MenuItem favourite, MenuItem unFavourite) {
         Call<NewsFavourite> checkFavouriteEmail = newsAPPInterface.accountCheckNewsFavourite(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(title));
+                AppUtils.encodeToBase64(userId), AppUtils.encodeToBase64(title));
         assert checkFavouriteEmail != null;
         checkFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override
@@ -117,7 +117,7 @@ public class NewsFavouriteByUser {
 
     public void checkFavouriteNewsInRecycleViewByUser(String userId, String title, ImageView favourite, ImageView unFavourite) {
         Call<NewsFavourite> checkFavouriteEmail = newsAPPInterface.accountCheckNewsFavourite(
-                Utils.encodeToBase64(userId), Utils.encodeToBase64(title));
+                AppUtils.encodeToBase64(userId), AppUtils.encodeToBase64(title));
         assert checkFavouriteEmail != null;
         checkFavouriteEmail.enqueue(new retrofit2.Callback<>() {
             @Override

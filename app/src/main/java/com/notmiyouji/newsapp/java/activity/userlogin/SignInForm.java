@@ -36,9 +36,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.loginmethod.EmailMethod;
-import com.notmiyouji.newsapp.java.loginmethod.GoogleMethod;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.loginsystem.EmailMethod;
+import com.notmiyouji.newsapp.kotlin.loginsystem.GoogleMethod;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 public class SignInForm extends AppCompatActivity {
@@ -104,7 +104,7 @@ public class SignInForm extends AppCompatActivity {
                 SignInBtn.setEnabled(true);
             } else {
                 EmailMethod emailMethod = new EmailMethod(this, SignInBtn, SignUpBtn);
-                emailMethod.SignInMethod(String.valueOf(account.getText()), String.valueOf(password.getText()));
+                emailMethod.signInMethod(String.valueOf(account.getText()), String.valueOf(password.getText()));
             }
         });
         //Google SSO
