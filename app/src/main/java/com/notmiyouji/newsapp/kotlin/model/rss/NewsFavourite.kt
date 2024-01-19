@@ -15,43 +15,40 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model
+package com.notmiyouji.newsapp.kotlin.model.rss
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SignIn {
+class NewsFavourite {
+    // SerializedName and Expose: sync_id, user_id, url, title, image_url, source_name, status
+    @SerializedName("favouriteId")
+    @Expose
+    var favouriteId: String? = null
+
     @SerializedName("userId")
     @Expose
     var userId: String? = null
 
-    @SerializedName("email")
+    @SerializedName("url")
     @Expose
-    var email: String? = null
+    var url: String? = null
 
-    @SerializedName("nickname")
+    @SerializedName("title")
     @Expose
-    var nickName: String? = null
+    var title: String? = null
 
-    @SerializedName("verify")
+    @SerializedName("imageUrl")
     @Expose
-    var verify: String? = null
+    var imageUrl: String? = null
 
-    @SerializedName("fullName")
+    @SerializedName("pubDate")
     @Expose
-    var fullName: String? = null
+    var pubDate: String? = null
 
-    @SerializedName("birthday")
+    @SerializedName("isDeleted")
     @Expose
-    var birthday: String? = null
-
-    @SerializedName("gender")
-    @Expose
-    var gender: String? = null
-
-    @SerializedName("avatar")
-    @Expose
-    var avatar: String? = null
+    var isDeleted: String? = null
 
     @SerializedName("status")
     @Expose

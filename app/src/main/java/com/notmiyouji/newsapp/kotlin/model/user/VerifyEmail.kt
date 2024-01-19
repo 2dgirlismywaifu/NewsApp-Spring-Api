@@ -15,7 +15,7 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model
+package com.notmiyouji.newsapp.kotlin.model.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

@@ -15,37 +15,37 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model
+package com.notmiyouji.newsapp.kotlin.model.newsapi
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SignUp {
-    @SerializedName("userId")
+class Article {
+    @SerializedName("source")
     @Expose
-    var userId: String? = null
+    var source: Source? = null
 
-    @SerializedName("fullName")
+    @SerializedName("author")
     @Expose
-    var fullName: String? = null
+    var author: String? = null
 
-    @SerializedName("email")
+    @SerializedName("title")
     @Expose
-    var email: String? = null
+    var title: String? = null
 
-    @SerializedName("nickname")
+    @SerializedName("description")
     @Expose
-    var nickname: String? = null
+    var description: String? = null
 
-    @SerializedName("verify")
+    @SerializedName("url")
     @Expose
-    var verify: String? = null
+    var url: String? = null
 
-    @SerializedName("recovery")
+    @SerializedName("urlToImage")
     @Expose
-    var recovery: String? = null
+    var urlToImage: String? = null
 
-    @SerializedName("status")
+    @SerializedName("publishedAt")
     @Expose
-    var status: String? = null
+    var publishedAt: String? = null
 }

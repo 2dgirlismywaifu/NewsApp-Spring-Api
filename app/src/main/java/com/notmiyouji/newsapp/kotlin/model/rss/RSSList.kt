@@ -15,21 +15,21 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model
+package com.notmiyouji.newsapp.kotlin.model.rss
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class VerifyNickNameEmail {
-    @SerializedName("nickname")
+class RSSList {
+    @SerializedName("urlType")
     @Expose
-    var nickname: String? = null
+    var urlType: String? = null
 
-    @SerializedName("email")
+    @SerializedName("url")
     @Expose
-    var email: String? = null
+    var url: String? = null
 
-    @SerializedName("status")
+    @SerializedName("urlImage")
     @Expose
-    var status: String? = null
+    var urlImage: String? = null
 }

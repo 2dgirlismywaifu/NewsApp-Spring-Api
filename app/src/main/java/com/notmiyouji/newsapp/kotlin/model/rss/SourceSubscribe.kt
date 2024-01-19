@@ -15,13 +15,35 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model
+package com.notmiyouji.newsapp.kotlin.model.rss
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class RecoveryCode {
-    @SerializedName("recovery")
+class SourceSubscribe {
+    //SerializedName and Expose: sync_id, user_id, source_id, status
+    @SerializedName("syncId")
     @Expose
-    var recovery: String? = null
+    var syncId: String? = null
+
+    @SerializedName("userId")
+    @Expose
+    var userId: String? = null
+
+    @SerializedName("sourceId")
+    @Expose
+    var sourceId: String? = null
+
+    @SerializedName("isChecked")
+    @Expose
+    var isChecked: String? = null
+
+    @SerializedName("isDeleted")
+    @Expose
+    var isDeleted: String? = null
+
+    @SerializedName("status")
+    @Expose
+    var status: String? = null
+
 }

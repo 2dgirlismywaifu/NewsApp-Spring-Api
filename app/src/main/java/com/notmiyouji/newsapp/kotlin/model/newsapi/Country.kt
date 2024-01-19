@@ -15,17 +15,21 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.newsapi
+package com.notmiyouji.newsapp.kotlin.model.newsapi
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Source {
-    @SerializedName("id")
+class Country {
+    @SerializedName("countryId")
     @Expose
-    var id: String? = null
+    var countryId: String? = null
 
-    @SerializedName("name")
+    @SerializedName("countryCode")
     @Expose
-    var name: String? = null
+    var countryCode: String? = null
+
+    @SerializedName("countryName")
+    @Expose
+    var countryName: String? = null
 }

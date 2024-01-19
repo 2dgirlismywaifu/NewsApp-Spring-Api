@@ -30,7 +30,7 @@ import com.notmiyouji.newsapp.R
 import com.notmiyouji.newsapp.java.activity.userlogin.NewsFavouriteByUser
 import com.notmiyouji.newsapp.kotlin.LoadImageURL
 import com.notmiyouji.newsapp.kotlin.activity.OpenNewsDetails
-import com.notmiyouji.newsapp.kotlin.model.NewsFavourite
+import com.notmiyouji.newsapp.kotlin.model.rss.NewsFavourite
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin
 import java.util.Objects
 

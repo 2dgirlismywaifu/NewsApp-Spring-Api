@@ -15,21 +15,13 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.newsapi
+package com.notmiyouji.newsapp.kotlin.model.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Country {
-    @SerializedName("countryId")
+class RecoveryCode {
+    @SerializedName("recovery")
     @Expose
-    var countryId: String? = null
-
-    @SerializedName("countryCode")
-    @Expose
-    var countryCode: String? = null
-
-    @SerializedName("countryName")
-    @Expose
-    var countryName: String? = null
+    var recovery: String? = null
 }
