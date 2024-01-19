@@ -15,29 +15,25 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model.rss
+package com.notmiyouji.newsapp.kotlin.model.rss2json
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class NewsSource {
-    @SerializedName("sourceId")
+class Result {
+    @SerializedName("title")
     @Expose
-    var sourceId: String? = null
+    var title: String? = null
 
-    @SerializedName("source_name")
+    @SerializedName("description")
     @Expose
-    var sourceName: String? = null
+    var description: String? = null
 
-    @SerializedName("urlMain")
+    @SerializedName("link")
     @Expose
-    var sourceUrl: String? = null
+    var link: String? = null
 
-    @SerializedName("information")
+    @SerializedName("pubDate")
     @Expose
-    var information: String? = null
-
-    @SerializedName("image")
-    @Expose
-    var image: String? = null
+    var pubDate: String? = null
 }

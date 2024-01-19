@@ -15,28 +15,36 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model.rss
+package com.notmiyouji.newsapp.kotlin.model.rss2json
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SourceSubscribe {
-    //SerializedName and Expose: sync_id, user_id, source_id, status
-    @SerializedName("syncId")
+class NewsFavourite {
+    // SerializedName and Expose: sync_id, user_id, url, title, image_url, source_name, status
+    @SerializedName("favouriteId")
     @Expose
-    var syncId: String? = null
+    var favouriteId: String? = null
 
     @SerializedName("userId")
     @Expose
     var userId: String? = null
 
-    @SerializedName("sourceId")
+    @SerializedName("url")
     @Expose
-    var sourceId: String? = null
+    var url: String? = null
 
-    @SerializedName("isChecked")
+    @SerializedName("title")
     @Expose
-    var isChecked: String? = null
+    var title: String? = null
+
+    @SerializedName("imageUrl")
+    @Expose
+    var imageUrl: String? = null
+
+    @SerializedName("pubDate")
+    @Expose
+    var pubDate: String? = null
 
     @SerializedName("isDeleted")
     @Expose
@@ -45,5 +53,4 @@ class SourceSubscribe {
     @SerializedName("status")
     @Expose
     var status: String? = null
-
 }

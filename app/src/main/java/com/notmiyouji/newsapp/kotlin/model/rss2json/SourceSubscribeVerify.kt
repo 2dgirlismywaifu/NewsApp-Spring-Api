@@ -15,21 +15,30 @@
  *
  */
 
-package com.notmiyouji.newsapp.kotlin.model.rss
+package com.notmiyouji.newsapp.kotlin.model.rss2json
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class NewsDetails {
+class SourceSubscribeVerify {
+
+    @SerializedName("userId")
+    @Expose
+    var userId: String? = null
+
     @SerializedName("sourceId")
     @Expose
     var sourceId: String? = null
 
-    @SerializedName("urlType")
+    @SerializedName("isChecked")
     @Expose
-    var urlType: String? = null
+    var isChecked: String? = null
 
-    @SerializedName("url")
+    @SerializedName("isDeleted")
     @Expose
-    var url: String? = null
+    var isDeleted: String? = null
+
+    @SerializedName("status")
+    @Expose
+    var status: String? = null
 }
