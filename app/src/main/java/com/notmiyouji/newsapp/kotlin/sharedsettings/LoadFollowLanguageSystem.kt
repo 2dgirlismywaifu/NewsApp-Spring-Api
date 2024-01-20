@@ -21,11 +21,11 @@ import android.content.Context
 import java.util.Locale
 
 class LoadFollowLanguageSystem(activity: Context) {
-    var languagePrefManager: LanguagePrefManager = LanguagePrefManager(activity)
+    private var languagePrefManager: LanguagePrefManager = LanguagePrefManager(activity)
     fun loadLanguage() {
         if (languagePrefManager.lang == "") {
-            val default_local = Locale.getDefault().language.toString()
-            languagePrefManager.setLocal(default_local)
+            val defaultLocal = Locale.getDefault().language.toString()
+            languagePrefManager.setLocal(defaultLocal)
         } else {
             languagePrefManager.setLocal(languagePrefManager.lang)
         }

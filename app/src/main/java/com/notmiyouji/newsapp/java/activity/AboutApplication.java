@@ -30,8 +30,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -61,8 +61,8 @@ public class AboutApplication extends AppCompatActivity {
         imageView = findViewById(R.id.owner_avatar);
         //load image github owner
         String path = "https://avatars.githubusercontent.com/u/59259855?s=400&u=e458277f4cca06aeb82adcd83641b8c92008947c&v=4"; //my avater github
-        LoadImageURL loadImageURL = new LoadImageURL(path);
-        loadImageURL.loadImageOwner(imageView);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(path);
+        loadUrlImage.loadImageOwner(imageView);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());

@@ -50,20 +50,20 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.category.NewsApiCategory;
-import com.notmiyouji.newsapp.java.newsapi.NewsAdapterHorizontal;
-import com.notmiyouji.newsapp.java.recycleview.NewsAPITypeAdapter;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
+import com.notmiyouji.newsapp.kotlin.recycleviewholder.category.NewsApiCategory;
+import com.notmiyouji.newsapp.kotlin.recycleviewholder.newsapi.NewsAdapterHorizontal;
+import com.notmiyouji.newsapp.kotlin.recycleview.NewsAPITypeAdapter;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.CheckConnection;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.newsapi.Article;
-import com.notmiyouji.newsapp.kotlin.newsapi.Country;
+import com.notmiyouji.newsapp.kotlin.model.newsapi.Article;
+import com.notmiyouji.newsapp.kotlin.model.newsapi.Country;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -84,7 +84,7 @@ import retrofit2.Response;
 
 public class NewsApiPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final NewsAppInterface newsAppInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAppInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private final NewsApiCategory newsAPICategory = new NewsApiCategory();
     //Initialization variable
     private DrawerLayout drawerNewsAPI;
@@ -181,8 +181,8 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        CheckNetworkConnection checkNetworkConnection = new CheckNetworkConnection();
-        if (checkNetworkConnection.checkConnection(this)) {
+        CheckConnection checkConnection = new CheckConnection();
+        if (checkConnection.checkConnection(this)) {
             //NewsCategory Type List
             loadCategoryType(getCountryCodeDefault());
             loadNewsApi(getCountryCodeDefault());
@@ -249,7 +249,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
         //Load JSONData and apply to RecycleView Horizontal Latest NewsCategory
         loadJsonLatestNews(this, alertDialog,"", countryCodeDefault, "");
         //Load JSONData Business NewsCategory and apply to RecycleView Vertical Latest NewsCategory
-        newsAPICategory.LoadJSONCategory(this, alertDialog, "", newsViewVertical, countryCodeDefault, "");
+        newsAPICategory.loadJsonCategory(this, alertDialog, "", newsViewVertical, countryCodeDefault, "");
     }
 
     private void openCountryFilter() {
@@ -308,7 +308,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void loadCountryCode(String countryName) {
-        call = newsAppInterface.getNewsApiCountryCode(Utils.encodeToBase64(countryName));
+        call = newsAppInterface.getNewsApiCountryCode(AppUtils.encodeToBase64(countryName));
         assert call != null;
         call.enqueue(new Callback<>() {
             @Override
@@ -336,7 +336,7 @@ public class NewsApiPage extends AppCompatActivity implements NavigationView.OnN
 
     public void loadJsonLatestNews(AppCompatActivity activity, AlertDialog mDialog,String keyWord, String country, String category) {
         Thread loadSourceAPI = new Thread(() -> {
-            call = newsAppInterface.getNewsTopHeadlinesFromNewsApi(Utils.encodeToBase64(keyWord), country, category, "20");
+            call = newsAppInterface.getNewsTopHeadlinesFromNewsApi(AppUtils.encodeToBase64(keyWord), country, category, "20");
             assert call != null;
             call.enqueue(new Callback<>() {
                 @SuppressLint("NotifyDataSetChanged")

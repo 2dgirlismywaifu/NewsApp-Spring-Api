@@ -17,7 +17,7 @@
 
 package com.notmiyouji.newsapp.java.activity.userlogin;
 
-import static com.notmiyouji.newsapp.java.retrofit.NewsAppApi.getAPIClient;
+import static com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi.getApiClient;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -33,9 +33,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import java.util.Objects;
@@ -45,7 +45,7 @@ import retrofit2.Call;
 public class ForgotPasswordForm extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private TextInputEditText recoveryCodeInput;
-    private final NewsAppInterface newsAPPInterface = getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = getApiClient().create(NewsAppInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +88,14 @@ public class ForgotPasswordForm extends AppCompatActivity {
     }
 
     private void verifyRecoveryCode(String recoveryCode) {
-        Call<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> signInCall = newsAPPInterface.recoveryAccountByRecoveryCode(Utils.encodeToBase64(recoveryCode));
+        Call<com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount> signInCall = newsAPPInterface.recoveryAccountByRecoveryCode(AppUtils.encodeToBase64(recoveryCode));
         assert signInCall != null;
         signInCall.enqueue(new retrofit2.Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> call,
-                                   @NonNull retrofit2.Response<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> response) {
+            public void onResponse(@NonNull Call<com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount> call,
+                                   @NonNull retrofit2.Response<com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount> response) {
                 if (response.isSuccessful()) {
-                    com.notmiyouji.newsapp.kotlin.model.RecoveryAccount recoveryAccount = response.body();
+                    com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount recoveryAccount = response.body();
                     assert recoveryAccount != null;
                     if (Objects.equals(recoveryAccount.getStatus(), "success")) {
                         Intent intent = new Intent(ForgotPasswordForm.this, RecoveryAccount.class);
@@ -114,7 +114,7 @@ public class ForgotPasswordForm extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<com.notmiyouji.newsapp.kotlin.model.RecoveryAccount> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<com.notmiyouji.newsapp.kotlin.model.user.RecoveryAccount> call, @NonNull Throwable t) {
             }
         });
     }

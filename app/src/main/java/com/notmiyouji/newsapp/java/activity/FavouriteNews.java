@@ -46,17 +46,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.activity.userlogin.SignInForm;
-import com.notmiyouji.newsapp.java.recycleview.NewsFavouriteAdapter;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
+import com.notmiyouji.newsapp.kotlin.recycleview.NewsFavouriteAdapter;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.CheckConnection;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.model.NewsFavourite;
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsFavourite;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
@@ -84,7 +84,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
     private LoadWallpaperShared loadWallpaperShared;
     private LoadWallpaperSharedLogin loadWallpaperSharedLogin;
     private LoadThemeShared loadThemeShared;
-    private final NewsAppInterface newsAppInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAppInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private List<NewsFavourite> newsFavourite = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
@@ -145,8 +145,8 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        CheckNetworkConnection checkNetworkConnection = new CheckNetworkConnection();
-        if (checkNetworkConnection.checkConnection(this)) {
+        CheckConnection checkConnection = new CheckConnection();
+        if (checkConnection.checkConnection(this)) {
             if (getUserLogin.getStatus().equals("login")) {
                 loadNewsFavourite(this);
             } else {
@@ -197,7 +197,7 @@ public class FavouriteNews extends AppCompatActivity implements NavigationView.O
         alertDialog.show();
         Thread loadSource = new Thread(() -> {
             Call<NewsAppResult> favouriteShowNews = newsAppInterface.showNewsFavouriteByUserId(
-                    Utils.encodeToBase64(Objects.requireNonNull(getUserLogin.getUserID())));
+                    AppUtils.encodeToBase64(Objects.requireNonNull(getUserLogin.getUserID())));
             assert favouriteShowNews != null;
             favouriteShowNews.enqueue(new retrofit2.Callback<>() {
                 @Override

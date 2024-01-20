@@ -33,16 +33,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.recycleview.ListRssAdapter;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.Utils;
+import com.notmiyouji.newsapp.kotlin.recycleview.ListRssAdapter;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.util.AppUtils;
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.model.RSSList;
-import com.notmiyouji.newsapp.kotlin.model.SourceSubscribe;
+import com.notmiyouji.newsapp.kotlin.model.rss2json.RSSList;
+import com.notmiyouji.newsapp.kotlin.model.rss2json.SourceSubscribe;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LanguagePrefManager;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -62,7 +62,7 @@ public class SourceNewsDetails extends AppCompatActivity {
     public RecyclerView rssRecycler;
     public Button subscribeBtn, unsubscribeBtn;
     private GetUserLogin getUserLogin;
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private List<RSSList> rssLists = new ArrayList<>();
 
     @Override
@@ -101,14 +101,14 @@ public class SourceNewsDetails extends AppCompatActivity {
             finish();
         });
         //get value from intent
-        sourceID = getIntent().getStringExtra("source_id");
-        imagePath = getIntent().getStringExtra("source_image");
-        newSourceName = getIntent().getStringExtra("source_name");
-        urlMainSource = getIntent().getStringExtra("source_url");
-        newSourceDescription = getIntent().getStringExtra("source_description");
+        sourceID = getIntent().getStringExtra("sourceId");
+        imagePath = getIntent().getStringExtra("sourceImage");
+        newSourceName = getIntent().getStringExtra("sourceName");
+        urlMainSource = getIntent().getStringExtra("sourceUrl");
+        newSourceDescription = getIntent().getStringExtra("sourceDescription");
         //load image news source
-        LoadImageURL loadImageURL = new LoadImageURL(imagePath);
-        loadImageURL.loadImageforNewsDetails(imageNews);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(imagePath);
+        loadUrlImage.loadImageForNewsDetails(imageNews);
         //set source name title, description
         sourceName.setText(newSourceName);
         urlMain.setText(urlMainSource);
@@ -123,7 +123,7 @@ public class SourceNewsDetails extends AppCompatActivity {
             subscribeBtn.setVisibility(View.VISIBLE);
             unsubscribeBtn.setVisibility(View.GONE);
         }
-        //Now subscribe and unsubscribe acction
+        //Now subscribe and unsubscribe action
         subscribeBtn.setOnClickListener(v -> {
             if (Objects.equals(getUserLogin.getStatus(), "login")) {
                 subscribeNewsSource(sourceID, getUserLogin.getUserID());
@@ -143,7 +143,7 @@ public class SourceNewsDetails extends AppCompatActivity {
     private void loadRSSRecycler(AppCompatActivity activity, String newSourceName) {
         Thread loadRSSList = new Thread(() -> {
             //load RSS List
-            Call<NewsAppResult> call = newsAPPInterface.getRssListFollowSource(Utils.encodeToBase64(newSourceName));
+            Call<NewsAppResult> call = newsAPPInterface.getRssListFollowSource(AppUtils.encodeToBase64(newSourceName));
             assert call != null;
             call.enqueue(new retrofit2.Callback<>() {
                 @Override
@@ -173,8 +173,8 @@ public class SourceNewsDetails extends AppCompatActivity {
 
     private void checkSubscribedSource(String sourceID, String userID) {
         Call<SourceSubscribe> checkSubscribed = newsAPPInterface.accountCheckSourceSubscribe(
-                Utils.encodeToBase64(userID),
-                Utils.encodeToBase64(sourceID));
+                AppUtils.encodeToBase64(userID),
+                AppUtils.encodeToBase64(sourceID));
         assert checkSubscribed != null;
         checkSubscribed.enqueue(new retrofit2.Callback<>() {
             @Override

@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import com.notmiyouji.newsapp.R
-import com.notmiyouji.newsapp.kotlin.LoadImageURL
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage
 
 class LoadNavigationHeader(
     var activity: AppCompatActivity,
@@ -39,7 +39,7 @@ class LoadNavigationHeader(
         val avatar = sharedPreferences.getString("avatar", "")
         val status = sharedPreferences.getString("status", "")
         when {
-            status.equals("login") || status.equals("google") -> {
+            status.equals("login") -> {
                 navigationView.inflateHeaderView(R.layout.navigation_header_logined)
                 val fullNameHeader = navigationView.getHeaderView(0).findViewById<TextView>(R.id.fullname)
                 fullNameHeader.text = fullName
@@ -48,13 +48,11 @@ class LoadNavigationHeader(
                 val avatarHeader = navigationView.getHeaderView(0)
                         .findViewById<ShapeableImageView>(R.id.avatar_user)
                 //Call LoadImageURL.kt
-                val loadImageURL = LoadImageURL(avatar)
-                loadImageURL.loadImageUser(avatarHeader)
+                val loadUrlImage = LoadUrlImage(avatar)
+                loadUrlImage.loadImageUser(avatarHeader)
             }
-
             else -> {
                 //load default header
-
                 navigationView.inflateHeaderView(R.layout.navigation_header)
             }
         }

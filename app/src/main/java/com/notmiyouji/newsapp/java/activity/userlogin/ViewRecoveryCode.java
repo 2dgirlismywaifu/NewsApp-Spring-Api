@@ -35,11 +35,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.model.RecoveryCode;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.model.user.RecoveryCode;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -47,7 +47,7 @@ import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
 import retrofit2.Call;
 
 public class ViewRecoveryCode extends AppCompatActivity {
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private LoadThemeShared loadThemeShared;
     private GetUserLogin getUserLogin;
@@ -82,8 +82,8 @@ public class ViewRecoveryCode extends AppCompatActivity {
         });
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
-        LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
-        loadImageURL.loadImageUser(avatar);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(getUserLogin.getAvatar());
+        loadUrlImage.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {

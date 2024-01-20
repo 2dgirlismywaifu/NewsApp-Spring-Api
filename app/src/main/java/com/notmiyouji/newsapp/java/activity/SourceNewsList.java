@@ -40,16 +40,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.recycleview.ListSourceAdapter;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.CheckNetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.recycleview.ListSourceAdapter;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.CheckConnection;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
 import com.notmiyouji.newsapp.kotlin.activity.CallSignInForm;
 import com.notmiyouji.newsapp.kotlin.activity.OpenSettingsPage;
 import com.notmiyouji.newsapp.kotlin.model.NewsAppResult;
-import com.notmiyouji.newsapp.kotlin.model.NewsSource;
+import com.notmiyouji.newsapp.kotlin.model.rss2json.NewsSource;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadNavigationHeader;
@@ -76,7 +76,7 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
     private LoadWallpaperShared loadWallpaperShared;
     private LoadWallpaperSharedLogin loadWallpaperSharedLogin;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private List<NewsSource> newsSources = new ArrayList<>();
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private LoadThemeShared loadThemeShared;
@@ -131,8 +131,8 @@ public class SourceNewsList extends AppCompatActivity implements NavigationView.
             CallSignInForm callSignInForm = new CallSignInForm(navigationView, this);
             callSignInForm.callSignInForm();
         }
-        CheckNetworkConnection checkNetworkConnection = new CheckNetworkConnection();
-        if (checkNetworkConnection.checkConnection(this)) {
+        CheckConnection checkConnection = new CheckConnection();
+        if (checkConnection.checkConnection(this)) {
             //Recycle View
             loadSourceList(this);
         }

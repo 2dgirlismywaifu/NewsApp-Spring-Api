@@ -30,7 +30,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.WelcomeScreenShared;

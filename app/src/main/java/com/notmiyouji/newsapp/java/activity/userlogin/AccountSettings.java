@@ -43,9 +43,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.notmiyouji.newsapp.R;
 import com.notmiyouji.newsapp.java.activity.CropImageToFireBase;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
-import com.notmiyouji.newsapp.kotlin.NetworkConnection;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
+import com.notmiyouji.newsapp.kotlin.util.NetworkConnection;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
@@ -140,8 +140,8 @@ public class AccountSettings extends AppCompatActivity {
         updateInformation = new UpdateInformation(getUserLogin.getUserID(), this);
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
-        LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
-        loadImageURL.loadImageUser(avatar);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(getUserLogin.getAvatar());
+        loadUrlImage.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {

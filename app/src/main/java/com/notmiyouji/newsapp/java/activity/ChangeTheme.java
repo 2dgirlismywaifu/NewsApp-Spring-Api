@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
 import com.notmiyouji.newsapp.kotlin.recycleview.ThemeAdapter;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.AppContextWrapper;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;

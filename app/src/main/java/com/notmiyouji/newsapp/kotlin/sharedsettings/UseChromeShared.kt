@@ -21,7 +21,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class UseChromeShared(var context: Context) {
-    var pref: SharedPreferences = context.getSharedPreferences(USE_CHROME, Context.MODE_PRIVATE)
+    private var pref: SharedPreferences = context.getSharedPreferences(USE_CHROME, Context.MODE_PRIVATE)
     var editor: SharedPreferences.Editor = pref.edit()
 
     var enableChrome: Boolean

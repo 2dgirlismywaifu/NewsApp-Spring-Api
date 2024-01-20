@@ -27,17 +27,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.model.RecoveryCode;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.model.user.RecoveryCode;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 
 import retrofit2.Call;
 
 public class RegisterSuccess extends AppCompatActivity {
     private TextView recoveryCode;
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
         LoadFollowLanguageSystem loadFollowLanguageSystem = new LoadFollowLanguageSystem(this);
