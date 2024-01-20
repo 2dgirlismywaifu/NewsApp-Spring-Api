@@ -21,12 +21,12 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SharedPreferenceSettings(var context: Context) {
-    var prefs: SharedPreferences = context.getSharedPreferences("Wallpaper", Context.MODE_PRIVATE)
-    var sourceprefs: SharedPreferences =
+    private var prefs: SharedPreferences = context.getSharedPreferences("Wallpaper", Context.MODE_PRIVATE)
+    private var sourcePrefs: SharedPreferences =
         context.getSharedPreferences("SourceName", Context.MODE_PRIVATE)
-    var countryprefs: SharedPreferences =
+    private var countryPrefs: SharedPreferences =
         context.getSharedPreferences("CountryCode", Context.MODE_PRIVATE)
-    var langprefs: SharedPreferences =
+    private var langPrefs: SharedPreferences =
         context.getSharedPreferences("LangCode", Context.MODE_PRIVATE)
 
     fun getSharedWallpaperHeader(path: Int) {
@@ -36,19 +36,19 @@ class SharedPreferenceSettings(var context: Context) {
     }
 
     fun getSharedSource(name: String) {
-        val editor = sourceprefs.edit()
+        val editor = sourcePrefs.edit()
         editor.putString("name", name)
         editor.apply()
     }
 
     fun getSharedCountry(code: String) {
-        val editor = countryprefs.edit()
+        val editor = countryPrefs.edit()
         editor.putString("code", code)
         editor.apply()
     }
 
     fun getSharedLanguage(code: String) {
-        val editor = langprefs.edit()
+        val editor = langPrefs.edit()
         editor.putString("lang", code)
         editor.apply()
     }

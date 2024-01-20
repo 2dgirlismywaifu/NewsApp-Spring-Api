@@ -44,12 +44,12 @@ import com.notmiyouji.newsapp.java.activity.AboutApplication;
 import com.notmiyouji.newsapp.java.activity.ChangeLanguage;
 import com.notmiyouji.newsapp.java.activity.ChangeTheme;
 import com.notmiyouji.newsapp.java.activity.WallpaperHeader;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.LoadImageURL;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.util.LoadUrlImage;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.GetUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadThemeShared;
-import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
+import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogin;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.UseChromeShared;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.WelcomeScreenShared;
 
@@ -95,8 +95,8 @@ public class SettingsUserLogin extends AppCompatActivity {
         });
         //Load avatar
         ShapeableImageView avatar = findViewById(R.id.avatar_user_logined);
-        LoadImageURL loadImageURL = new LoadImageURL(getUserLogin.getAvatar());
-        loadImageURL.loadImageUser(avatar);
+        LoadUrlImage loadUrlImage = new LoadUrlImage(getUserLogin.getAvatar());
+        loadUrlImage.loadImageUser(avatar);
         //back button
         ImageButton backButton = findViewById(R.id.BackPressed);
         backButton.setOnClickListener(v -> {
@@ -161,10 +161,10 @@ public class SettingsUserLogin extends AppCompatActivity {
                 //Sign out account
                if (Objects.equals(getUserLogin.getStatus(), "login")) {
                     FirebaseAuth.getInstance().signOut();
-                    SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                    saveUserLogined.saveUserLogin("", "", "", "", "", "", "");
-                    saveUserLogined.saveBirthday("");
-                    saveUserLogined.saveGender("");
+                    SaveUserLogin saveUserLogin = new SaveUserLogin(this);
+                    saveUserLogin.saveUserLogin("", "", "", "", "", "", "");
+                    saveUserLogin.saveBirthday("");
+                    saveUserLogin.saveGender("");
                 }
                 //Push android notification
                 NotificationCompat.Builder builder1 = new NotificationCompat.Builder(this, "NewsApp")

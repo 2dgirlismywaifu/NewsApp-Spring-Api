@@ -40,4 +40,15 @@ public class MaterialAltertLoading {
         }
         return builder;
     }
+
+    public MaterialAlertDialogBuilder firebaseUploadImage() {
+        if (builder == null) {
+            builder = new MaterialAlertDialogBuilder(activity);
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setTitle(activity.getString(R.string.app_name));
+            builder.setCancelable(false);
+            builder.setView(R.layout.fire_base_upload);
+        }
+        return builder;
+    }
 }

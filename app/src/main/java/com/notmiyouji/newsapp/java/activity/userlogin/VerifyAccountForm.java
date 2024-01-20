@@ -36,12 +36,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.notmiyouji.newsapp.R;
-import com.notmiyouji.newsapp.java.retrofit.NewsAppApi;
-import com.notmiyouji.newsapp.kotlin.ApplicationFlags;
-import com.notmiyouji.newsapp.kotlin.NewsAppInterface;
-import com.notmiyouji.newsapp.kotlin.model.VerifyEmail;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppApi;
+import com.notmiyouji.newsapp.kotlin.util.ApplicationFlags;
+import com.notmiyouji.newsapp.kotlin.retrofit.NewsAppInterface;
+import com.notmiyouji.newsapp.kotlin.model.user.VerifyEmail;
 import com.notmiyouji.newsapp.kotlin.sharedsettings.LoadFollowLanguageSystem;
-import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogined;
+import com.notmiyouji.newsapp.kotlin.sharedsettings.SaveUserLogin;
 
 import java.util.Objects;
 import java.util.Timer;
@@ -51,7 +51,7 @@ import retrofit2.Call;
 public class VerifyAccountForm extends AppCompatActivity {
     private LoadFollowLanguageSystem loadFollowLanguageSystem;
     private Button resendBtn;
-    private final NewsAppInterface newsAPPInterface = NewsAppApi.getAPIClient().create(NewsAppInterface.class);
+    private final NewsAppInterface newsAPPInterface = NewsAppApi.getApiClient().create(NewsAppInterface.class);
     private String userID, fullName, email, userToken, password, username;
 
     @SuppressLint("MissingPermission")
@@ -86,8 +86,8 @@ public class VerifyAccountForm extends AppCompatActivity {
                         //if user is verified, change verified status to true
                         updateStatus(email);
                         //After that, save user account to shared preferences
-                        SaveUserLogined saveUserLogined = new SaveUserLogined(this);
-                        saveUserLogined.saveUserLogin(userID, fullName, email, userToken, username, "not_available", "true");
+                        SaveUserLogin saveUserLogin = new SaveUserLogin(this);
+                        saveUserLogin.saveUserLogin(userID, fullName, email, userToken, username, "not_available", "true");
                         //go to Register Success form
                         Intent intent = new Intent(this, RegisterSuccess.class);
                         intent.putExtra("email", email);

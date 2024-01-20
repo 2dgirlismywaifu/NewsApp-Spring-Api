@@ -69,7 +69,7 @@
     <string name="twitter_product_owner" translatable="false">\@MyWaifuis2DGirl/Twitter</string>
     <string name="developer_product_owner">Developer/Product Owner</string>
     <string name="powered_by">Powered by</string>
-    <string name="version">Version 2.1.0 (Developer Version)</string>
+    <string name="version">Version 2.2.0 (Developer Version)</string>
     <string name="note_application">For research and study only, \nthis application is not available for commercial use</string>
     <string name="microsoft_azure_portal" translatable="false">Microsoft Azure Portal</string>
     <string name="change_wallpaper">Wall</string>
@@ -233,5 +233,6 @@
     <string name="send_email_firebase">Send Email</string>
     <string name="save_image_firebase">Save Image</string>
     <string name="change_password_message">Change password account will logout your account. Are you sure?</string>
+    <string name="uploading_image_to_firebase">Uploading image to firebase.\nPlease wait!</string>
 
 </resources>
