@@ -3,7 +3,7 @@ buildscript {
         kotlin_version = '1.9.22'
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'com.google.gms:google-services:4.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
     }
     repositories {
