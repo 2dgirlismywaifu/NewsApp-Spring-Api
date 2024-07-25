@@ -88,7 +88,7 @@ dependencies {
     //Times Formater
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
     //Coil
-    implementation('io.coil-kt:coil:2.6.0')
+    implementation('io.coil-kt:coil:2.7.0')
     //Gooogle Sign In Button
     implementation 'com.google.android.gms:play-services-auth:20.7.0'
     //This is Android Chrome Custom Tab will replace for Android WebView
