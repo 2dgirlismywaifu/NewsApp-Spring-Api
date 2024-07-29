@@ -90,7 +90,7 @@ dependencies {
     //Coil
     implementation('io.coil-kt:coil:2.7.0')
     //Gooogle Sign In Button
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
     //This is Android Chrome Custom Tab will replace for Android WebView
     implementation 'androidx.browser:browser:1.8.0'
     //Jsoup
