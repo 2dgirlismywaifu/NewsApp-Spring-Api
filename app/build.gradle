@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0"
     }
 }
 plugins {
@@ -66,36 +66,36 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.22'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.20'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.6'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
-    implementation 'com.google.android.gms:play-services-base:18.3.0'
-    implementation 'com.google.firebase:firebase-auth:22.3.1'
-    implementation 'com.google.firebase:firebase-auth-ktx:22.3.1'
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'com.google.firebase:firebase-storage:20.3.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.5'
+    implementation 'com.google.android.gms:play-services-base:18.5.0'
+    implementation 'com.google.firebase:firebase-auth:23.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:23.0.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'com.google.firebase:firebase-storage:21.0.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     //Network
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     //Times Formater
-    implementation 'org.ocpsoft.prettytime:prettytime:5.0.7.Final'
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.9.Final'
     //Coil
-    implementation('io.coil-kt:coil:2.5.0')
+    implementation('io.coil-kt:coil:2.7.0')
     //Gooogle Sign In Button
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
     //This is Android Chrome Custom Tab will replace for Android WebView
-    implementation 'androidx.browser:browser:1.7.0'
+    implementation 'androidx.browser:browser:1.8.0'
     //Jsoup
-    implementation 'org.jsoup:jsoup:1.17.2'
-    implementation 'com.vanniktech:android-image-cropper:4.5.0'
+    implementation 'org.jsoup:jsoup:1.18.1'
+    implementation 'com.vanniktech:android-image-cropper:4.6.0'
 
 
 }
