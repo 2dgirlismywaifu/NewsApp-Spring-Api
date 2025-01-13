@@ -76,7 +76,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.8.5'
     implementation 'com.google.android.gms:play-services-base:18.5.0'
     implementation 'com.google.firebase:firebase-auth:23.0.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:23.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:23.1.0'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'com.google.firebase:firebase-storage:21.0.0'
     testImplementation 'junit:junit:4.13.2'
